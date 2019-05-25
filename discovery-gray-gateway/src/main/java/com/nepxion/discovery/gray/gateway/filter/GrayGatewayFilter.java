@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.gateway.impl;
+package com.nepxion.discovery.gray.gateway.filter;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -24,7 +24,7 @@ import com.nepxion.discovery.common.entity.StrategyEntity;
 import com.nepxion.discovery.plugin.framework.adapter.PluginAdapter;
 import com.nepxion.discovery.plugin.strategy.gateway.constant.GatewayStrategyConstant;
 
-public class MyGatewayFilter implements GlobalFilter, Ordered {
+public class GrayGatewayFilter implements GlobalFilter, Ordered {
     @Autowired
     private PluginAdapter pluginAdapter;
 

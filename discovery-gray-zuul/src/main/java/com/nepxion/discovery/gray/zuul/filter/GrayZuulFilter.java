@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.zuul.impl;
+package com.nepxion.discovery.gray.zuul.filter;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -18,7 +18,7 @@ import com.nepxion.discovery.plugin.framework.adapter.PluginAdapter;
 import com.nepxion.discovery.plugin.strategy.zuul.filter.ZuulStrategyFilterResolver;
 import com.netflix.zuul.ZuulFilter;
 
-public class MyZuulFilter extends ZuulFilter {
+public class GrayZuulFilter extends ZuulFilter {
     @Autowired
     private PluginAdapter pluginAdapter;
 
