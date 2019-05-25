@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>discovery-gray-service</artifactId>
+    <name>Nepxion Discovery Gray Service</name>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.nepxion</groupId>
+        <artifactId>discovery-gray</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-starter-nacos</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-service</artifactId>
+        </dependency>
+    </dependencies>
+</project>
