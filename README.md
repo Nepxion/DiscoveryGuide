@@ -18,11 +18,12 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
   DiscoveryGrayServiceB2.java
 ```  
 - 3.验证无灰度发布和路由下的调用
-  3.1 在浏览器中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)，测试没有灰度路由的情况下，通过Spring Cloud Gateway网关的调用结果，打印出全路径结果，例如：
+  
+  - 在浏览器中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)，测试没有灰度路由的情况下，通过Spring Cloud Gateway网关的调用结果，打印出全路径结果，例如：
 ```xml
 gateway -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
-  3.2 在浏览器中执行[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)，测试没有灰度路由的情况下，通过Zuul网关的调用结果，打印出全路径结果，例如：
+  - 在浏览器中执行[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)，测试没有灰度路由的情况下，通过Zuul网关的调用结果，打印出全路径结果，例如：
 ```xml
 zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
