@@ -42,7 +42,14 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
     </strategy>
 </rule>
 ```
-将实现从Zuul发起的调用都走区域为dev的服务。注意：<region>dev</region>等效于<region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region>
+将实现从Zuul发起的调用都走区域为dev的服务。注意：
+```xml
+<region>dev</region>
+```
+等效于
+```xml
+<region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region>
+```
 
 增加Spring Cloud Gateway的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，内容如下：
 ```xml
@@ -53,7 +60,14 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
     </strategy>
 </rule>
 ```
-将实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务。注意：<version>1.0</version>等效于<version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
+将实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务。注意：
+```xml
+<version>1.0</version>
+```
+等效于
+```xml
+<version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
+```
 
 - 5.重复第3步骤，验证存在灰度发布和路由下的调用
 - 6.通过界面（Postman）方式传入灰度路由规则。注意：当配置中心和界面都配置后，以界面传入优先
