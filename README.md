@@ -9,6 +9,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 ## 操作演示
 - 1.下载代码并导入IDE
 - 2.分别启动四个实例服务和两个网关服务，如下： 
+
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
 | --- | --- | --- | --- | --- |
 | DiscoveryGrayServiceA1.java | A1 | 3001 | 1.0 | dev |
