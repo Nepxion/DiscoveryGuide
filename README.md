@@ -8,15 +8,16 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 
 ## 操作演示
 - 1.下载代码并导入IDE
-- 2.分别启动两个网关服务和四个实例服务
-```java
-  DiscoveryGrayZuul.java
-  DiscoveryGrayGateway.java
-  DiscoveryGrayServiceA1.java
-  DiscoveryGrayServiceA2.java
-  DiscoveryGrayServiceB1.java
-  DiscoveryGrayServiceB2.java
-```  
+- 2.分别启动四个实例服务和两个网关服务，如下： 
+| 类名 | 微服务 | 服务端口 版本 | 区域 |
+| --- | --- | --- | --- | --- |
+| DiscoveryGrayServiceA1.java | A1 | 3001 | 1.0 | dev |
+| DiscoveryGrayServiceA2.java | A2 | 3002 | 1.1 | qa |
+| DiscoveryGrayServiceB1.java | B1 | 4001 | 1.0 | dev |
+| DiscoveryGrayServiceB2.java | B2 | 4002 | 1.1 | qa |
+| DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
+| DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
+
 - 3.验证无灰度发布和路由下的调用
   
   - 在浏览器中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)，测试没有灰度路由的情况下，通过Spring Cloud Gateway网关的调用结果，打印出全路径结果，例如：
