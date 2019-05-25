@@ -57,5 +57,5 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
 
 - 5.重复第3步骤，验证存在灰度发布和路由下的调用
 - 6.通过界面（Postman）方式传入灰度路由规则。注意：当配置中心和界面都配置后，以界面传入优先
-  - 区域规则，Header Name为n-d-region，值的方式和XML配置一致，即dev或者{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}
-  - 版本规则，Header Name为n-d-version，值的方式和XML配置一致，即1.0或者{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
+  - 区域规则，Header格式为n-d-region=dev或者n-d-region={"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}
+  - 版本规则，Header格式为n-d-version=1.0或者n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
