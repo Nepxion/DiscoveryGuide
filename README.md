@@ -8,6 +8,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 
 ## 环境搭建
 - 下载代码并导入IDE
+- 启动Nacos服务器
 - 启动四个实例服务和两个网关服务，如下： 
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
@@ -33,7 +34,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
 ## 配置灰度发布和路由规则
 在Nacos配置中心，增加灰度规则
 
-1.增加Zuul的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，内容如下：
+- 增加Zuul的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，内容如下：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -52,7 +53,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
 ```
 上述配置，将实现从Zuul发起的调用都走区域为dev的服务
 
-2.增加Spring Cloud Gateway的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，内容如下：
+- 增加Spring Cloud Gateway的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，内容如下：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -77,12 +78,13 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
 ## 通过前端传入灰度发布和路由规则
 通过前端（Postman）方式传入灰度路由规则。注意：当配置中心和界面都配置后，以界面传入优先
 
-区域规则，Header格式如下任选一个：
+- 区域规则，Header格式如下任选一个：
 ```xml
 n-d-region=dev
 n-d-region={"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}
 ```
-版本规则，Header格式如下任选一个：
+
+- 版本规则，Header格式如下任选一个：
 ```xml
 n-d-version=1.0
 n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
