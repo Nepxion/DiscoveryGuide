@@ -20,8 +20,6 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
 
 ## 验证无灰度发布和路由调用
-- 验证无灰度发布和路由下的调用
-
 1.在浏览器中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)，测试没有灰度路由的情况下，通过Spring Cloud Gateway网关的调用结果，打印出全路径结果，例如：
 ```xml
 gateway -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
@@ -33,7 +31,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
 ```
 
 ## 配置灰度发布和路由规则
-- 在Nacos配置中心，增加灰度规则
+在Nacos配置中心，增加灰度规则
 
 1.增加Zuul的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，内容如下：
 ```xml
@@ -74,10 +72,10 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
 上述配置，将实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务
 
 ## 验证灰度发布和路由调用
-- 重复上述浏览器的调用，验证存在灰度发布和路由下的调用。观察输出的版本号和区域值是否匹配灰度发布和路由规则
+重复上述浏览器的调用，验证存在灰度发布和路由下的调用。观察输出的版本号和区域值是否匹配灰度发布和路由规则
 
 ## 通过前端传入灰度发布和路由规则
-- 通过前端（Postman）方式传入灰度路由规则。注意：当配置中心和界面都配置后，以界面传入优先
+通过前端（Postman）方式传入灰度路由规则。注意：当配置中心和界面都配置后，以界面传入优先
 
 区域规则，Header格式如下任选一个：
 ```xml
