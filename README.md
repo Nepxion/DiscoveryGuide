@@ -32,6 +32,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
 ```
 
 - 4.在Nacos配置中心，增加灰度规则
+
 增加Zuul的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，内容如下：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
