@@ -22,13 +22,13 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 | DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
 
-## 验证无灰度发布和路由调用
-- 在浏览器中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)，测试没有灰度路由的情况下，通过Spring Cloud Gateway网关的调用结果，打印出全路径结果，符合Ribbon负载均衡的结果，例如：
+## 验证无灰度发布和路由的调用
+- 在浏览器中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)。测试没有灰度配置的情况下，通过Spring Cloud Gateway网关的调用结果。该结果显示，在反复执行下，所有服务都会被调用到
 ```xml
 gateway -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
 
-- 在浏览器中执行[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)，测试没有灰度路由的情况下，通过Zuul网关的调用结果，打印出全路径结果，符合Ribbon负载均衡的结果，例如：
+- 在浏览器中执行[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)。测试没有灰度路由的情况下，通过Zuul网关的调用结果。该结果显示，在反复执行下，所有服务都会被调用到
 ```xml
 zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
@@ -69,7 +69,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
 ```
 
 ## 验证灰度发布和路由调用
-重复上述浏览器的调用，验证存在灰度发布和路由下的调用。观察输出的版本号和区域值是否匹配灰度发布和路由规则
+重复上述浏览器的调用，验证存在灰度发布和路由下的调用。结果显示，在反复执行下，只会调用到符合灰度规则的服务，请仔细观察
 
 ## 通过前端传入灰度发布和路由规则（可选）
 通过前端（Postman）方式传入灰度路由规则，来代替配置中心方式。注意：当配置中心和界面都配置后，以界面传入优先
