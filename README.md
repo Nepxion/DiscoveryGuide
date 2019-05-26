@@ -93,4 +93,11 @@ n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 ```  
 
 ## 通过自定义网关Filter设置灰度发布和路由规则（可选）
-在示例中，Spring Cloud Gateway和Zuul中的Filter自定义规则，就不展开阐述了
+继承覆盖GatewayStrategyRouteFilter和ZuulStrategyRouteFilter，并覆盖掉如下方法
+```java
+protected String getRouteVersion();
+
+protected String getRouteRegion();
+
+protected String getRouteAddress();
+```  
