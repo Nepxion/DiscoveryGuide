@@ -6,9 +6,11 @@
 
 Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门，它采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，当然也支持从界面传入Header信息，主要包括版本路由和区域路由两种。实例以Nacos为服务注册中心和配置中心，通过Gateway和Zull调用两个版本或者区域的服务，模拟灰度发布和路由功能。如果使用者需要更强大的功能，请参考[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
 
-## 环境搭建
+## 环境搭建和运行
 - 下载代码并导入IDE
 - 启动Nacos服务器
+  - 从[https://github.com/alibaba/nacos/releases]{https://github.com/alibaba/nacos/releases}获取nacos-server-x.x.x.zip，并解压
+  - 运行bin目录下的startup命令行
 - 启动四个实例服务和两个网关服务，如下： 
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
@@ -43,15 +45,12 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
     </strategy>
 </rule>
 ```
-注意：
+该配置实现从Zuul发起的调用都走区域为dev的服务
+注意下面两个配置。当所有服务都选dev区域的时候，可以简化成上面一条
 ```xml
 <region>dev</region>
-```
-等效于
-```xml
 <region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region>
 ```
-上述配置，将实现从Zuul发起的调用都走区域为dev的服务
 
 - 增加Spring Cloud Gateway的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，内容如下：
 ```xml
@@ -62,15 +61,12 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] -> discov
     </strategy>
 </rule>
 ```
-注意：
+该配置实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务
+注意下面两个配置。当所有服务都选1.0版本的时候，可以简化成上面一条
 ```xml
 <version>1.0</version>
-```
-等效于
-```xml
 <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
 ```
-上述配置，将实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务
 
 ## 验证灰度发布和路由调用
 重复上述浏览器的调用，验证存在灰度发布和路由下的调用。观察输出的版本号和区域值是否匹配灰度发布和路由规则
@@ -89,3 +85,6 @@ n-d-region={"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}
 n-d-version=1.0
 n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 ```  
+
+## 通过自定义网关Filter设置灰度发布和路由规则（可选）
+在示例中，Spring Cloud Gateway和Zuul中的Filter自定义规则，就不展开阐述了。相信聪明的你，应该知道怎么做
