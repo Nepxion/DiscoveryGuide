@@ -38,7 +38,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 ## 配置灰度发布和路由规则
 在Nacos配置中心，增加灰度规则
 
-- 增加Zuul的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，内容如下：
+- 增加Zuul的基于区域路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用都走区域为dev的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -47,15 +47,14 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
     </strategy>
 </rule>
 ```
-该配置实现从Zuul发起的调用都走区域为dev的服务
 
-注意下面两个配置，每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
+每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
 ```xml
 <region>dev</region>
 <region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region>
 ```
 
-- 增加Spring Cloud Gateway的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，内容如下：
+- 增加Spring Cloud Gateway的基于版本路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -64,9 +63,8 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
     </strategy>
 </rule>
 ```
-该配置实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务
 
-注意下面两个配置，每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本的时候，可以简化成下面第一条
+每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本的时候，可以简化成下面第一条
 ```xml
 <version>1.0</version>
 <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
