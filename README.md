@@ -101,4 +101,8 @@ protected String getRouteVersion();
 protected String getRouteRegion();
 
 protected String getRouteAddress();
-```  
+```
+
+## Star走势图
+
+[![Stargazers over time](https://starchart.cc/Nepxion/DiscoveryGray.svg)](https://starchart.cc/Nepxion/DiscoveryGray)
