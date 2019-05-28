@@ -16,16 +16,19 @@
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-starter-nacos</artifactId>
+            <!-- <version>${discovery.version}</version> -->
         </dependency>
 
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
+            <!-- <version>${discovery.version}</version> -->
         </dependency>
 
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
+            <!-- <version>${discovery.version}</version> -->
         </dependency>
     </dependencies>
 </project>
