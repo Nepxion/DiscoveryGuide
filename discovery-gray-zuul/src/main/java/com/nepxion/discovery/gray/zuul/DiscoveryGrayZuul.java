@@ -29,4 +29,9 @@ public class DiscoveryGrayZuul {
     public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
         return new ZuulStrategyRouteFilter();
     }
+
+    @Bean
+    public DiscoveryGrayZuulEnabledStrategy zuulEnabledStrategy() {
+        return new DiscoveryGrayZuulEnabledStrategy();
+    }
 }

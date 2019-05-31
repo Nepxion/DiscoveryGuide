@@ -27,4 +27,9 @@ public class DiscoveryGrayGateway {
     public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
         return new GatewayStrategyRouteFilter();
     }
+
+    @Bean
+    public DiscoveryGrayGatewayEnabledStrategy gatewayEnabledStrategy() {
+        return new DiscoveryGrayGatewayEnabledStrategy();
+    }
 }
