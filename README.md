@@ -228,4 +228,4 @@ public class DiscoveryGrayGatewayEnabledStrategy implements DiscoveryEnabledStra
 
 ## Star走势图
 
-[![Stargazers over time](https://starchart.cc/Nepxion/DiscoveryGray.svg)](https://starchart.cc/Nepxion/DiscoveryGray)
+[![Stargazers over time](https://starchart.cc/Nepxion/DiscoveryGray.svg)](https://starchart.cc/Nepxion/DiscoveryGray) 
