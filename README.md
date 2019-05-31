@@ -4,7 +4,11 @@
 [![Build Status](https://travis-ci.org/Nepxion/DiscoveryGray.svg?branch=master)](https://travis-ci.org/Nepxion/DiscoveryGray)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/DiscoveryGray/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/DiscoveryGray&amp;utm_campaign=Badge_Grade_Dashboard)
 
-Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门，它采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，当然也支持从界面传入Header信息，主要包括版本路由和区域路由两种。实例以Nacos为服务注册中心和配置中心，通过Gateway和Zuul调用两个版本或者区域的服务，模拟灰度发布和路由功能。如果使用者需要更强大的功能，请参考[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
+Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它包括：
+- 网关灰度路由。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，当然也支持从界面传入Header信息，主要包括版本路由和区域路由两种。示例以Nacos为服务注册中心和配置中心，通过Gateway和Zuul调用两个版本或者区域的服务，模拟灰度路由功能
+- 服务灰度权重。采用配置中心配置权重规则映射在全链路而实现，主要包括版本权重和区域区域两种。示例以Nacos为服务注册中心和配置中心，通过Gateway和Zuul调用两个版本或者区域的服务，模拟灰度权重功能
+
+如果使用者需要更强大的功能，请参考[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
 
 ## 环境搭建和运行
 - 下载代码并导入IDE
@@ -35,8 +39,9 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
 
-## 配置灰度发布和路由规则
-在Nacos配置中心，增加灰度规则
+## 网关灰度路由
+### 配置网关灰度路由规则
+在Nacos配置中心，增加网关灰度路由规则
 
 - 增加Zuul的基于区域路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用都走区域为dev的服务：
 ```xml
@@ -70,11 +75,9 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
 ```
 
-## 验证灰度发布和路由调用
-重复上述浏览器的调用，验证存在灰度发布和路由下的调用。结果显示，在反复执行下，只会调用到符合灰度规则的服务，请仔细观察
+### 验证网关灰度路由调用
+重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合网关灰度路由规则的服务，请仔细观察
 
-
-## 更多的实现方式
 
 除了上面通过配置中心发布灰度规则外，还有如下两种方式:
 
@@ -102,6 +105,8 @@ protected String getRouteRegion();
 
 protected String getRouteAddress();
 ```
+
+
 
 ## Star走势图
 
