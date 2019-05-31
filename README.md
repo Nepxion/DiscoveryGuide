@@ -10,6 +10,8 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 
 示例以Nacos为服务注册中心和配置中心，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能。如果使用者需要更强大的功能，请参考[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
 
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1.jpg)
+
 ## 环境搭建和运行
 - 下载代码并导入IDE
 - 启动Nacos服务器
@@ -53,6 +55,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
     </strategy>
 </rule>
 ```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2.jpg)
 
 每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
 ```xml
@@ -69,6 +72,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
     </strategy>
 </rule>
 ```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray3.jpg)
 
 每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本的时候，可以简化成下面第一条
 ```xml
@@ -125,6 +129,7 @@ protected String getRouteAddress();
     </discovery>
 </rule>
 ```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4.jpg)
 
 - 增加区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
 ```xml
@@ -138,6 +143,7 @@ protected String getRouteAddress();
     </discovery>
 </rule>
 ```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5.jpg)
 
 ### 验证服务灰度权重调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
