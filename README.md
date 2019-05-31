@@ -5,16 +5,16 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/DiscoveryGray/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/DiscoveryGray&amp;utm_campaign=Badge_Grade_Dashboard)
 
 Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它包括：
-- 网关灰度路由。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，主要包括版本路由和区域路由两种。示例以Nacos为服务注册中心和配置中心，通过Gateway和Zuul调用两个版本或者区域的服务，模拟灰度路由功能
-- 服务灰度权重。采用配置中心配置权重规则映射在全链路而实现，主要包括版本权重和区域区域两种。示例以Nacos为服务注册中心和配置中心，通过Gateway和Zuul调用两个版本或者区域的服务，模拟灰度权重功能
+- 网关灰度路由。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，主要包括版本路由和区域路由两种
+- 服务灰度权重。采用配置中心配置权重规则映射在全链路而实现，主要包括版本权重和区域区域两种
 
-如果使用者需要更强大的功能，请参考[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
+示例以Nacos为服务注册中心和配置中心，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能。如果使用者需要更强大的功能，请参考[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
 
 ## 环境搭建和运行
 - 下载代码并导入IDE
 - 启动Nacos服务器
-  - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
-  - 运行bin目录下的startup命令行
+  1.从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
+  2.运行bin目录下的startup命令行
 - 启动四个实例服务和两个网关服务，如下： 
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
@@ -39,7 +39,8 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
 
-## 网关灰度路由
+## 网关灰度路由策略
+
 ### 配置网关灰度路由规则
 在Nacos配置中心，增加网关灰度路由规则
 
@@ -106,7 +107,40 @@ protected String getRouteRegion();
 protected String getRouteAddress();
 ```
 
+## 服务灰度权重策略
 
+### 配置服务灰度权重规则
+在Nacos配置中心，增加服务灰度权重规则
+
+注意：网关灰度路由和服务灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的规则（在Nacos上删除对应的两条配置即可）
+
+- 增加区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <weight>
+            <region provider-weight-value="dev=90;qa=10"/>
+        </weight>
+    </discovery>
+</rule>
+```
+
+- 增加区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <weight>
+		    <service provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10"/>
+            <service provider-service-name="discovery-gray-service-b" provider-weight-value="1.0=20;1.1=80"/>
+        </weight>
+    </discovery>
+</rule>
+```
+
+### 验证服务灰度权重调用
+重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
 
 ## Star走势图
 
