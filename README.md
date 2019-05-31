@@ -86,7 +86,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 ### 其它更多的方式
 除了上面通过配置中心发布灰度规则外，还有如下三种方式:
 
-#### 通过前端传入灰度发布和路由规则
+#### 通过前端传入灰度路由规则
 通过前端（Postman）方式传入灰度路由规则，来代替配置中心方式。注意：当配置中心和界面都配置后，以界面传入优先
 
 - 区域规则，Header格式如下任选一个：
@@ -101,7 +101,7 @@ n-d-version=1.0
 n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 ```  
 
-#### 通过自定义网关Filter设置灰度发布和路由规则
+#### 通过自定义网关Filter设置灰度路由规则
 继承覆盖GatewayStrategyRouteFilter和ZuulStrategyRouteFilter，并覆盖掉如下方法
 ```java
 protected String getRouteVersion();
@@ -111,7 +111,7 @@ protected String getRouteRegion();
 protected String getRouteAddress();
 ```
 
-#### 通过跟业务参数绑定，自定义路由
+#### 通过跟业务参数绑定自定义路由规则
 
 - Zuul网关，根据业务绑定路由
 ```java
