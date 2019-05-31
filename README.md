@@ -189,6 +189,44 @@ public class DiscoveryGrayGatewayEnabledStrategy implements DiscoveryEnabledStra
 }
 ```
 
+同理，也可以对服务，根据业务绑定路由
+```java
+public class DiscoveryGrayServiceEnabledStrategy implements DiscoveryEnabledStrategy {
+    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayServiceEnabledStrategy.class);
+
+    @Autowired
+    private ServiceStrategyContextHolder serviceStrategyContextHolder;
+
+    @Autowired
+    private PluginAdapter pluginAdapter;
+
+    @Override
+    public boolean apply(Server server, Map<String, String> metadata) {
+        // 对Rest调用传来的Header参数（例如：mobile）做策略
+        String mobile = serviceStrategyContextHolder.getHeader("mobile");
+        String version = metadata.get(DiscoveryConstant.VERSION);
+        String serviceId = pluginAdapter.getServerServiceId(server);
+
+        LOG.info("Service端负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
+
+        if (StringUtils.isNotEmpty(mobile)) {
+            // 手机号以移动138开头，路由到1.0版本的服务上
+            if (mobile.startsWith("138") && StringUtils.equals(version, "1.0")) {
+                return true;
+                // 手机号以联通133开头，路由到2.0版本的服务上
+            } else if (mobile.startsWith("133") && StringUtils.equals(version, "1.1")) {
+                return true;
+            } else {
+                // 其它情况，直接拒绝请求
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+```
+
 ## 服务灰度权重策略
 
 ### 配置服务灰度权重规则
