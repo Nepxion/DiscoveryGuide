@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.gateway;
+package com.nepxion.discovery.gray.zuul.strategy;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -19,15 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.framework.adapter.PluginAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
-import com.nepxion.discovery.plugin.strategy.gateway.context.GatewayStrategyContextHolder;
+import com.nepxion.discovery.plugin.strategy.zuul.context.ZuulStrategyContextHolder;
 import com.netflix.loadbalancer.Server;
 
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
-public class DiscoveryGrayGatewayEnabledStrategy implements DiscoveryEnabledStrategy {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayGatewayEnabledStrategy.class);
+public class DiscoveryGrayZuulEnabledStrategy implements DiscoveryEnabledStrategy {
+    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayZuulEnabledStrategy.class);
 
     @Autowired
-    private GatewayStrategyContextHolder gatewayStrategyContextHolder;
+    private ZuulStrategyContextHolder zuulStrategyContextHolder;
 
     @Autowired
     private PluginAdapter pluginAdapter;
@@ -35,11 +35,11 @@ public class DiscoveryGrayGatewayEnabledStrategy implements DiscoveryEnabledStra
     @Override
     public boolean apply(Server server, Map<String, String> metadata) {
         // 对Rest调用传来的Header参数（例如：mobile）做策略
-        String mobile = gatewayStrategyContextHolder.getHeader("mobile");
+        String mobile = zuulStrategyContextHolder.getHeader("mobile");
         String version = metadata.get(DiscoveryConstant.VERSION);
         String serviceId = pluginAdapter.getServerServiceId(server);
 
-        LOG.info("Gateway端负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
+        LOG.info("Zuul端负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上

@@ -13,6 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
+
+import com.nepxion.discovery.gray.service.strategy.DiscoveryGrayServiceEnabledStrategy;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -22,5 +25,10 @@ public class DiscoveryGrayServiceA1 {
         System.setProperty("spring.profiles.active", "a1");
 
         new SpringApplicationBuilder(DiscoveryGrayServiceA1.class).run(args);
+    }
+
+    @Bean
+    public DiscoveryGrayServiceEnabledStrategy serviceEnabledStrategy() {
+        return new DiscoveryGrayServiceEnabledStrategy();
     }
 }
