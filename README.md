@@ -132,7 +132,7 @@ protected String getRouteAddress();
 <rule>
     <discovery>
         <weight>
-		    <service provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10"/>
+            <service provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10"/>
             <service provider-service-name="discovery-gray-service-b" provider-weight-value="1.0=20;1.1=80"/>
         </weight>
     </discovery>
