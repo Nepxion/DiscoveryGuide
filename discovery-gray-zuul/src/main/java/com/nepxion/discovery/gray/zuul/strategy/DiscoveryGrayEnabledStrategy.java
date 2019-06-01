@@ -18,28 +18,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.framework.adapter.PluginAdapter;
-import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
-import com.nepxion.discovery.plugin.strategy.zuul.context.ZuulStrategyContextHolder;
+import com.nepxion.discovery.plugin.strategy.adapter.AbstractDiscoveryEnabledStrategy;
+import com.nepxion.discovery.plugin.strategy.context.StrategyContextHolder;
 import com.netflix.loadbalancer.Server;
 
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
-public class DiscoveryGrayZuulEnabledStrategy implements DiscoveryEnabledStrategy {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayZuulEnabledStrategy.class);
-
-    @Autowired
-    private ZuulStrategyContextHolder zuulStrategyContextHolder;
+public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
+    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayEnabledStrategy.class);
 
     @Autowired
     private PluginAdapter pluginAdapter;
 
     @Override
-    public boolean apply(Server server, Map<String, String> metadata) {
+    public boolean apply(Server server, Map<String, String> metadata, StrategyContextHolder strategyContextHolder) {
         // 对Rest调用传来的Header参数（例如：mobile）做策略
-        String mobile = zuulStrategyContextHolder.getHeader("mobile");
+        String mobile = strategyContextHolder.getHeader("mobile");
         String version = metadata.get(DiscoveryConstant.VERSION);
         String serviceId = pluginAdapter.getServerServiceId(server);
 
-        LOG.info("Zuul端负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上
