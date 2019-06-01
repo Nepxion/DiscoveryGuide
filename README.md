@@ -15,7 +15,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 ## 环境搭建和运行
 - 下载代码并导入IDE
 - 启动Nacos服务器
-  - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
+  - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压 
   - 运行bin目录下的startup命令行
 - 启动四个实例服务和两个网关服务，如下： 
 
