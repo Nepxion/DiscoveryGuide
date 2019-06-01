@@ -113,101 +113,23 @@ protected String getRouteAddress();
 
 #### 通过跟业务参数绑定自定义路由规则
 
-- Zuul网关，根据业务绑定路由
+- 根据业务参数绑定路由。下面代码同时适用于Zuul网关，Spring Cloud Gateway网关和Service服务
 ```java
-public class DiscoveryGrayZuulEnabledStrategy implements DiscoveryEnabledStrategy {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayZuulEnabledStrategy.class);
-
-    @Autowired
-    private ZuulStrategyContextHolder zuulStrategyContextHolder;
+// 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
+public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
+    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayEnabledStrategy.class);
 
     @Autowired
     private PluginAdapter pluginAdapter;
 
     @Override
-    public boolean apply(Server server, Map<String, String> metadata) {
+    public boolean apply(Server server, Map<String, String> metadata, StrategyContextHolder strategyContextHolder) {
         // 对Rest调用传来的Header参数（例如：mobile）做策略
-        String mobile = zuulStrategyContextHolder.getHeader("mobile");
+        String mobile = strategyContextHolder.getHeader("mobile");
         String version = metadata.get(DiscoveryConstant.VERSION);
         String serviceId = pluginAdapter.getServerServiceId(server);
 
-        LOG.info("Zuul端负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
-
-        if (StringUtils.isNotEmpty(mobile)) {
-            // 手机号以移动138开头，路由到1.0版本的服务上
-            if (mobile.startsWith("138") && StringUtils.equals(version, "1.0")) {
-                return true;
-                // 手机号以联通133开头，路由到2.0版本的服务上
-            } else if (mobile.startsWith("133") && StringUtils.equals(version, "1.1")) {
-                return true;
-            } else {
-                // 其它情况，直接拒绝请求
-                return false;
-            }
-        }
-
-        return true;
-    }
-}
-```
-
-- Spring Cloud Gateway网关，根据业务绑定路由
-```java
-public class DiscoveryGrayGatewayEnabledStrategy implements DiscoveryEnabledStrategy {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayGatewayEnabledStrategy.class);
-
-    @Autowired
-    private GatewayStrategyContextHolder gatewayStrategyContextHolder;
-
-    @Autowired
-    private PluginAdapter pluginAdapter;
-
-    @Override
-    public boolean apply(Server server, Map<String, String> metadata) {
-        // 对Rest调用传来的Header参数（例如：mobile）做策略
-        String mobile = gatewayStrategyContextHolder.getHeader("mobile");
-        String version = metadata.get(DiscoveryConstant.VERSION);
-        String serviceId = pluginAdapter.getServerServiceId(server);
-
-        LOG.info("Gateway端负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
-
-        if (StringUtils.isNotEmpty(mobile)) {
-            // 手机号以移动138开头，路由到1.0版本的服务上
-            if (mobile.startsWith("138") && StringUtils.equals(version, "1.0")) {
-                return true;
-                // 手机号以联通133开头，路由到2.0版本的服务上
-            } else if (mobile.startsWith("133") && StringUtils.equals(version, "1.1")) {
-                return true;
-            } else {
-                // 其它情况，直接拒绝请求
-                return false;
-            }
-        }
-
-        return true;
-    }
-}
-```
-
-同理，也可以对服务，根据业务绑定路由
-```java
-public class DiscoveryGrayServiceEnabledStrategy implements DiscoveryEnabledStrategy {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayServiceEnabledStrategy.class);
-
-    @Autowired
-    private ServiceStrategyContextHolder serviceStrategyContextHolder;
-
-    @Autowired
-    private PluginAdapter pluginAdapter;
-
-    @Override
-    public boolean apply(Server server, Map<String, String> metadata) {
-        // 对Rest调用传来的Header参数（例如：mobile）做策略
-        String mobile = serviceStrategyContextHolder.getHeader("mobile");
-        String version = metadata.get(DiscoveryConstant.VERSION);
-        String serviceId = pluginAdapter.getServerServiceId(server);
-
-        LOG.info("Service端负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上
