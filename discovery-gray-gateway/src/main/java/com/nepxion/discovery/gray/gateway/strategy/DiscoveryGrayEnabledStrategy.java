@@ -14,23 +14,17 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
-import com.nepxion.discovery.plugin.framework.adapter.PluginAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.AbstractDiscoveryEnabledStrategy;
-import com.nepxion.discovery.plugin.strategy.context.StrategyContextHolder;
 import com.netflix.loadbalancer.Server;
 
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
 public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayEnabledStrategy.class);
 
-    @Autowired
-    private PluginAdapter pluginAdapter;
-
     @Override
-    public boolean apply(Server server, Map<String, String> metadata, StrategyContextHolder strategyContextHolder) {
+    public boolean apply(Server server, Map<String, String> metadata) {
         // 对Rest调用传来的Header参数（例如：mobile）做策略
         String mobile = strategyContextHolder.getHeader("mobile");
         String version = metadata.get(DiscoveryConstant.VERSION);

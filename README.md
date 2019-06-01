@@ -119,11 +119,8 @@ protected String getRouteAddress();
 public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayEnabledStrategy.class);
 
-    @Autowired
-    private PluginAdapter pluginAdapter;
-
     @Override
-    public boolean apply(Server server, Map<String, String> metadata, StrategyContextHolder strategyContextHolder) {
+    public boolean apply(Server server, Map<String, String> metadata) {
         // 对Rest调用传来的Header参数（例如：mobile）做策略
         String mobile = strategyContextHolder.getHeader("mobile");
         String version = metadata.get(DiscoveryConstant.VERSION);
