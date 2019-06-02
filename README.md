@@ -116,7 +116,7 @@ protected String getRouteAddress();
 
 #### 通过跟业务参数绑定自定义路由规则
 
-- 根据业务参数绑定路由。下面代码既适用于Zuul网关，Spring Cloud Gateway网关，也适用于Service微服务
+- 根据业务参数绑定路由。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
 ```java
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
 public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
