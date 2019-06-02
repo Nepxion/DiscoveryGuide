@@ -9,8 +9,6 @@ package com.nepxion.discovery.gray.zuul.strategy;
  * @version 1.0
  */
 
-import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +22,13 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayEnabledStrategy.class);
 
     @Override
-    public boolean apply(Server server, Map<String, String> metadata) {
+    public boolean apply(Server server) {
         // 对Rest调用传来的Header参数（例如：mobile）做策略
         String mobile = strategyContextHolder.getHeader("mobile");
-        String version = metadata.get(DiscoveryConstant.VERSION);
         String serviceId = pluginAdapter.getServerServiceId(server);
+        String version = pluginAdapter.getServerMetadata(server).get(DiscoveryConstant.VERSION);
 
-        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, metadata={}", mobile, serviceId, metadata);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}", mobile, serviceId, version);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上
