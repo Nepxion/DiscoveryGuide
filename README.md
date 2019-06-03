@@ -15,7 +15,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1.jpg)
 
-## 环境搭建和运行 
+## 环境搭建和运行
 - 下载代码并导入IDE
 - 启动Nacos服务器
   - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
