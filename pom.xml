@@ -43,16 +43,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- 如下依赖方式，需要使用者保持Spring Cloud、Spring Boot版本和Discovery保持一致 -->
-            <!-- 如果不一致，同时使用者需要自己引用的版本为主，则去掉下面的依赖，子模块显式引入 -->
-            <dependency>
-                <groupId>com.nepxion</groupId>
-                <artifactId>discovery</artifactId>
-                <version>${discovery.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
