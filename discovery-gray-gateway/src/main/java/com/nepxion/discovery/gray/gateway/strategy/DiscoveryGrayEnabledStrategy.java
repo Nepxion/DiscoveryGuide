@@ -27,8 +27,9 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
         String mobile = strategyContextHolder.getHeader("mobile");
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerMetadata(server).get(DiscoveryConstant.VERSION);
+        String region = pluginAdapter.getServerMetadata(server).get(DiscoveryConstant.REGION);
 
-        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}", mobile, serviceId, version);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}", mobile, serviceId, version, region);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上
