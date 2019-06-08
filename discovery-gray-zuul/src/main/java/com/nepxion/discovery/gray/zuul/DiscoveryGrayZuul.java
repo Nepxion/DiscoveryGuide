@@ -16,7 +16,6 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.gray.zuul.strategy.DiscoveryGrayEnabledStrategy;
-import com.nepxion.discovery.plugin.strategy.zuul.filter.ZuulStrategyRouteFilter;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -24,11 +23,6 @@ import com.nepxion.discovery.plugin.strategy.zuul.filter.ZuulStrategyRouteFilter
 public class DiscoveryGrayZuul {
     public static void main(String[] args) {
         new SpringApplicationBuilder(DiscoveryGrayZuul.class).run(args);
-    }
-
-    @Bean
-    public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
-        return new ZuulStrategyRouteFilter();
     }
 
     @Bean
