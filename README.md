@@ -26,8 +26,8 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 | --- | --- | --- | --- | --- |
 | DiscoveryGrayServiceA1.java | A1 | 3001 | 1.0 | dev |
 | DiscoveryGrayServiceA2.java | A2 | 3002 | 1.1 | qa |
-| DiscoveryGrayServiceB1.java | B1 | 4001 | 1.0 | dev |
-| DiscoveryGrayServiceB2.java | B2 | 4002 | 1.1 | qa |
+| DiscoveryGrayServiceB1.java | B1 | 4001 | 1.0 | qa |
+| DiscoveryGrayServiceB2.java | B2 | 4002 | 1.1 | dev |
 | DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
 
