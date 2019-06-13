@@ -7,7 +7,8 @@
 Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行换成Edgware版），主要功能包括：
 - 网关灰度路由。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，主要包括版本路由和区域路由两种
 - 服务灰度权重。采用配置中心配置权重规则映射在全链路而实现，主要包括版本权重和区域区域两种
-- 自定义网关和服务的路由策略。采用简单编程方式，根据业务参数绑定路由策略
+- 自定义网关和服务的路由策略。采用简单编程方式，根据业务参数自定义路由策略
+- 自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略。采用简单编程方式，根据业务参数自定义服务发现和负载均衡策略
 
 阿里巴巴Nacos是新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
 
@@ -114,9 +115,9 @@ protected String getRouteRegion();
 protected String getRouteAddress();
 ```
 
-#### 通过跟业务参数绑定自定义路由规则
+#### 通过业务参数自定义路由规则
 
-- 根据业务参数绑定路由。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
+- 根据业务参数自定义路由规则。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
 ```java
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
 public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
@@ -185,6 +186,103 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 
 ### 验证服务灰度权重调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
+
+## 自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略
+
+- 根据业务参数自定义服务发现和负载均衡策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
+
+自定义服务注册策略
+```java
+// 当本服务的元数据中的group为mygroup1，禁止被注册到注册中心
+public class MyRegisterListener extends AbstractRegisterListener {
+    @Override
+    public void onRegister(Registration registration) {
+        String serviceId = registration.getServiceId().toLowerCase();
+        String group = registration.getMetadata().get(DiscoveryConstant.GROUP);
+        if (StringUtils.equals(group, "mygroup1")) {
+            throw new DiscoveryException("服务名=" + serviceId + "，组名=" + group + "的服务禁止被注册到注册中心");
+        }
+    }
+
+    @Override
+    public void onDeregister(Registration registration) {
+
+    }
+
+    @Override
+    public void onSetStatus(Registration registration, String status) {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public int getOrder() {
+        return LOWEST_PRECEDENCE - 1;
+    }
+}
+```
+
+自定义服务发现策略
+```java
+// 当目标服务的元数据中的group为mygroup2，禁止被本服务发现（只用于DiscoveryClient.getInstances接口方法用）
+public class MyDiscoveryListener extends AbstractDiscoveryListener {
+    @Override
+    public void onGetInstances(String serviceId, List<ServiceInstance> instances) {
+        Iterator<ServiceInstance> iterator = instances.iterator();
+        while (iterator.hasNext()) {
+            ServiceInstance serviceInstance = iterator.next();
+            String group = serviceInstance.getMetadata().get(DiscoveryConstant.GROUP);
+            if (StringUtils.equals(group, "mygroup2")) {
+                iterator.remove();
+
+                System.out.println("********** 服务名=" + serviceId + "，组名=" + group + "的服务禁止被本服务发现");
+            }
+        }
+    }
+
+    @Override
+    public void onGetServices(List<String> services) {
+
+    }
+
+    @Override
+    public int getOrder() {
+        return LOWEST_PRECEDENCE - 1;
+    }
+}
+```
+
+自定义服务负载均衡策略
+```java
+// 当目标服务的元数据中的group为mygroup2，禁止被本服务负载均衡
+public class MyLoadBalanceListener extends AbstractLoadBalanceListener {
+    @Autowired
+    private PluginAdapter pluginAdapter;
+
+    @Override
+    public void onGetServers(String serviceId, List<? extends Server> servers) {
+        Iterator<? extends Server> iterator = servers.iterator();
+        while (iterator.hasNext()) {
+            Server server = iterator.next();
+            String group = pluginAdapter.getServerMetadata(server).get(DiscoveryConstant.GROUP);
+            if (StringUtils.equals(group, "mygroup3")) {
+                iterator.remove();
+
+                System.out.println("********** 服务名=" + serviceId + "，组名=" + group + "的服务禁止被本服务负载均衡");
+            }
+        }
+    }
+
+    @Override
+    public int getOrder() {
+        return LOWEST_PRECEDENCE - 1;
+    }
+}
+```
 
 ## Star走势图
 
