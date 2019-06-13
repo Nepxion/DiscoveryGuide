@@ -191,6 +191,8 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 
 - 根据业务参数自定义服务发现和负载均衡策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
 
+下述场景，通过修改配置文件中的spring.cloud.nacos.discovery.metadata.group，分别改为mygroup1或者mygroup2或者mygroup3，再通过Postman调用，体验效果
+
 自定义服务注册策略
 ```java
 // 当本服务的元数据中的group为mygroup1，禁止被注册到注册中心
