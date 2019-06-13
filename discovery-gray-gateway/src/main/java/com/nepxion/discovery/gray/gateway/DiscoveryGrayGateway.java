@@ -14,7 +14,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
-import com.nepxion.discovery.gray.gateway.strategy.DiscoveryGrayEnabledStrategy;
+import com.nepxion.discovery.gray.gateway.impl.MyDiscoveryEnabledStrategy;
+import com.nepxion.discovery.gray.gateway.impl.MyDiscoveryListener;
+import com.nepxion.discovery.gray.gateway.impl.MyLoadBalanceListener;
+import com.nepxion.discovery.gray.gateway.impl.MyRegisterListener;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -24,7 +27,22 @@ public class DiscoveryGrayGateway {
     }
 
     @Bean
-    public DiscoveryGrayEnabledStrategy gatewayEnabledStrategy() {
-        return new DiscoveryGrayEnabledStrategy();
+    public MyDiscoveryEnabledStrategy myDiscoveryEnabledStrategy() {
+        return new MyDiscoveryEnabledStrategy();
+    }
+
+    @Bean
+    public MyRegisterListener myRegisterListener() {
+        return new MyRegisterListener();
+    }
+
+    @Bean
+    public MyDiscoveryListener myDiscoveryListener() {
+        return new MyDiscoveryListener();
+    }
+
+    @Bean
+    public MyLoadBalanceListener myLoadBalanceListener() {
+        return new MyLoadBalanceListener();
     }
 }

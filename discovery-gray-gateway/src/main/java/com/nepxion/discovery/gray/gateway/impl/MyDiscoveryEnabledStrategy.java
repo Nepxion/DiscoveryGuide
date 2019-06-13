@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.gateway.strategy;
+package com.nepxion.discovery.gray.gateway.impl;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -18,8 +18,8 @@ import com.nepxion.discovery.plugin.strategy.adapter.AbstractDiscoveryEnabledStr
 import com.netflix.loadbalancer.Server;
 
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
-public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayEnabledStrategy.class);
+public class MyDiscoveryEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
+    private static final Logger LOG = LoggerFactory.getLogger(MyDiscoveryEnabledStrategy.class);
 
     @Override
     public boolean apply(Server server) {

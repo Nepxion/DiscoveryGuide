@@ -15,7 +15,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
-import com.nepxion.discovery.gray.zuul.strategy.DiscoveryGrayEnabledStrategy;
+import com.nepxion.discovery.gray.zuul.impl.MyDiscoveryEnabledStrategy;
+import com.nepxion.discovery.gray.zuul.impl.MyDiscoveryListener;
+import com.nepxion.discovery.gray.zuul.impl.MyLoadBalanceListener;
+import com.nepxion.discovery.gray.zuul.impl.MyRegisterListener;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -26,7 +29,22 @@ public class DiscoveryGrayZuul {
     }
 
     @Bean
-    public DiscoveryGrayEnabledStrategy zuulEnabledStrategy() {
-        return new DiscoveryGrayEnabledStrategy();
+    public MyDiscoveryEnabledStrategy myDiscoveryEnabledStrategy() {
+        return new MyDiscoveryEnabledStrategy();
+    }
+
+    @Bean
+    public MyRegisterListener myRegisterListener() {
+        return new MyRegisterListener();
+    }
+
+    @Bean
+    public MyDiscoveryListener myDiscoveryListener() {
+        return new MyDiscoveryListener();
+    }
+
+    @Bean
+    public MyLoadBalanceListener myLoadBalanceListener() {
+        return new MyLoadBalanceListener();
     }
 }
