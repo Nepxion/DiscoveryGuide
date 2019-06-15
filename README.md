@@ -69,11 +69,12 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
 ```xml
-"discovery-gray-service-b":"d*;q?" - 表示c服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
-```
-```xml
 * - 表示调用范围为所有服务的所有区域
 d* - 表示调用范围为所有服务的d开头的所有区域
+```
+或者
+```xml
+"discovery-gray-service-b":"d*;q?" - 表示c服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
 ```
 
 - 增加Spring Cloud Gateway的基于版本路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
@@ -95,11 +96,12 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
 ```xml
-"discovery-gray-service-b":"1.*;1.2.?" - 表示c服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
-```
-```xml
 * - 表示调用范围为所有服务的所有版本
 1.* - 表示调用范围为所有服务的1开头的所有版本
+```
+或者
+```xml
+"discovery-gray-service-b":"1.*;1.2.?" - 表示c服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
 ```
 
 ### 验证网关灰度路由调用
