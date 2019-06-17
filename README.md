@@ -135,6 +135,43 @@ protected String getRouteRegion();
 protected String getRouteAddress();
 ```
 
+例如：
+```java
+// 当Header中传来的用户为张三，执行一条路由路径；李四，执行另一条路由路径
+public class MyRouteFilter extends GatewayStrategyRouteFilter {
+    @Override
+    protected String getRouteVersion() {
+        String user = strategyContextHolder.getHeader("user");
+
+        if (StringUtils.equals(user, "zhangsan")) {
+            return "{\"discovery-gray-service-a\":\"1.0\", \"discovery-gray-service-b\":\"1.1\"}";
+        } else if (StringUtils.equals(user, "lisi")) {
+            return "{\"discovery-gray-service-a\":\"1.1\", \"discovery-gray-service-b\":\"1.0\"}";
+        }
+
+        return super.getRouteVersion();
+    }
+}
+```
+
+```java
+// 当Header中传来的用户为张三，执行一条路由路径；李四，执行另一条路由路径
+public class MyRouteFilter extends ZuulStrategyRouteFilter {
+    @Override
+    protected String getRouteVersion() {
+        String user = strategyContextHolder.getHeader("user");
+
+        if (StringUtils.equals(user, "zhangsan")) {
+            return "{\"discovery-gray-service-a\":\"1.0\", \"discovery-gray-service-b\":\"1.1\"}";
+        } else if (StringUtils.equals(user, "lisi")) {
+            return "{\"discovery-gray-service-a\":\"1.1\", \"discovery-gray-service-b\":\"1.0\"}";
+        }
+
+        return super.getRouteVersion();
+    }
+}
+```
+
 #### 通过业务参数自定义路由规则
 
 - 根据业务参数自定义路由规则。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务

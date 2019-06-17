@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyRouteFilter;
 
+// 当Header中传来的用户为张三，执行一条路由路径；李四，执行另一条路由路径
 public class MyRouteFilter extends GatewayStrategyRouteFilter {
     @Override
     protected String getRouteVersion() {
