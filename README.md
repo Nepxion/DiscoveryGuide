@@ -16,6 +16,32 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1.jpg)
 
+## 目录
+- [请联系我](#请联系我)
+- [环境搭建和运行](#环境搭建和运行)
+- [验证无灰度发布和路由的调用](#验证无灰度发布和路由的调用)
+- [网关灰度路由策略](#网关灰度路由策略)
+  - [配置网关灰度路由规则](#配置网关灰度路由规则)
+  - [验证网关灰度路由调用](#验证网关灰度路由调用)
+  - [其它更多方式](#其它更多方式)
+    - [通过前端传入灰度路由规则](#通过前端传入灰度路由规则)
+    - [通过业务参数在网关过滤器中自定义路由规则](#通过业务参数在网关过滤器中自定义路由规则)
+    - [通过业务参数在策略类中自定义路由规则](#通过业务参数在策略类中自定义路由规则)
+- [服务灰度权重策略](#服务灰度权重策略)
+  - [配置服务灰度权重规则](#配置服务灰度权重规则)
+  - [验证服务灰度权重调用](#验证服务灰度权重调用)
+- [自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略](#自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略)
+  - [自定义服务注册策略](#自定义服务注册策略)
+  - [自定义服务发现策略](#自定义服务发现策略)
+  - [自定义服务负载均衡策略](#自定义服务负载均衡策略)
+- [Star走势图](#Star走势图)
+
+## 请联系我
+微信和公众号
+
+![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/公众号-1.jpg)
+
 ## 环境搭建和运行
 - 下载代码并导入IDE
 - 启动Nacos服务器
@@ -107,7 +133,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ### 验证网关灰度路由调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合网关灰度路由规则的服务，请仔细观察
 
-### 其它更多的方式
+### 其它更多方式
 除了上面通过配置中心发布灰度规则外，还有如下三种方式:
 
 #### 通过前端传入灰度路由规则
@@ -285,12 +311,11 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
 
 ## 自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略
-
-- 根据业务参数自定义服务发现和负载均衡策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
+根据业务参数自定义服务发现和负载均衡策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
 
 下述场景，通过修改配置文件中的spring.cloud.nacos.discovery.metadata.group，分别改为mygroup1或者mygroup2或者mygroup3，再通过Postman调用，体验效果
 
-自定义服务注册策略
+### 自定义服务注册策略
 ```java
 // 当本服务的元数据中的group为mygroup1，禁止被注册到注册中心
 public class MyRegisterListener extends AbstractRegisterListener {
@@ -325,7 +350,7 @@ public class MyRegisterListener extends AbstractRegisterListener {
 }
 ```
 
-自定义服务发现策略
+### 自定义服务发现策略
 ```java
 // 当目标服务的元数据中的group为mygroup2，禁止被本服务发现（只用于DiscoveryClient.getInstances接口方法用）
 public class MyDiscoveryListener extends AbstractDiscoveryListener {
@@ -355,7 +380,7 @@ public class MyDiscoveryListener extends AbstractDiscoveryListener {
 }
 ```
 
-自定义服务负载均衡策略
+### 自定义服务负载均衡策略
 ```java
 // 当目标服务的元数据中的group为mygroup2，禁止被本服务负载均衡
 public class MyLoadBalanceListener extends AbstractLoadBalanceListener {
