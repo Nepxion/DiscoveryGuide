@@ -111,7 +111,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 除了上面通过配置中心发布灰度规则外，还有如下三种方式:
 
 #### 通过前端传入灰度路由规则
-通过前端（Postman）方式传入灰度路由规则，来代替配置中心方式。注意：当配置中心和界面都配置后，以界面传入优先
+通过前端（Postman）方式传入灰度路由规则，来代替配置中心方式，传递全链路路由规则。注意：当配置中心和界面都配置后，以界面传入优先
 
 - 区域规则，Header格式如下任选一个：
 ```xml
@@ -125,7 +125,9 @@ n-d-version=1.0
 n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 ```
 
-#### 通过自定义网关Filter设置灰度路由规则
+#### 通过业务参数在网关过滤器中自定义路由规则
+通过网关过滤器传递Http Header的方式传递全链路路由规则。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
+
 继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，并覆盖掉如下方法中的一个或者多个
 ```java
 protected String getRouteVersion();
@@ -211,9 +213,8 @@ public class MyRouteFilter extends ZuulStrategyRouteFilter {
     }
 ```
 
-#### 通过业务参数自定义路由规则
-
-- 根据业务参数自定义路由规则。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
+#### 通过业务参数在策略类中自定义路由规则
+通过策略方式自定义路由规则。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，同时全链路中网关和服务都必须加该方式
 ```java
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
 public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
