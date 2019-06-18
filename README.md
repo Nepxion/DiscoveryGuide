@@ -126,7 +126,7 @@ n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 ```
 
 #### 通过自定义网关Filter设置灰度路由规则
-继承覆盖GatewayStrategyRouteFilter和ZuulStrategyRouteFilter，并覆盖掉如下方法
+继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，并覆盖掉如下方法中的一个或者多个
 ```java
 protected String getRouteVersion();
 
@@ -135,18 +135,30 @@ protected String getRouteRegion();
 protected String getRouteAddress();
 ```
 
-例如：
+通过@Bean方式覆盖掉框架默认的RouteFilter
+
+- GatewayStrategyRouteFilter示例
 ```java
-// 当Header中传来的用户为张三，执行一条路由路径；李四，执行另一条路由路径
+// 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
+// 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
 public class MyRouteFilter extends GatewayStrategyRouteFilter {
+    private static final String DEFAULT_A_ROUTE_VERSION = "{\"discovery-gray-service-a\":\"1.0\", \"discovery-gray-service-b\":\"1.1\"}";
+    private static final String DEFAULT_B_ROUTE_VERSION = "{\"discovery-gray-service-a\":\"1.1\", \"discovery-gray-service-b\":\"1.0\"}";
+
+    @Value("${a.route.version:" + DEFAULT_A_ROUTE_VERSION + "}")
+    private String aRouteVersion;
+
+    @Value("${b.route.version:" + DEFAULT_B_ROUTE_VERSION + "}")
+    private String bRouteVersion;
+
     @Override
     protected String getRouteVersion() {
         String user = strategyContextHolder.getHeader("user");
 
         if (StringUtils.equals(user, "zhangsan")) {
-            return "{\"discovery-gray-service-a\":\"1.0\", \"discovery-gray-service-b\":\"1.1\"}";
+            return aRouteVersion;
         } else if (StringUtils.equals(user, "lisi")) {
-            return "{\"discovery-gray-service-a\":\"1.1\", \"discovery-gray-service-b\":\"1.0\"}";
+            return bRouteVersion;
         }
 
         return super.getRouteVersion();
@@ -155,21 +167,48 @@ public class MyRouteFilter extends GatewayStrategyRouteFilter {
 ```
 
 ```java
-// 当Header中传来的用户为张三，执行一条路由路径；李四，执行另一条路由路径
+    @Bean
+    @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+    public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
+        return new MyRouteFilter();
+    }
+```
+
+- ZuulStrategyRouteFilter示例
+```java
+// 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
+// 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
 public class MyRouteFilter extends ZuulStrategyRouteFilter {
+    private static final String DEFAULT_A_ROUTE_VERSION = "{\"discovery-gray-service-a\":\"1.0\", \"discovery-gray-service-b\":\"1.1\"}";
+    private static final String DEFAULT_B_ROUTE_VERSION = "{\"discovery-gray-service-a\":\"1.1\", \"discovery-gray-service-b\":\"1.0\"}";
+
+    @Value("${a.route.version:" + DEFAULT_A_ROUTE_VERSION + "}")
+    private String aRouteVersion;
+
+    @Value("${b.route.version:" + DEFAULT_B_ROUTE_VERSION + "}")
+    private String bRouteVersion;
+
     @Override
     protected String getRouteVersion() {
         String user = strategyContextHolder.getHeader("user");
 
         if (StringUtils.equals(user, "zhangsan")) {
-            return "{\"discovery-gray-service-a\":\"1.0\", \"discovery-gray-service-b\":\"1.1\"}";
+            return aRouteVersion;
         } else if (StringUtils.equals(user, "lisi")) {
-            return "{\"discovery-gray-service-a\":\"1.1\", \"discovery-gray-service-b\":\"1.0\"}";
+            return bRouteVersion;
         }
 
         return super.getRouteVersion();
     }
 }
+```
+
+```java
+    @Bean
+    @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+    public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
+        return new MyRouteFilter();
+    }
 ```
 
 #### 通过业务参数自定义路由规则
