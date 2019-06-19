@@ -342,7 +342,7 @@ public class SentinelRequestOriginParser implements RequestOriginParser {
 
 ### 自定义服务注册策略
 ```java
-// 当本服务的元数据中的group为mygroup1，禁止被注册到注册中心
+// 当本服务的元数据中的Group为mygroup1，禁止被注册到注册中心
 public class MyRegisterListener extends AbstractRegisterListener {
     @Override
     public void onRegister(Registration registration) {
@@ -377,7 +377,7 @@ public class MyRegisterListener extends AbstractRegisterListener {
 
 ### 自定义服务发现策略
 ```java
-// 当目标服务的元数据中的group为mygroup2，禁止被本服务发现（只用于DiscoveryClient.getInstances接口方法用）
+// 当目标服务的元数据中的Group为mygroup2，禁止被本服务发现（只用于DiscoveryClient.getInstances接口方法用）
 public class MyDiscoveryListener extends AbstractDiscoveryListener {
     @Override
     public void onGetInstances(String serviceId, List<ServiceInstance> instances) {
@@ -407,7 +407,7 @@ public class MyDiscoveryListener extends AbstractDiscoveryListener {
 
 ### 自定义服务负载均衡策略
 ```java
-// 当目标服务的元数据中的group为mygroup2，禁止被本服务负载均衡
+// 当目标服务的元数据中的Group为mygroup2，禁止被本服务负载均衡
 public class MyLoadBalanceListener extends AbstractLoadBalanceListener {
     @Autowired
     private PluginAdapter pluginAdapter;
