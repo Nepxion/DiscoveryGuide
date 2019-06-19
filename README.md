@@ -324,16 +324,16 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ```
 
 ### 提供端服务隔离
-基于Group是否相同的策略。请自行集成和实现，推荐用Alibaba Sentinel的黑白名单控制方式（AuthorityRule），请求加上n-d-group的Http Header头部，然后通过如下代码方式进行Group比对：
-```java
-public class SentinelRequestOriginParser implements RequestOriginParser {
-    @Override
-    public String parseOrigin(HttpServletRequest request) {
-        return request.getHeader(DiscoveryConstant.GROUP);
-    }
-}
+基于Group是否相同的策略。只需要在网关或者服务端，开启如下配置即可：
+```xml
+# 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
+# spring.application.strategy.provider.isolation.enabled=true
 ```
-更多详细代码请参考Sentinel官网
+在服务端还必须设置如下配置
+```xml
+# 用户自定义和编程灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截和消费端的服务隔离两项工作
+spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.feign
+```
 
 ## 自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略
 根据业务参数自定义服务发现和负载均衡策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
