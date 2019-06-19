@@ -345,7 +345,7 @@ public class MyRegisterListener extends AbstractRegisterListener {
 
     @Override
     public int getOrder() {
-        return LOWEST_PRECEDENCE - 1;
+        return LOWEST_PRECEDENCE - 500;
     }
 }
 ```
@@ -375,7 +375,7 @@ public class MyDiscoveryListener extends AbstractDiscoveryListener {
 
     @Override
     public int getOrder() {
-        return LOWEST_PRECEDENCE - 1;
+        return LOWEST_PRECEDENCE - 500;
     }
 }
 ```
@@ -403,7 +403,7 @@ public class MyLoadBalanceListener extends AbstractLoadBalanceListener {
 
     @Override
     public int getOrder() {
-        return LOWEST_PRECEDENCE - 1;
+        return LOWEST_PRECEDENCE - 500;
     }
 }
 ```
