@@ -7,6 +7,7 @@
 Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行换成Edgware版），主要功能包括：
 - 网关灰度路由。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，主要包括版本路由和区域路由两种
 - 服务灰度权重。采用配置中心配置权重规则映射在全链路而实现，主要包括版本权重和区域区域两种
+- 服务隔离。包括消费端和提供端服务隔离
 - 自定义网关和服务的路由策略。采用简单编程方式，根据业务参数自定义路由策略
 - 自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略。采用简单编程方式，根据业务参数自定义服务发现和负载均衡策略
 
@@ -30,6 +31,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 - [服务灰度权重策略](#服务灰度权重策略)
   - [配置服务灰度权重规则](#配置服务灰度权重规则)
   - [验证服务灰度权重调用](#验证服务灰度权重调用)
+- [服务隔离](#服务隔离)
+  - [消费端服务隔离](#消费端服务隔离)
+  - [提供端服务隔离](#提供端服务隔离)
 - [自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略](#自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略)
   - [自定义服务注册策略](#自定义服务注册策略)
   - [自定义服务发现策略](#自定义服务发现策略)
@@ -309,6 +313,27 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 
 ### 验证服务灰度权重调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
+
+## 服务隔离
+
+### 消费端服务隔离
+基于Group是否相同的策略。只需要在网关或者服务端，开启如下配置即可：
+```xml
+# 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
+# spring.application.strategy.consumer.isolation.enabled=true
+```
+
+### 提供端服务隔离
+基于Group是否相同的策略。请自行集成和实现，推荐用Alibaba Sentinel的黑白名单控制方式（AuthorityRule），请求加上n-d-group的Http Header头部，然后通过如下代码方式进行Group比对：
+```java
+public class SentinelRequestOriginParser implements RequestOriginParser {
+    @Override
+    public String parseOrigin(HttpServletRequest request) {
+        return request.getHeader(DiscoveryConstant.GROUP);
+    }
+}
+```
+更多详细代码请参考Sentinel官网
 
 ## 自定义网关和服务的”禁止注册“、”禁止被发现“、”禁止被负载均衡“策略
 根据业务参数自定义服务发现和负载均衡策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
