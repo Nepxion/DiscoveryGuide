@@ -15,7 +15,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 
 示例以Nacos为服务注册中心和配置中心（使用者可自行换成其它服务注册中心和配置中心），通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能。如果使用者需要更强大的功能，请参考[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
 
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1.jpg) 
 
 ## 目录
 - [请联系我](#请联系我)
