@@ -16,9 +16,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.gray.service.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.gray.service.impl.MyDiscoveryListener;
-import com.nepxion.discovery.gray.service.impl.MyLoadBalanceListener;
-import com.nepxion.discovery.gray.service.impl.MyRegisterListener;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -33,20 +30,5 @@ public class DiscoveryGrayServiceA1 {
     @Bean
     public MyDiscoveryEnabledStrategy myDiscoveryEnabledStrategy() {
         return new MyDiscoveryEnabledStrategy();
-    }
-
-    @Bean
-    public MyRegisterListener myRegisterListener() {
-        return new MyRegisterListener();
-    }
-
-    @Bean
-    public MyDiscoveryListener myDiscoveryListener() {
-        return new MyDiscoveryListener();
-    }
-
-    @Bean
-    public MyLoadBalanceListener myLoadBalanceListener() {
-        return new MyLoadBalanceListener();
     }
 }
