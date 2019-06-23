@@ -281,7 +281,20 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 
 注意：网关灰度路由和服务灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的规则（在Nacos上删除对应的两条配置即可）
 
-- 增加区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
+- 增加全局版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现版本为1.0的服务提供90%的流量，版本为1.1的服务提供10%的流量：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <weight>
+            <version provider-weight-value="1.0=90;1.1=10"/>
+        </weight>
+    </discovery>
+</rule>
+```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4.jpg)
+
+- 增加全局区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -292,9 +305,9 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4.jpg)
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5.jpg)
 
-- 增加服务权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
+- 增加局部版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -306,7 +319,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5.jpg)
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray6.jpg)
 
 ### 验证服务灰度权重调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
