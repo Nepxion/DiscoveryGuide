@@ -335,7 +335,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ## 网关和服务的灰度权重&版本路由组合式策略
 增加组合式的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下：
 1. a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
-2. a服务的1.0版本只能访问b服务的1.0版本，1.1版本只能访问b服务的1.1版本
+2. a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
