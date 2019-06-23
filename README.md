@@ -30,10 +30,11 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
     - [通过业务参数在策略类中自定义路由规则](#通过业务参数在策略类中自定义路由规则)
 - [网关和服务灰度权重策略](#网关和服务灰度权重策略)
   - [配置服务灰度权重规则](#配置服务灰度权重规则)
-    - [全局版本权重规则](#全局版本权重规则) 
-    - [全局区域权重规则](#全局区域权重规则) 
-    - [局部版本权重规则](#局部版本权重规则)  
+    - [全局版本权重规则](#全局版本权重规则)
+    - [全局区域权重规则](#全局区域权重规则)
+    - [局部版本权重规则](#局部版本权重规则)
   - [验证服务灰度权重调用](#验证服务灰度权重调用)
+- [网关和服务的灰度权重&版本路由组合式策略](#网关和服务的灰度权重&版本路由组合式策略)
 - [服务隔离](#服务隔离)
   - [注册服务隔离](#注册服务隔离)
   - [消费端服务隔离](#消费端服务隔离)
@@ -325,10 +326,31 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray6.jpg)
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray6.jpg) 
 
 ### 验证服务灰度权重调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
+
+## 网关和服务的灰度权重&版本路由组合式策略
+增加组合式的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下：
+1. a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
+2. a服务的1.0版本只能访问b服务的1.0版本，1.1版本只能访问b服务的1.1版本
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <version>
+            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-version-value="1.0" provider-version-value="1.0"/>
+            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-version-value="1.1" provider-version-value="1.1"/>
+        </version>
+
+        <weight>
+            <service consumer-service-name="discovery-gray-gateway" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10"/>
+			<!-- <service consumer-service-name="discovery-gray-zuul" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10"/> -->
+        </weight>
+    </discovery>
+</rule>
+```
 
 ## 服务隔离
 
