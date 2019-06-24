@@ -415,6 +415,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-1.jpg)
 
 ## 服务隔离
 
