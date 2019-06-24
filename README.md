@@ -8,7 +8,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 - 网关灰度路由。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，主要包括版本路由和区域路由两种
 - 网关和服务灰度权重。采用配置中心配置权重规则映射在全链路而实现，主要包括版本权重和区域权重两种
 - 服务隔离。包括消费端和提供端服务隔离
-- 网关和服务的灰度权重&版本路由组合式策略
+- 灰度权重&灰度版本组合式策略
 - 自定义网关和服务的路由策略。采用简单编程方式，根据业务参数自定义路由策略
 
 阿里巴巴Nacos是新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
@@ -32,13 +32,14 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
     - [通过前端传入灰度路由规则](#通过前端传入灰度路由规则)
     - [通过业务参数在网关过滤器中自定义路由规则](#通过业务参数在网关过滤器中自定义路由规则)
     - [通过业务参数在策略类中自定义路由规则](#通过业务参数在策略类中自定义路由规则)
+- [基于规则订阅的全链路灰度版本策略](#基于规则订阅的全链路灰度版本策略)
 - [基于规则订阅的全链路灰度权重策略](#基于规则订阅的全链路灰度权重策略)
   - [配置全链路灰度权重规则](#配置全链路灰度权重规则)
     - [全局版本权重规则](#全局版本权重规则)
     - [全局区域权重规则](#全局区域权重规则)
     - [局部版本权重规则](#局部版本权重规则)
   - [验证服务灰度权重调用](#验证服务灰度权重调用)
-- [网关和服务的灰度权重&版本路由组合式策略](#网关和服务的灰度权重&版本路由组合式策略)
+- [灰度权重&灰度版本组合式策略](#灰度权重&灰度版本组合式策略)
 - [服务隔离](#服务隔离)
   - [注册服务隔离](#注册服务隔离)
   - [消费端服务隔离](#消费端服务隔离)
@@ -116,7 +117,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 上述是版本灰度路由规则，框架还提供
 
 #### 版本权重灰度路由规则
-配置方式一样，内容为，即1.0版本流量调用为90%，1.1流量调用为10%
+增加Zuul的基于区域路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用1.0版本流量调用为90%，1.1流量调用为10%：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -162,7 +163,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 上述是区域灰度路由规则，框架还提供
 
 #### 区域权重灰度路由规则
-配置方式一样，内容为，即dev区域流量调用为85%，qa区域流量调用为15%
+- 增加Spring Cloud Gateway的基于版本路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -315,6 +316,20 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 }
 ```
 
+## 基于规则订阅的全链路灰度版本策略
+增加全局版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <version>
+            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-version-value="1.0" provider-version-value="1.0"/>
+            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-version-value="1.1" provider-version-value="1.1"/>
+        </version>
+    </discovery>
+</rule>
+```
+
 ## 基于规则订阅的全链路灰度权重策略
 
 ### 配置全链路灰度权重规则
@@ -368,7 +383,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ### 验证服务灰度权重调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
 
-## 网关和服务的灰度权重&版本路由组合式策略
+## 灰度权重&灰度版本组合式策略
 增加组合式的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下：
 1. a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
 2. a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
