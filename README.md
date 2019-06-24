@@ -115,7 +115,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 上述是区域灰度路由规则，框架还提供
 
 #### 区域权重灰度路由规则
-- 增加Zuul的基于区域权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
+增加Zuul的基于区域权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -127,7 +127,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1-2.jpg)
 
 #### 版本灰度路由规则
-- 增加Spring Cloud Gateway的基于版本路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
+增加Spring Cloud Gateway的基于版本路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -184,13 +184,12 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 - 区域规则，Header格式如下任选一个：
 ```xml
-n-d-region=dev
-n-d-region={"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}
+n-d-region=qa
+n-d-region={"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}
 ```
-
 - 区域权重规则：
 ```xml
-n-d-region-weight=dev=85;qa=15
+n-d-region-weight=dev=99;qa=1
 ```
 
 - 版本规则，Header格式如下任选一个：
@@ -204,6 +203,9 @@ n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 n-d-version-weight=1.0=90;1.1=10
 n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}
 ```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-3.jpg)
+
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-4.jpg)
 
 #### 通过业务参数在网关过滤器中自定义灰度路由规则
 通过网关过滤器传递Http Header的方式传递全链路灰度路由规则。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
@@ -397,8 +399,8 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 
 ## 灰度权重&灰度版本组合式策略
 增加组合式的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现功能：
-1. a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
-2. a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
+a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
+a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
