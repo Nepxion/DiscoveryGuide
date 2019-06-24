@@ -448,7 +448,7 @@ spring.application.strategy.consumer.isolation.enabled=true
 # 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.provider.isolation.enabled=true
 ```
-在提供端还必须做如下配置
+还必须做如下配置
 ```xml
 # 用户自定义和编程灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截和消费端的服务隔离两项工作
 spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.feign
