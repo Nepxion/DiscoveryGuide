@@ -396,7 +396,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
 
 ## 灰度权重&灰度版本组合式策略
-增加组合式的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下：
+增加组合式的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现功能：
 1. a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
 2. a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 ```xml
