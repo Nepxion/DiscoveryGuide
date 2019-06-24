@@ -421,8 +421,10 @@ a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1�
 
 ## 服务隔离
 
+元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能相互发生关系
+
 ### 注册服务隔离
-基于Group黑/白名单的策略。只需要在网关或者服务端，开启如下配置即可：
+基于Group黑/白名单的策略，即当前的服务所在的Group，不在Group的黑名单或者在白名单里，才允许被注册。只需要在网关或者服务端，开启如下配置即可：
 ```xml
 # 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
 spring.application.strategy.register.isolation.enabled=true
@@ -434,14 +436,14 @@ spring.application.strategy.register.isolation.group.whitelist=
 ```
 
 ### 消费端服务隔离
-基于Group是否相同的策略。只需要在网关或者服务端，开启如下配置即可：
+基于Group是否相同的策略，即消费端拿到的提供端列表，两者的Group必须相同。只需要在网关或者服务端，开启如下配置即可：
 ```xml
 # 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.consumer.isolation.enabled=true
 ```
 
 ### 提供端服务隔离
-基于Group是否相同的策略。只需要在网关或者服务端，开启如下配置即可：
+基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-group值进行匹配。只需要在网关或者服务端，开启如下配置即可：
 ```xml
 # 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.provider.isolation.enabled=true
