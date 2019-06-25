@@ -16,8 +16,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.gray.gateway.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.gray.gateway.impl.MyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.gateway.constant.GatewayStrategyConstant;
+import com.nepxion.discovery.plugin.strategy.gateway.filter.CustomizationGatewayStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyRouteFilter;
 
 @SpringBootApplication
@@ -30,7 +30,8 @@ public class DiscoveryGrayGateway {
     @Bean
     @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
     public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
-        return new MyRouteFilter();
+        // return new MyRouteFilter();
+        return new CustomizationGatewayStrategyRouteFilter();
     }
 
     @Bean
