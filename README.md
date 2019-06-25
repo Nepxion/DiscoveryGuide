@@ -126,6 +126,12 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1-2.jpg)
 
+每个服务调用的区域权重都可以自行指定，见下面第二条。当所有服务都选相同区域权重的时候，可以简化成下面第一条
+```xml
+<region-weight>dev=85;qa=15</region-weight>
+<region-weight>{"discovery-gray-service-a":"dev=85;qa=15", "discovery-gray-service-b":"dev=85;qa=15"}</region-weight>
+```
+
 #### 版本灰度路由规则
 增加Spring Cloud Gateway的基于版本路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
 ```xml
@@ -166,12 +172,13 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 </rule>
 ```
-每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本权重的时候，可以简化成下面第一条
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-2.jpg)
+
+每个服务调用的版本权重都可以自行指定，见下面第二条。当所有服务都选相同版本权重的时候，可以简化成下面第一条
 ```xml
 <version-weight>1.0=90;1.1=10</version-weight>
 <version-weight>{"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}</version-weight>
 ```
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-2.jpg)
 
 ### 验证网关灰度路由调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合网关灰度路由规则的服务，请仔细观察
@@ -187,9 +194,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 n-d-region=qa
 n-d-region={"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}
 ```
-- 区域权重规则：
+- 区域权重规则，Header格式如下任选一个：
 ```xml
 n-d-region-weight=dev=99;qa=1
+n-d-region-weight={"discovery-gray-service-a":"dev=99;qa=1", "discovery-gray-service-b":"dev=99;qa=1"}
 ```
 
 - 版本规则，Header格式如下任选一个：
