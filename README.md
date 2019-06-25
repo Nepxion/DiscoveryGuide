@@ -216,7 +216,6 @@ n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-4.jpg)
 
 #### 通过业务参数在网关过滤器中自定义灰度路由规则
-
 通过网关过滤器传递Http Header的方式传递全链路灰度路由规则。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
 
 - 内置规则解析映射到过滤器的自定义方式
