@@ -34,9 +34,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 - [基于规则订阅的全链路灰度权重策略](#基于规则订阅的全链路灰度权重策略)
   - [配置全链路灰度权重规则](#配置全链路灰度权重规则)
     - [全局版本权重规则](#全局版本权重规则)
+    - [局部版本权重规则](#局部版本权重规则)	
     - [全局区域权重规则](#全局区域权重规则)
-    - [局部版本权重规则](#局部版本权重规则)
-  - [验证服务灰度权重调用](#验证服务灰度权重调用)
+    - [局部区域权重规则](#局部区域权重规则)  - [验证服务灰度权重调用](#验证服务灰度权重调用)
 - [灰度权重&灰度版本组合式策略](#灰度权重&灰度版本组合式策略)
 - [服务隔离](#服务隔离)
   - [注册服务隔离](#注册服务隔离)
@@ -428,20 +428,6 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-1.jpg)
 
-#### 全局区域权重规则
-增加全局区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<rule>
-    <discovery>
-        <weight>
-            <region provider-weight-value="dev=90;qa=10"/>
-        </weight>
-    </discovery>
-</rule>
-```
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-2.jpg)
-
 #### 局部版本权重规则
 增加局部版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
 ```xml
@@ -455,7 +441,36 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-3.jpg) 
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-2.jpg)
+
+#### 全局区域权重规则
+增加全局区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <weight>
+            <region provider-weight-value="dev=90;qa=10"/>
+        </weight>
+    </discovery>
+</rule>
+```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-3.jpg)
+
+#### 局部区域权重规则
+增加局部区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务dev区域提供90%的流量，qa区域提供10%的流量；b服务dev区域提供20%的流量，qa区域提供80%的流量：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <weight>
+            <service provider-service-name="discovery-gray-service-a" provider-weight-value="dev=90;qa=10"/>
+            <service provider-service-name="discovery-gray-service-b" provider-weight-value="dev=20;qa=80"/>
+        </weight>
+    </discovery>
+</rule>
+```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-4.jpg)
 
 ### 验证服务灰度权重调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
