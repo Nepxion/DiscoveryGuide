@@ -218,7 +218,8 @@ n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-
 #### 通过业务参数在网关过滤器中自定义灰度路由规则
 
 通过网关过滤器传递Http Header的方式传递全链路灰度路由规则。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
-内置规则解析映射到过滤器的自定义方式
+
+##### 内置规则解析映射到过滤器的自定义方式
 
 通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter覆盖掉框架默认的RouteFilter
 - GatewayStrategyRouteFilter示例
@@ -270,7 +271,8 @@ n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-5.jpg)
 
-用户覆盖过滤器的自定义方式
+##### 用户覆盖过滤器的自定义方式
+
 继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，并覆盖掉如下方法中的一个或者多个
 ```java
 protected String getRouteVersion();
