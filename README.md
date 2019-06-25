@@ -216,8 +216,61 @@ n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-4.jpg)
 
 #### 通过业务参数在网关过滤器中自定义灰度路由规则
-通过网关过滤器传递Http Header的方式传递全链路灰度路由规则。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
 
+通过网关过滤器传递Http Header的方式传递全链路灰度路由规则。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
+内置规则解析映射到过滤器的自定义方式
+
+通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter覆盖掉框架默认的RouteFilter
+- GatewayStrategyRouteFilter示例
+```java
+    @Bean
+    @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+    public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
+        return new CustomizationGatewayStrategyRouteFilter();
+    }
+```
+
+- ZuulStrategyRouteFilter示例
+```java
+    @Bean
+    @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+    public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
+        return new CustomizationZuulStrategyRouteFilter();
+    }
+```
+
+在网关端配置如下，表达的逻辑是
+1. 当外部调用带有的Http Header中的值a=1同时b=2，执行{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}路由方式
+2. 当外部调用带有的Http Header中的值a=1，执行{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}路由方式
+3. 当外部调用带有的Http Header中的值都不命中，执行全局缺省{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}路由方式
+
+注意：condition节点的version-id，对应route节点的id
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <!-- 网关端的基于Http Header传递的策略路由，全局缺省路由 -->
+    <strategy>
+        <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
+    </strategy>
+
+    <!-- 网关端的基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
+    <strategy-customization>
+        <conditions>
+            <condition id="2" header="a=1" version-id="b"/>
+            <condition id="1" header="a=1;b=2" version-id="a"/>
+        </conditions>
+
+        <routes>
+            <route id="a" type="version">{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}</route>
+            <route id="b" type="version">{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}</route>
+        </routes>
+    </strategy-customization>
+</rule>
+```
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-5.jpg)
+
+用户覆盖过滤器的自定义方式
 继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，并覆盖掉如下方法中的一个或者多个
 ```java
 protected String getRouteVersion();
