@@ -19,7 +19,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 ## 目录
 - [请联系我](#请联系我)
 - [环境搭建和运行](#环境搭建和运行)
-- [验证无灰度发布和路由的调用](#验证无灰度发布和路由的调用)
+- [通过网关进行调用测试](#通过网关进行调用测试)
 - [基于Header传递的网关灰度路由策略](#基于Header传递的网关灰度路由策略)
   - [配置网关灰度路由规则](#配置网关灰度路由规则)
     - [区域灰度路由规则](#版本灰度路由规则)
@@ -27,18 +27,19 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
     - [版本灰度路由规则](#区域灰度路由规则)	
     - [版本权重灰度路由规则](#区域权重灰度路由规则)
   - [验证网关灰度路由调用](#验证网关灰度路由调用)
-  - [其它更多方式](#其它更多方式)
+  - [通过其它方式设置网关灰度路由规则](#通过其它方式设置网关灰度路由规则)
     - [通过前端传入灰度路由规则](#通过前端传入灰度路由规则)
     - [通过业务参数在网关过滤器中自定义路由规则](#通过业务参数在网关过滤器中自定义路由规则)
     - [通过业务参数在策略类中自定义路由规则](#通过业务参数在策略类中自定义路由规则)
-- [基于规则订阅的全链路灰度版本策略](#基于规则订阅的全链路灰度版本策略)
-- [基于规则订阅的全链路灰度权重策略](#基于规则订阅的全链路灰度权重策略)
-  - [配置全链路灰度权重规则](#配置全链路灰度权重规则)
-    - [全局版本权重规则](#全局版本权重规则)
-    - [局部版本权重规则](#局部版本权重规则)	
-    - [全局区域权重规则](#全局区域权重规则)
-    - [局部区域权重规则](#局部区域权重规则)
-	- [验证服务灰度权重调用](#验证服务灰度权重调用)
+- [基于规则订阅的全链路灰度发布策略](#基于规则订阅的全链路灰度版本策略)
+  - [基于规则订阅的全链路灰度版本策略](#基于规则订阅的全链路灰度版本策略)
+  - [基于规则订阅的全链路灰度权重策略](#基于规则订阅的全链路灰度权重策略)
+    - [配置全链路灰度权重规则](#配置全链路灰度权重规则)
+      - [全局版本权重规则](#全局版本权重规则)
+      - [局部版本权重规则](#局部版本权重规则)	
+      - [全局区域权重规则](#全局区域权重规则)
+      - [局部区域权重规则](#局部区域权重规则)
+	  - [验证服务灰度权重调用](#验证服务灰度权重调用)
 - [灰度权重&灰度版本组合式策略](#灰度权重&灰度版本组合式策略)
 - [服务隔离](#服务隔离)
   - [注册服务隔离](#注册服务隔离)
@@ -68,14 +69,14 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 | DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
 
-## 验证无灰度发布和路由的调用
-- 在浏览器中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)。测试没有灰度配置的情况下，通过Spring Cloud Gateway网关的调用结果。该结果显示，在反复执行下，所有服务都会被调用到，如下：
+## 通过网关进行调用测试
+- 在Postman中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)。测试通过Spring Cloud Gateway网关的调用结果，如下：
 ```xml
 gateway -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
 -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
 
-- 在浏览器中执行[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)。测试没有灰度路由的情况下，通过Zuul网关的调用结果。该结果显示，在反复执行下，所有服务都会被调用到，如下：
+- 在Postman中执行[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)。测试通过Zuul网关的调用结果，如下：
 ```xml
 zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
 -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
@@ -185,7 +186,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ### 验证网关灰度路由调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合网关灰度路由规则的服务，请仔细观察
 
-### 其它更多方式
+### 通过其它方式设置网关灰度路由规则
 除了上面通过配置中心发布灰度规则外，还有如下三种方式:
 
 #### 通过前端传入灰度路由规则
@@ -394,7 +395,9 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 }
 ```
 
-## 基于规则订阅的全链路灰度版本策略
+## 基于规则订阅的全链路灰度发布策略
+
+### 基于规则订阅的全链路灰度版本策略
 增加全局版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -409,14 +412,14 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray3-1.jpg)
 
-## 基于规则订阅的全链路灰度权重策略
+### 基于规则订阅的全链路灰度权重策略
 
-### 配置全链路灰度权重规则
+#### 配置全链路灰度权重规则
 在Nacos配置中心，增加网关和服务灰度权重规则
 
 注意：网关灰度路由和灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的规则（在Nacos上删除对应的两条配置即可）
 
-#### 全局版本权重规则
+##### 全局版本权重规则
 增加全局版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现版本为1.0的服务提供90%的流量，版本为1.1的服务提供10%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -430,7 +433,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-1.jpg)
 
-#### 局部版本权重规则
+##### 局部版本权重规则
 增加局部版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -445,7 +448,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-2.jpg)
 
-#### 全局区域权重规则
+##### 全局区域权重规则
 增加全局区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -459,7 +462,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-3.jpg)
 
-#### 局部区域权重规则
+##### 局部区域权重规则
 增加局部区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务dev区域提供90%的流量，qa区域提供10%的流量；b服务dev区域提供20%的流量，qa区域提供80%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -474,7 +477,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-4.jpg)
 
-### 验证服务灰度权重调用
+#### 验证服务灰度权重调用
 重复“验证无灰度发布和路由的调用”步骤，结果显示，在反复执行下，只会调用到符合服务灰度权重的服务，请仔细观察被随机权重调用到的概率
 
 ## 灰度权重&灰度版本组合式策略
