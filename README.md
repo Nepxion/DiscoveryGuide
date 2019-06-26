@@ -18,8 +18,8 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 
 ## 目录
 - [请联系我](#请联系我)
-- [环境搭建和运行](#环境搭建和运行)
-- [通过网关进行调用测试](#通过网关进行调用测试)
+- [1.环境搭建和运行](#1.环境搭建和运行)
+- [2.通过网关进行调用测试](#2.通过网关进行调用测试)
 - [基于Header传递的网关灰度路由策略](#基于Header传递的网关灰度路由策略)
   - [配置网关灰度路由规则](#配置网关灰度路由规则)
     - [区域灰度路由规则](#版本灰度路由规则)
@@ -51,7 +51,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/公众号-1.jpg)
 
-## 环境搭建和运行
+## 1.环境搭建和运行
 - 下载代码并导入IDE
 - 启动Nacos服务器
   - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
@@ -67,7 +67,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 | DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
 
-## 通过网关进行调用测试
+## 2.通过网关进行调用测试
 - 在Postman中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)。测试通过Spring Cloud Gateway网关的调用结果，如下：
 ```xml
 gateway -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
