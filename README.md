@@ -497,7 +497,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 - a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 
-功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
+该功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
