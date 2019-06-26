@@ -454,8 +454,8 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 <rule>
     <discovery>
         <weight>
-            <service provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10"/>
-            <service provider-service-name="discovery-gray-service-b" provider-weight-value="1.0=20;1.1=80"/>
+            <service provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
+            <service provider-service-name="discovery-gray-service-b" provider-weight-value="1.0=20;1.1=80" type="version"/>
         </weight>
     </discovery>
 </rule>
@@ -483,8 +483,8 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 <rule>
     <discovery>
         <weight>
-            <service provider-service-name="discovery-gray-service-a" provider-weight-value="dev=90;qa=10"/>
-            <service provider-service-name="discovery-gray-service-b" provider-weight-value="dev=20;qa=80"/>
+            <service provider-service-name="discovery-gray-service-a" provider-weight-value="dev=90;qa=10" type="region"/>
+            <service provider-service-name="discovery-gray-service-b" provider-weight-value="dev=20;qa=80" type="region"/>
         </weight>
     </discovery>
 </rule>
@@ -510,8 +510,8 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
         </version>
 
         <weight>
-            <service consumer-service-name="discovery-gray-gateway" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10"/>
-            <!-- <service consumer-service-name="discovery-gray-zuul" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10"/> -->
+            <service consumer-service-name="discovery-gray-gateway" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
+            <!-- <service consumer-service-name="discovery-gray-zuul" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/> -->
         </weight>
     </discovery>
 </rule>
