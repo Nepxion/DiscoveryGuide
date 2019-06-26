@@ -68,6 +68,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
 
 ## 通过网关进行调用测试
+- 导入Postman的测试脚本导入，[脚本地址](https://github.com/Nepxion/Discovery/blob/master/discovery-springcloud-postman/Nepxion.postman_collection.json)
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray0-1.jpg)
+
 - 在Postman中执行[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)。测试通过Spring Cloud Gateway网关的调用结果，如下：
 ```xml
 gateway -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
