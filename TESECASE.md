@@ -2,7 +2,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
     <strategy>
-        <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
+        <!-- <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version> -->
         <!-- <version>1.0</version> -->
         <!-- <region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region> -->
         <!-- <region>dev</region> -->
@@ -15,8 +15,42 @@
 
     <strategy-customization>
         <conditions>
-            <condition id="2" header="a=1" version-id="f"/>
-            <condition id="1" header="a=1;b=2" version-id="a"/>
+            <condition id="2" header="a=1" version-weight-id="f"/>
+            <condition id="1" header="a=1;b=2" version-weight-id="d"/>
+            <!-- <condition id="1" header="a=1;b=2" version-id="a" region-id="b" address-id="c" version-weight-id="d" region-weight-id="e"/> -->
+            <!-- <condition id="2" header="c=3" version-id="a" region-id="b"/> -->
+        </conditions>
+
+        <routes>
+            <route id="a" type="version">{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}</route>
+            <route id="b" type="region">{"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}</route>
+            <route id="c" type="address">{"discovery-gray-service-a":"192.168.43.101:3001", "discovery-gray-service-b":"192.168.43.101:4001"}</route>
+            <route id="d" type="version-weight">{"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}</route>
+            <route id="e" type="region-weight">{"discovery-gray-service-a":"dev=85;qa=15", "discovery-gray-service-b":"dev=85;qa=15"}</route>
+            <route id="f" type="version">{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}</route>
+        </routes>
+    </strategy-customization>
+</rule>
+
+网关层灰度权重路由
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <!-- <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version> -->
+        <!-- <version>1.0</version> -->
+        <!-- <region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region> -->
+        <!-- <region>dev</region> -->
+        <!-- <address>{"discovery-gray-service-a":"192.168.43.101:3001", "discovery-gray-service-b":"192.168.43.101:4001"}</address> -->
+        <!-- <version-weight>{"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}</version-weight> -->
+        <!-- <version-weight>1.0=90;1.1=10</version-weight> -->
+        <!-- <region-weight>{"discovery-gray-service-a":"dev=85;qa=15", "discovery-gray-service-b":"dev=85;qa=15"}</region-weight> -->
+        <!-- <region-weight>dev=85;qa=15</region-weight> -->
+    </strategy>
+
+    <strategy-customization>
+        <conditions>
+            <condition id="2" header="a=1" version-weight-id="f"/>
+            <condition id="1" header="a=1;b=2" version-weight-id="d"/>
             <!-- <condition id="1" header="a=1;b=2" version-id="a" region-id="b" address-id="c" version-weight-id="d" region-weight-id="e"/> -->
             <!-- <condition id="2" header="c=3" version-id="a" region-id="b"/> -->
         </conditions>
