@@ -491,6 +491,8 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-4.jpg)
 
+注意：局部权重优先级高于全局权重，版本权重优先级高于区域权重
+
 请执行Postman操作，请仔细观察服务被随机权重调用到的概率
 
 ### 配置全链路灰度权重&灰度版本组合式策略
