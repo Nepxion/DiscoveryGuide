@@ -241,11 +241,12 @@ ZuulStrategyRouteFilter示例
 ```
 
 在网关端配置如下，表达的逻辑是
-1. 当外部调用带有的Http Header中的值a=1同时b=2，执行{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}路由方式
-2. 当外部调用带有的Http Header中的值a=1，执行{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}路由方式
-3. 当外部调用带有的Http Header中的值都不命中，执行全局缺省{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}路由方式
-
-注意：condition节点的version-id，对应route节点的id
+ - 当外部调用带有的Http Header中的值a=1同时b=2，执行{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}路由方式
+   condition配置中header="a=1;b=2"对应的version-id="a"，即下面route配置中type="version"，id="a"的那项，那么路由即为{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}
+ - 当外部调用带有的Http Header中的值a=1，执行{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}路由方式
+   condition配置中header="a=1"对应的version-id="b"，即下面route配置中type="version"，id="b"的那项，那么路由即为{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}
+ - 当外部调用带有的Http Header中的值都不命中，执行全局缺省{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}路由方式
+   即strategy配置中的全局缺省路由
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
