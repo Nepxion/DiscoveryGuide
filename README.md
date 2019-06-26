@@ -242,16 +242,12 @@ ZuulStrategyRouteFilter示例
 
 增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容见下面XML内容，它所表达的功能逻辑：
 ```xml
-1. 当外部调用带有的Http Header中的值a=1同时b=2，执行如下路由方式：
-   {"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}
-   
-   <condition>节点中header="a=1;b=2"对应的version-id="a"，即下面<route>节点中type="version"，id="a"的那项，那么路由即为
+1. 当外部调用带有的Http Header中的值a=1同时b=2
+   <condition>节点中header="a=1;b=2"对应的version-id="version-route1"，找到下面<route>节点中id="version-route1" type="version"的那项，那么路由即为
    {"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}
 
-2. 当外部调用带有的Http Header中的值a=1，执行如下路由方式：
-   {"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}
-
-   <condition>配置中header="a=1"对应的version-id="b"，即下面<route>中type="version"，id="b"的那项，那么路由即为
+2. 当外部调用带有的Http Header中的值a=1
+   <condition>节点中header="a=1"对应的version-id="version-route2"，找到下面<route>中id="version-route2" type="version"的那项，那么路由即为
    {"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}
 
 3. 当外部调用带有的Http Header中的值都不命中，执行全局缺省如下路由方式，即<strategy>节点中的全局缺省路由：
@@ -276,13 +272,13 @@ ZuulStrategyRouteFilter示例
     <!-- 网关端的基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
     <strategy-customization>
         <conditions>
-            <condition id="2" header="a=1" version-id="b"/>
-            <condition id="1" header="a=1;b=2" version-id="a"/>
+            <condition id="condition1" header="a=1" version-id="version-route2"/>
+            <condition id="condition2" header="a=1;b=2" version-id="version-route1"/>
         </conditions>
 
         <routes>
-            <route id="a" type="version">{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}</route>
-            <route id="b" type="version">{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}</route>
+            <route id="version-route1" type="version">{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}</route>
+            <route id="version-route2" type="version">{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}</route>
         </routes>
     </strategy-customization>
 </rule>
