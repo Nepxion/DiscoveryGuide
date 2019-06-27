@@ -98,6 +98,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
     </strategy>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1-1.jpg)
 
 每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
@@ -128,6 +129,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1-2.jpg)
 
 每个服务调用的区域权重都可以自行指定，见下面第二条。当所有服务都选相同区域权重的时候，可以简化成下面第一条
@@ -146,6 +148,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-1.jpg)
 
 每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本的时候，可以简化成下面第一条
@@ -176,6 +179,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-2.jpg)
 
 每个服务调用的版本权重都可以自行指定，见下面第二条。当所有服务都选相同版本权重的时候，可以简化成下面第一条
@@ -212,6 +216,7 @@ n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 n-d-version-weight=1.0=90;1.1=10
 n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-3.jpg)
 
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-4.jpg)
@@ -287,6 +292,7 @@ ZuulStrategyRouteFilter示例
     </strategy-customization>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-5.jpg)
 
 - 用户覆盖过滤器的自定义方式
@@ -429,6 +435,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray3-1.jpg)
 
 ### 配置全链路灰度权重策略
@@ -445,6 +452,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-1.jpg)
 
 #### 局部版本权重规则
@@ -460,6 +468,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-2.jpg)
 
 #### 全局区域权重规则
@@ -474,6 +483,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-3.jpg)
 
 #### 局部区域权重规则
@@ -489,6 +499,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-4.jpg)
 
 注意：局部权重优先级高于全局权重，版本权重优先级高于区域权重
@@ -518,6 +529,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     </discovery>
 </rule>
 ```
+如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-1.jpg)
 
 ## 服务隔离
