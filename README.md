@@ -221,6 +221,15 @@ n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-
 
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-4.jpg)
 
+当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。需要通过如下开关做控制：
+```xml
+# 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
+spring.application.strategy.gateway.header.priority=false
+
+# 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
+spring.application.strategy.zuul.header.priority=false
+``` 
+
 #### 通过业务参数在网关过滤器中自定义灰度路由规则
 通过网关过滤器传递Http Header的方式传递全链路灰度路由规则。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
 
