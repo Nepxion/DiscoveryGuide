@@ -17,7 +17,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 
 ## 目录
 - [请联系我](#请联系我)
-- [服务治理系统图](#服务治理系统图)
+- [服务治理架构图](#服务治理架构图)
 - [环境搭建和运行](#环境搭建和运行)
 - [通过网关进行调用测试](#通过网关进行调用测试)
 - [基于Header传递的网关灰度路由策略](#基于Header传递的网关灰度路由策略)
@@ -51,7 +51,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/公众号-1.jpg)
 
-## 服务治理系统图
+## 服务治理架构图
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/Govern.jpg)
 
 ## 环境搭建和运行
