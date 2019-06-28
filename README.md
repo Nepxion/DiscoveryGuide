@@ -259,7 +259,7 @@ ZuulStrategyRouteFilter示例
     }
 ```
 
-增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容见下面XML内容，它所表达的功能逻辑：
+增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，或者，增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容见下面XML内容，它所表达的功能逻辑：
 ```xml
 1. 当外部调用带有的Http Header中的值a=1同时b=2
    <condition>节点中header="a=1;b=2"对应的version-id="version-route1"，找到下面
