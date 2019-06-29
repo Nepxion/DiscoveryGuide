@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.adapter.DefaultDiscoveryEnabledStrategy;
 import com.netflix.loadbalancer.Server;
 
@@ -26,8 +25,8 @@ public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy 
         // 对Rest调用传来的Header参数（例如：mobile）做策略
         String mobile = strategyContextHolder.getHeader("mobile");
         String serviceId = pluginAdapter.getServerServiceId(server);
-        String version = pluginAdapter.getServerMetadata(server).get(DiscoveryConstant.VERSION);
-        String region = pluginAdapter.getServerMetadata(server).get(DiscoveryConstant.REGION);
+        String version = pluginAdapter.getServerVersion(server);
+        String region = pluginAdapter.getServerRegion(server);
 
         LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}", mobile, serviceId, version, region);
 

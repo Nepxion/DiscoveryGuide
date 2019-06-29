@@ -407,7 +407,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
         // 对Rest调用传来的Header参数（例如：mobile）做策略
         String mobile = strategyContextHolder.getHeader("mobile");
         String serviceId = pluginAdapter.getServerServiceId(server);
-        String version = pluginAdapter.getServerMetadata(server).get(DiscoveryConstant.VERSION);
+        String version = pluginAdapter.getServerVersion(server);
 
         LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}", mobile, serviceId, version);
 
