@@ -242,6 +242,7 @@ spring.application.strategy.zuul.header.priority=false
 通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter覆盖掉框架默认的RouteFilter
 
 GatewayStrategyRouteFilter示例
+
 在配置类里@Bean方式进行过滤器创建
 ```java
 @Bean
@@ -252,6 +253,7 @@ public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
 ```
 
 ZuulStrategyRouteFilter示例
+
 在配置类里@Bean方式进行过滤器创建
 ```java
 @Bean
@@ -312,7 +314,7 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 
 - 用户覆盖过滤器的自定义方式
 
-继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，并覆盖掉如下方法中的一个或者多个
+继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，并覆盖掉如下方法中的一个或者多个，并通过@Bean方式覆盖掉框架默认的RouteFilter
 ```java
 protected String getRouteVersion();
 
@@ -321,9 +323,8 @@ protected String getRouteRegion();
 protected String getRouteAddress();
 ```
 
-通过@Bean方式覆盖掉框架默认的RouteFilter
-
 GatewayStrategyRouteFilter示例
+
 在代码里根据不同的Header选择不同的路由路径
 ```java
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
@@ -362,6 +363,7 @@ public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
 ```
 
 ZuulStrategyRouteFilter示例
+
 在代码里根据不同的Header选择不同的路由路径
 ```java
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
