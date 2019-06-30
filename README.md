@@ -1,5 +1,5 @@
 # Nepxion Discovery Gray
-[![Total lines](https://tokei.rs/b1/github/Nepxion/DiscoveryGray?category=lines)](https://tokei.rs/b1/github/Nepxion/DiscoveryGray?category=lines)
+[![](https://tokei.rs/b1/github/Nepxion/DiscoveryGray?category=lines)](https://tokei.rs/b1/github/Nepxion/DiscoveryGray?category=lines)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/DiscoveryGray/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/Nepxion/DiscoveryGray.svg?branch=master)](https://travis-ci.org/Nepxion/DiscoveryGray)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/DiscoveryGray/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/DiscoveryGray&amp;utm_campaign=Badge_Grade_Dashboard)
@@ -50,8 +50,6 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/公众号-1.jpg)
-
-https://tokei.rs/b1/github/Nepxion/DiscoveryGray?category=lines
 
 ## 服务治理架构图
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/Govern.jpg)
