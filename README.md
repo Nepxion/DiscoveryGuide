@@ -597,7 +597,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.fei
 Reject to invoke for isolation with different service group
 ```
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-5.jpg)
-如果加上n-d-group=discovery-gray-group的Header，那么两者保持Group相同，则调用用
+如果加上n-d-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-6.jpg)
 
 ## Star走势图
