@@ -243,20 +243,20 @@ spring.application.strategy.zuul.header.priority=false
 
 GatewayStrategyRouteFilter示例
 ```java
-    @Bean
-    @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
-    public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
-        return new CustomizationGatewayStrategyRouteFilter();
-    }
+@Bean
+@ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
+    return new CustomizationGatewayStrategyRouteFilter();
+}
 ```
 
 ZuulStrategyRouteFilter示例
 ```java
-    @Bean
-    @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
-    public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
-        return new CustomizationZuulStrategyRouteFilter();
-    }
+@Bean
+@ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
+    return new CustomizationZuulStrategyRouteFilter();
+}
 ```
 
 增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，或者，增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容见下面XML内容，它所表达的功能逻辑：
@@ -273,7 +273,7 @@ ZuulStrategyRouteFilter示例
 
 3. 当外部调用带有的Http Header中的值都不命中，找到上面
    <strategy>节点中的全局缺省路由，那么路由即为：
-  {"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
+   {"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 
 4. 规则解析总共支持5种，可以单独一项使用，也可以多项叠加使用：
    1）version 版本路由
@@ -351,11 +351,11 @@ public class MyRouteFilter extends DefaultGatewayStrategyRouteFilter {
 ```
 
 ```java
-    @Bean
-    @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
-    public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
-        return new MyRouteFilter();
-    }
+@Bean
+@ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
+    return new MyRouteFilter();
+}
 ```
 
 ZuulStrategyRouteFilter示例
@@ -388,11 +388,11 @@ public class MyRouteFilter extends DefaultZuulStrategyRouteFilter {
 ```
 
 ```java
-    @Bean
-    @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
-    public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
-        return new MyRouteFilter();
-    }
+@Bean
+@ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
+    return new MyRouteFilter();
+}
 ```
 
 #### 通过业务参数在策略类中自定义灰度路由规则
