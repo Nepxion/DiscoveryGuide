@@ -242,6 +242,7 @@ spring.application.strategy.zuul.header.priority=false
 通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter覆盖掉框架默认的RouteFilter
 
 GatewayStrategyRouteFilter示例
+在配置类里@Bean方式进行过滤器创建
 ```java
 @Bean
 @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -251,6 +252,7 @@ public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
 ```
 
 ZuulStrategyRouteFilter示例
+在配置类里@Bean方式进行过滤器创建
 ```java
 @Bean
 @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -322,6 +324,7 @@ protected String getRouteAddress();
 通过@Bean方式覆盖掉框架默认的RouteFilter
 
 GatewayStrategyRouteFilter示例
+在代码里根据不同的Header选择不同的路由路径
 ```java
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
 // 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
@@ -349,7 +352,7 @@ public class MyRouteFilter extends DefaultGatewayStrategyRouteFilter {
     }
 }
 ```
-
+在配置类里@Bean方式进行过滤器创建，并覆盖框架内置的过滤器
 ```java
 @Bean
 @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -359,6 +362,7 @@ public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
 ```
 
 ZuulStrategyRouteFilter示例
+在代码里根据不同的Header选择不同的路由路径
 ```java
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
 // 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
@@ -386,7 +390,7 @@ public class MyRouteFilter extends DefaultZuulStrategyRouteFilter {
     }
 }
 ```
-
+在配置类里@Bean方式进行过滤器创建，并覆盖框架内置的过滤器
 ```java
 @Bean
 @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
