@@ -545,6 +545,16 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-1.jpg)
 
+图形化界面验证
+- 启动源码工程下的discovery-springcloud-example-console/ConsoleApplication
+- 启动源码工程下的discovery-console-desktop/ConsoleLauncher
+- 通过admin/admin登录，点击“显示服务拓扑”按钮，将呈现如下界面
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-2.jpg)
+- 在加入上述规则前，选中网关节点，右键点击“执行灰度路由”，在弹出路由界面中，依次加入“discovery-gray-service-a”和“discovery-gray-service-b”，点击“执行路由”按钮，将呈现如下界面
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-3.jpg)
+- 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
+![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-4.jpg)
+
 ## 服务隔离
 
 元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能相互发生关系
