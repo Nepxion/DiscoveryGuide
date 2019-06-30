@@ -78,11 +78,13 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 gateway -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
 -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
+
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Zuul网关调用示例“，即[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)。测试通过Zuul网关的调用结果，如下：
 ```xml
 zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
 -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
+
 上述步骤在每次更改规则策略的时候执行，并观察输出结果
 
 ## 基于Header传递的网关灰度路由策略
@@ -108,6 +110,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 <region>dev</region>
 <region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region>
 ```
+
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
 ```xml
 * - 表示调用范围为所有服务的所有区域
@@ -117,6 +120,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```xml
 "discovery-gray-service-b":"d*;q?" - 表示discovery-gray-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
 ```
+
 上述是区域灰度路由规则，框架还提供
 
 #### 区域权重灰度路由规则
@@ -137,6 +141,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 <region-weight>dev=85;qa=15</region-weight>
 <region-weight>{"discovery-gray-service-a":"dev=85;qa=15", "discovery-gray-service-b":"dev=85;qa=15"}</region-weight>
 ```
+
 #### 版本灰度路由规则
 增加Spring Cloud Gateway的基于版本路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
 ```xml
@@ -155,6 +160,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 <version>1.0</version>
 <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
 ```
+
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
 ```xml
 * - 表示调用范围为所有服务的所有版本
@@ -164,6 +170,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```xml
 "discovery-gray-service-b":"1.*;1.2.?" - 表示discovery-gray-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
 ```
+
 上述是版本灰度路由规则，框架还提供
 
 #### 版本权重灰度路由规则
@@ -184,6 +191,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 <version-weight>1.0=90;1.1=10</version-weight>
 <version-weight>{"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}</version-weight>
 ```
+
 ### 通过其它方式设置网关灰度路由规则
 除了上面通过配置中心发布灰度规路由则外，还有如下三种方式:
 
@@ -200,11 +208,13 @@ n-d-region={"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}
 n-d-region-weight=dev=99;qa=1
 n-d-region-weight={"discovery-gray-service-a":"dev=99;qa=1", "discovery-gray-service-b":"dev=99;qa=1"}
 ```
+
 - 版本规则，Header格式如下任选一个：
 ```xml
 n-d-version=1.0
 n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 ```
+
 - 版本权重规则，Header格式如下任选一个：
 ```xml
 n-d-version-weight=1.0=90;1.1=10
@@ -223,6 +233,7 @@ spring.application.strategy.gateway.header.priority=false
 # 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
 spring.application.strategy.zuul.header.priority=false
 ``` 
+
 #### 通过业务参数在网关过滤器中自定义灰度路由规则
 通过网关过滤器传递Http Header的方式传递全链路灰度路由规则。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
 
@@ -238,6 +249,7 @@ GatewayStrategyRouteFilter示例
         return new CustomizationGatewayStrategyRouteFilter();
     }
 ```
+
 ZuulStrategyRouteFilter示例
 ```java
     @Bean
@@ -246,6 +258,7 @@ ZuulStrategyRouteFilter示例
         return new CustomizationZuulStrategyRouteFilter();
     }
 ```
+
 增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，或者，增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容见下面XML内容，它所表达的功能逻辑：
 ```xml
 1. 当外部调用带有的Http Header中的值a=1同时b=2
@@ -269,6 +282,7 @@ ZuulStrategyRouteFilter示例
    4）version-weight 版本权重路由
    5）region-weight 区域权重路由
 ```
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -304,6 +318,7 @@ protected String getRouteRegion();
 
 protected String getRouteAddress();
 ```
+
 通过@Bean方式覆盖掉框架默认的RouteFilter
 
 GatewayStrategyRouteFilter示例
@@ -334,6 +349,7 @@ public class MyRouteFilter extends DefaultGatewayStrategyRouteFilter {
     }
 }
 ```
+
 ```java
     @Bean
     @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -341,6 +357,7 @@ public class MyRouteFilter extends DefaultGatewayStrategyRouteFilter {
         return new MyRouteFilter();
     }
 ```
+
 ZuulStrategyRouteFilter示例
 ```java
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
@@ -369,6 +386,7 @@ public class MyRouteFilter extends DefaultZuulStrategyRouteFilter {
     }
 }
 ```
+
 ```java
     @Bean
     @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -376,6 +394,7 @@ public class MyRouteFilter extends DefaultZuulStrategyRouteFilter {
         return new MyRouteFilter();
     }
 ```
+
 #### 通过业务参数在策略类中自定义灰度路由规则
 通过策略方式自定义灰度路由规则。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，同时全链路中网关和服务都必须加该方式
 ```java
@@ -409,6 +428,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
     }
 }
 ```
+
 ## 基于规则订阅的全链路灰度发布策略
 在Nacos配置中心，增加全链路灰度发布规则
 注意：该功能和网关灰度路由和灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的规则
@@ -550,12 +570,14 @@ spring.application.strategy.register.isolation.enabled=true
 spring.application.strategy.register.isolation.group.blacklist=
 spring.application.strategy.register.isolation.group.whitelist=
 ```
+
 ### 消费端服务隔离
 基于Group是否相同的策略，即消费端拿到的提供端列表，两者的Group必须相同。只需要在网关或者服务端，开启如下配置即可：
 ```xml
 # 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.consumer.isolation.enabled=true
 ```
+
 修改discovery-gray-service-b的Group名为其它名称，执行Postman调用，将发现从discovery-gray-service-a无法拿到discovery-gray-service-b的任何实例。意味着在discovery-gray-service-a消费端进行了隔离
 
 ### 提供端服务隔离
@@ -569,6 +591,7 @@ spring.application.strategy.provider.isolation.enabled=true
 # 用户自定义和编程灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截和消费端的服务隔离两项工作
 spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.feign
 ```
+
 在Postman调用，执行[http://localhost:4001/invoke/test](http://localhost:4001/invoke/test)，去调用discovery-gray-service-b服务，将出现如下异常。意味着在discovery-gray-service-b提供端进行了隔离
 ```xml
 Reject to invoke for isolation with different service group
