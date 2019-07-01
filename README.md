@@ -48,11 +48,11 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 ## 请联系我
 微信和公众号
 
-![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/微信-1.jpg)
-![Alt text](https://github.com/Nepxion/Docs/blob/master/zxing-doc/公众号-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
 
 ## 服务治理架构图
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/Govern.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Govern.jpg)
 
 ## 环境搭建和运行
 - 下载代码并导入IDE
@@ -103,7 +103,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray1-1.jpg)
 
 每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
 ```xml
@@ -134,7 +134,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray1-2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray1-2.jpg)
 
 每个服务调用的区域权重都可以自行指定，见下面第二条。当所有服务都选相同区域权重的时候，可以简化成下面第一条
 ```xml
@@ -153,7 +153,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-1.jpg)
 
 每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本的时候，可以简化成下面第一条
 ```xml
@@ -184,7 +184,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-2.jpg)
 
 每个服务调用的版本权重都可以自行指定，见下面第二条。当所有服务都选相同版本权重的时候，可以简化成下面第一条
 ```xml
@@ -221,9 +221,9 @@ n-d-version-weight=1.0=90;1.1=10
 n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-3.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-3.jpg)
 
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-4.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-4.jpg)
 
 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。需要通过如下开关做控制：
 ```xml
@@ -310,7 +310,7 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray2-5.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-5.jpg)
 
 - 用户覆盖过滤器的自定义方式
 
@@ -455,7 +455,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray3-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray3-1.jpg)
 
 ### 配置全链路灰度权重策略
 
@@ -472,7 +472,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-1.jpg)
 
 #### 局部版本权重规则
 增加局部版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
@@ -488,7 +488,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-2.jpg)
 
 #### 全局区域权重规则
 增加全局区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
@@ -503,7 +503,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-3.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-3.jpg)
 
 #### 局部区域权重规则
 增加局部区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务dev区域提供90%的流量，qa区域提供10%的流量；b服务dev区域提供20%的流量，qa区域提供80%的流量：
@@ -519,7 +519,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray4-4.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-4.jpg)
 
 注意：局部权重优先级高于全局权重，版本权重优先级高于区域权重
 
@@ -549,17 +549,17 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-1.jpg)
 
 图形化界面验证
 - 启动源码工程下的discovery-springcloud-example-console/ConsoleApplication
 - 启动源码工程下的discovery-console-desktop/ConsoleLauncher
 - 通过admin/admin登录，点击“显示服务拓扑”按钮，将呈现如下界面
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-2.jpg)
 - 在加入上述规则前，选中网关节点，右键点击“执行灰度路由”，在弹出路由界面中，依次加入“discovery-gray-service-a”和“discovery-gray-service-b”，点击“执行路由”按钮，将呈现如下界面
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-3.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-3.jpg)
 - 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-4.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-4.jpg)
 
 ## 服务隔离
 
@@ -602,9 +602,9 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.fei
 ```xml
 Reject to invoke for isolation with different service group
 ```
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-5.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-5.jpg)
 如果加上n-d-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的手段
-![Alt text](https://github.com/Nepxion/Docs/blob/master/discovery-doc/DiscoveryGray5-6.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-6.jpg)
 
 ## Star走势图
 
