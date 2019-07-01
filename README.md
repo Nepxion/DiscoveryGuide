@@ -220,6 +220,7 @@ n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 n-d-version-weight=1.0=90;1.1=10
 n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}
 ```
+
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-3.jpg)
 
