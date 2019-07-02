@@ -588,7 +588,7 @@ spring.application.strategy.consumer.isolation.enabled=true
 修改discovery-gray-service-b的Group名为其它名称，执行Postman调用，将发现从discovery-gray-service-a无法拿到discovery-gray-service-b的任何实例。意味着在discovery-gray-service-a消费端进行了隔离
 
 ### 提供端服务隔离
-基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-group值进行匹配。只需要在网关或者服务端，开启如下配置即可：
+基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-service-group值进行匹配。只需要在网关或者服务端，开启如下配置即可：
 ```xml
 # 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.provider.isolation.enabled=true
@@ -604,7 +604,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.fei
 Reject to invoke for isolation with different service group
 ```
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-5.jpg)
-如果加上n-d-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的手段
+如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的手段
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-6.jpg)
 
 ## Star走势图
