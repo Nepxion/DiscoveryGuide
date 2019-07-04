@@ -605,7 +605,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.fei
 
 在Postman调用，执行[http://localhost:4001/invoke/test](http://localhost:4001/invoke/test)，去调用discovery-gray-service-b服务，将出现如下异常。意味着在discovery-gray-service-b提供端进行了隔离
 ```xml
-Reject to invoke for isolation with different service group
+Reject to invoke because of isolation with different service group
 ```
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-5.jpg)
 如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的手段
