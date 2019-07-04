@@ -628,7 +628,8 @@ n-d-service-region - 服务所属区域
 Header方式框架内部集成，网关端自行会传输Header值（参考Discovery源码中的AbstractGatewayStrategyRouteFilter.java和AbstractZuulStrategyRouteFilter.java），服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
 
 ### 日志输出方式
-继承StrategyTracer.java（例如，叫MyStrategyTracer.java），网关端覆盖方法traceHeader()，服务端覆盖方法traceInvoker()，方法里把6个参数通过MDC方式输出到日志（如何输出，请自行研究）。
+继承StrategyTracer.java（例如，叫MyStrategyTracer.java），网关端覆盖方法traceHeader()，服务端覆盖方法traceInvoker()，方法里把6个参数通过MDC方式输出到日志（如何输出，请自行研究）
+
 在配置类里@Bean方式进行调用链类创建，并覆盖框架内置的调用链类
 ```java
 @Bean
