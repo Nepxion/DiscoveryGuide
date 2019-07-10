@@ -122,9 +122,9 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 或者
 ```xml
-"discovery-gray-service-b":"d*;q?" - 表示discovery-gray-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
+"discovery-gray-service-b":"d*;q?"
 ```
-
+表示discovery-gray-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
 上述是区域灰度路由规则，框架还提供
 
 #### 区域权重灰度路由规则
@@ -172,8 +172,9 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 或者
 ```xml
-"discovery-gray-service-b":"1.*;1.2.?" - 表示discovery-gray-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
+"discovery-gray-service-b":"1.*;1.2.?"
 ```
+表示discovery-gray-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
 
 上述是版本灰度路由规则，框架还提供
 
