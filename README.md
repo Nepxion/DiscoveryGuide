@@ -125,7 +125,6 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 "discovery-gray-service-b":"d*;q?"
 ```
 表示discovery-gray-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
-上述是区域灰度路由规则，框架还提供
 
 #### 区域权重灰度路由规则
 增加Zuul的基于区域权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
@@ -175,8 +174,6 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 "discovery-gray-service-b":"1.*;1.2.?"
 ```
 表示discovery-gray-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
-
-上述是版本灰度路由规则，框架还提供
 
 #### 版本权重灰度路由规则
 增加Spring Cloud Gateway的基于版本权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%：
