@@ -4,7 +4,8 @@
 [![Build Status](https://travis-ci.org/Nepxion/DiscoveryGray.svg?branch=master)](https://travis-ci.org/Nepxion/DiscoveryGray)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/DiscoveryGray/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/DiscoveryGray&amp;utm_campaign=Badge_Grade_Dashboard)
 
-艰难困苦，玉汝于成。一年多的坚持，才达成现在的成熟稳定。希望路过的同学，顺手给这个开源框架点个Star，算是对我坚持下来的一种鼓励吧！
+艰难困苦，玉汝于成。一年多的坚持，才达成现在的颇具规模。希望路过的同学，顺手给这个开源框架点个Star，算是对我坚持下来的一种鼓励吧！
+
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star1.jpg)
 
 Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行换成Edgware版），主要功能包括：
