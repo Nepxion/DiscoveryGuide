@@ -6,7 +6,7 @@
 
 艰难困苦，玉汝于成。一年多的坚持，才达成现在的颇具规模。希望路过的同学，顺手给这个开源框架点个Star，算是对我坚持下来的一种鼓励吧！
 
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
 Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行换成Edgware版），主要功能包括：
 - 网关灰度路由。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域匹配路由、版本和区域权重路由两种
