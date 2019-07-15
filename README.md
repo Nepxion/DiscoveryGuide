@@ -36,8 +36,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
     - [通过业务参数在网关过滤器中自定义路由规则](#通过业务参数在网关过滤器中自定义路由规则)
     - [通过业务参数在策略类中自定义路由规则](#通过业务参数在策略类中自定义路由规则)
 - [基于规则订阅的全链路灰度发布策略](#基于规则订阅的全链路灰度发布策略)
-  - [配置全链路灰度版本策略](#配置全链路灰度版本策略)
+  - [配置全链路灰度策略](#配置全链路灰度策略)
     - [版本匹配规则](#版本匹配规则)
+    - [区域匹配规则](#区域匹配规则)	
   - [配置全链路灰度权重策略](#配置全链路灰度权重策略)
     - [全局版本权重规则](#全局版本权重规则)
     - [局部版本权重规则](#局部版本权重规则)	
@@ -446,10 +447,10 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 在Nacos配置中心，增加全链路灰度发布规则
 注意：该功能和网关灰度路由和灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的规则
 
-### 配置全链路灰度版本策略
+### 配置全链路灰度策略
 
 #### 版本匹配规则
-增加全局版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
+增加全局版本匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -463,6 +464,22 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ```
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray3-1.jpg)
+
+#### 区域匹配规则
+增加全局区域匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现dev区域的a服务只能访问dev区域的b服务，qa区域的a服务只能访问qa区域的b服务：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <region>
+            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-region-value="dev" provider-region-value="dev"/>
+            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-region-value="qa" provider-region-value="qa"/>
+        </region>
+    </discovery>
+</rule>
+```
+如图所示
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray3-2.jpg)
 
 ### 配置全链路灰度权重策略
 
