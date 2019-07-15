@@ -450,7 +450,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ### 配置全链路灰度策略
 
 #### 版本匹配规则
-增加全局版本匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
+增加版本匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -466,7 +466,7 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray3-1.jpg)
 
 #### 区域匹配规则
-增加全局区域匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现dev区域的a服务只能访问dev区域的b服务，qa区域的a服务只能访问qa区域的b服务：
+增加区域匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现dev区域的a服务只能访问dev区域的b服务，qa区域的a服务只能访问qa区域的b服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
