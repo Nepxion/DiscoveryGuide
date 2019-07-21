@@ -14,7 +14,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 - 服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，还具有
   - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
   - 消费端隔离：黑/白名单的IP地址的消费端隔离
-- 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出，自行实现
+- 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出
 
 阿里巴巴Nacos是新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
 
@@ -647,13 +647,66 @@ n-d-service-region - 服务所属区域
 Header方式框架内部集成，网关端自行会传输Header值（参考Discovery源码中的AbstractGatewayStrategyRouteFilter.java和AbstractZuulStrategyRouteFilter.java），服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
 
 ### 日志输出方式
-继承StrategyTracer.java（例如，叫MyStrategyTracer.java），网关端覆盖方法traceHeader()，服务端覆盖方法traceInvoker()，方法里把6个参数通过MDC方式输出到日志（如何输出，请自行研究）
-
+Spring Cloud Gateway网关
+继承GatewayStrategyTracer.java，trace方法里把6个参数或者更多通过MDC方式输出到日志
+```java
+public class MyGatewayStrategyTracer extends GatewayStrategyTracer {
+    @Override
+    public void trace(ServerWebExchange exchange) {
+        super.trace(exchange);
+        
+        // 输出到日志
+    }
+}
+```
 在配置类里@Bean方式进行调用链类创建，并覆盖框架内置的调用链类
 ```java
 @Bean
-public StrategyTracer strategyTracer() {
-    return new MyStrategyTracer();
+@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+public GatewayStrategyTracer gatewayStrategyTracer() {
+    return new MyGatewayStrategyTracer();
+}
+```
+
+Zuul网关
+继承ZuulStrategyTracer.java，trace方法里把6个参数或者更多通过MDC方式输出到日志
+```java
+public class MyZuulStrategyTracer extends ZuulStrategyTracer {
+    @Override
+    public void trace(RequestContext context) {
+        super.trace(context);
+        
+        // 输出到日志
+    }
+}
+```
+在配置类里@Bean方式进行调用链类创建，并覆盖框架内置的调用链类
+```java
+@Bean
+@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+public ZuulStrategyTracer zuulStrategyTracer() {
+    return new MyZuulStrategyTracer();
+}
+```
+
+Service服务
+继承ServiceStrategyTracer.java，trace方法里把6个参数或者更多通过MDC方式输出到日志
+```java
+public class MyServiceStrategyTracer extends ServiceStrategyTracer {
+    @Override
+    public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
+        super.trace(interceptor, invocation);
+        
+        // 输出到日志
+    }
+}
+```
+在配置类里@Bean方式进行调用链类创建，并覆盖框架内置的调用链类
+```java
+@Bean
+@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+public ServiceStrategyTracer serviceStrategyTracer() {
+    return new MyServiceStrategyTracer();
 }
 ```
 
