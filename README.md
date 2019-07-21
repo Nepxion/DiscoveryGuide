@@ -648,7 +648,8 @@ Header方式框架内部集成，网关端自行会传输Header值（参考Disco
 
 ### 日志输出方式
 Spring Cloud Gateway网关
-继承GatewayStrategyTracer.java，trace方法里把6个参数或者更多通过MDC方式输出到日志
+
+继承GatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
 public class MyGatewayStrategyTracer extends GatewayStrategyTracer {
     @Override
@@ -669,7 +670,8 @@ public GatewayStrategyTracer gatewayStrategyTracer() {
 ```
 
 Zuul网关
-继承ZuulStrategyTracer.java，trace方法里把6个参数或者更多通过MDC方式输出到日志
+
+继承ZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
 public class MyZuulStrategyTracer extends ZuulStrategyTracer {
     @Override
@@ -690,7 +692,8 @@ public ZuulStrategyTracer zuulStrategyTracer() {
 ```
 
 Service服务
-继承ServiceStrategyTracer.java，trace方法里把6个参数或者更多通过MDC方式输出到日志
+
+继承ServiceStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceLocal方法）或者更多通过MDC方式输出到日志
 ```java
 public class MyServiceStrategyTracer extends ServiceStrategyTracer {
     @Override
