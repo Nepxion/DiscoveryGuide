@@ -446,7 +446,7 @@ public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy 
 在配置类里@Bean方式进行策略类创建
 ```java
 @Bean
-public MyDiscoveryEnabledStrategy discoveryEnabledStrategy() {
+public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
     return new MyDiscoveryEnabledStrategy();
 }
 ```
