@@ -247,7 +247,7 @@ spring.application.strategy.zuul.header.priority=false
 
 - 内置规则解析映射到过滤器的自定义方式
 
-通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter覆盖掉框架默认的RouteFilter
+通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter，覆盖框架内置的过滤器
 
 GatewayStrategyRouteFilter示例
 
@@ -322,7 +322,7 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 
 - 用户覆盖过滤器的自定义方式
 
-继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，并覆盖掉如下方法中的一个或者多个，并通过@Bean方式覆盖掉框架默认的RouteFilter
+继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，覆盖掉如下方法中的一个或者多个，通过@Bean方式覆盖框架内置的过滤器
 ```java
 protected String getRouteVersion();
 
@@ -361,7 +361,7 @@ public class MyRouteFilter extends DefaultGatewayStrategyRouteFilter {
     }
 }
 ```
-在配置类里@Bean方式进行过滤器创建，并覆盖框架内置的过滤器
+在配置类里@Bean方式进行过滤器创建，覆盖框架内置的过滤器
 ```java
 @Bean
 @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -400,7 +400,7 @@ public class MyRouteFilter extends DefaultZuulStrategyRouteFilter {
     }
 }
 ```
-在配置类里@Bean方式进行过滤器创建，并覆盖框架内置的过滤器
+在配置类里@Bean方式进行过滤器创建，覆盖框架内置的过滤器
 ```java
 @Bean
 @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -413,8 +413,8 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 通过策略方式自定义灰度路由规则。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，同时全链路中网关和服务都必须加该方式
 ```java
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
-public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrategy {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGrayEnabledStrategy.class);
+public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy {
+    private static final Logger LOG = LoggerFactory.getLogger(MyDiscoveryEnabledStrategy.class);
 
     @Override
     public boolean apply(Server server) {
@@ -422,8 +422,9 @@ public class DiscoveryGrayEnabledStrategy extends AbstractDiscoveryEnabledStrate
         String mobile = strategyContextHolder.getHeader("mobile");
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerVersion(server);
+        String region = pluginAdapter.getServerRegion(server);
 
-        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}", mobile, serviceId, version);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}", mobile, serviceId, version, region);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上
@@ -660,7 +661,7 @@ public class MyGatewayStrategyTracer extends GatewayStrategyTracer {
     }
 }
 ```
-在配置类里@Bean方式进行调用链类创建，并覆盖框架内置的调用链类
+在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
 ```java
 @Bean
 @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
@@ -682,7 +683,7 @@ public class MyZuulStrategyTracer extends ZuulStrategyTracer {
     }
 }
 ```
-在配置类里@Bean方式进行调用链类创建，并覆盖框架内置的调用链类
+在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
 ```java
 @Bean
 @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
@@ -704,7 +705,7 @@ public class MyServiceStrategyTracer extends ServiceStrategyTracer {
     }
 }
 ```
-在配置类里@Bean方式进行调用链类创建，并覆盖框架内置的调用链类
+在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
 ```java
 @Bean
 @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
