@@ -28,7 +28,7 @@ public class DiscoveryGrayServiceA1 {
     }
 
     @Bean
-    public MyDiscoveryEnabledStrategy myDiscoveryEnabledStrategy() {
+    public MyDiscoveryEnabledStrategy discoveryEnabledStrategy() {
         return new MyDiscoveryEnabledStrategy();
     }
 }

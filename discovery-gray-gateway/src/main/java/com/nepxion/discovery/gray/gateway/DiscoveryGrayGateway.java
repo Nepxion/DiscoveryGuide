@@ -35,7 +35,7 @@ public class DiscoveryGrayGateway {
     }
 
     @Bean
-    public MyDiscoveryEnabledStrategy myDiscoveryEnabledStrategy() {
+    public MyDiscoveryEnabledStrategy discoveryEnabledStrategy() {
         return new MyDiscoveryEnabledStrategy();
     }
 }

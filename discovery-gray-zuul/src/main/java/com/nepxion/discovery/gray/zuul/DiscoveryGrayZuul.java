@@ -37,7 +37,7 @@ public class DiscoveryGrayZuul {
     }
 
     @Bean
-    public MyDiscoveryEnabledStrategy myDiscoveryEnabledStrategy() {
+    public MyDiscoveryEnabledStrategy discoveryEnabledStrategy() {
         return new MyDiscoveryEnabledStrategy();
     }
 }
