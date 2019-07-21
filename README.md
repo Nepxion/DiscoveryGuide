@@ -247,11 +247,11 @@ spring.application.strategy.zuul.header.priority=false
 
 - 内置规则解析映射到过滤器的自定义方式
 
-通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter，覆盖框架内置的过滤器
+通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter，覆盖框架内置的过滤类
 
 GatewayStrategyRouteFilter示例
 
-在配置类里@Bean方式进行过滤器创建
+在配置类里@Bean方式进行过滤类创建
 ```java
 @Bean
 @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -262,7 +262,7 @@ public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
 
 ZuulStrategyRouteFilter示例
 
-在配置类里@Bean方式进行过滤器创建
+在配置类里@Bean方式进行过滤类创建
 ```java
 @Bean
 @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -322,7 +322,7 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 
 - 用户覆盖过滤器的自定义方式
 
-继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，覆盖掉如下方法中的一个或者多个，通过@Bean方式覆盖框架内置的过滤器
+继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，覆盖掉如下方法中的一个或者多个，通过@Bean方式覆盖框架内置的过滤类
 ```java
 protected String getRouteVersion();
 
@@ -361,7 +361,7 @@ public class MyRouteFilter extends DefaultGatewayStrategyRouteFilter {
     }
 }
 ```
-在配置类里@Bean方式进行过滤器创建，覆盖框架内置的过滤器
+在配置类里@Bean方式进行过滤类创建，覆盖框架内置的过滤类
 ```java
 @Bean
 @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -400,7 +400,7 @@ public class MyRouteFilter extends DefaultZuulStrategyRouteFilter {
     }
 }
 ```
-在配置类里@Bean方式进行过滤器创建，覆盖框架内置的过滤器
+在配置类里@Bean方式进行过滤类创建，覆盖框架内置的过滤类
 ```java
 @Bean
 @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
@@ -441,6 +441,13 @@ public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy 
 
         return true;
     }
+}
+```
+在配置类里@Bean方式进行策略类创建
+```java
+@Bean
+public MyDiscoveryEnabledStrategy discoveryEnabledStrategy() {
+    return new MyDiscoveryEnabledStrategy();
 }
 ```
 
