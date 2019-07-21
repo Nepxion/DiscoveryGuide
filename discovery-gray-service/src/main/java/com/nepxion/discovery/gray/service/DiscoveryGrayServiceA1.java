@@ -16,6 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.gray.service.impl.MyDiscoveryEnabledStrategy;
+import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -28,7 +29,7 @@ public class DiscoveryGrayServiceA1 {
     }
 
     @Bean
-    public MyDiscoveryEnabledStrategy discoveryEnabledStrategy() {
+    public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
         return new MyDiscoveryEnabledStrategy();
     }
 }
