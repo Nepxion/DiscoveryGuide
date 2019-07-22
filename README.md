@@ -659,7 +659,7 @@ Spring Cloud Gateway网关
 
 继承GatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
-public class MyGatewayStrategyTracer extends GatewayStrategyTracer {
+public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
     @Override
     public void trace(ServerWebExchange exchange) {
         super.trace(exchange);
@@ -681,7 +681,7 @@ Zuul网关
 
 继承ZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
-public class MyZuulStrategyTracer extends ZuulStrategyTracer {
+public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
     @Override
     public void trace(RequestContext context) {
         super.trace(context);
@@ -703,7 +703,7 @@ Service服务
 
 继承ServiceStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceLocal方法）或者更多通过MDC方式输出到日志
 ```java
-public class MyServiceStrategyTracer extends ServiceStrategyTracer {
+public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     @Override
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         super.trace(interceptor, invocation);
