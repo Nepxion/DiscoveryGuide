@@ -10,13 +10,17 @@ package com.nepxion.discovery.gray.service;
  */
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.gray.service.impl.MyDiscoveryEnabledStrategy;
+import com.nepxion.discovery.gray.service.impl.MyServiceStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
+import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
+import com.nepxion.discovery.plugin.strategy.service.tracer.ServiceStrategyTracer;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -31,5 +35,11 @@ public class DiscoveryGrayServiceA1 {
     @Bean
     public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
         return new MyDiscoveryEnabledStrategy();
+    }
+
+    @Bean
+    @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+    public ServiceStrategyTracer serviceStrategyTracer() {
+        return new MyServiceStrategyTracer();
     }
 }

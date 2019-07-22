@@ -16,16 +16,24 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.gray.gateway.impl.MyDiscoveryEnabledStrategy;
+import com.nepxion.discovery.gray.gateway.impl.MyGatewayStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
+import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
 import com.nepxion.discovery.plugin.strategy.gateway.constant.GatewayStrategyConstant;
 import com.nepxion.discovery.plugin.strategy.gateway.filter.CustomizationGatewayStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyRouteFilter;
+import com.nepxion.discovery.plugin.strategy.gateway.tracer.GatewayStrategyTracer;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 public class DiscoveryGrayGateway {
     public static void main(String[] args) {
         new SpringApplicationBuilder(DiscoveryGrayGateway.class).run(args);
+    }
+
+    @Bean
+    public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
+        return new MyDiscoveryEnabledStrategy();
     }
 
     @Bean
@@ -36,7 +44,8 @@ public class DiscoveryGrayGateway {
     }
 
     @Bean
-    public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
-        return new MyDiscoveryEnabledStrategy();
+    @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+    public GatewayStrategyTracer gatewayStrategyTracer() {
+        return new MyGatewayStrategyTracer();
     }
 }
