@@ -38,6 +38,7 @@ public class DiscoveryGrayGateway {
 
     @Bean
     @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+    // @RefreshScope // 只适用于Nacos Config
     public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
         // return new MyRouteFilter();
         return new CustomizationGatewayStrategyRouteFilter();

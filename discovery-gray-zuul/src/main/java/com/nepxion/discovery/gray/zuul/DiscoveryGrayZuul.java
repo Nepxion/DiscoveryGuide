@@ -40,6 +40,7 @@ public class DiscoveryGrayZuul {
 
     @Bean
     @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
+    // @RefreshScope // 只适用于Nacos Config
     public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
         // return new MyRouteFilter();
         return new CustomizationZuulStrategyRouteFilter();
