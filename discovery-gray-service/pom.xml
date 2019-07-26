@@ -32,5 +32,10 @@
             <artifactId>discovery-plugin-strategy-starter-service</artifactId>
             <version>${discovery.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
     </dependencies>
 </project>
