@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.gray.gateway.impl.MyDiscoveryEnabledStrategy;
@@ -38,7 +39,7 @@ public class DiscoveryGrayGateway {
 
     @Bean
     @ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
-    // @RefreshScope // 只适用于Nacos Config
+    @RefreshScope // 只适用于Nacos Config
     public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
         // return new MyRouteFilter();
         return new CustomizationGatewayStrategyRouteFilter();
@@ -46,6 +47,7 @@ public class DiscoveryGrayGateway {
 
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+    @RefreshScope // 只适用于Nacos Config
     public GatewayStrategyTracer gatewayStrategyTracer() {
         return new MyGatewayStrategyTracer();
     }

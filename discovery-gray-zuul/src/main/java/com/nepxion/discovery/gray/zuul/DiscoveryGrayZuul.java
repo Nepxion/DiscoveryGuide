@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
@@ -40,7 +41,7 @@ public class DiscoveryGrayZuul {
 
     @Bean
     @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
-    // @RefreshScope // 只适用于Nacos Config
+    @RefreshScope // 只适用于Nacos Config
     public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
         // return new MyRouteFilter();
         return new CustomizationZuulStrategyRouteFilter();
@@ -48,6 +49,7 @@ public class DiscoveryGrayZuul {
 
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+    @RefreshScope // 只适用于Nacos Config
     public ZuulStrategyTracer zuulStrategyTracer() {
         return new MyZuulStrategyTracer();
     }
