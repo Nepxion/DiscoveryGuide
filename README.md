@@ -11,7 +11,7 @@
 Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行换成Edgware版），主要功能包括：
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域匹配路由、版本和区域权重路由两种
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本匹配发布、版本和区域权重发布
-- 全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，还具有
+- 全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
   - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
   - 消费端隔离：黑/白名单的IP地址的消费端隔离
 - 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出
@@ -133,6 +133,9 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 表示discovery-gray-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
 
+多区域灰度路由架构图
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteRegion.jpg)
+
 #### 区域权重灰度路由规则
 增加Zuul的基于区域权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
 ```xml
@@ -181,6 +184,9 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 "discovery-gray-service-b":"1.*;1.2.?"
 ```
 表示discovery-gray-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
+
+多版本灰度路由架构图
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteVersion.jpg)
 
 #### 版本权重灰度路由规则
 增加Spring Cloud Gateway的基于版本权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%：
