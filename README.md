@@ -1,4 +1,4 @@
-# Nepxion Discovery Gray
+# Nepxion Discovery Gray Guide
 [![Total lines](https://tokei.rs/b1/github/Nepxion/DiscoveryGray?category=lines)](https://tokei.rs/b1/github/Nepxion/DiscoveryGray?category=lines)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/DiscoveryGray/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/Nepxion/DiscoveryGray.svg?branch=master)](https://travis-ci.org/Nepxion/DiscoveryGray)
@@ -8,7 +8,7 @@
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
-Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行换成Edgware版），主要功能包括：
+Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行换成Edgware版），主要功能包括：
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域匹配路由、版本和区域权重路由两种，除此之外，不在本文介绍内的，还包括基于机器IP地址和端口的路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本匹配发布、版本和区域权重发布
 - 全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
@@ -18,9 +18,11 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 
-阿里巴巴Nacos是新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
+Nacos是阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
 
-示例以Nacos为服务注册中心和配置中心（使用者可自行换成其它服务注册中心和配置中心），通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能。如果使用者需要更强大的功能，请参考[源码主页](https://github.com/Nepxion/Discovery)。规则策略很多，请使用者选择最适合自己业务场景的方式
+Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套件，致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过Spring Cloud编程模型轻松使用这些组件来开发分布式应用服务。依托Spring Cloud Alibaba，只需要添加一些注解和少量配置，就可以将Spring Cloud应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统
+
+示例以Nacos为服务注册中心和配置中心（使用者可自行换成其它服务注册中心和配置中心），集成Spring Cloud Alibaba，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能。如果使用者需要更强大的功能，请参考[源码主页](https://github.com/Nepxion/Discovery)。规则策略很多，请使用者选择最适合自己业务场景的方式
 
 ## 目录
 - [请联系我](#请联系我)
@@ -67,7 +69,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Govern.jpg)
 
 ## 环境搭建和运行
-- 下载代码并导入IDE
+- 下载代码
+  - Git clone https://github.com/Nepxion/DiscoveryGray.git 
+- 导入IDE
 - 启动Nacos服务器
   - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
   - 运行bin目录下的startup命令行
