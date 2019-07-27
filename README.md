@@ -33,6 +33,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简示例，有助于使用者�
     - [区域权重灰度路由规则](#版本权重灰度路由规则)
     - [版本灰度路由规则](#区域灰度路由规则)	
     - [版本权重灰度路由规则](#区域权重灰度路由规则)
+    - [灰度路由架构图](#灰度路由架构图)
   - [通过其它方式设置网关灰度路由规则](#通过其它方式设置网关灰度路由规则)
     - [通过前端传入灰度路由规则](#通过前端传入灰度路由规则)
     - [通过业务参数在网关过滤器中自定义路由规则](#通过业务参数在网关过滤器中自定义路由规则)
@@ -133,9 +134,6 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 表示discovery-gray-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
 
-多区域灰度路由架构图
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteRegion.jpg)
-
 #### 区域权重灰度路由规则
 增加Zuul的基于区域权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
 ```xml
@@ -185,9 +183,6 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 表示discovery-gray-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
 
-多版本灰度路由架构图
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteVersion.jpg)
-
 #### 版本权重灰度路由规则
 增加Spring Cloud Gateway的基于版本权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%：
 ```xml
@@ -206,6 +201,17 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 <version-weight>1.0=90;1.1=10</version-weight>
 <version-weight>{"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}</version-weight>
 ```
+
+#### 灰度路由架构图
+
+多版本灰度路由架构图
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteVersion.jpg)
+
+多区域灰度路由架构图
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteRegion.jpg)
+
+多IP和端口灰度路由架构图
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteAddress.jpg)
 
 ### 通过其它方式设置网关灰度路由规则
 除了上面通过配置中心发布灰度规路由则外，还有如下三种方式:
