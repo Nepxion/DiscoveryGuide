@@ -1,4 +1,4 @@
-# Nepxion Discovery Gray Guide
+# Nepxion Discovery Gray
 [![Total lines](https://tokei.rs/b1/github/Nepxion/DiscoveryGray?category=lines)](https://tokei.rs/b1/github/Nepxion/DiscoveryGray?category=lines)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/DiscoveryGray/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/Nepxion/DiscoveryGray.svg?branch=master)](https://travis-ci.org/Nepxion/DiscoveryGray)
