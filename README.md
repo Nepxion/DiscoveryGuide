@@ -25,7 +25,8 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 ## 目录
 - [请联系我](#请联系我)
 - [服务治理架构图](#服务治理架构图)
-- [环境搭建和运行](#环境搭建和运行)
+- [环境搭建](#环境搭建)
+- [运行程序](#运行程序)
 - [通过网关进行调用测试](#通过网关进行调用测试)
 - [基于Header传递的网关灰度路由策略](#基于Header传递的网关灰度路由策略)
   - [灰度路由架构图](#灰度路由架构图)
@@ -66,14 +67,16 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 ## 服务治理架构图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Govern.jpg)
 
-## 环境搭建和运行
+## 环境搭建
 - 下载代码
   - Git clone https://github.com/Nepxion/DiscoveryGray.git 
 - 导入IDE
 - 启动Nacos服务器
   - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
   - 运行bin目录下的startup命令行
-- 启动四个实例服务和两个网关服务，如下： 
+
+## 运行程序 
+- 在IDE中，启动四个实例服务和两个网关服务，如下： 
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
 | --- | --- | --- | --- | --- |
