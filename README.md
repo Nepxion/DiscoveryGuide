@@ -70,7 +70,7 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 ## 环境搭建
 - 下载代码
   - Git clone https://github.com/Nepxion/DiscoveryGray.git 
-- 导入IDE
+- 代码导入IDE
 - 下载Nacos服务器
   - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
 - 启动Nacos服务器
