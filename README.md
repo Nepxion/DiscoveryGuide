@@ -30,15 +30,15 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 - [环境验证](#环境验证)
 - [基于Header传递的网关灰度路由策略](#基于Header传递的网关灰度路由策略)
   - [灰度路由架构图](#灰度路由架构图)
-  - [配置网关灰度路由规则](#配置网关灰度路由规则)
-    - [区域匹配灰度路由规则](#区域匹配灰度路由规则)
-    - [区域权重灰度路由规则](#区域权重灰度路由规则])
-    - [版本匹配灰度路由规则](#版本匹配灰度路由规则)	
-    - [版本权重灰度路由规则](#版本权重灰度路由规则])
-  - [通过其它方式设置网关灰度路由规则](#通过其它方式设置网关灰度路由规则)
-    - [通过前端传入灰度路由规则](#通过前端传入灰度路由规则)
-    - [通过业务参数在网关过滤器中自定义路由规则](#通过业务参数在网关过滤器中自定义路由规则)
-    - [通过业务参数在策略类中自定义路由规则](#通过业务参数在策略类中自定义路由规则)
+  - [配置网关灰度路由策略](#配置网关灰度路由策略)
+    - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
+    - [区域权重灰度路由策略](#区域权重灰度路由策略])
+    - [版本匹配灰度路由策略](#版本匹配灰度路由策略)	
+    - [版本权重灰度路由策略](#版本权重灰度路由策略])
+  - [通过其它方式设置网关灰度路由策略](#通过其它方式设置网关灰度路由策略)
+    - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
+    - [通过业务参数在网关过滤器中自定义路由策略](#通过业务参数在网关过滤器中自定义路由策略)
+    - [通过业务参数在策略类中自定义路由策略](#通过业务参数在策略类中自定义路由策略)
 - [基于规则订阅的全链路灰度发布规则](#基于规则订阅的全链路灰度发布规则)
   - [配置全链路灰度匹配规则](#配置全链路灰度匹配规则)
     - [版本匹配灰度规则](#版本匹配灰度规则)
@@ -119,11 +119,11 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 多IP和端口灰度路由架构图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteAddress.jpg)
 
-### 配置网关灰度路由规则
-在Nacos配置中心，增加网关灰度路由规则
+### 配置网关灰度路由策略
+在Nacos配置中心，增加网关灰度路由策略
 
-#### 区域匹配灰度路由规则
-增加Zuul的基于区域匹配路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用都走区域为dev的服务：
+#### 区域匹配灰度路由策略
+增加Zuul的基于区域匹配路由的灰度策略，Group为discovery-gray-group，Data Id为discovery-gray-zuul，策略内容如下，实现从Zuul发起的调用都走区域为dev的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -152,8 +152,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 表示discovery-gray-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
 
-#### 区域权重灰度路由规则
-增加Zuul的基于区域权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
+#### 区域权重灰度路由策略
+增加Zuul的基于区域权重路由的灰度策略，Group为discovery-gray-group，Data Id为discovery-gray-zuul，策略内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -171,8 +171,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 <region-weight>{"discovery-gray-service-a":"dev=85;qa=15", "discovery-gray-service-b":"dev=85;qa=15"}</region-weight>
 ```
 
-#### 版本匹配灰度路由规则
-增加Spring Cloud Gateway的基于版本匹配路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
+#### 版本匹配灰度路由策略
+增加Spring Cloud Gateway的基于版本匹配路由的灰度策略，Group为discovery-gray-group，Data Id为discovery-gray-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -201,8 +201,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 表示discovery-gray-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
 
-#### 版本权重灰度路由规则
-增加Spring Cloud Gateway的基于版本权重路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%：
+#### 版本权重灰度路由策略
+增加Spring Cloud Gateway的基于版本权重路由的灰度策略，Group为discovery-gray-group，Data Id为discovery-gray-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -220,30 +220,30 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 <version-weight>{"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}</version-weight>
 ```
 
-### 通过其它方式设置网关灰度路由规则
+### 通过其它方式设置网关灰度路由策略
 除了上面通过配置中心发布灰度规路由则外，还有如下三种方式:
 
-#### 通过前端传入灰度路由规则
-通过前端（Postman）方式传入灰度路由规则，来代替配置中心方式，传递全链路路由规则。注意：当配置中心和界面都配置后，以界面传入优先
+#### 通过前端传入灰度路由策略
+通过前端（Postman）方式传入灰度路由策略，来代替配置中心方式，传递全链路路由策略。注意：当配置中心和界面都配置后，以界面传入优先
 
-- 区域规则，Header格式如下任选一个：
+- 区域匹配策略，Header格式如下任选一个：
 ```xml
 n-d-region=qa
 n-d-region={"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}
 ```
-- 区域权重规则，Header格式如下任选一个：
+- 区域权重策略，Header格式如下任选一个：
 ```xml
 n-d-region-weight=dev=99;qa=1
 n-d-region-weight={"discovery-gray-service-a":"dev=99;qa=1", "discovery-gray-service-b":"dev=99;qa=1"}
 ```
 
-- 版本规则，Header格式如下任选一个：
+- 版本匹配策略，Header格式如下任选一个：
 ```xml
 n-d-version=1.0
 n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 ```
 
-- 版本权重规则，Header格式如下任选一个：
+- 版本权重策略，Header格式如下任选一个：
 ```xml
 n-d-version-weight=1.0=90;1.1=10
 n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}
@@ -263,10 +263,10 @@ spring.application.strategy.gateway.header.priority=false
 spring.application.strategy.zuul.header.priority=false
 ``` 
 
-#### 通过业务参数在网关过滤器中自定义灰度路由规则
-通过网关过滤器传递Http Header的方式传递全链路灰度路由规则。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
+#### 通过业务参数在网关过滤器中自定义灰度路由策略
+通过网关过滤器传递Http Header的方式传递全链路灰度路由策略。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
 
-- 内置规则解析映射到过滤器的自定义方式
+- 内置策略解析映射到过滤器的自定义方式
 
 通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter，覆盖框架内置的过滤类
 
@@ -292,7 +292,7 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 }
 ```
 
-增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，或者，增加Spring Cloud Gateway的解析规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容见下面XML内容，它所表达的功能逻辑：
+增加Spring Cloud Gateway的解析策略，Group为discovery-gray-group，Data Id为discovery-gray-gateway，或者，增加Spring Cloud Gateway的解析策略，Group为discovery-gray-group，Data Id为discovery-gray-zuul，策略内容见下面XML内容，它所表达的功能逻辑：
 ```xml
 1. 当外部调用带有的Http Header中的值a=1同时b=2
    <condition>节点中header="a=1;b=2"对应的version-id="version-route1"，找到下面
@@ -308,7 +308,7 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
    <strategy>节点中的全局缺省路由，那么路由即为：
    {"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 
-4. 规则解析总共支持5种，可以单独一项使用，也可以多项叠加使用：
+4. 策略解析总共支持5种，可以单独一项使用，也可以多项叠加使用：
    1）version 版本路由
    2）region 区域路由
    3）address 机器地址路由
@@ -430,8 +430,8 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 }
 ```
 
-#### 通过业务参数在策略类中自定义灰度路由规则
-通过策略方式自定义灰度路由规则。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，同时全链路中网关和服务都必须加该方式
+#### 通过业务参数在策略类中自定义灰度路由策略
+通过策略方式自定义灰度路由策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，同时全链路中网关和服务都必须加该方式
 ```java
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
 public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy {
