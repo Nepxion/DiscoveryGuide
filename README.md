@@ -31,9 +31,9 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 - [基于Header传递的网关灰度路由策略](#基于Header传递的网关灰度路由策略)
   - [灰度路由架构图](#灰度路由架构图)
   - [配置网关灰度路由规则](#配置网关灰度路由规则)
-    - [区域灰度路由规则](#区域灰度路由规则)
+    - [区域匹配灰度路由规则](#区域匹配灰度路由规则)
     - [区域权重灰度路由规则](#区域权重灰度路由规则])
-    - [版本灰度路由规则](#版本灰度路由规则)	
+    - [版本匹配灰度路由规则](#版本匹配灰度路由规则)	
     - [版本权重灰度路由规则](#版本权重灰度路由规则])
   - [通过其它方式设置网关灰度路由规则](#通过其它方式设置网关灰度路由规则)
     - [通过前端传入灰度路由规则](#通过前端传入灰度路由规则)
@@ -122,8 +122,8 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 ### 配置网关灰度路由规则
 在Nacos配置中心，增加网关灰度路由规则
 
-#### 区域灰度路由规则
-增加Zuul的基于区域路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用都走区域为dev的服务：
+#### 区域匹配灰度路由规则
+增加Zuul的基于区域匹配路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-zuul，规则内容如下，实现从Zuul发起的调用都走区域为dev的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -171,8 +171,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 <region-weight>{"discovery-gray-service-a":"dev=85;qa=15", "discovery-gray-service-b":"dev=85;qa=15"}</region-weight>
 ```
 
-#### 版本灰度路由规则
-增加Spring Cloud Gateway的基于版本路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
+#### 版本匹配灰度路由规则
+增加Spring Cloud Gateway的基于版本匹配路由的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-gateway，规则内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
