@@ -39,15 +39,15 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
     - [通过前端传入灰度路由规则](#通过前端传入灰度路由规则)
     - [通过业务参数在网关过滤器中自定义路由规则](#通过业务参数在网关过滤器中自定义路由规则)
     - [通过业务参数在策略类中自定义路由规则](#通过业务参数在策略类中自定义路由规则)
-- [基于规则订阅的全链路灰度发布策略](#基于规则订阅的全链路灰度发布策略)
-  - [配置全链路灰度匹配策略](#配置全链路灰度匹配策略)
-    - [版本匹配规则](#版本匹配规则)
-    - [区域匹配规则](#区域匹配规则)	
-  - [配置全链路灰度权重策略](#配置全链路灰度权重策略)
-    - [全局版本权重规则](#全局版本权重规则)
-    - [局部版本权重规则](#局部版本权重规则)	
-    - [全局区域权重规则](#全局区域权重规则)
-    - [局部区域权重规则](#局部区域权重规则)
+- [基于规则订阅的全链路灰度发布规则](#基于规则订阅的全链路灰度发布规则)
+  - [配置全链路灰度匹配规则](#配置全链路灰度匹配规则)
+    - [版本匹配灰度规则](#版本匹配灰度规则)
+    - [区域匹配灰度规则](#区域匹配灰度规则)	
+  - [配置全链路灰度权重规则](#配置全链路灰度权重规则)
+    - [全局版本权重灰度规则](#全局版本权重灰度规则)
+    - [局部版本权重灰度规则](#局部版本权重灰度规则)	
+    - [全局区域权重灰度规则](#全局区域权重灰度规则)
+    - [局部区域权重灰度规则](#局部区域权重灰度规则)
   - [配置全链路灰度权重&灰度版本组合式策略](#配置全链路灰度权重&灰度版本组合式策略)
 - [全链路服务隔离](#全链路服务隔离)
   - [注册服务隔离](#注册服务隔离)
@@ -472,13 +472,13 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 }
 ```
 
-## 基于规则订阅的全链路灰度发布策略
+## 基于规则订阅的全链路灰度发布规则
 在Nacos配置中心，增加全链路灰度发布规则
 注意：该功能和网关灰度路由和灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的规则
 
-### 配置全链路灰度匹配策略
+### 配置全链路灰度匹配规则
 
-#### 版本匹配规则
+#### 版本匹配灰度规则
 增加版本匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -494,7 +494,7 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray3-1.jpg)
 
-#### 区域匹配规则
+#### 区域匹配灰度规则
 增加区域匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现dev区域的a服务只能访问dev区域的b服务，qa区域的a服务只能访问qa区域的b服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -510,9 +510,9 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray3-2.jpg)
 
-### 配置全链路灰度权重策略
+### 配置全链路灰度权重规则
 
-#### 全局版本权重规则
+#### 全局版本权重灰度规则
 增加全局版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现版本为1.0的服务提供90%的流量，版本为1.1的服务提供10%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -527,7 +527,7 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-1.jpg)
 
-#### 局部版本权重规则
+#### 局部版本权重灰度规则
 增加局部版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -543,7 +543,7 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-2.jpg)
 
-#### 全局区域权重规则
+#### 全局区域权重灰度规则
 增加全局区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -558,7 +558,7 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-3.jpg)
 
-#### 局部区域权重规则
+#### 局部区域权重灰度规则
 增加局部区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务dev区域提供90%的流量，qa区域提供10%的流量；b服务dev区域提供20%的流量，qa区域提供80%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
