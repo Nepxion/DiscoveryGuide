@@ -27,7 +27,7 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 - [服务治理架构图](#服务治理架构图)
 - [环境搭建](#环境搭建)
 - [启动服务](#启动服务)
-- [通过网关进行调用测试](#通过网关进行调用测试)
+- [环境验证](#环境验证)
 - [基于Header传递的网关灰度路由策略](#基于Header传递的网关灰度路由策略)
   - [灰度路由架构图](#灰度路由架构图)
   - [配置网关灰度路由规则](#配置网关灰度路由规则)
@@ -89,7 +89,7 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 | DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
 
-## 通过网关进行调用测试
+## 环境验证
 - 导入Postman的测试脚本导入，[脚本地址](https://github.com/Nepxion/Discovery/blob/master/discovery-springcloud-postman/Nepxion.postman_collection.json)
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Gateway网关调用示例“，即[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)。测试通过Spring Cloud Gateway网关的调用结果，如下：
