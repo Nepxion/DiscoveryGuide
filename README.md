@@ -699,7 +699,7 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 
 ## 全链路服务隔离
 
-元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能相互发生关系
+元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能调用
 
 ### 注册服务隔离
 基于Group黑/白名单的策略，即当前的服务所在的Group，不在Group的黑名单或者在白名单里，才允许被注册。只需要在网关或者服务端，开启如下配置即可：
@@ -738,9 +738,9 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.fei
 ```xml
 Reject to invoke because of isolation with different service group
 ```
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-5.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-1.jpg)
 如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的手段
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-6.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-2.jpg)
 
 ## Star走势图
 
