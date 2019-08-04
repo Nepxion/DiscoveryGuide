@@ -78,14 +78,7 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
   - Linux环境下，运行bin目录下的startup.sh
 
 ## 启动服务 
-- 在IDE中，启动两个网关服务，如下： 
-
-| 类名 | 微服务 | 服务端口 | 版本 | 区域 |
-| --- | --- | --- | --- | --- |
-| DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
-| DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
-
-- 在IDE中，启动四个应用服务，如下： 
+- 在IDE中，启动四个应用服务和两个网关服务，如下： 
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
 | --- | --- | --- | --- | --- |
@@ -93,6 +86,10 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 | DiscoveryGrayServiceA2.java | A2 | 3002 | 1.1 | qa |
 | DiscoveryGrayServiceB1.java | B1 | 4001 | 1.0 | qa |
 | DiscoveryGrayServiceB2.java | B2 | 4002 | 1.1 | dev |
+| DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
+| DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
+
+注：启动不分前后次序
 
 ## 环境验证
 - 导入Postman的测试脚本导入，[脚本地址](https://github.com/Nepxion/Discovery/blob/master/discovery-springcloud-postman/Nepxion.postman_collection.json)
