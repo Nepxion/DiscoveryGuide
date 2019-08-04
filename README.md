@@ -738,7 +738,7 @@ spring.application.strategy.provider.isolation.enabled=true
 spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.feign
 ```
 
-在Postman调用，执行[http://localhost:4001/invoke/test](http://localhost:4001/invoke/test)，去调用discovery-gray-service-b服务，将出现如下异常。意味着在discovery-gray-service-b提供端进行了隔离
+在Postman调用，执行[http://localhost:4001/invoke/abc](http://localhost:4001/invoke/abc)，去调用discovery-gray-service-b服务，将出现如下异常。意味着在discovery-gray-service-b提供端进行了隔离
 ```xml
 Reject to invoke because of isolation with different service group
 ```
