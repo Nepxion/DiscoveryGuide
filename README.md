@@ -92,13 +92,15 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 ## 环境验证
 - 导入Postman的测试脚本导入，[脚本地址](https://github.com/Nepxion/Discovery/blob/master/discovery-springcloud-postman/Nepxion.postman_collection.json)
 
-- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Gateway网关调用示例“，即[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)。测试通过Spring Cloud Gateway网关的调用结果，如下：
+- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)，其它Header值已经预设，供开发者修改
+测试通过Spring Cloud Gateway网关的调用结果，结果为如下方式：
 ```xml
 gateway -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
 -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
 ```
 
-- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Zuul网关调用示例“，即[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)。测试通过Zuul网关的调用结果，如下：
+- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Zuul网关调用示例“，调用地址为[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)，其它Header值已经预设，供开发者修改
+测试通过Zuul网关的调用结果，结果为如下方式：
 ```xml
 zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
 -> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
