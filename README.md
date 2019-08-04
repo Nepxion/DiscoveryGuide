@@ -714,7 +714,7 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 # 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
 spring.application.strategy.register.isolation.enabled=true
 ```
-默认方式，黑/白名单通过如此方式配置
+黑/白名单通过如下方式配置
 ```xml
 spring.application.strategy.register.isolation.group.blacklist=
 spring.application.strategy.register.isolation.group.whitelist=
@@ -726,17 +726,14 @@ spring.application.strategy.register.isolation.group.whitelist=
 # 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.consumer.isolation.enabled=true
 ```
-
-修改discovery-gray-service-b的Group名为其它名称，执行Postman调用，将发现从discovery-gray-service-a无法拿到discovery-gray-service-b的任何实例。意味着在discovery-gray-service-a消费端进行了隔离
+通过修改discovery-gray-service-b的Group名为其它名称，执行Postman调用，将发现从discovery-gray-service-a无法拿到discovery-gray-service-b的任何实例。意味着在discovery-gray-service-a消费端进行了隔离
 
 ### 提供端服务隔离
 基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-service-group值进行匹配。只需要在服务端（不适用网关），开启如下配置即可：
 ```xml
 # 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.provider.isolation.enabled=true
-```
-还必须做如下配置
-```xml
+
 # 用户自定义和编程灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截和消费端的服务隔离两项工作
 spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.feign
 ```
@@ -746,7 +743,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.fei
 Reject to invoke because of isolation with different service group
 ```
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-1.jpg)
-如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的手段
+如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-2.jpg)
 
 ## Star走势图
