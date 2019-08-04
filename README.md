@@ -633,7 +633,8 @@ n-d-service-region - 服务所属区域
 ### Header输出方式
 
 Header方式框架内部集成
-- 网关端自行会传输Header值（参考Discovery源码中的AbstractGatewayStrategyRouteFilter.java和AbstractZuulStrategyRouteFilter.java）
+- Spring Cloud Gateway网关端自行会传输Header值（参考Discovery源码中的AbstractGatewayStrategyRouteFilter.java）
+- Zuul网关端自行会传输Header值（参考Discovery源码中的AbstractZuulStrategyRouteFilter.java）
 - 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
 
 ### 日志输出方式
