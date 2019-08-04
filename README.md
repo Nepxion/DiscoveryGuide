@@ -32,9 +32,9 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
   - [灰度路由架构图](#灰度路由架构图)
   - [配置网关灰度路由策略](#配置网关灰度路由策略)
     - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
-    - [区域权重灰度路由策略](#区域权重灰度路由策略])
-    - [版本匹配灰度路由策略](#版本匹配灰度路由策略)	
-    - [版本权重灰度路由策略](#版本权重灰度路由策略])
+    - [区域权重灰度路由策略](#区域权重灰度路由策略)
+    - [版本匹配灰度路由策略](#版本匹配灰度路由策略)
+    - [版本权重灰度路由策略](#版本权重灰度路由策略)
   - [通过其它方式设置网关灰度路由策略](#通过其它方式设置网关灰度路由策略)
     - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
     - [通过业务参数在网关过滤器中自定义路由策略](#通过业务参数在网关过滤器中自定义路由策略)
@@ -42,20 +42,20 @@ Spring Cloud Alibaba是阿里巴巴中间件部门开发的Spring Cloud增强套
 - [基于订阅方式的全链路灰度发布规则](#基于订阅方式的全链路灰度发布规则)
   - [配置全链路灰度匹配规则](#配置全链路灰度匹配规则)
     - [版本匹配灰度规则](#版本匹配灰度规则)
-    - [区域匹配灰度规则](#区域匹配灰度规则)	
+    - [区域匹配灰度规则](#区域匹配灰度规则)
   - [配置全链路灰度权重规则](#配置全链路灰度权重规则)
     - [全局版本权重灰度规则](#全局版本权重灰度规则)
-    - [局部版本权重灰度规则](#局部版本权重灰度规则)	
+    - [局部版本权重灰度规则](#局部版本权重灰度规则)
     - [全局区域权重灰度规则](#全局区域权重灰度规则)
     - [局部区域权重灰度规则](#局部区域权重灰度规则)
   - [配置全链路灰度权重&灰度版本组合式策略](#配置全链路灰度权重&灰度版本组合式策略)
+- [全链路灰度调用链](#全链路灰度调用链)
+  - [Header输出方式](#Header输出方式)
+  - [日志输出方式](#日志输出方式)
 - [全链路服务隔离](#全链路服务隔离)
   - [注册服务隔离](#注册服务隔离)
   - [消费端服务隔离](#消费端服务隔离)
   - [提供端服务隔离](#提供端服务隔离)
-- [全链路灰度调用链](#全链路灰度调用链)
-  - [Header输出方式](#Header输出方式)
-  - [日志输出方式](#日志输出方式)
 - [Star走势图](#Star走势图)
 
 ## 请联系我
@@ -614,51 +614,6 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 - 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-4.jpg)
 
-## 全链路服务隔离
-
-元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能相互发生关系
-
-### 注册服务隔离
-基于Group黑/白名单的策略，即当前的服务所在的Group，不在Group的黑名单或者在白名单里，才允许被注册。只需要在网关或者服务端，开启如下配置即可：
-```xml
-# 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
-spring.application.strategy.register.isolation.enabled=true
-```
-默认方式，黑/白名单通过如此方式配置
-```xml
-spring.application.strategy.register.isolation.group.blacklist=
-spring.application.strategy.register.isolation.group.whitelist=
-```
-
-### 消费端服务隔离
-基于Group是否相同的策略，即消费端拿到的提供端列表，两者的Group必须相同。只需要在网关或者服务端，开启如下配置即可：
-```xml
-# 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
-spring.application.strategy.consumer.isolation.enabled=true
-```
-
-修改discovery-gray-service-b的Group名为其它名称，执行Postman调用，将发现从discovery-gray-service-a无法拿到discovery-gray-service-b的任何实例。意味着在discovery-gray-service-a消费端进行了隔离
-
-### 提供端服务隔离
-基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-service-group值进行匹配。只需要在服务端（不适用网关），开启如下配置即可：
-```xml
-# 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
-spring.application.strategy.provider.isolation.enabled=true
-```
-还必须做如下配置
-```xml
-# 用户自定义和编程灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截和消费端的服务隔离两项工作
-spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.feign
-```
-
-在Postman调用，执行[http://localhost:4001/invoke/test](http://localhost:4001/invoke/test)，去调用discovery-gray-service-b服务，将出现如下异常。意味着在discovery-gray-service-b提供端进行了隔离
-```xml
-Reject to invoke because of isolation with different service group
-```
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-5.jpg)
-如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的手段
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-6.jpg)
-
 ## 全链路灰度调用链
 
 灰度调用链主要包括如下6个参数：
@@ -741,6 +696,51 @@ public ServiceStrategyTracer serviceStrategyTracer() {
     return new MyServiceStrategyTracer();
 }
 ```
+
+## 全链路服务隔离
+
+元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能相互发生关系
+
+### 注册服务隔离
+基于Group黑/白名单的策略，即当前的服务所在的Group，不在Group的黑名单或者在白名单里，才允许被注册。只需要在网关或者服务端，开启如下配置即可：
+```xml
+# 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
+spring.application.strategy.register.isolation.enabled=true
+```
+默认方式，黑/白名单通过如此方式配置
+```xml
+spring.application.strategy.register.isolation.group.blacklist=
+spring.application.strategy.register.isolation.group.whitelist=
+```
+
+### 消费端服务隔离
+基于Group是否相同的策略，即消费端拿到的提供端列表，两者的Group必须相同。只需要在网关或者服务端，开启如下配置即可：
+```xml
+# 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
+spring.application.strategy.consumer.isolation.enabled=true
+```
+
+修改discovery-gray-service-b的Group名为其它名称，执行Postman调用，将发现从discovery-gray-service-a无法拿到discovery-gray-service-b的任何实例。意味着在discovery-gray-service-a消费端进行了隔离
+
+### 提供端服务隔离
+基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-service-group值进行匹配。只需要在服务端（不适用网关），开启如下配置即可：
+```xml
+# 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
+spring.application.strategy.provider.isolation.enabled=true
+```
+还必须做如下配置
+```xml
+# 用户自定义和编程灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截和消费端的服务隔离两项工作
+spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.feign
+```
+
+在Postman调用，执行[http://localhost:4001/invoke/test](http://localhost:4001/invoke/test)，去调用discovery-gray-service-b服务，将出现如下异常。意味着在discovery-gray-service-b提供端进行了隔离
+```xml
+Reject to invoke because of isolation with different service group
+```
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-5.jpg)
+如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的手段
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-6.jpg)
 
 ## Star走势图
 
