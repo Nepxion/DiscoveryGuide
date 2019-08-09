@@ -37,12 +37,13 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
 
         LOG.info("调用链输出");
 
-        // release方法的调用视业务系统的日志使用方式而定，可以自行在后面自定义的Filter中释放。需要注意，不能有线程切换
-        release(context);
+        release();
     }
 
     @Override
-    public void release(RequestContext context) {
+    public void release() {
+        LOG.info("调用链清除");
+
         MDC.clear();
     }
 }

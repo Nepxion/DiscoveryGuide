@@ -48,7 +48,9 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     }
 
     @Override
-    public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
+    public void release() {
+        LOG.info("调用链清除");
+
         MDC.clear();
     }
 }
