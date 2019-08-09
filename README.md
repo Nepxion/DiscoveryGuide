@@ -621,10 +621,10 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 
 灰度调用链主要包括如下6个参数：
 ```xml
+n-d-service-group - 服务所属组或者应用
 n-d-service-type - 服务类型，分为“网关”和“服务”
 n-d-service-id - 服务ID
 n-d-service-address - 服务地址，包括Host和Port
-n-d-service-group - 服务所属组
 n-d-service-version - 服务版本
 n-d-service-region - 服务所属区域
 ```
