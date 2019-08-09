@@ -10,11 +10,17 @@ package com.nepxion.discovery.gray.service.impl;
  */
 
 import org.aopalliance.intercept.MethodInvocation;
+import org.jboss.logging.MDC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.service.tracer.DefaultServiceStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.service.tracer.ServiceStrategyTracerInterceptor;
 
 public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
+    private static final Logger LOG = LoggerFactory.getLogger(MyServiceStrategyTracer.class);
+
     @Override
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         super.trace(interceptor, invocation);
@@ -28,6 +34,21 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
             System.out.println("  " + arguments[i].toString());
         }
 
-        // 输出到日志        
+        // 输出到日志
+        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, pluginAdapter.getGroup());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, pluginAdapter.getServiceType());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, pluginAdapter.getServiceId());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, pluginAdapter.getVersion());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
+
+        LOG.info("调用链输出");
+
+        // 不需要执行release方法，内置的AOP会自动执行它
+    }
+
+    @Override
+    public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
+        MDC.clear();
     }
 }
