@@ -42,15 +42,13 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, pluginAdapter.getVersion());
         MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
 
-        LOG.info("调用链输出");
-
-        // 不需要执行release方法，内置的AOP会自动执行它
+        LOG.info("全链路调用链输出");
     }
 
     @Override
-    public void release() {
+    public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         MDC.clear();
 
-        LOG.info("调用链清除");
+        LOG.info("全链路调用链清除");
     }
 }
