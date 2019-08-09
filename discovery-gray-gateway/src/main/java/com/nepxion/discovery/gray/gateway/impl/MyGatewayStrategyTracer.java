@@ -36,14 +36,12 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
 
         LOG.info("调用链输出");
-
-        release();
     }
 
     @Override
     public void release() {
-        LOG.info("调用链清除");
-
         MDC.clear();
+
+        LOG.info("调用链清除");
     }
 }
