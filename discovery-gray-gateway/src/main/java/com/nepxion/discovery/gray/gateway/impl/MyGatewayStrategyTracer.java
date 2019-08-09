@@ -42,8 +42,8 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
 
     @Override
     public void release() {
-        LOG.info("调用链清除");
-
         MDC.clear();
+
+        LOG.info("调用链清除");
     }
 }
