@@ -760,6 +760,7 @@ public ServiceStrategyTracer serviceStrategyTracer() {
     return new MyServiceStrategyTracer();
 }
 ```
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
 
 ## Star走势图
 
