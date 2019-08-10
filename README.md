@@ -49,13 +49,13 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
     - [全局区域权重灰度规则](#全局区域权重灰度规则)
     - [局部区域权重灰度规则](#局部区域权重灰度规则)
   - [配置全链路灰度权重&灰度版本组合式策略](#配置全链路灰度权重&灰度版本组合式策略)
-- [全链路灰度调用链](#全链路灰度调用链)
-  - [Header输出方式](#Header输出方式)
-  - [日志输出方式](#日志输出方式)
 - [全链路服务隔离](#全链路服务隔离)
   - [注册服务隔离](#注册服务隔离)
   - [消费端服务隔离](#消费端服务隔离)
   - [提供端服务隔离](#提供端服务隔离)
+- [全链路灰度调用链](#全链路灰度调用链)
+  - [Header输出方式](#Header输出方式)
+  - [日志输出方式](#日志输出方式)
 - [Star走势图](#Star走势图)
 
 ## 请联系我
@@ -617,93 +617,6 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 - 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-4.jpg)
 
-## 全链路灰度调用链
-
-灰度调用链主要包括如下6个参数：
-```xml
-n-d-service-group - 服务所属组或者应用
-n-d-service-type - 服务类型，分为“网关”和“服务”
-n-d-service-id - 服务ID
-n-d-service-address - 服务地址，包括Host和Port
-n-d-service-version - 服务版本
-n-d-service-region - 服务所属区域
-```
-灰度调用链输出分为Header方式和日志方式
-
-### Header输出方式
-
-Header方式框架内部集成
-- Spring Cloud Gateway网关端自行会传输Header值（参考Discovery源码中的AbstractGatewayStrategyRouteFilter.java）
-- Zuul网关端自行会传输Header值（参考Discovery源码中的AbstractZuulStrategyRouteFilter.java）
-- 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
-
-### 日志输出方式
-Spring Cloud Gateway网关
-
-继承GatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
-```java
-public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
-    @Override
-    public void trace(ServerWebExchange exchange) {
-        super.trace(exchange);
-        
-        // 输出到日志
-    }
-}
-```
-在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
-```java
-@Bean
-@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public GatewayStrategyTracer gatewayStrategyTracer() {
-    return new MyGatewayStrategyTracer();
-}
-```
-
-Zuul网关
-
-继承ZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
-```java
-public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
-    @Override
-    public void trace(RequestContext context) {
-        super.trace(context);
-        
-        // 输出到日志
-    }
-}
-```
-在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
-```java
-@Bean
-@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public ZuulStrategyTracer zuulStrategyTracer() {
-    return new MyZuulStrategyTracer();
-}
-```
-
-Service服务
-
-继承ServiceStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceLocal方法）或者更多通过MDC方式输出到日志
-```java
-public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
-    @Override
-    public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        super.trace(interceptor, invocation);
-        
-        // 输出到日志
-    }
-}
-```
-在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
-```java
-@Bean
-@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public ServiceStrategyTracer serviceStrategyTracer() {
-    return new MyServiceStrategyTracer();
-}
-```
-
 ## 全链路服务隔离
 
 元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能调用
@@ -745,6 +658,108 @@ Reject to invoke because of isolation with different service group
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-1.jpg)
 如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-2.jpg)
+
+## 全链路灰度调用链
+
+灰度调用链主要包括如下6个参数。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
+```xml
+n-d-service-group - 服务所属组或者应用
+n-d-service-type - 服务类型，分为“网关”和“服务”
+n-d-service-id - 服务ID
+n-d-service-address - 服务地址，包括Host和Port
+n-d-service-version - 服务版本
+n-d-service-region - 服务所属区域
+```
+灰度调用链输出分为Header方式和日志方式
+
+### Header输出方式
+
+Header方式框架内部集成
+- Spring Cloud Gateway网关端自行会传输Header值（参考Discovery源码中的AbstractGatewayStrategyRouteFilter.java）
+- Zuul网关端自行会传输Header值（参考Discovery源码中的AbstractZuulStrategyRouteFilter.java）
+- 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
+
+### 日志输出方式
+Spring Cloud Gateway网关
+
+继承GatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
+```java
+public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
+    @Override
+    public void trace(ServerWebExchange exchange) {
+        super.trace(exchange);
+        
+        // 输出到日志
+        MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
+        ...
+
+        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
+        ...
+    }
+}
+```
+在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
+```java
+@Bean
+@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+public GatewayStrategyTracer gatewayStrategyTracer() {
+    return new MyGatewayStrategyTracer();
+}
+```
+
+Zuul网关
+
+继承ZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
+```java
+public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
+    @Override
+    public void trace(RequestContext context) {
+        super.trace(context);
+        
+        // 输出到日志
+        MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
+        ...
+
+        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
+        ...
+    }
+}
+```
+在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
+```java
+@Bean
+@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+public ZuulStrategyTracer zuulStrategyTracer() {
+    return new MyZuulStrategyTracer();
+}
+```
+
+Service服务
+
+继承ServiceStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceLocal方法）或者更多通过MDC方式输出到日志
+```java
+public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
+    @Override
+    public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
+        super.trace(interceptor, invocation);
+        
+        // 输出到日志
+        MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
+        ...
+
+        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
+        ...
+    }
+}
+```
+在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
+```java
+@Bean
+@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+public ServiceStrategyTracer serviceStrategyTracer() {
+    return new MyServiceStrategyTracer();
+}
+```
 
 ## Star走势图
 
