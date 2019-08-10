@@ -29,9 +29,9 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         super.trace(exchange);
 
         // 自定义调用链
-        Map<String, String> customerTraceMap = getCustomerTraceMap();
-        if (MapUtils.isNotEmpty(customerTraceMap)) {
-            for (Map.Entry<String, String> entry : customerTraceMap.entrySet()) {
+        Map<String, String> traceMap = getTraceMap();
+        if (MapUtils.isNotEmpty(traceMap)) {
+            for (Map.Entry<String, String> entry : traceMap.entrySet()) {
                 MDC.put(entry.getKey(), entry.getKey() + "=" + entry.getValue());
             }
         }
@@ -57,12 +57,12 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
     }
 
     @Override
-    public Map<String, String> getCustomerTraceMap() {
-        Map<String, String> customerTraceMap = new LinkedHashMap<String, String>();
-        customerTraceMap.put("traceid", strategyContextHolder.getHeader("traceid"));
-        customerTraceMap.put("spanid", strategyContextHolder.getHeader("spanid"));
-        customerTraceMap.put("mobile", strategyContextHolder.getHeader("mobile"));
+    public Map<String, String> getTraceMap() {
+        Map<String, String> traceMap = new LinkedHashMap<String, String>();
+        traceMap.put("traceid", strategyContextHolder.getHeader("traceid"));
+        traceMap.put("spanid", strategyContextHolder.getHeader("spanid"));
+        traceMap.put("mobile", strategyContextHolder.getHeader("mobile"));
 
-        return customerTraceMap;
+        return traceMap;
     }
 }
