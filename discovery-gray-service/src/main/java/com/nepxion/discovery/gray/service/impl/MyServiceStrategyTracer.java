@@ -68,6 +68,7 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         Map<String, String> customerTraceMap = new LinkedHashMap<String, String>();
         customerTraceMap.put("traceid", strategyContextHolder.getHeader("traceid"));
         customerTraceMap.put("spanid", strategyContextHolder.getHeader("spanid"));
+        customerTraceMap.put("mobile", strategyContextHolder.getHeader("mobile"));
 
         return customerTraceMap;
     }

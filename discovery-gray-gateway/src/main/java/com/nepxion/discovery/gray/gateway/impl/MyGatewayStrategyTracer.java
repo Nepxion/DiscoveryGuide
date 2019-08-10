@@ -47,7 +47,6 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         LOG.info("全链路灰度调用链输出");
 
         LOG.info("request={}", exchange.getRequest());
-        LOG.info("mobile={}", strategyContextHolder.getHeader("mobile"));
     }
 
     @Override
@@ -62,6 +61,7 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         Map<String, String> customerTraceMap = new LinkedHashMap<String, String>();
         customerTraceMap.put("traceid", strategyContextHolder.getHeader("traceid"));
         customerTraceMap.put("spanid", strategyContextHolder.getHeader("spanid"));
+        customerTraceMap.put("mobile", strategyContextHolder.getHeader("mobile"));
 
         return customerTraceMap;
     }
