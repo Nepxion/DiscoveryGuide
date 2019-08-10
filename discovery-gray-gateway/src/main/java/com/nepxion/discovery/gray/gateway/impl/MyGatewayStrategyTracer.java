@@ -9,10 +9,10 @@ package com.nepxion.discovery.gray.gateway.impl;
  * @version 1.0
  */
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
-import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.jboss.logging.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +29,10 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         super.trace(exchange);
 
         // 自定义调用链
-        Map<String, String> customerTraceMap = getCustomerTraceMap();
-        if (MapUtils.isNotEmpty(customerTraceMap)) {
-            for (Map.Entry<String, String> entry : customerTraceMap.entrySet()) {
-                MDC.put(entry.getKey(), entry.getKey() + "=" + entry.getValue());
+        List<String> traceHeaders = getTraceHeaders();
+        if (CollectionUtils.isNotEmpty(traceHeaders)) {
+            for (String traceHeader : traceHeaders) {
+                MDC.put(traceHeader, traceHeader + "=" + strategyContextHolder.getHeader(traceHeader));
             }
         }
 
@@ -57,12 +57,7 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
     }
 
     @Override
-    public Map<String, String> getCustomerTraceMap() {
-        Map<String, String> customerTraceMap = new LinkedHashMap<String, String>();
-        customerTraceMap.put("traceid", strategyContextHolder.getHeader("traceid"));
-        customerTraceMap.put("spanid", strategyContextHolder.getHeader("spanid"));
-        customerTraceMap.put("mobile", strategyContextHolder.getHeader("mobile"));
-
-        return customerTraceMap;
+    public List<String> getTraceHeaders() {
+        return Arrays.asList("traceid", "spanid", "mobile");
     }
 }
