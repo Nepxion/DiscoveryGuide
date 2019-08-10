@@ -760,6 +760,7 @@ public ServiceStrategyTracer serviceStrategyTracer() {
     return new MyServiceStrategyTracer();
 }
 ```
+请参考在IDE控制台打印的结果
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
 
 ## Star走势图
