@@ -24,9 +24,6 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
     public void trace(ServerWebExchange exchange) {
         super.trace(exchange);
 
-        System.out.println("request=" + exchange.getRequest());
-        System.out.println("mobile=" + strategyContextHolder.getHeader("mobile"));
-
         // 输出到日志
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
         MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
@@ -36,6 +33,9 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
 
         LOG.info("全链路灰度调用链输出");
+
+        LOG.info("request={}", exchange.getRequest());
+        LOG.info("mobile={}", strategyContextHolder.getHeader("mobile"));
     }
 
     @Override

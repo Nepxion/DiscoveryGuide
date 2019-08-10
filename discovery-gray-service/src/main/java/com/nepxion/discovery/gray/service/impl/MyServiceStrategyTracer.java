@@ -25,15 +25,6 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         super.trace(interceptor, invocation);
 
-        String methodName = interceptor.getMethodName(invocation);
-        System.out.println("methodName=" + methodName);
-
-        System.out.println("arguments=");
-        Object[] arguments = interceptor.getArguments(invocation);
-        for (int i = 0; i < arguments.length; i++) {
-            System.out.println("  " + arguments[i].toString());
-        }
-
         // 输出到日志
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, pluginAdapter.getGroup());
         MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, pluginAdapter.getServiceType());
@@ -43,6 +34,14 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
 
         LOG.info("全链路灰度调用链输出");
+
+        String methodName = interceptor.getMethodName(invocation);
+        LOG.info("methodName={}", methodName);
+
+        Object[] arguments = interceptor.getArguments(invocation);
+        for (int i = 0; i < arguments.length; i++) {
+            LOG.info("arguments[{}]={}", i, arguments[i].toString());
+        }
     }
 
     @Override

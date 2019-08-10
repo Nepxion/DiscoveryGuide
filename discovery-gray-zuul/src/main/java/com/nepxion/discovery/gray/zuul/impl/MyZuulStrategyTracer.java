@@ -24,9 +24,6 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
     public void trace(RequestContext context) {
         super.trace(context);
 
-        System.out.println("request=" + context.getRequest());
-        System.out.println("mobile=" + strategyContextHolder.getHeader("mobile"));
-
         // 输出到日志
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
         MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
@@ -36,6 +33,9 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
         MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
 
         LOG.info("全链路灰度调用链输出");
+
+        LOG.info("request={}", context.getRequest());
+        LOG.info("mobile={}", strategyContextHolder.getHeader("mobile"));
     }
 
     @Override
