@@ -26,6 +26,8 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         super.trace(interceptor, invocation);
 
         // 输出到日志
+        MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
+        MDC.put("spanid", "spanid=" + strategyContextHolder.getHeader("spanid"));
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
         MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + pluginAdapter.getServiceType());
         MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + pluginAdapter.getServiceId());
