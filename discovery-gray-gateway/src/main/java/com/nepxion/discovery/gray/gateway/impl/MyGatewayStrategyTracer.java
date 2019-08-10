@@ -12,7 +12,6 @@ package com.nepxion.discovery.gray.gateway.impl;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.commons.collections4.MapUtils;
 import org.jboss.logging.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +28,9 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         super.trace(exchange);
 
         // 自定义调用链
-        Map<String, String> traceMap = getTraceMap();
-        if (MapUtils.isNotEmpty(traceMap)) {
-            for (Map.Entry<String, String> entry : traceMap.entrySet()) {
-                MDC.put(entry.getKey(), entry.getKey() + "=" + entry.getValue());
-            }
-        }
+        MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
+        MDC.put("spanid", "spanid=" + strategyContextHolder.getHeader("spanid"));
+        MDC.put("mobile", "mobile=" + strategyContextHolder.getHeader("mobile"));
 
         // 灰度路由调用链
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
@@ -56,13 +52,14 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         LOG.info("全链路灰度调用链清除");
     }
 
+    // Debug用
     @Override
-    public Map<String, String> getTraceMap() {
-        Map<String, String> traceMap = new LinkedHashMap<String, String>();
-        traceMap.put("traceid", strategyContextHolder.getHeader("traceid"));
-        traceMap.put("spanid", strategyContextHolder.getHeader("spanid"));
-        traceMap.put("mobile", strategyContextHolder.getHeader("mobile"));
+    public Map<String, String> getDebugTraceMap() {
+        Map<String, String> debugTraceMap = new LinkedHashMap<String, String>();
+        debugTraceMap.put("traceid", strategyContextHolder.getHeader("traceid"));
+        debugTraceMap.put("spanid", strategyContextHolder.getHeader("spanid"));
+        debugTraceMap.put("mobile", strategyContextHolder.getHeader("mobile"));
 
-        return traceMap;
+        return debugTraceMap;
     }
 }
