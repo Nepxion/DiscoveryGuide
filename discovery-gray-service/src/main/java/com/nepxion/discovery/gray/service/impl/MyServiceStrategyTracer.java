@@ -26,12 +26,12 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         super.trace(interceptor, invocation);
 
         // 输出到日志
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, pluginAdapter.getGroup());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, pluginAdapter.getServiceType());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, pluginAdapter.getServiceId());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, pluginAdapter.getVersion());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + pluginAdapter.getServiceType());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + pluginAdapter.getServiceId());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, "地址=" + pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + pluginAdapter.getVersion());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + pluginAdapter.getRegion());
 
         LOG.info("全链路灰度调用链输出");
 
