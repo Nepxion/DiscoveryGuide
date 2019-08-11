@@ -14,9 +14,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
 
-【Nacos】阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
+[Nacos] 阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
 
-【Spring Cloud Alibaba】阿里巴巴中间件部门开发的Spring Cloud增强套件，致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过Spring Cloud编程模型轻松使用这些组件来开发分布式应用服务。依托Spring Cloud Alibaba，只需要添加一些注解和少量配置，就可以将Spring Cloud应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统
+[Spring Cloud Alibaba] 阿里巴巴中间件部门开发的Spring Cloud增强套件，致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过Spring Cloud编程模型轻松使用这些组件来开发分布式应用服务。依托Spring Cloud Alibaba，只需要添加一些注解和少量配置，就可以将Spring Cloud应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统
 
 示例以Nacos为服务注册中心和配置中心（使用者可自行换成其它服务注册中心和配置中心），集成Spring Cloud Alibaba，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能
 
@@ -230,25 +230,25 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 - 区域匹配策略，Header格式如下任选一个：
 ```xml
-n-d-region=qa
-n-d-region={"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}
+1. n-d-region=qa
+2. n-d-region={"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}
 ```
 - 区域权重策略，Header格式如下任选一个：
 ```xml
-n-d-region-weight=dev=99;qa=1
-n-d-region-weight={"discovery-gray-service-a":"dev=99;qa=1", "discovery-gray-service-b":"dev=99;qa=1"}
+1. n-d-region-weight=dev=99;qa=1
+2. n-d-region-weight={"discovery-gray-service-a":"dev=99;qa=1", "discovery-gray-service-b":"dev=99;qa=1"}
 ```
 
 - 版本匹配策略，Header格式如下任选一个：
 ```xml
-n-d-version=1.0
-n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
+1. n-d-version=1.0
+2. n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
 ```
 
 - 版本权重策略，Header格式如下任选一个：
 ```xml
-n-d-version-weight=1.0=90;1.1=10
-n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}
+1. n-d-version-weight=1.0=90;1.1=10
+2. n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}
 ```
 
 如图所示
