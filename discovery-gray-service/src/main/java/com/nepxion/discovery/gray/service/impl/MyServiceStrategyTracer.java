@@ -21,6 +21,7 @@ import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.service.tracer.DefaultServiceStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.service.tracer.ServiceStrategyTracerInterceptor;
 
+// 自定义调用链和灰度调用链通过MDC输出到日志。使用者集成时候，关注trace方法中的MDC.put和release方法中MDC.clear代码部分即可
 public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     private static final Logger LOG = LoggerFactory.getLogger(MyServiceStrategyTracer.class);
 
