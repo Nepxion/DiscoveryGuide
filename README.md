@@ -92,7 +92,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 注：启动不分前后次序
 
 ## 环境验证
-- 导入Postman的测试脚本导入，[脚本地址](https://github.com/Nepxion/Discovery/blob/master/discovery-springcloud-postman/Nepxion.postman_collection.json)
+- 导入Postman的测试脚本导入，[脚本地址](https://github.com/Nepxion/Discovery/blob/master/postman.json)
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式：
 ```xml
