@@ -139,8 +139,8 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev]
 
 每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
 ```xml
-<region>dev</region>
-<region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region>
+1. <region>dev</region>
+2. <region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region>
 ```
 
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
@@ -169,8 +169,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 每个服务调用的区域权重都可以自行指定，见下面第二条。当所有服务都选相同区域权重的时候，可以简化成下面第一条
 ```xml
-<region-weight>dev=85;qa=15</region-weight>
-<region-weight>{"discovery-gray-service-a":"dev=85;qa=15", "discovery-gray-service-b":"dev=85;qa=15"}</region-weight>
+1. <region-weight>dev=85;qa=15</region-weight>
+2. <region-weight>{"discovery-gray-service-a":"dev=85;qa=15", "discovery-gray-service-b":"dev=85;qa=15"}</region-weight>
 ```
 
 #### 版本匹配灰度路由策略
@@ -188,8 +188,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本的时候，可以简化成下面第一条
 ```xml
-<version>1.0</version>
-<version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
+1. <version>1.0</version>
+2. <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
 ```
 
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
@@ -218,8 +218,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 每个服务调用的版本权重都可以自行指定，见下面第二条。当所有服务都选相同版本权重的时候，可以简化成下面第一条
 ```xml
-<version-weight>1.0=90;1.1=10</version-weight>
-<version-weight>{"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}</version-weight>
+1. <version-weight>1.0=90;1.1=10</version-weight>
+2. <version-weight>{"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}</version-weight>
 ```
 
 ### 通过其它方式设置网关灰度路由策略
@@ -663,12 +663,12 @@ Reject to invoke because of isolation with different service group
 
 灰度调用链主要包括如下6个参数。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
 ```xml
-n-d-service-group - 服务所属组或者应用
-n-d-service-type - 服务类型，分为“网关”和“服务”
-n-d-service-id - 服务ID
-n-d-service-address - 服务地址，包括Host和Port
-n-d-service-version - 服务版本
-n-d-service-region - 服务所属区域
+1. n-d-service-group - 服务所属组或者应用
+2. n-d-service-type - 服务类型，分为“网关”和“服务”
+3. n-d-service-id - 服务ID
+4. n-d-service-address - 服务地址，包括Host和Port
+5. n-d-service-version - 服务版本
+6. n-d-service-region - 服务所属区域
 ```
 灰度调用链输出分为Header方式和日志方式
 
@@ -695,6 +695,11 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
 
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
         ...
+    }
+
+    @Override
+    public void release(ServerWebExchange exchange) {
+        MDC.clear();
     }
 }
 ```
@@ -723,6 +728,11 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
         ...
     }
+
+    @Override
+    public void release(RequestContext context) {
+        MDC.clear();
+    }
 }
 ```
 在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
@@ -749,6 +759,11 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
 
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
         ...
+    }
+
+    @Override
+    public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
+        MDC.clear();
     }
 }
 ```
