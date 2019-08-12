@@ -37,8 +37,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
     - [版本权重灰度路由策略](#版本权重灰度路由策略)
   - [通过其它方式设置网关灰度路由策略](#通过其它方式设置网关灰度路由策略)
     - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
-    - [通过业务参数在网关过滤器中自定义路由策略](#通过业务参数在网关过滤器中自定义路由策略)
-    - [通过业务参数在策略类中自定义路由策略](#通过业务参数在策略类中自定义路由策略)
+    - [通过业务参数在网关过滤器中自定义灰度路由策略](#通过业务参数在网关过滤器中自定义灰度路由策略)
+    - [通过业务参数在策略类中自定义灰度路由策略](#通过业务参数在策略类中自定义灰度路由策略)
+  - [前端灰度&网关灰度路由组合式策略](#前端灰度&网关灰度路由组合式策略)	
 - [基于订阅方式的全链路灰度发布规则](#基于订阅方式的全链路灰度发布规则)
   - [配置全链路灰度匹配规则](#配置全链路灰度匹配规则)
     - [版本匹配灰度规则](#版本匹配灰度规则)
@@ -48,7 +49,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
     - [局部版本权重灰度规则](#局部版本权重灰度规则)
     - [全局区域权重灰度规则](#全局区域权重灰度规则)
     - [局部区域权重灰度规则](#局部区域权重灰度规则)
-  - [配置全链路灰度权重&灰度版本组合式策略](#配置全链路灰度权重&灰度版本组合式策略)
+  - [配置全链路灰度权重&灰度版本组合式规则](#配置全链路灰度权重&灰度版本组合式规则)
 - [全链路服务隔离](#全链路服务隔离)
   - [注册服务隔离](#注册服务隔离)
   - [消费端服务隔离](#消费端服务隔离)
@@ -474,6 +475,35 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 }
 ```
 
+### 前端灰度&网关灰度路由组合式策略
+当前端（例如：APP）和后端微服务同时存在多个版本时，可以执行“前端灰度&网关灰度路由组合式策略”
+例如：APP存在1.0和2.0版本，微服务存在1.0和2.0版本，由于存在版本不兼容的情况（APP 1.0版本只能调用微服务的1.0版本，APP 2.0版本只能调用微服务的2.0版本），那么APP调用网关时候，可以传递它的版本号给网关，网关根据APP版本号，去路由对应版本的微服务
+该场景可以用“通过业务参数在网关过滤器中自定义灰度路由策略”的方案来解决，如下：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy-customization>
+        <conditions>
+            <condition id="condition1" header="appVersion=1.0" version-id="version-route1"/>
+            <condition id="condition2" header="appVersion=2.0" version-id="version-route2"/>
+        </conditions>
+
+        <routes>
+            <route id="version-route1" type="version">{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</route>
+            <route id="version-route2" type="version">{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}</route>
+        </routes>
+    </strategy-customization>
+</rule>
+```
+
+上述配置，模拟出全链路中，两条独立不受干扰的调用路径：
+
+```xml
+1. APP v1.0 -> 网关 -> A服务 v1.0 -> B服务 v1.0
+2. APP v1.1 -> 网关 -> A服务 v1.1 -> B服务 v1.1
+```
+
 ## 基于订阅方式的全链路灰度发布规则
 在Nacos配置中心，增加全链路灰度发布规则
 注意：该功能和网关灰度路由和灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的策略
@@ -580,7 +610,7 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 
 请执行Postman操作，请仔细观察服务被随机权重调用到的概率
 
-### 配置全链路灰度权重&灰度版本组合式策略
+### 配置全链路灰度权重&灰度版本组合式规则
 增加组合式的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现功能：
 - a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
