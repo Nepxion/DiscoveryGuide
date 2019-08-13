@@ -18,9 +18,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import com.nepxion.discovery.gray.test.config.TestConfigOperation;
 
-public class DiscoveryGrayTestCases {
+public class MyTestCases {
     @Autowired
-    private TestRestTemplate restTemplate;
+    private TestRestTemplate testRestTemplate;
 
     @Autowired
     private TestConfigOperation testConfigOperation;
@@ -31,7 +31,7 @@ public class DiscoveryGrayTestCases {
         int noRepeatCount = 0;
         List<String> resultList = new ArrayList<String>();
         for (int i = 0; i < 4; i++) {
-            String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
+            String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
 
             System.out.println("Result" + (i + 1) + " : " + result);
 
@@ -52,7 +52,7 @@ public class DiscoveryGrayTestCases {
         testConfigOperation.update(url, "test-config-version-1.xml");
 
         for (int i = 0; i < 4; i++) {
-            String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
+            String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
 
             System.out.println("Result" + (i + 1) + " : " + result);
 
@@ -75,7 +75,7 @@ public class DiscoveryGrayTestCases {
         testConfigOperation.update(url, "test-config-region-1.xml");
 
         for (int i = 0; i < 4; i++) {
-            String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
+            String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
 
             System.out.println("Result" + (i + 1) + " : " + result);
 

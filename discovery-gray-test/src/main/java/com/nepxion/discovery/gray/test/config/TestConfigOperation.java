@@ -21,7 +21,7 @@ public class TestConfigOperation {
     public static final String CONFIG_UPDATE_URL = "config/update-sync";
 
     @Autowired
-    private TestRestTemplate restTemplate;
+    private TestRestTemplate testRestTemplate;
 
     public String update(String url, String configPath) {
         String content = null;
@@ -32,7 +32,7 @@ public class TestConfigOperation {
             e.printStackTrace();
         }
 
-        return restTemplate.postForEntity(url + CONFIG_UPDATE_URL, content, String.class).getBody();
+        return testRestTemplate.postForEntity(url + CONFIG_UPDATE_URL, content, String.class).getBody();
     }
 
     public String reset(String url) {
@@ -41,6 +41,6 @@ public class TestConfigOperation {
                 "\r\n" +
                 "</rule>";
 
-        return restTemplate.postForEntity(url + CONFIG_UPDATE_URL, content, String.class).getBody();
+        return testRestTemplate.postForEntity(url + CONFIG_UPDATE_URL, content, String.class).getBody();
     }
 }

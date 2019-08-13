@@ -19,8 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.nepxion.discovery.gray.test.core.TestApplication;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { TestApplication.class, DiscoveryGrayTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DiscoveryGrayTest {
+@SpringBootTest(classes = { TestApplication.class, MyTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class MyTest {
     @Value("${gateway.url}")
     private String gatewayUrl;
 
@@ -34,23 +34,23 @@ public class DiscoveryGrayTest {
     private String zuulTestUrl;
 
     @Autowired
-    private DiscoveryGrayTestCases discoveryGrayTestCases;
+    private MyTestCases myTestCases;
 
     @Test
     public void testNoGray() throws Exception {
-        discoveryGrayTestCases.testNoGray("Gateway", gatewayUrl, gatewayTestUrl);
-        discoveryGrayTestCases.testNoGray("Zuul", zuulUrl, zuulTestUrl);
+        myTestCases.testNoGray("Gateway", gatewayUrl, gatewayTestUrl);
+        myTestCases.testNoGray("Zuul", zuulUrl, zuulTestUrl);
     }
 
     @Test
     public void testVersionGray() throws Exception {
-        discoveryGrayTestCases.testVersionGray("Gateway", gatewayUrl, gatewayTestUrl);
-        discoveryGrayTestCases.testVersionGray("Zuul", zuulUrl, zuulTestUrl);
+        myTestCases.testVersionGray("Gateway", gatewayUrl, gatewayTestUrl);
+        myTestCases.testVersionGray("Zuul", zuulUrl, zuulTestUrl);
     }
 
     @Test
     public void testRegionGray() throws Exception {
-        discoveryGrayTestCases.testRegionGray("Gateway", gatewayUrl, gatewayTestUrl);
-        discoveryGrayTestCases.testRegionGray("Zuul", zuulUrl, zuulTestUrl);
+        myTestCases.testRegionGray("Gateway", gatewayUrl, gatewayTestUrl);
+        myTestCases.testRegionGray("Zuul", zuulUrl, zuulTestUrl);
     }
 }
