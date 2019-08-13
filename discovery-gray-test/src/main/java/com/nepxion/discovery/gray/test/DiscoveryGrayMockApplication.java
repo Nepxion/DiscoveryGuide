@@ -16,14 +16,9 @@ import org.springframework.context.annotation.Bean;
 import com.nepxion.discovery.gray.test.config.ConfigOperation;
 
 @SpringBootApplication
-public class DiscoveryGrayTestApplication {
+public class DiscoveryGrayMockApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(DiscoveryGrayTestApplication.class).run(args);
-    }
-
-    @Bean
-    public DiscoveryGrayTestCases discoveryGrayTestCases() {
-        return new DiscoveryGrayTestCases();
+        new SpringApplicationBuilder(DiscoveryGrayMockApplication.class).run(args);
     }
 
     @Bean

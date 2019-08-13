@@ -16,6 +16,8 @@ import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
+import com.nepxion.discovery.gray.test.util.IOUtil;
+
 public class ConfigContent {
     private String content;
 
