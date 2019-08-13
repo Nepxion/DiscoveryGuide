@@ -21,7 +21,8 @@ public class DiscoveryGrayTestCases {
     private TestRestTemplate restTemplate;
 
     public void testNoGrayInvoke(String type, String url) {
-        System.out.println("----- Test NoGray Invoke for " + type + " started -----");
+        System.out.println("---------- Test NoGray Invoke for " + type + " started ----------");
+
         int noRepeatCount = 0;
         List<String> resultList = new ArrayList<String>();
         for (int i = 0; i < 4; i++) {
@@ -36,6 +37,6 @@ public class DiscoveryGrayTestCases {
         Assert.assertEquals(noRepeatCount, 4);
         System.out.println("* Test Passed");
         
-        System.out.println("----- Test NoGray Invoke for " + type + " finished ----");
+        System.out.println("---------- Test NoGray Invoke for " + type + " finished ---------");
     }
 }
