@@ -16,10 +16,10 @@ public abstract class AbstractGrayTestCase extends AbstractTestCase {
     private String url;
     private String configPath;
 
-    public AbstractGrayTestCase(GrayTestOperation grayTestOperation, String url, String configPath) {
+    public AbstractGrayTestCase(GrayTestOperation grayTestOperation, String url, String path) {
         this.grayTestOperation = grayTestOperation;
         this.url = url;
-        this.configPath = configPath;
+        this.configPath = path;
     }
 
     @Override

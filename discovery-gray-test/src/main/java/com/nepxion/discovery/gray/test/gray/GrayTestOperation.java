@@ -23,10 +23,10 @@ public class GrayTestOperation {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    public String update(String url, String configPath) {
+    public String update(String url, String path) {
         String content = null;
         try {
-            DiscoveryContent discoveryContent = new DiscoveryContent(configPath, DiscoveryConstant.ENCODING_UTF_8);
+            DiscoveryContent discoveryContent = new DiscoveryContent(path, DiscoveryConstant.ENCODING_UTF_8);
             content = discoveryContent.getContent();
         } catch (IOException e) {
             e.printStackTrace();
