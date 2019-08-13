@@ -14,7 +14,9 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
-public class ConfigOperation {
+import com.nepxion.discovery.common.property.DiscoveryContent;
+
+public class DiscoveryGrayConfigOperation {
     public static final String ENCODING_UTF_8 = "UTF-8";
     public static final String CONFIG_UPDATE_URL = "config/update-sync";
 
@@ -24,8 +26,8 @@ public class ConfigOperation {
     public String update(String url, String configPath) {
         String content = null;
         try {
-            ConfigContent configContent = new ConfigContent(configPath, ENCODING_UTF_8);
-            content = configContent.getContent();
+            DiscoveryContent discoveryContent = new DiscoveryContent(configPath, ENCODING_UTF_8);
+            content = discoveryContent.getContent();
         } catch (IOException e) {
             e.printStackTrace();
         }
