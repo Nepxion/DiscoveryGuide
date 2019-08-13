@@ -15,11 +15,9 @@ import java.util.List;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.stereotype.Component;
 
 import com.nepxion.discovery.gray.test.config.TestConfigOperation;
 
-@Component
 public class DiscoveryGrayTestCases {
     @Autowired
     private TestRestTemplate restTemplate;
