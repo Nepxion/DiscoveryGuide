@@ -24,6 +24,6 @@ public class DiscoveryGrayTest {
 
     @Test
     public void test() throws Exception {
-        System.out.println("abc");
+        System.out.println(restTemplate);
     }
 }
