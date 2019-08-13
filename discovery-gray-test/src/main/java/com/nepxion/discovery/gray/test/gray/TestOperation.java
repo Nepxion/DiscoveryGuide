@@ -22,10 +22,13 @@ import com.nepxion.discovery.gray.test.constant.TestConstant;
 
 public class TestOperation {
     public static final String REMOTE_UPDATE_URL = "console/remote-config/update";
-    public static final String UPDATE_URL = "console/config/update-sync";
+    public static final String REMOTE_CLEAR_URL = "console/remote-config/clear";
 
-    @Value("${" + TestConstant.SPRING_APPLICATION_TEST_GRAY_TO_CONFIGCENTER + ":true}")
-    private Boolean toConfigCenter;
+    public static final String UPDATE_URL = "console/config/update-sync";
+    public static final String CLEAR_URL = "console/config/clear-sync";
+
+    @Value("${" + TestConstant.SPRING_APPLICATION_TEST_GRAY_CONFIGCENTER_ENABLED + ":true}")
+    private Boolean configCenterEnabled;
 
     @Value("${" + TestConstant.SPRING_APPLICATION_TEST_CONSOLE_URL + "}")
     private String consoleUrl;
@@ -42,21 +45,27 @@ public class TestOperation {
             e.printStackTrace();
         }
 
-        return execute(group, serviceId, content);
+        return change(group, serviceId, content);
     }
 
-    public String clear(String group, String serviceId) {
+    public String reset(String group, String serviceId) {
         String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
                 "<rule>\r\n" +
                 "\r\n" +
                 "</rule>";
 
-        return execute(group, serviceId, content);
+        return change(group, serviceId, content);
     }
 
-    private String execute(String group, String serviceId, String content) {
-        String url = toConfigCenter ? consoleUrl + UrlUtil.formatContextPath(REMOTE_UPDATE_URL) + group + "/" + serviceId : consoleUrl + UrlUtil.formatContextPath(UPDATE_URL) + serviceId;
+    private String change(String group, String serviceId, String content) {
+        String url = configCenterEnabled ? consoleUrl + UrlUtil.formatContextPath(REMOTE_UPDATE_URL) + group + "/" + serviceId : consoleUrl + UrlUtil.formatContextPath(UPDATE_URL) + serviceId;
 
         return testRestTemplate.postForEntity(url, content, String.class).getBody();
+    }
+
+    public String clear(String group, String serviceId) {
+        String url = configCenterEnabled ? consoleUrl + UrlUtil.formatContextPath(REMOTE_CLEAR_URL) + group + "/" + serviceId : consoleUrl + UrlUtil.formatContextPath(CLEAR_URL) + serviceId;
+
+        return testRestTemplate.postForEntity(url, null, String.class).getBody();
     }
 }

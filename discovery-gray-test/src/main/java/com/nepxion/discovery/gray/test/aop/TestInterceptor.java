@@ -25,6 +25,9 @@ public class TestInterceptor extends AbstractInterceptor {
     @Autowired
     private TestOperation testOperation;
 
+    @Value("${" + TestConstant.SPRING_APPLICATION_TEST_GRAY_RESET_ENABLED + ":true}")
+    private Boolean resetEnabled;
+
     @Value("${" + TestConstant.SPRING_APPLICATION_TEST_GRAY_AWAIT_TIME + ":3000}")
     private Integer awaitTime;
 
@@ -53,7 +56,11 @@ public class TestInterceptor extends AbstractInterceptor {
                 try {
                     object = invocation.proceed();
                 } finally {
-                    testOperation.clear(group, serviceId);
+                    if (resetEnabled) {
+                        testOperation.reset(group, serviceId);
+                    } else {
+                        testOperation.clear(group, serviceId);
+                    }
 
                     Thread.sleep(awaitTime);
                 }
