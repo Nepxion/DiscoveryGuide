@@ -12,12 +12,12 @@ package com.nepxion.discovery.gray.test.core;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.nepxion.discovery.gray.test.config.TestConfigOperation;
+import com.nepxion.discovery.gray.test.operation.TestOperation;
 
 @Configuration
 public class TestConfiguration {
     @Bean
-    public TestConfigOperation testConfigOperation() {
-        return new TestConfigOperation();
+    public TestOperation testOperation() {
+        return new TestOperation();
     }
 }

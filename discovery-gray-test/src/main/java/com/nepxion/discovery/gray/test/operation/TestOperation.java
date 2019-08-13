@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.test.config;
+package com.nepxion.discovery.gray.test.operation;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -17,7 +17,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.property.DiscoveryContent;
 
-public class TestConfigOperation {
+public class TestOperation {
     public static final String CONFIG_UPDATE_URL = "config/update-sync";
 
     @Autowired

@@ -10,5 +10,15 @@ package com.nepxion.discovery.gray.test.core;
  */
 
 public interface TestCase {
+    void run();
 
+    void beforeTest();
+
+    void runTest();
+
+    void afterTest();
+
+    String getTestType();
+
+    String getTestMethod();
 }

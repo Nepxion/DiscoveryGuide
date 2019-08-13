@@ -16,79 +16,106 @@ import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
-import com.nepxion.discovery.gray.test.config.TestConfigOperation;
+import com.nepxion.discovery.gray.test.core.AbstractGrayTestCase;
+import com.nepxion.discovery.gray.test.core.AbstractTestCase;
+import com.nepxion.discovery.gray.test.operation.TestOperation;
 
 public class MyTestCases {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Autowired
-    private TestConfigOperation testConfigOperation;
+    private TestOperation testOperation;
 
     public void testNoGray(String type, String url, String testUrl) {
-        System.out.println("---------- Test No Gray for " + type + " ----------");
+        new AbstractTestCase() {
+            @Override
+            public void runTest() {
+                int noRepeatCount = 0;
+                List<String> resultList = new ArrayList<String>();
+                for (int i = 0; i < 4; i++) {
+                    String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
 
-        int noRepeatCount = 0;
-        List<String> resultList = new ArrayList<String>();
-        for (int i = 0; i < 4; i++) {
-            String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
+                    System.out.println("Result" + (i + 1) + " : " + result);
 
-            System.out.println("Result" + (i + 1) + " : " + result);
+                    if (!resultList.contains(result)) {
+                        noRepeatCount++;
+                    }
+                    resultList.add(result);
+                }
 
-            if (!resultList.contains(result)) {
-                noRepeatCount++;
+                Assert.assertEquals(noRepeatCount, 4);
             }
-            resultList.add(result);
-        }
 
-        Assert.assertEquals(noRepeatCount, 4);
+            @Override
+            public String getTestMethod() {
+                return "testNoGray";
+            }
 
-        System.out.println("* Passed");
+            @Override
+            public String getTestType() {
+                return type;
+            }
+        }.run();
     }
 
     public void testVersionGray(String type, String url, String testUrl) {
-        System.out.println("---------- Test Version Gray for " + type + " ----------");
+        new AbstractGrayTestCase(testOperation, url, "test-config-version-1.xml") {
+            @Override
+            public void runTest() {
+                for (int i = 0; i < 4; i++) {
+                    String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
 
-        testConfigOperation.update(url, "test-config-version-1.xml");
+                    System.out.println("Result" + (i + 1) + " : " + result);
 
-        for (int i = 0; i < 4; i++) {
-            String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
+                    int index = result.indexOf("[V1.0]");
+                    int lastIndex = result.lastIndexOf("[V1.0]");
 
-            System.out.println("Result" + (i + 1) + " : " + result);
+                    Assert.assertNotEquals(index, -1);
+                    Assert.assertNotEquals(lastIndex, -1);
+                    Assert.assertNotEquals(index, lastIndex);
+                }
+            }
 
-            int index = result.indexOf("[V1.0]");
-            int lastIndex = result.lastIndexOf("[V1.0]");
+            @Override
+            public String getTestMethod() {
+                return "testVersionGray";
+            }
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
-        }
-
-        testConfigOperation.reset(url);
-
-        System.out.println("* Passed");
+            @Override
+            public String getTestType() {
+                return type;
+            }
+        }.run();
     }
 
     public void testRegionGray(String type, String url, String testUrl) {
-        System.out.println("---------- Test Region Gray for " + type + " ----------");
+        new AbstractGrayTestCase(testOperation, url, "test-config-region-1.xml") {
+            @Override
+            public void runTest() {
+                for (int i = 0; i < 4; i++) {
+                    String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
 
-        testConfigOperation.update(url, "test-config-region-1.xml");
+                    System.out.println("Result" + (i + 1) + " : " + result);
 
-        for (int i = 0; i < 4; i++) {
-            String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
+                    int index = result.indexOf("[Region=dev]");
+                    int lastIndex = result.lastIndexOf("[Region=dev]");
 
-            System.out.println("Result" + (i + 1) + " : " + result);
+                    Assert.assertNotEquals(index, -1);
+                    Assert.assertNotEquals(lastIndex, -1);
+                    Assert.assertNotEquals(index, lastIndex);
+                }
+            }
 
-            int index = result.indexOf("[Region=dev]");
-            int lastIndex = result.lastIndexOf("[Region=dev]");
+            @Override
+            public String getTestMethod() {
+                return "testRegionGray";
+            }
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
-        }
-
-        testConfigOperation.reset(url);
-
-        System.out.println("* Passed");
+            @Override
+            public String getTestType() {
+                return type;
+            }
+        }.run();
     }
 }
