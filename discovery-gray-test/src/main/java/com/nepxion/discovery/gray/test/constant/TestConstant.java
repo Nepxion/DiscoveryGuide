@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.test.base;
+package com.nepxion.discovery.gray.test.constant;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -9,14 +9,6 @@ package com.nepxion.discovery.gray.test.base;
  * @version 1.0
  */
 
-public interface TestCase {
-    void run();
-
-    void beforeTest();
-
-    void runTest();
-
-    void afterTest();
-
-    String getTestMethod();
+public class TestConstant {
+    public static final String SPRING_APPLICATION_TEST_SCAN_PACKAGES = "spring.application.test.scan.packages";
 }
