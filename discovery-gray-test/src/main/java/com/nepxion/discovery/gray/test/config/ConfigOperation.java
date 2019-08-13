@@ -14,9 +14,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
-import com.nepxion.discovery.gray.test.util.FileContent;
-
-public class ConfigUpdateResolver {
+public class ConfigOperation {
     public static final String ENCODING_UTF_8 = "UTF-8";
     public static final String CONFIG_UPDATE_URL = "config/update-sync";
     public static final String TEST_RULE_EMPTY_PATH = "test-config-empty.xml";
@@ -24,11 +22,11 @@ public class ConfigUpdateResolver {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    public String update(String url, String configPathPath) {
+    public String update(String url, String configPath) {
         String content = null;
         try {
-            FileContent fileContent = new FileContent(configPathPath, ENCODING_UTF_8);
-            content = fileContent.getContent();
+            ConfigContent configContent = new ConfigContent(configPath, ENCODING_UTF_8);
+            content = configContent.getContent();
         } catch (IOException e) {
             e.printStackTrace();
         }

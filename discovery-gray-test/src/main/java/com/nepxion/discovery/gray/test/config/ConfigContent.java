@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.test.util;
+package com.nepxion.discovery.gray.test.config;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -16,10 +16,10 @@ import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-public class FileContent {
+public class ConfigContent {
     private String content;
 
-    public FileContent(String path, String encoding) throws IOException {
+    public ConfigContent(String path, String encoding) throws IOException {
         InputStream inputStream = null;
         try {
             inputStream = IOUtil.getInputStream(path);
@@ -31,11 +31,11 @@ public class FileContent {
         }
     }
 
-    public FileContent(File file, String encoding) throws IOException {
+    public ConfigContent(File file, String encoding) throws IOException {
         this.content = FileUtils.readFileToString(file, encoding);
     }
 
-    public FileContent(StringBuilder stringBuilder) throws IOException {
+    public ConfigContent(StringBuilder stringBuilder) throws IOException {
         this.content = stringBuilder.toString();
     }
 

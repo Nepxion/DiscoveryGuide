@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 
-import com.nepxion.discovery.gray.test.config.ConfigUpdateResolver;
+import com.nepxion.discovery.gray.test.config.ConfigOperation;
 
 @SpringBootApplication
 public class DiscoveryGrayTestApplication {
@@ -27,7 +27,7 @@ public class DiscoveryGrayTestApplication {
     }
 
     @Bean
-    public ConfigUpdateResolver configUpdateResolver() {
-        return new ConfigUpdateResolver();
+    public ConfigOperation configOperation() {
+        return new ConfigOperation();
     }
 }

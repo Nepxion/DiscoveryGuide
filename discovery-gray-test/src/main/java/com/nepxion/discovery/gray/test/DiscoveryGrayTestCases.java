@@ -16,14 +16,14 @@ import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
-import com.nepxion.discovery.gray.test.config.ConfigUpdateResolver;
+import com.nepxion.discovery.gray.test.config.ConfigOperation;
 
 public class DiscoveryGrayTestCases {
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private ConfigUpdateResolver configUpdateResolver;
+    private ConfigOperation configOperation;
 
     public void testNoGray(String type, String url, String testUrl) {
         System.out.println("---------- Test No Gray for " + type + " started ----------");
@@ -50,7 +50,7 @@ public class DiscoveryGrayTestCases {
     public void testVersionGray(String type, String url, String testUrl) {
         System.out.println("---------- Test Version Gray for " + type + " started ----------");
 
-        configUpdateResolver.update(url, "test-config-version-1.xml");
+        configOperation.update(url, "test-config-version-1.xml");
 
         for (int i = 0; i < 4; i++) {
             String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
@@ -65,7 +65,7 @@ public class DiscoveryGrayTestCases {
             Assert.assertNotEquals(index, lastIndex);
         }
 
-        configUpdateResolver.reset(url);
+        configOperation.reset(url);
 
         System.out.println("* Passed");
 
@@ -75,7 +75,7 @@ public class DiscoveryGrayTestCases {
     public void testRegionGray(String type, String url, String testUrl) {
         System.out.println("---------- Test Region Gray for " + type + " started ----------");
 
-        configUpdateResolver.update(url, "test-config-region-1.xml");
+        configOperation.update(url, "test-config-region-1.xml");
 
         for (int i = 0; i < 4; i++) {
             String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
@@ -90,7 +90,7 @@ public class DiscoveryGrayTestCases {
             Assert.assertNotEquals(index, lastIndex);
         }
 
-        configUpdateResolver.reset(url);
+        configOperation.reset(url);
 
         System.out.println("* Passed");
 
