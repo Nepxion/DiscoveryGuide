@@ -17,7 +17,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 public class ConfigOperation {
     public static final String ENCODING_UTF_8 = "UTF-8";
     public static final String CONFIG_UPDATE_URL = "config/update-sync";
-    public static final String TEST_RULE_EMPTY_PATH = "test-config-empty.xml";
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -35,6 +34,11 @@ public class ConfigOperation {
     }
 
     public String reset(String url) {
-        return update(url, TEST_RULE_EMPTY_PATH);
+        String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
+                "<rule>\r\n" +
+                "\r\n" +
+                "</rule>";
+
+        return restTemplate.postForEntity(url + CONFIG_UPDATE_URL, content, String.class).getBody();
     }
 }
