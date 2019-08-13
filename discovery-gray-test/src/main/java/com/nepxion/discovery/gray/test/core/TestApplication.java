@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.test;
+package com.nepxion.discovery.gray.test.core;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -13,16 +13,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 
-import com.nepxion.discovery.gray.test.config.DiscoveryGrayConfigOperation;
+import com.nepxion.discovery.gray.test.config.ConfigOperation;
 
 @SpringBootApplication
-public class DiscoveryGrayTestApplication {
+public class TestApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(DiscoveryGrayTestApplication.class).run(args);
+        new SpringApplicationBuilder(TestApplication.class).run(args);
     }
 
     @Bean
-    public DiscoveryGrayConfigOperation discoveryGrayConfigOperation() {
-        return new DiscoveryGrayConfigOperation();
+    public ConfigOperation configOperation() {
+        return new ConfigOperation();
     }
 }

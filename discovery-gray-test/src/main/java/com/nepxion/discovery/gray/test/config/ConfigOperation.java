@@ -16,7 +16,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import com.nepxion.discovery.common.property.DiscoveryContent;
 
-public class DiscoveryGrayConfigOperation {
+public class ConfigOperation {
     public static final String ENCODING_UTF_8 = "UTF-8";
     public static final String CONFIG_UPDATE_URL = "config/update-sync";
 
