@@ -12,18 +12,25 @@ package com.nepxion.discovery.gray.test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DiscoveryGrayTestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DiscoveryGrayTest {
+    @Value("${gateway.url}")
+    private String gatewayUrl;
+
+    @Value("${zuul.url}")
+    private String zuulUrl;
+
     @Autowired
-    private TestRestTemplate restTemplate;
+    private DiscoveryGrayTestCases discoveryGrayTestCases;
 
     @Test
-    public void test() throws Exception {
-        System.out.println(restTemplate);
+    public void testNoGrayInvoke() throws Exception {
+        discoveryGrayTestCases.testNoGrayInvoke("Gateway", gatewayUrl);
+        discoveryGrayTestCases.testNoGrayInvoke("Zuul", zuulUrl);
     }
 }
