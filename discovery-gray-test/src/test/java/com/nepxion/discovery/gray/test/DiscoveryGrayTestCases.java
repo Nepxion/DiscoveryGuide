@@ -28,14 +28,14 @@ public class DiscoveryGrayTestCases {
     private ConfigOperation configOperation;
 
     public void testNoGray(String type, String url, String testUrl) {
-        System.out.println("---------- Test No Gray for " + type + " started ----------");
+        System.out.println("---------- Test No Gray for " + type + " ----------");
 
         int noRepeatCount = 0;
         List<String> resultList = new ArrayList<String>();
         for (int i = 0; i < 4; i++) {
             String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
 
-            System.out.println("Output" + (i + 1) + " : " + result);
+            System.out.println("Result" + (i + 1) + " : " + result);
 
             if (!resultList.contains(result)) {
                 noRepeatCount++;
@@ -45,19 +45,18 @@ public class DiscoveryGrayTestCases {
 
         Assert.assertEquals(noRepeatCount, 4);
 
-        System.out.println("* Passed");
-        System.out.println("---------- Test No Gray for " + type + " finished ---------");
+        System.out.println("*** Passed");
     }
 
     public void testVersionGray(String type, String url, String testUrl) {
-        System.out.println("---------- Test Version Gray for " + type + " started ----------");
+        System.out.println("---------- Test Version Gray for " + type + " ----------");
 
         configOperation.update(url, "test-config-version-1.xml");
 
         for (int i = 0; i < 4; i++) {
             String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
 
-            System.out.println("Output" + (i + 1) + " : " + result);
+            System.out.println("Result" + (i + 1) + " : " + result);
 
             int index = result.indexOf("[V1.0]");
             int lastIndex = result.lastIndexOf("[V1.0]");
@@ -69,20 +68,18 @@ public class DiscoveryGrayTestCases {
 
         configOperation.reset(url);
 
-        System.out.println("* Passed");
-
-        System.out.println("---------- Test Version Gray for " + type + " finished ---------");
+        System.out.println("*** Passed");
     }
 
     public void testRegionGray(String type, String url, String testUrl) {
-        System.out.println("---------- Test Region Gray for " + type + " started ----------");
+        System.out.println("---------- Test Region Gray for " + type + " ----------");
 
         configOperation.update(url, "test-config-region-1.xml");
 
         for (int i = 0; i < 4; i++) {
             String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
 
-            System.out.println("Output" + (i + 1) + " : " + result);
+            System.out.println("Result" + (i + 1) + " : " + result);
 
             int index = result.indexOf("[Region=dev]");
             int lastIndex = result.lastIndexOf("[Region=dev]");
@@ -94,8 +91,6 @@ public class DiscoveryGrayTestCases {
 
         configOperation.reset(url);
 
-        System.out.println("* Passed");
-
-        System.out.println("---------- Test Region Gray for " + type + " finished ---------");
+        System.out.println("*** Passed");
     }
 }
