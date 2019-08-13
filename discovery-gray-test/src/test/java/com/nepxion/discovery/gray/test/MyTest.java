@@ -36,19 +36,19 @@ public class MyTest {
 
     @Test
     public void testNoGray() throws Exception {
-        myTestCases.testNoGray("Gateway", gatewayUrl, gatewayTestUrl);
-        myTestCases.testNoGray("Zuul", zuulUrl, zuulTestUrl);
+        myTestCases.testNoGray(gatewayUrl, gatewayTestUrl);
+        myTestCases.testNoGray(zuulUrl, zuulTestUrl);
     }
 
     @Test
     public void testVersionGray() throws Exception {
-        myTestCases.testVersionGray("Gateway", gatewayUrl, gatewayTestUrl);
-        myTestCases.testVersionGray("Zuul", zuulUrl, zuulTestUrl);
+        myTestCases.testVersionGray(gatewayUrl, gatewayTestUrl);
+        myTestCases.testVersionGray(zuulUrl, zuulTestUrl);
     }
 
     @Test
     public void testRegionGray() throws Exception {
-        myTestCases.testRegionGray("Gateway", gatewayUrl, gatewayTestUrl);
-        myTestCases.testRegionGray("Zuul", zuulUrl, zuulTestUrl);
+        myTestCases.testRegionGray(gatewayUrl, gatewayTestUrl);
+        myTestCases.testRegionGray(zuulUrl, zuulTestUrl);
     }
 }

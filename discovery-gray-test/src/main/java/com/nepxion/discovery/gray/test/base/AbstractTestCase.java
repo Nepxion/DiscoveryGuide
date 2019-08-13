@@ -9,8 +9,6 @@ package com.nepxion.discovery.gray.test.base;
  * @version 1.0
  */
 
-import org.apache.commons.lang3.StringUtils;
-
 public abstract class AbstractTestCase implements TestCase {
     @Override
     public void run() {
@@ -21,23 +19,11 @@ public abstract class AbstractTestCase implements TestCase {
 
     @Override
     public void beforeTest() {
-        String testMethod = getTestMethod();
-        String testType = getTestType();
-
-        if (StringUtils.isNotEmpty(testType)) {
-            System.out.println("---------- Run " + testMethod + " for " + testType + "----------");
-        } else {
-            System.out.println("---------- Run " + testMethod + " ----------");
-        }
+        System.out.println("---------- Run " + getTestMethod() + " ----------");
     }
 
     @Override
     public void afterTest() {
         System.out.println("* Passed");
-    }
-
-    @Override
-    public String getTestType() {
-        return null;
     }
 }

@@ -27,7 +27,7 @@ public class MyTestCases {
     @Autowired
     private GrayTestOperation grayTestOperation;
 
-    public void testNoGray(String type, String url, String testUrl) {
+    public void testNoGray(String url, String testUrl) {
         new AbstractTestCase() {
             @Override
             public void runTest() {
@@ -51,15 +51,10 @@ public class MyTestCases {
             public String getTestMethod() {
                 return "testNoGray";
             }
-
-            @Override
-            public String getTestType() {
-                return type;
-            }
         }.run();
     }
 
-    public void testVersionGray(String type, String url, String testUrl) {
+    public void testVersionGray(String url, String testUrl) {
         new AbstractGrayTestCase(grayTestOperation, url, "test-config-version-1.xml") {
             @Override
             public void runTest() {
@@ -81,15 +76,10 @@ public class MyTestCases {
             public String getTestMethod() {
                 return "testVersionGray";
             }
-
-            @Override
-            public String getTestType() {
-                return type;
-            }
         }.run();
     }
 
-    public void testRegionGray(String type, String url, String testUrl) {
+    public void testRegionGray(String url, String testUrl) {
         new AbstractGrayTestCase(grayTestOperation, url, "test-config-region-1.xml") {
             @Override
             public void runTest() {
@@ -110,11 +100,6 @@ public class MyTestCases {
             @Override
             public String getTestMethod() {
                 return "testRegionGray";
-            }
-
-            @Override
-            public String getTestType() {
-                return type;
             }
         }.run();
     }

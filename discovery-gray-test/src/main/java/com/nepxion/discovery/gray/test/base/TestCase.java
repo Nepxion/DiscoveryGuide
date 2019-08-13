@@ -18,7 +18,5 @@ public interface TestCase {
 
     void afterTest();
 
-    String getTestType();
-
     String getTestMethod();
 }
