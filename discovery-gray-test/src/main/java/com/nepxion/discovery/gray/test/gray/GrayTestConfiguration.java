@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.test.core;
+package com.nepxion.discovery.gray.test.gray;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -12,12 +12,10 @@ package com.nepxion.discovery.gray.test.core;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.nepxion.discovery.gray.test.operation.TestOperation;
-
 @Configuration
-public class TestConfiguration {
+public class GrayTestConfiguration {
     @Bean
-    public TestOperation testOperation() {
-        return new TestOperation();
+    public GrayTestOperation grayTestOperation() {
+        return new GrayTestOperation();
     }
 }

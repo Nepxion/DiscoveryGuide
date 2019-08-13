@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.test.core;
+package com.nepxion.discovery.gray.test;
 
 /**
  * <p>Title: Nepxion Discovery</p>

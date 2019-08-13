@@ -16,16 +16,16 @@ import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
-import com.nepxion.discovery.gray.test.core.AbstractGrayTestCase;
-import com.nepxion.discovery.gray.test.core.AbstractTestCase;
-import com.nepxion.discovery.gray.test.operation.TestOperation;
+import com.nepxion.discovery.gray.test.base.AbstractTestCase;
+import com.nepxion.discovery.gray.test.gray.AbstractGrayTestCase;
+import com.nepxion.discovery.gray.test.gray.GrayTestOperation;
 
 public class MyTestCases {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Autowired
-    private TestOperation testOperation;
+    private GrayTestOperation grayTestOperation;
 
     public void testNoGray(String type, String url, String testUrl) {
         new AbstractTestCase() {
@@ -60,7 +60,7 @@ public class MyTestCases {
     }
 
     public void testVersionGray(String type, String url, String testUrl) {
-        new AbstractGrayTestCase(testOperation, url, "test-config-version-1.xml") {
+        new AbstractGrayTestCase(grayTestOperation, url, "test-config-version-1.xml") {
             @Override
             public void runTest() {
                 for (int i = 0; i < 4; i++) {
@@ -90,7 +90,7 @@ public class MyTestCases {
     }
 
     public void testRegionGray(String type, String url, String testUrl) {
-        new AbstractGrayTestCase(testOperation, url, "test-config-region-1.xml") {
+        new AbstractGrayTestCase(grayTestOperation, url, "test-config-region-1.xml") {
             @Override
             public void runTest() {
                 for (int i = 0; i < 4; i++) {

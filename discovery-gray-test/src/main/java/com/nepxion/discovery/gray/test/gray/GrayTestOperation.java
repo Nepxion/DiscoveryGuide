@@ -1,4 +1,4 @@
-package com.nepxion.discovery.gray.test.operation;
+package com.nepxion.discovery.gray.test.gray;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -17,7 +17,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.property.DiscoveryContent;
 
-public class TestOperation {
+public class GrayTestOperation {
     public static final String CONFIG_UPDATE_URL = "config/update-sync";
 
     @Autowired
@@ -35,7 +35,7 @@ public class TestOperation {
         return testRestTemplate.postForEntity(url + CONFIG_UPDATE_URL, content, String.class).getBody();
     }
 
-    public String reset(String url) {
+    public String clear(String url) {
         String content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
                 "<rule>\r\n" +
                 "\r\n" +
