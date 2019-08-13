@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 
-import com.nepxion.discovery.gray.test.config.ConfigOperation;
+import com.nepxion.discovery.gray.test.config.TestConfigOperation;
 
 @SpringBootApplication
 public class TestApplication {
@@ -22,7 +22,7 @@ public class TestApplication {
     }
 
     @Bean
-    public ConfigOperation configOperation() {
-        return new ConfigOperation();
+    public TestConfigOperation testConfigOperation() {
+        return new TestConfigOperation();
     }
 }

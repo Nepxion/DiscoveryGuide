@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.stereotype.Component;
 
-import com.nepxion.discovery.gray.test.config.ConfigOperation;
+import com.nepxion.discovery.gray.test.config.TestConfigOperation;
 
 @Component
 public class DiscoveryGrayTestCases {
@@ -25,7 +25,7 @@ public class DiscoveryGrayTestCases {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    private ConfigOperation configOperation;
+    private TestConfigOperation testConfigOperation;
 
     public void testNoGray(String type, String url, String testUrl) {
         System.out.println("---------- Test No Gray for " + type + " ----------");
@@ -51,7 +51,7 @@ public class DiscoveryGrayTestCases {
     public void testVersionGray(String type, String url, String testUrl) {
         System.out.println("---------- Test Version Gray for " + type + " ----------");
 
-        configOperation.update(url, "test-config-version-1.xml");
+        testConfigOperation.update(url, "test-config-version-1.xml");
 
         for (int i = 0; i < 4; i++) {
             String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
@@ -66,7 +66,7 @@ public class DiscoveryGrayTestCases {
             Assert.assertNotEquals(index, lastIndex);
         }
 
-        configOperation.reset(url);
+        testConfigOperation.reset(url);
 
         System.out.println("* Passed");
     }
@@ -74,7 +74,7 @@ public class DiscoveryGrayTestCases {
     public void testRegionGray(String type, String url, String testUrl) {
         System.out.println("---------- Test Region Gray for " + type + " ----------");
 
-        configOperation.update(url, "test-config-region-1.xml");
+        testConfigOperation.update(url, "test-config-region-1.xml");
 
         for (int i = 0; i < 4; i++) {
             String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
@@ -89,7 +89,7 @@ public class DiscoveryGrayTestCases {
             Assert.assertNotEquals(index, lastIndex);
         }
 
-        configOperation.reset(url);
+        testConfigOperation.reset(url);
 
         System.out.println("* Passed");
     }

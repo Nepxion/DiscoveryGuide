@@ -14,10 +14,10 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.property.DiscoveryContent;
 
-public class ConfigOperation {
-    public static final String ENCODING_UTF_8 = "UTF-8";
+public class TestConfigOperation {
     public static final String CONFIG_UPDATE_URL = "config/update-sync";
 
     @Autowired
@@ -26,7 +26,7 @@ public class ConfigOperation {
     public String update(String url, String configPath) {
         String content = null;
         try {
-            DiscoveryContent discoveryContent = new DiscoveryContent(configPath, ENCODING_UTF_8);
+            DiscoveryContent discoveryContent = new DiscoveryContent(configPath, DiscoveryConstant.ENCODING_UTF_8);
             content = discoveryContent.getContent();
         } catch (IOException e) {
             e.printStackTrace();
