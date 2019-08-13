@@ -45,4 +45,10 @@ public class DiscoveryGrayTest {
         discoveryGrayTestCases.testVersionGray("Gateway", gatewayUrl, gatewayTestUrl);
         discoveryGrayTestCases.testVersionGray("Zuul", zuulUrl, zuulTestUrl);
     }
+
+    @Test
+    public void testRegionGray() throws Exception {
+        discoveryGrayTestCases.testRegionGray("Gateway", gatewayUrl, gatewayTestUrl);
+        discoveryGrayTestCases.testRegionGray("Zuul", zuulUrl, zuulTestUrl);
+    }
 }

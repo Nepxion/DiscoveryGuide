@@ -71,4 +71,29 @@ public class DiscoveryGrayTestCases {
 
         System.out.println("---------- Test Version Gray for " + type + " finished ---------");
     }
+
+    public void testRegionGray(String type, String url, String testUrl) {
+        System.out.println("---------- Test Region Gray for " + type + " started ----------");
+
+        configUpdateResolver.update(url, "test-config-region-1.xml");
+
+        for (int i = 0; i < 4; i++) {
+            String result = restTemplate.getForEntity(url + testUrl, String.class).getBody();
+
+            System.out.println("Output" + (i + 1) + " : " + result);
+
+            int index = result.indexOf("[Region=dev]");
+            int lastIndex = result.lastIndexOf("[Region=dev]");
+
+            Assert.assertNotEquals(index, -1);
+            Assert.assertNotEquals(lastIndex, -1);
+            Assert.assertNotEquals(index, lastIndex);
+        }
+
+        configUpdateResolver.reset(url);
+
+        System.out.println("* Passed");
+
+        System.out.println("---------- Test Region Gray for " + type + " finished ---------");
+    }
 }
