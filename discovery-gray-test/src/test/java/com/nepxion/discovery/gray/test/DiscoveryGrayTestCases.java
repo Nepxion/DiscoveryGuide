@@ -45,7 +45,7 @@ public class DiscoveryGrayTestCases {
 
         Assert.assertEquals(noRepeatCount, 4);
 
-        System.out.println("*** Passed");
+        System.out.println("* Passed");
     }
 
     public void testVersionGray(String type, String url, String testUrl) {
@@ -68,7 +68,7 @@ public class DiscoveryGrayTestCases {
 
         configOperation.reset(url);
 
-        System.out.println("*** Passed");
+        System.out.println("* Passed");
     }
 
     public void testRegionGray(String type, String url, String testUrl) {
@@ -91,6 +91,6 @@ public class DiscoveryGrayTestCases {
 
         configOperation.reset(url);
 
-        System.out.println("*** Passed");
+        System.out.println("* Passed");
     }
 }
