@@ -13,14 +13,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 
+import com.nepxion.discovery.gray.test.config.ConfigUpdateResolver;
+
 @SpringBootApplication
 public class DiscoveryGrayTestApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder(DiscoveryGrayTestApplication.class).run(args);
     }
-    
+
     @Bean
     public DiscoveryGrayTestCases discoveryGrayTestCases() {
         return new DiscoveryGrayTestCases();
+    }
+
+    @Bean
+    public ConfigUpdateResolver configUpdateResolver() {
+        return new ConfigUpdateResolver();
     }
 }

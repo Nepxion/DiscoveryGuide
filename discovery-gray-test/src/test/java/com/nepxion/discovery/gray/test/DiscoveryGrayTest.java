@@ -25,12 +25,24 @@ public class DiscoveryGrayTest {
     @Value("${zuul.url}")
     private String zuulUrl;
 
+    @Value("${gateway.test.url}")
+    private String gatewayTestUrl;
+
+    @Value("${zuul.test.url}")
+    private String zuulTestUrl;
+
     @Autowired
     private DiscoveryGrayTestCases discoveryGrayTestCases;
 
     @Test
-    public void testNoGrayInvoke() throws Exception {
-        discoveryGrayTestCases.testNoGrayInvoke("Gateway", gatewayUrl);
-        discoveryGrayTestCases.testNoGrayInvoke("Zuul", zuulUrl);
+    public void testNoGray() throws Exception {
+        discoveryGrayTestCases.testNoGray("Gateway", gatewayUrl, gatewayTestUrl);
+        discoveryGrayTestCases.testNoGray("Zuul", zuulUrl, zuulTestUrl);
+    }
+
+    @Test
+    public void testVersionGray() throws Exception {
+        discoveryGrayTestCases.testVersionGray("Gateway", gatewayUrl, gatewayTestUrl);
+        discoveryGrayTestCases.testVersionGray("Zuul", zuulUrl, zuulTestUrl);
     }
 }
