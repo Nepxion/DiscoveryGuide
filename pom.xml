@@ -12,6 +12,7 @@
         <module>discovery-gray-gateway</module>
         <module>discovery-gray-zuul</module>
         <module>discovery-gray-service</module>
+        <module>discovery-gray-test</module>
     </modules>
 
     <properties>
@@ -46,6 +47,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-gray-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-gray-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
