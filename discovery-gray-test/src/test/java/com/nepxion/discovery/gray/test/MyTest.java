@@ -19,14 +19,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { TestApplication.class, MyTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MyTest {
-    @Value("${gateway.url}")
-    private String gatewayUrl;
+    @Value("${gateway.group}")
+    private String gatewayGroup;
 
-    @Value("${zuul.url}")
-    private String zuulUrl;
+    @Value("${gateway.service.id}")
+    private String gatewayServiceId;
 
     @Value("${gateway.test.url}")
     private String gatewayTestUrl;
+
+    @Value("${zuul.group}")
+    private String zuulGroup;
+
+    @Value("${zuul.service.id}")
+    private String zuulServiceId;
 
     @Value("${zuul.test.url}")
     private String zuulTestUrl;
@@ -36,19 +42,19 @@ public class MyTest {
 
     @Test
     public void testNoGray() throws Exception {
-        myTestCases.testNoGray(gatewayUrl, gatewayTestUrl);
-        myTestCases.testNoGray(zuulUrl, zuulTestUrl);
+        myTestCases.testNoGray(gatewayTestUrl);
+        myTestCases.testNoGray(zuulTestUrl);
     }
 
     @Test
     public void testVersionGray() throws Exception {
-        myTestCases.testVersionGray(gatewayUrl, gatewayTestUrl);
-        myTestCases.testVersionGray(zuulUrl, zuulTestUrl);
+        myTestCases.testVersionGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionGray(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 
     @Test
     public void testRegionGray() throws Exception {
-        myTestCases.testRegionGray(gatewayUrl, gatewayTestUrl);
-        myTestCases.testRegionGray(zuulUrl, zuulTestUrl);
+        myTestCases.testRegionGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionGray(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 }

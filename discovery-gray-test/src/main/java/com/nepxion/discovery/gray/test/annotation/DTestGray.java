@@ -21,7 +21,9 @@ import java.lang.annotation.Target;
 @Inherited
 @Documented
 public @interface DTestGray {
-    String url() default "";
+    String group();
+
+    String serviceId();
 
     String path();
 }

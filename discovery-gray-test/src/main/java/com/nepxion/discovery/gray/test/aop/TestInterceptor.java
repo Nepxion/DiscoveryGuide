@@ -13,15 +13,20 @@ import java.lang.reflect.Method;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.nepxion.discovery.gray.test.annotation.DTest;
 import com.nepxion.discovery.gray.test.annotation.DTestGray;
+import com.nepxion.discovery.gray.test.constant.TestConstant;
 import com.nepxion.discovery.gray.test.gray.TestOperation;
 import com.nepxion.matrix.proxy.aop.AbstractInterceptor;
 
 public class TestInterceptor extends AbstractInterceptor {
     @Autowired
     private TestOperation testOperation;
+
+    @Value("${" + TestConstant.SPRING_APPLICATION_TEST_GRAY_AWAIT_TIME + ":3000}")
+    private Integer awaitTime;
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -37,14 +42,21 @@ public class TestInterceptor extends AbstractInterceptor {
                 object = invocation.proceed();
             } else {
                 DTestGray testGrayAnnotation = method.getAnnotation(DTestGray.class);
-                String url = convertSpel(invocation, testGrayAnnotation.url());
+                String group = convertSpel(invocation, testGrayAnnotation.group());
+                String serviceId = convertSpel(invocation, testGrayAnnotation.serviceId());
                 String path = convertSpel(invocation, testGrayAnnotation.path());
 
-                testOperation.update(url, path);
+                testOperation.update(group, serviceId, path);
 
-                object = invocation.proceed();
+                Thread.sleep(awaitTime);
 
-                testOperation.clear(url);
+                try {
+                    object = invocation.proceed();
+                } finally {
+                    testOperation.clear(group, serviceId);
+
+                    Thread.sleep(awaitTime);
+                }
             }
 
             System.out.println("* Passed");

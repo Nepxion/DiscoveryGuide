@@ -24,11 +24,11 @@ public class MyTestCases {
     private TestRestTemplate testRestTemplate;
 
     @DTest
-    public void testNoGray(String url, String testUrl) {
+    public void testNoGray(String testUrl) {
         int noRepeatCount = 0;
         List<String> resultList = new ArrayList<String>();
         for (int i = 0; i < 4; i++) {
-            String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             System.out.println("Result" + (i + 1) + " : " + result);
 
@@ -41,10 +41,10 @@ public class MyTestCases {
         Assert.assertEquals(noRepeatCount, 4);
     }
 
-    @DTestGray(url = "#url", path = "test-config-version-1.xml")
-    public void testVersionGray(String url, String testUrl) {
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-version-1.xml")
+    public void testVersionGray(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
-            String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             System.out.println("Result" + (i + 1) + " : " + result);
 
@@ -57,10 +57,10 @@ public class MyTestCases {
         }
     }
 
-    @DTestGray(url = "#url", path = "test-config-region-1.xml")
-    public void testRegionGray(String url, String testUrl) {
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-region-1.xml")
+    public void testRegionGray(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
-            String result = testRestTemplate.getForEntity(url + testUrl, String.class).getBody();
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             System.out.println("Result" + (i + 1) + " : " + result);
 
