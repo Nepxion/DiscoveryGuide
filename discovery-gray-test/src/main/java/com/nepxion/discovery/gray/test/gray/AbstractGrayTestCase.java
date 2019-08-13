@@ -14,19 +14,19 @@ import com.nepxion.discovery.gray.test.base.AbstractTestCase;
 public abstract class AbstractGrayTestCase extends AbstractTestCase {
     private GrayTestOperation grayTestOperation;
     private String url;
-    private String configPath;
+    private String path;
 
     public AbstractGrayTestCase(GrayTestOperation grayTestOperation, String url, String path) {
         this.grayTestOperation = grayTestOperation;
         this.url = url;
-        this.configPath = path;
+        this.path = path;
     }
 
     @Override
     public void beforeTest() {
         super.beforeTest();
 
-        grayTestOperation.update(url, configPath);
+        grayTestOperation.update(url, path);
     }
 
     @Override
