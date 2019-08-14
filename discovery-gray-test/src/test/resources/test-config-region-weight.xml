@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <region-weight>{"discovery-gray-service-a":"dev=95;qa=5", "discovery-gray-service-b":"dev=15;qa=85"}</region-weight>
+    </strategy>
+</rule>

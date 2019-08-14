@@ -67,6 +67,12 @@ public class MyTest {
     }
 
     @Test
+    public void testVersionWeightGray() throws Exception {
+        myTestCases.testVersionWeightGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionWeightGray(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
+
+    @Test
     public void testRegionGray1() throws Exception {
         myTestCases.testRegionGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
         myTestCases.testRegionGray1(zuulGroup, zuulServiceId, zuulTestUrl);
@@ -81,5 +87,11 @@ public class MyTest {
     public void testRegionGray3() throws Exception {
         myTestCases.testRegionGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
         myTestCases.testRegionGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
+
+    @Test
+    public void testRegionWeightGray() throws Exception {
+        myTestCases.testRegionWeightGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionWeightGray(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 }
