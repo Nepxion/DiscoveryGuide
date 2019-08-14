@@ -90,10 +90,10 @@ public class MyTestCases {
         int bV0Weight = 20;
         int bV1Weight = 80;
 
-        LOG.info("调用次数={}，调用次数越大，随机权重越准确", totalCount);
-        LOG.info("A服务期望值 : 1.0版本随机权重={}%, 1.1版本随机权重={}%", aV0Weight, aV1Weight);
-        LOG.info("B服务期望值 : 1.0版本随机权重={}%, 1.1版本随机权重={}%", bV0Weight, bV1Weight);
-        LOG.info("随机权重允许偏离量={}%", offset);
+        LOG.info("Total count={}", totalCount);
+        LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
+        LOG.info("B service desired : 1.0 version weight={}%, 1.1 version weight={}%", bV0Weight, bV1Weight);
+        LOG.info("Weight allowed offset={}%", offset);
 
         for (int i = 0; i < totalCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -123,10 +123,10 @@ public class MyTestCases {
         double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / totalCount));
         double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / totalCount));
 
-        LOG.info("A服务1.0版本服务随机权重={}%", aV0Reslut);
-        LOG.info("A服务1.1版本服务随机权重={}%", aV1Reslut);
-        LOG.info("B服务1.0版本服务随机权重={}%", bV0Reslut);
-        LOG.info("B服务1.1版本服务随机权重={}%", bV1Reslut);
+        LOG.info("A service 1.0 version weight result={}%", aV0Reslut);
+        LOG.info("A service 1.1 version weight result={}%", aV1Reslut);
+        LOG.info("B service 1.0 version weight result={}%", bV0Reslut);
+        LOG.info("B service 1.1 version weight result={}%", bV1Reslut);
 
         Assert.assertEquals(aV0Reslut > aV0Weight - offset && aV0Reslut < aV0Weight + offset, true);
         Assert.assertEquals(aV1Reslut > aV1Weight - offset && aV1Reslut < aV1Weight + offset, true);
@@ -178,10 +178,10 @@ public class MyTestCases {
         int bDevWeight = 15;
         int bQaWeight = 85;
 
-        LOG.info("调用次数={}，调用次数越大，随机权重越准确", totalCount);
-        LOG.info("A服务期望值 : dev区域随机权重={}%, qa区域随机权重={}%", aDevWeight, aQaWeight);
-        LOG.info("B服务期望值 : dev区域随机权重={}%, qa区域随机权重={}%", bDevWeight, bQaWeight);
-        LOG.info("随机权重允许偏离量={}%", offset);
+        LOG.info("Total count={}", totalCount);
+        LOG.info("A service desired : dev region weight={}%, qa region weight={}%", aDevWeight, aQaWeight);
+        LOG.info("B service desired : dev region weight={}%, qa region weight={}%", bDevWeight, bQaWeight);
+        LOG.info("Weight allowed offset={}%", offset);
 
         for (int i = 0; i < totalCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -211,10 +211,10 @@ public class MyTestCases {
         double bDevReslut = Double.valueOf(format.format((double) bDevCount * 100 / totalCount));
         double bQaReslut = Double.valueOf(format.format((double) bQaCount * 100 / totalCount));
 
-        LOG.info("A服务dev区域服务随机权重={}%", aDevReslut);
-        LOG.info("A服务qa区域服务随机权重={}%", aQaReslut);
-        LOG.info("B服务dev区域服务随机权重={}%", bDevReslut);
-        LOG.info("B服务qa区域服务随机权重={}%", bQaReslut);
+        LOG.info("A service dev region weight result={}%", aDevReslut);
+        LOG.info("A service qa region weight result={}%", aQaReslut);
+        LOG.info("B service dev region weight={}%", bDevReslut);
+        LOG.info("B service qa region weight result={}%", bQaReslut);
 
         Assert.assertEquals(aDevReslut > aDevWeight - offset && aDevReslut < aDevWeight + offset, true);
         Assert.assertEquals(aQaReslut > aQaWeight - offset && aQaReslut < aQaWeight + offset, true);
