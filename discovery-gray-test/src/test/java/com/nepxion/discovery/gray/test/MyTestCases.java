@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
@@ -21,6 +23,8 @@ import com.nepxion.discovery.plugin.test.automation.annotation.DTest;
 import com.nepxion.discovery.plugin.test.automation.annotation.DTestGray;
 
 public class MyTestCases {
+    private static final Logger LOG = LoggerFactory.getLogger(MyTestCases.class);
+
     @Autowired
     private TestRestTemplate testRestTemplate;
 
@@ -31,7 +35,7 @@ public class MyTestCases {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
-            System.out.println("Result" + (i + 1) + " : " + result);
+            LOG.info("Result{} : {}", i + 1, result);
 
             if (!resultList.contains(result)) {
                 noRepeatCount++;
@@ -61,7 +65,7 @@ public class MyTestCases {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
-            System.out.println("Result" + (i + 1) + " : " + result);
+            LOG.info("Result{} : {}", i + 1, result);
 
             int index = result.indexOf("[V=1.0]");
             int lastIndex = result.lastIndexOf("[V=1.0]");
@@ -86,10 +90,10 @@ public class MyTestCases {
         int bV0Weight = 20;
         int bV1Weight = 80;
 
-        System.out.println("调用次数=" + totolCount + "，调用次数越大，随机权重越准确");
-        System.out.println("A服务期望值 : 1.0版本随机权重=" + aV0Weight + "%, 1.1版本随机权重=" + aV1Weight + "%");
-        System.out.println("B服务期望值 : 1.0版本随机权重=" + bV0Weight + "%, 1.1版本随机权重=" + bV1Weight + "%");
-        System.out.println("随机权重允许偏离量=" + offset + "%");
+        LOG.info("调用次数={}，调用次数越大，随机权重越准确", totolCount);
+        LOG.info("A服务期望值 : 1.0版本随机权重={}%, 1.1版本随机权重={}%", aV0Weight, aV1Weight);
+        LOG.info("B服务期望值 : 1.0版本随机权重={}%, 1.1版本随机权重={}%", bV0Weight, bV1Weight);
+        LOG.info("随机权重允许偏离量={}%", offset);
 
         for (int i = 0; i < totolCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -119,10 +123,10 @@ public class MyTestCases {
         double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / totolCount));
         double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / totolCount));
 
-        System.out.println("A服务1.0版本服务随机权重=" + aV0Reslut + "%");
-        System.out.println("A服务1.1版本服务随机权重=" + aV1Reslut + "%");
-        System.out.println("B服务1.0版本服务随机权重=" + bV0Reslut + "%");
-        System.out.println("B服务1.1版本服务随机权重=" + bV1Reslut + "%");
+        LOG.info("A服务1.0版本服务随机权重={}%", aV0Reslut);
+        LOG.info("A服务1.1版本服务随机权重={}%", aV1Reslut);
+        LOG.info("B服务1.0版本服务随机权重={}%", bV0Reslut);
+        LOG.info("B服务1.1版本服务随机权重={}%", bV1Reslut);
 
         Assert.assertEquals(aV0Reslut > aV0Weight - offset && aV0Reslut < aV0Weight + offset, true);
         Assert.assertEquals(aV1Reslut > aV1Weight - offset && aV1Reslut < aV1Weight + offset, true);
@@ -149,7 +153,7 @@ public class MyTestCases {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
-            System.out.println("Result" + (i + 1) + " : " + result);
+            LOG.info("Result{} : {}", i + 1, result);
 
             int index = result.indexOf("[R=dev]");
             int lastIndex = result.lastIndexOf("[R=dev]");
@@ -174,10 +178,10 @@ public class MyTestCases {
         int bDevWeight = 15;
         int bQaWeight = 85;
 
-        System.out.println("调用次数=" + totolCount + "，调用次数越大，随机权重越准确");
-        System.out.println("A服务期望值 : dev区域随机权重=" + aDevWeight + "%, qa区域随机权重=" + aQaWeight + "%");
-        System.out.println("B服务期望值 : dev区域随机权重=" + bDevWeight + "%, qa区域随机权重=" + bQaWeight + "%");
-        System.out.println("随机权重允许偏离量=" + offset + "%");
+        LOG.info("调用次数={}，调用次数越大，随机权重越准确", totolCount);
+        LOG.info("A服务期望值 : dev区域随机权重={}%, qa区域随机权重={}%", aDevWeight, aQaWeight);
+        LOG.info("B服务期望值 : dev区域随机权重={}%, qa区域随机权重={}%", bDevWeight, bQaWeight);
+        LOG.info("随机权重允许偏离量={}%", offset);
 
         for (int i = 0; i < totolCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -207,10 +211,10 @@ public class MyTestCases {
         double bDevReslut = Double.valueOf(format.format((double) bDevCount * 100 / totolCount));
         double bQaReslut = Double.valueOf(format.format((double) bQaCount * 100 / totolCount));
 
-        System.out.println("A服务dev区域服务随机权重=" + aDevReslut + "%");
-        System.out.println("A服务qa区域服务随机权重=" + aQaReslut + "%");
-        System.out.println("B服务dev区域服务随机权重=" + bDevReslut + "%");
-        System.out.println("B服务qa区域服务随机权重=" + bQaReslut + "%");
+        LOG.info("A服务dev区域服务随机权重={}%", aDevReslut);
+        LOG.info("A服务qa区域服务随机权重={}%", aQaReslut);
+        LOG.info("B服务dev区域服务随机权重={}%", bDevReslut);
+        LOG.info("B服务qa区域服务随机权重={}%", bQaReslut);
 
         Assert.assertEquals(aDevReslut > aDevWeight - offset && aDevReslut < aDevWeight + offset, true);
         Assert.assertEquals(aQaReslut > aQaWeight - offset && aQaReslut < aQaWeight + offset, true);

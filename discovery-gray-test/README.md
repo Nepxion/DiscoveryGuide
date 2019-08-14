@@ -46,7 +46,7 @@ public class MyTestCases {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
-            System.out.println("Result" + (i + 1) + " : " + result);
+            LOG.info("Result{} : {}", i + 1, result);
 
             if (!resultList.contains(result)) {
                 noRepeatCount++;
@@ -76,7 +76,7 @@ public class MyTestCases {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
-            System.out.println("Result" + (i + 1) + " : " + result);
+            LOG.info("Result{} : {}", i + 1, result);
 
             int index = result.indexOf("[V=1.0]");
             int lastIndex = result.lastIndexOf("[V=1.0]");

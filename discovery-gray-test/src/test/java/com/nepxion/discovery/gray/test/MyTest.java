@@ -9,8 +9,12 @@ package com.nepxion.discovery.gray.test;
  * @version 1.0
  */
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +25,8 @@ import com.nepxion.discovery.plugin.test.automation.TestApplication;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { TestApplication.class, MyTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MyTest {
+    private static final Logger LOG = LoggerFactory.getLogger(MyTest.class);
+
     @Value("${gateway.group}")
     private String gatewayGroup;
 
@@ -41,6 +47,18 @@ public class MyTest {
 
     @Autowired
     private MyTestCases myTestCases;
+
+    private static long startTime;
+
+    @BeforeClass
+    public static void beforeTest() {
+        startTime = System.currentTimeMillis();
+    }
+
+    @AfterClass
+    public static void afterTest() {
+        LOG.info("* Finished automation test in {} seconds", (System.currentTimeMillis() - startTime) / 1000);
+    }
 
     @Test
     public void testNoGray() throws Exception {
