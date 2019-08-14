@@ -11,6 +11,8 @@ package com.nepxion.discovery.gray.test.gray;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -21,6 +23,8 @@ import com.nepxion.discovery.common.util.UrlUtil;
 import com.nepxion.discovery.gray.test.constant.TestConstant;
 
 public class TestOperation {
+    private static final Logger LOG = LoggerFactory.getLogger(TestOperation.class);
+
     public static final String REMOTE_UPDATE_URL = "console/remote-config/update";
     public static final String REMOTE_CLEAR_URL = "console/remote-config/clear";
 
@@ -42,7 +46,7 @@ public class TestOperation {
             DiscoveryContent discoveryContent = new DiscoveryContent(path, DiscoveryConstant.ENCODING_UTF_8);
             content = discoveryContent.getContent();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Read {} failed", path, e);
         }
 
         return change(group, serviceId, content);
