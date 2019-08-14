@@ -71,8 +71,8 @@ public class MyTestCases {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-version-1.xml")
-    public void testVersionGray(String group, String serviceId, String testUrl) {
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-version-1.xml")
+    public void testVersionStrategyGray(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
@@ -159,19 +159,19 @@ Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G
 Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
 Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
 * Passed
----------- Run automation testcase :: testVersionGray() ----------
+---------- Run automation testcase :: testVersionStrategyGray() ----------
 Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
 Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
 Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
 Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
 * Passed
----------- Run automation testcase :: testRegionGray() ----------
+---------- Run automation testcase :: testRegionStrategyGray() ----------
 Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
 Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
 Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
 Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
 * Passed
----------- Run automation testcase :: testVersionWeightGray() ----------
+---------- Run automation testcase :: testVersionWeightStrategyGray() ----------
 调用次数=3000，调用次数越大，随机权重越准确
 A服务期望值 : 1.0版本随机权重=90%, 1.1版本随机权重=10%
 B服务期望值 : 1.0版本随机权重=20%, 1.1版本随机权重=80%
@@ -181,7 +181,7 @@ A服务1.1版本服务随机权重=10.4%
 B服务1.0版本服务随机权重=20.1333%
 B服务1.1版本服务随机权重=79.8667%
 * Passed
----------- Run automation testcase :: testRegionWeightGray() ----------
+---------- Run automation testcase :: testRegionWeightStrategyGray() ----------
 调用次数=3000，调用次数越大，随机权重越准确
 A服务期望值 : dev区域随机权重=95%, qa区域随机权重=5%
 B服务期望值 : dev区域随机权重=15%, qa区域随机权重=85%

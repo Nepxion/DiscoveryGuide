@@ -49,49 +49,49 @@ public class MyTest {
     }
 
     @Test
-    public void testVersionGray1() throws Exception {
-        myTestCases.testVersionGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testVersionStrategyGray1() throws Exception {
+        myTestCases.testVersionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 
     @Test
-    public void testVersionGray2() throws Exception {
-        myTestCases.testVersionGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testVersionStrategyGray2() throws Exception {
+        myTestCases.testVersionStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 
     @Test
-    public void testVersionGray3() throws Exception {
-        myTestCases.testVersionGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testVersionStrategyGray3() throws Exception {
+        myTestCases.testVersionStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 
     @Test
-    public void testVersionWeightGray() throws Exception {
-        myTestCases.testVersionWeightGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionWeightGray(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testVersionWeightStrategyGray() throws Exception {
+        myTestCases.testVersionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 
     @Test
-    public void testRegionGray1() throws Exception {
-        myTestCases.testRegionGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testRegionGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testRegionStrategyGray1() throws Exception {
+        myTestCases.testRegionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 
     @Test
-    public void testRegionGray2() throws Exception {
-        myTestCases.testRegionGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testRegionGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testRegionStrategyGray2() throws Exception {
+        myTestCases.testRegionStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 
-    public void testRegionGray3() throws Exception {
-        myTestCases.testRegionGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testRegionGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testRegionStrategyGray3() throws Exception {
+        myTestCases.testRegionStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 
     @Test
-    public void testRegionWeightGray() throws Exception {
-        myTestCases.testRegionWeightGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testRegionWeightGray(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testRegionWeightStrategyGray() throws Exception {
+        myTestCases.testRegionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 }

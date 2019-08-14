@@ -42,22 +42,22 @@ public class MyTestCases {
         Assert.assertEquals(noRepeatCount, 4);
     }
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-version-1.xml")
-    public void testVersionGray1(String group, String serviceId, String testUrl) {
-        testVersionGray(testUrl);
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-version-1.xml")
+    public void testVersionStrategyGray1(String group, String serviceId, String testUrl) {
+        testVersionStrategyGray(testUrl);
     }
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-version-2.xml")
-    public void testVersionGray2(String group, String serviceId, String testUrl) {
-        testVersionGray(testUrl);
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-version-2.xml")
+    public void testVersionStrategyGray2(String group, String serviceId, String testUrl) {
+        testVersionStrategyGray(testUrl);
     }
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-version-3.xml")
-    public void testVersionGray3(String group, String serviceId, String testUrl) {
-        testVersionGray(testUrl);
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-version-3.xml")
+    public void testVersionStrategyGray3(String group, String serviceId, String testUrl) {
+        testVersionStrategyGray(testUrl);
     }
 
-    private void testVersionGray(String testUrl) {
+    private void testVersionStrategyGray(String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
@@ -72,8 +72,8 @@ public class MyTestCases {
         }
     }
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-version-weight.xml")
-    public void testVersionWeightGray(String group, String serviceId, String testUrl) {
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-version-weight.xml")
+    public void testVersionWeightStrategyGray(String group, String serviceId, String testUrl) {
         int aV0Count = 0;
         int aV1Count = 0;
         int bV0Count = 0;
@@ -130,22 +130,22 @@ public class MyTestCases {
         Assert.assertEquals(bV1Reslut > bV1Weight - offset && bV1Reslut < bV1Weight + offset, true);
     }
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-region-1.xml")
-    public void testRegionGray1(String group, String serviceId, String testUrl) {
-        testRegionGray(testUrl);
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-region-1.xml")
+    public void testRegionStrategyGray1(String group, String serviceId, String testUrl) {
+        testRegionStrategyGray(testUrl);
     }
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-region-2.xml")
-    public void testRegionGray2(String group, String serviceId, String testUrl) {
-        testRegionGray(testUrl);
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-region-2.xml")
+    public void testRegionStrategyGray2(String group, String serviceId, String testUrl) {
+        testRegionStrategyGray(testUrl);
     }
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-region-3.xml")
-    public void testRegionGray3(String group, String serviceId, String testUrl) {
-        testRegionGray(testUrl);
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-region-3.xml")
+    public void testRegionStrategyGray3(String group, String serviceId, String testUrl) {
+        testRegionStrategyGray(testUrl);
     }
 
-    private void testRegionGray(String testUrl) {
+    private void testRegionStrategyGray(String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
@@ -160,8 +160,8 @@ public class MyTestCases {
         }
     }
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-region-weight.xml")
-    public void testRegionWeightGray(String group, String serviceId, String testUrl) {
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-region-weight.xml")
+    public void testRegionWeightStrategyGray(String group, String serviceId, String testUrl) {
         int aDevCount = 0;
         int aQaCount = 0;
         int bDevCount = 0;
