@@ -63,8 +63,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 ## 请联系我
 微信和公众号
 
-![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)
-![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
 
 ## 服务治理架构图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Govern.jpg)
