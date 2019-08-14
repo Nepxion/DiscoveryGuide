@@ -482,8 +482,8 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 <rule>
     <strategy-customization>
         <conditions>
-            <condition id="condition1" header="appVersion=1.0" version-id="version-route1"/>
-            <condition id="condition2" header="appVersion=2.0" version-id="version-route2"/>
+            <condition id="condition1" header="app-version=1.0" version-id="version-route1"/>
+            <condition id="condition2" header="app-version=2.0" version-id="version-route2"/>
         </conditions>
 
         <routes>
