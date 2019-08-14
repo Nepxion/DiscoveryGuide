@@ -67,6 +67,18 @@ public class MyTest {
     }
 
     @Test
+    public void testEnabledStrategyGray1() throws Exception {
+        myTestCases.testEnabledStrategyGray1(gatewayTestUrl);
+        myTestCases.testEnabledStrategyGray1(zuulTestUrl);
+    }
+
+    @Test
+    public void testEnabledStrategyGray2() throws Exception {
+        myTestCases.testEnabledStrategyGray2(gatewayTestUrl);
+        myTestCases.testEnabledStrategyGray2(zuulTestUrl);
+    }
+
+    @Test
     public void testVersionStrategyGray1() throws Exception {
         myTestCases.testVersionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
         myTestCases.testVersionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);

@@ -50,6 +50,72 @@ public class MyTestCases {
         Assert.assertEquals(noRepeatCount, 4);
     }
 
+    @DTest
+    public void testEnabledStrategyGray1(String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("mobile", "138");
+
+        LOG.info("Header : {}", headers);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTest
+    public void testEnabledStrategyGray2(String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("mobile", "133");
+
+        LOG.info("Header : {}", headers);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[V=1.1]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[V=1.1]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-version-1.xml")
     public void testVersionStrategyGray1(String group, String serviceId, String testUrl) {
         testVersionStrategyGray(testUrl);
