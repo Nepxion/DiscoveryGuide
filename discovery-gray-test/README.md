@@ -175,21 +175,21 @@ Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][
 Total count=3000
 A service desired : 1.0 version weight=90%, 1.1 version weight=10%
 B service desired : 1.0 version weight=20%, 1.1 version weight=80%
-Weight allowed offset=2%
-A service 1.0 version weight result=89.6%
-A service 1.1 version weight result=10.4%
-B service 1.0 version weight result=20.1333%
-B service 1.1 version weight result=79.8667%
+Weight offset desired=2%
+Result : A service 1.0 version weight=89.6%
+Result : A service 1.1 version weight=10.4%
+Result : B service 1.0 version weight=20.1333%
+Result : B service 1.1 version weight=79.8667%
 * Passed
 ---------- Run automation testcase :: testRegionWeightStrategyGray() ----------
 Total count=3000
 A service desired : dev region weight=95%, qa region weight=5%
 B service desired : dev region weight=15%, qa region weight=85%
-Weight allowed offset=2%
-A service dev region weight result=95.4333%
-A service qa region weight result=4.5667%
-B service dev region weight=14.3667%
-B service qa region weight result=85.6333%
+Weight offset desired=2%
+Result : A service dev region weight=95.4333%
+Result : A service qa region weight=4.5667%
+Result : B service dev region weight=14.3667%
+Result : B service qa region weight=85.6333%
 * Passed
 ```
 
