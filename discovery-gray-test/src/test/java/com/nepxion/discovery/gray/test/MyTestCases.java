@@ -11,6 +11,7 @@ package com.nepxion.discovery.gray.test;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Assert;
@@ -18,6 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 
 import com.nepxion.discovery.plugin.test.automation.annotation.DTest;
 import com.nepxion.discovery.plugin.test.automation.annotation.DTestGray;
@@ -234,12 +238,79 @@ public class MyTestCases {
             String[] array = result.split("->");
             for (String value : array) {
                 if (value.contains("discovery-gray-service-a")) {
-                    if (value.contains("[V=1.0][R=dev]")) {
+                    if (value.contains("[V=1.0]")) {
                         aMatched = true;
                     }
                 }
                 if (value.contains("discovery-gray-service-b")) {
-                    if (value.contains("[V=1.0][R=qa]")) {
+                    if (value.contains("[V=1.0]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-customization.xml")
+    public void testRegionStrategyCustomizationGray2(String group, String serviceId, String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("a", "1");
+
+        LOG.info("Header : {}", headers);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[V=1.1]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-customization.xml")
+    public void testRegionStrategyCustomizationGray3(String group, String serviceId, String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("a", "1");
+        headers.add("b", "2");
+
+        LOG.info("Header : {}", headers);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[V=1.1]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[V=1.1]")) {
                         bMatched = true;
                     }
                 }

@@ -112,4 +112,22 @@ public class MyTest {
         myTestCases.testRegionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
         myTestCases.testRegionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
     }
+
+    @Test
+    public void testRegionStrategyCustomizationGray1() throws Exception {
+        myTestCases.testRegionStrategyCustomizationGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionStrategyCustomizationGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
+
+    @Test
+    public void testRegionStrategyCustomizationGray2() throws Exception {
+        myTestCases.testRegionStrategyCustomizationGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionStrategyCustomizationGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
+
+    @Test
+    public void testRegionStrategyCustomizationGray3() throws Exception {
+        myTestCases.testRegionStrategyCustomizationGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionStrategyCustomizationGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
 }
