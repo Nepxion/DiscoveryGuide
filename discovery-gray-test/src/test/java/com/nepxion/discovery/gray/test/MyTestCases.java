@@ -48,8 +48,8 @@ public class MyTestCases {
 
             System.out.println("Result" + (i + 1) + " : " + result);
 
-            int index = result.indexOf("[V1.0]");
-            int lastIndex = result.lastIndexOf("[V1.0]");
+            int index = result.indexOf("[V=1.0]");
+            int lastIndex = result.lastIndexOf("[V=1.0]");
 
             Assert.assertNotEquals(index, -1);
             Assert.assertNotEquals(lastIndex, -1);
@@ -64,8 +64,8 @@ public class MyTestCases {
 
             System.out.println("Result" + (i + 1) + " : " + result);
 
-            int index = result.indexOf("[Region=dev]");
-            int lastIndex = result.lastIndexOf("[Region=dev]");
+            int index = result.indexOf("[R=dev]");
+            int lastIndex = result.lastIndexOf("[R=dev]");
 
             Assert.assertNotEquals(index, -1);
             Assert.assertNotEquals(lastIndex, -1);
