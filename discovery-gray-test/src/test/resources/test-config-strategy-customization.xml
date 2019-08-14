@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <!-- 网关端的基于Http Header传递的策略路由，全局缺省路由 -->
+    <strategy>
+        <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
+    </strategy>
+
+    <!-- 网关端的基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
+    <strategy-customization>
+        <conditions>
+            <condition id="condition1" header="a=1" version-id="version-route2"/>
+            <condition id="condition2" header="a=1;b=2" version-id="version-route1"/>
+        </conditions>
+
+        <routes>
+            <route id="version-route1" type="version">{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}</route>
+            <route id="version-route2" type="version">{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}</route>
+        </routes>
+    </strategy-customization>
+</rule>

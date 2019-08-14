@@ -221,4 +221,31 @@ public class MyTestCases {
         Assert.assertEquals(bDevReslut > bDevWeight - offset && bDevReslut < bDevWeight + offset, true);
         Assert.assertEquals(bQaReslut > bQaWeight - offset && bQaReslut < bQaWeight + offset, true);
     }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-customization.xml")
+    public void testRegionStrategyCustomizationGray1(String group, String serviceId, String testUrl) {
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[V=1.0][R=dev]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[V=1.0][R=qa]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
 }
