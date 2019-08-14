@@ -227,7 +227,7 @@ public class MyTestCases {
     }
 
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-customization.xml")
-    public void testRegionStrategyCustomizationGray1(String group, String serviceId, String testUrl) {
+    public void testStrategyCustomizationGray1(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
@@ -254,7 +254,7 @@ public class MyTestCases {
     }
 
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-customization.xml")
-    public void testRegionStrategyCustomizationGray2(String group, String serviceId, String testUrl) {
+    public void testStrategyCustomizationGray2(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
 
@@ -287,7 +287,7 @@ public class MyTestCases {
     }
 
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-customization.xml")
-    public void testRegionStrategyCustomizationGray3(String group, String serviceId, String testUrl) {
+    public void testStrategyCustomizationGray3(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
         headers.add("b", "2");
