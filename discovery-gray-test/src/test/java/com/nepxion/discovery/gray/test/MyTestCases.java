@@ -42,7 +42,21 @@ public class MyTestCases {
     }
 
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-version-1.xml")
-    public void testVersionGray(String group, String serviceId, String testUrl) {
+    public void testVersionGray1(String group, String serviceId, String testUrl) {
+        testVersionGray(testUrl);
+    }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-version-2.xml")
+    public void testVersionGray2(String group, String serviceId, String testUrl) {
+        testVersionGray(testUrl);
+    }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-version-3.xml")
+    public void testVersionGray3(String group, String serviceId, String testUrl) {
+        testVersionGray(testUrl);
+    }
+
+    private void testVersionGray(String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
@@ -58,7 +72,21 @@ public class MyTestCases {
     }
 
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-region-1.xml")
-    public void testRegionGray(String group, String serviceId, String testUrl) {
+    public void testRegionGray1(String group, String serviceId, String testUrl) {
+        testRegionGray(testUrl);
+    }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-region-2.xml")
+    public void testRegionGray2(String group, String serviceId, String testUrl) {
+        testRegionGray(testUrl);
+    }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-region-3.xml")
+    public void testRegionGray3(String group, String serviceId, String testUrl) {
+        testRegionGray(testUrl);
+    }
+
+    private void testRegionGray(String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 

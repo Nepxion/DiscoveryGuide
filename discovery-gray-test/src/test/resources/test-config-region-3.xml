@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <region>{"discovery-gray-service-a":"d*", "discovery-gray-service-b":"?e?"}</region>
+    </strategy>
+</rule>

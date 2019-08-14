@@ -49,14 +49,37 @@ public class MyTest {
     }
 
     @Test
-    public void testVersionGray() throws Exception {
-        myTestCases.testVersionGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionGray(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testVersionGray1() throws Exception {
+        myTestCases.testVersionGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionGray1(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 
     @Test
-    public void testRegionGray() throws Exception {
-        myTestCases.testRegionGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testRegionGray(zuulGroup, zuulServiceId, zuulTestUrl);
+    public void testVersionGray2() throws Exception {
+        myTestCases.testVersionGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
+
+    @Test
+    public void testVersionGray3() throws Exception {
+        myTestCases.testVersionGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
+
+    @Test
+    public void testRegionGray1() throws Exception {
+        myTestCases.testRegionGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
+
+    @Test
+    public void testRegionGray2() throws Exception {
+        myTestCases.testRegionGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
+
+    public void testRegionGray3() throws Exception {
+        myTestCases.testRegionGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testRegionGray3(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 }

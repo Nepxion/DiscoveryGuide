@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+         <version>{"discovery-gray-service-a":"*0", "discovery-gray-service-b":"?.0"}</version>
+    </strategy>
+</rule>
