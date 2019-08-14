@@ -83,19 +83,19 @@ public class MyTestCases {
         int bV0Count = 0;
         int bV1Count = 0;
 
-        int totolCount = 3000;
+        int totalCount = 3000;
         int offset = 2;
         int aV0Weight = 90;
         int aV1Weight = 10;
         int bV0Weight = 20;
         int bV1Weight = 80;
 
-        LOG.info("调用次数={}，调用次数越大，随机权重越准确", totolCount);
+        LOG.info("调用次数={}，调用次数越大，随机权重越准确", totalCount);
         LOG.info("A服务期望值 : 1.0版本随机权重={}%, 1.1版本随机权重={}%", aV0Weight, aV1Weight);
         LOG.info("B服务期望值 : 1.0版本随机权重={}%, 1.1版本随机权重={}%", bV0Weight, bV1Weight);
         LOG.info("随机权重允许偏离量={}%", offset);
 
-        for (int i = 0; i < totolCount; i++) {
+        for (int i = 0; i < totalCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             String[] array = result.split("->");
@@ -118,10 +118,10 @@ public class MyTestCases {
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
-        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / totolCount));
-        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / totolCount));
-        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / totolCount));
-        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / totolCount));
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / totalCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / totalCount));
+        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / totalCount));
+        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / totalCount));
 
         LOG.info("A服务1.0版本服务随机权重={}%", aV0Reslut);
         LOG.info("A服务1.1版本服务随机权重={}%", aV1Reslut);
@@ -171,19 +171,19 @@ public class MyTestCases {
         int bDevCount = 0;
         int bQaCount = 0;
 
-        int totolCount = 3000;
+        int totalCount = 3000;
         int offset = 2;
         int aDevWeight = 95;
         int aQaWeight = 5;
         int bDevWeight = 15;
         int bQaWeight = 85;
 
-        LOG.info("调用次数={}，调用次数越大，随机权重越准确", totolCount);
+        LOG.info("调用次数={}，调用次数越大，随机权重越准确", totalCount);
         LOG.info("A服务期望值 : dev区域随机权重={}%, qa区域随机权重={}%", aDevWeight, aQaWeight);
         LOG.info("B服务期望值 : dev区域随机权重={}%, qa区域随机权重={}%", bDevWeight, bQaWeight);
         LOG.info("随机权重允许偏离量={}%", offset);
 
-        for (int i = 0; i < totolCount; i++) {
+        for (int i = 0; i < totalCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             String[] array = result.split("->");
@@ -206,10 +206,10 @@ public class MyTestCases {
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
-        double aDevReslut = Double.valueOf(format.format((double) aDevCount * 100 / totolCount));
-        double aQaReslut = Double.valueOf(format.format((double) aQaCount * 100 / totolCount));
-        double bDevReslut = Double.valueOf(format.format((double) bDevCount * 100 / totolCount));
-        double bQaReslut = Double.valueOf(format.format((double) bQaCount * 100 / totolCount));
+        double aDevReslut = Double.valueOf(format.format((double) aDevCount * 100 / totalCount));
+        double aQaReslut = Double.valueOf(format.format((double) aQaCount * 100 / totalCount));
+        double bDevReslut = Double.valueOf(format.format((double) bDevCount * 100 / totalCount));
+        double bQaReslut = Double.valueOf(format.format((double) bQaCount * 100 / totalCount));
 
         LOG.info("A服务dev区域服务随机权重={}%", aDevReslut);
         LOG.info("A服务qa区域服务随机权重={}%", aQaReslut);
