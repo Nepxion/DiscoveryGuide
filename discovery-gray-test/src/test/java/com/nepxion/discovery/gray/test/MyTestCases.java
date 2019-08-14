@@ -16,8 +16,8 @@ import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 
-import com.nepxion.discovery.gray.test.annotation.DTest;
-import com.nepxion.discovery.gray.test.annotation.DTestGray;
+import com.nepxion.discovery.plugin.test.automation.annotation.DTest;
+import com.nepxion.discovery.plugin.test.automation.annotation.DTestGray;
 
 public class MyTestCases {
     @Autowired
