@@ -98,14 +98,14 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式：
 ```xml
-gateway -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
--> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
+gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] 
+-> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
 ```
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Zuul网关调用示例“，调用地址为[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)，相关的Header值已经预设，供开发者修改。测试通过Zuul网关的调用结果，结果为如下格式：
 ```xml
-zuul -> discovery-gray-service-a[192.168.0.107:3001][V1.0][Region=dev] 
--> discovery-gray-service-b[192.168.0.107:4001][V1.0][Region=qa]
+zuul -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] 
+-> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
 ```
 
 - 上述步骤在下面每次更改规则策略的时候执行，并验证结果和规则策略的期望值是否相同
