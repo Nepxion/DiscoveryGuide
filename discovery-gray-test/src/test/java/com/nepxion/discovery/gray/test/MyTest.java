@@ -45,6 +45,9 @@ public class MyTest {
     @Value("${zuul.test.url}")
     private String zuulTestUrl;
 
+    @Value("${gray.weight.testcases.enabled:true}")
+    private Boolean weightTestcasesEnabled;
+
     @Autowired
     private MyTestCases myTestCases;
 
@@ -98,8 +101,10 @@ public class MyTest {
 
     @Test
     public void testVersionWeightStrategyGray() throws Exception {
-        myTestCases.testVersionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
+        if (weightTestcasesEnabled) {
+            myTestCases.testVersionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testVersionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
@@ -121,8 +126,10 @@ public class MyTest {
 
     @Test
     public void testRegionWeightStrategyGray() throws Exception {
-        myTestCases.testRegionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testRegionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
+        if (weightTestcasesEnabled) {
+            myTestCases.testRegionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testRegionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
@@ -157,19 +164,25 @@ public class MyTest {
 
     @Test
     public void testVersionWeightRuleGray() throws Exception {
-        myTestCases.testVersionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
-        myTestCases.testVersionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        if (weightTestcasesEnabled) {
+            myTestCases.testVersionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            myTestCases.testVersionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        }
     }
 
     @Test
     public void testRegionWeightRuleGray() throws Exception {
-        myTestCases.testRegionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
-        myTestCases.testRegionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        if (weightTestcasesEnabled) {
+            myTestCases.testRegionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            myTestCases.testRegionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        }
     }
 
     @Test
     public void testVersionCompositeRuleGray() throws Exception {
-        myTestCases.testVersionCompositeRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
-        myTestCases.testVersionCompositeRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        if (weightTestcasesEnabled) {
+            myTestCases.testVersionCompositeRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            myTestCases.testVersionCompositeRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        }
     }
 }
