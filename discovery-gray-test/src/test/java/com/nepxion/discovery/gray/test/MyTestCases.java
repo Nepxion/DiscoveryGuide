@@ -166,9 +166,9 @@ public class MyTestCases {
         int bV1Weight = 80;
 
         LOG.info("Sample count={}", sampleCount);
+        LOG.info("Weight result offset desired={}%", resultOffset);
         LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
         LOG.info("B service desired : 1.0 version weight={}%, 1.1 version weight={}%", bV0Weight, bV1Weight);
-        LOG.info("Weight result offset desired={}%", resultOffset);
 
         for (int i = 0; i < sampleCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -254,9 +254,9 @@ public class MyTestCases {
         int bQaWeight = 15;
 
         LOG.info("Sample count={}", sampleCount);
+        LOG.info("Weight result offset desired={}%", resultOffset);
         LOG.info("A service desired : dev region weight={}%, qa region weight={}%", aDevWeight, aQaWeight);
         LOG.info("B service desired : dev region weight={}%, qa region weight={}%", bDevWeight, bQaWeight);
-        LOG.info("Weight result offset desired={}%", resultOffset);
 
         for (int i = 0; i < sampleCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -476,9 +476,9 @@ public class MyTestCases {
         int bV1Weight = 65;
 
         LOG.info("Sample count={}", sampleCount);
+        LOG.info("Weight result offset desired={}%", resultOffset);        
         LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
         LOG.info("B service desired : 1.0 version weight={}%, 1.1 version weight={}%", bV0Weight, bV1Weight);
-        LOG.info("Weight result offset desired={}%", resultOffset);
 
         for (int i = 0; i < sampleCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -534,9 +534,9 @@ public class MyTestCases {
         int bQaWeight = 5;
 
         LOG.info("Sample count={}", sampleCount);
+        LOG.info("Weight result offset desired={}%", resultOffset);        
         LOG.info("A service desired : dev region weight={}%, qa region weight={}%", aDevWeight, aQaWeight);
         LOG.info("B service desired : dev region weight={}%, qa region weight={}%", bDevWeight, bQaWeight);
-        LOG.info("Weight result offset desired={}%", resultOffset);
 
         for (int i = 0; i < sampleCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -588,8 +588,8 @@ public class MyTestCases {
         int aV1Weight = 60;
 
         LOG.info("Sample count={}", sampleCount);
-        LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
         LOG.info("Weight result offset desired={}%", resultOffset);
+        LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
         LOG.info("Route desired : A Service 1.0 version -> B Service 1.0 version, A Service 1.1 version -> B Service 1.1 version");
 
         for (int i = 0; i < sampleCount; i++) {
