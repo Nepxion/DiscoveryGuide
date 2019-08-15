@@ -142,4 +142,16 @@ public class MyTest {
         myTestCases.testStrategyCustomizationGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
         myTestCases.testStrategyCustomizationGray3(zuulGroup, zuulServiceId, zuulTestUrl);
     }
+
+    @Test
+    public void testVersionRuleGray() throws Exception {
+        myTestCases.testVersionRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+        myTestCases.testVersionRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+    }
+
+    @Test
+    public void testRegionRuleGray() throws Exception {
+        myTestCases.testRegionRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+        myTestCases.testRegionRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+    }
 }

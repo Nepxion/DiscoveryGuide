@@ -385,4 +385,74 @@ public class MyTestCases {
             Assert.assertEquals(aMatched && bMatched, true);
         }
     }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-rule-version.xml")
+    public void testVersionRuleGray(String group, String serviceId, String testUrl) {
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aV0Matched = false;
+            boolean bV0Matched = false;
+            boolean aV1Matched = false;
+            boolean bV1Matched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        aV1Matched = true;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        bV1Matched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+        }
+    }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-rule-region.xml")
+    public void testRegionRuleGray(String group, String serviceId, String testUrl) {
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aDevMatched = false;
+            boolean bDevMatched = false;
+            boolean aQaMatched = false;
+            boolean bQaMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[R=dev]")) {
+                        aDevMatched = true;
+                    }
+                    if (value.contains("[R=qa]")) {
+                        aQaMatched = true;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[R=dev]")) {
+                        bDevMatched = true;
+                    }
+                    if (value.contains("[R=qa]")) {
+                        bQaMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals((aDevMatched && bDevMatched) || (aQaMatched && bQaMatched), true);
+        }
+    }
 }
