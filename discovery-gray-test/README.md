@@ -7,6 +7,16 @@
 
 Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动化测试，包括普通调用测试和灰度调用测试插件。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便
 
+## 目录
+- [请联系我](#请联系我)
+- [启动灰度控制台](#启动灰度控制台)
+- [配置文件](#配置文件)
+- [测试用例](#测试用例)
+    - [普通调用测试](#普通调用测试)
+    - [灰度调用测试](#灰度调用测试)	
+- [测试报告](#测试报告)
+- [Star走势图](#Star走势图)
+
 ## 请联系我
 微信和公众号
 
@@ -161,7 +171,7 @@ public class MyTestCases {
     </build>
 ```
 
-## 测试结果
+## 测试报告
 
 ```xml
 ---------- Run automation testcase :: testNoGray() ----------
