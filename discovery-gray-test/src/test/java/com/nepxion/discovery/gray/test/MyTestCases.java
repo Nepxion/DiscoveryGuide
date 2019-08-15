@@ -23,8 +23,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
-import com.nepxion.discovery.plugin.test.automation.annotation.DTest;
-import com.nepxion.discovery.plugin.test.automation.annotation.DTestGray;
+import com.nepxion.discovery.plugin.test.annotation.DTest;
+import com.nepxion.discovery.plugin.test.annotation.DTestGray;
 
 public class MyTestCases {
     private static final Logger LOG = LoggerFactory.getLogger(MyTestCases.class);

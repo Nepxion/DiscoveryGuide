@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-test-automation</artifactId>
+            <artifactId>discovery-plugin-test-starter</artifactId>
             <version>${discovery.version}</version>
         </dependency>
     </dependencies>
