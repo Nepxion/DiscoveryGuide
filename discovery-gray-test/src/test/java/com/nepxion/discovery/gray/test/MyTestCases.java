@@ -154,7 +154,7 @@ public class MyTestCases {
         int bV1Count = 0;
 
         int totalCount = 3000;
-        int offset = 2;
+        int offset = 5;
         int aV0Weight = 90;
         int aV1Weight = 10;
         int bV0Weight = 20;
@@ -244,7 +244,7 @@ public class MyTestCases {
         int bQaCount = 0;
 
         int totalCount = 3000;
-        int offset = 2;
+        int offset = 5;
         int aDevWeight = 85;
         int aQaWeight = 15;
         int bDevWeight = 85;
@@ -468,7 +468,7 @@ public class MyTestCases {
         int bV1Count = 0;
 
         int totalCount = 3000;
-        int offset = 2;
+        int offset = 5;
         int aV0Weight = 75;
         int aV1Weight = 25;
         int bV0Weight = 35;
@@ -528,7 +528,7 @@ public class MyTestCases {
         int bQaCount = 0;
 
         int totalCount = 3000;
-        int offset = 2;
+        int offset = 5;
         int aDevWeight = 95;
         int aQaWeight = 5;
         int bDevWeight = 95;
@@ -586,7 +586,7 @@ public class MyTestCases {
         int aV1Count = 0;
 
         int totalCount = 3000;
-        int offset = 2;
+        int offset = 5;
         int aV0Weight = 40;
         int aV1Weight = 60;
 
