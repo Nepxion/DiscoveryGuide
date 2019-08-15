@@ -194,13 +194,13 @@ Result : B service 1.1 version weight=79.8667%
 * Passed
 ---------- Run automation testcase :: testRegionWeightStrategyGray() ----------
 Total count=3000
-A service desired : dev region weight=95%, qa region weight=5%
-B service desired : dev region weight=15%, qa region weight=85%
+A service desired : dev region weight=85%, qa region weight=15%
+B service desired : dev region weight=85%, qa region weight=15%
 Weight offset desired=2%
-Result : A service dev region weight=95.4333%
-Result : A service qa region weight=4.5667%
-Result : B service dev region weight=14.3667%
-Result : B service qa region weight=85.6333%
+Result : A service dev region weight=83.7667%
+Result : A service qa region weight=16.2333%
+Result : B service dev region weight=86.2%
+Result : B service qa region weight=13.8%
 * Passed
 ---------- Run automation testcase :: testStrategyCustomizationGray() ----------
 Header : [a:"1", b:"2"]

@@ -243,10 +243,10 @@ public class MyTestCases {
 
         int totalCount = 3000;
         int offset = 2;
-        int aDevWeight = 95;
-        int aQaWeight = 5;
-        int bDevWeight = 15;
-        int bQaWeight = 85;
+        int aDevWeight = 85;
+        int aQaWeight = 15;
+        int bDevWeight = 85;
+        int bQaWeight = 15;
 
         LOG.info("Total count={}", totalCount);
         LOG.info("A service desired : dev region weight={}%, qa region weight={}%", aDevWeight, aQaWeight);
@@ -454,5 +454,122 @@ public class MyTestCases {
 
             Assert.assertEquals((aDevMatched && bDevMatched) || (aQaMatched && bQaMatched), true);
         }
+    }
+    
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-rule-version-weight.xml")
+    public void testVersionWeightRuleGray(String group, String serviceId, String testUrl) {
+        int aV0Count = 0;
+        int aV1Count = 0;
+        int bV0Count = 0;
+        int bV1Count = 0;
+
+        int totalCount = 3000;
+        int offset = 2;
+        int aV0Weight = 90;
+        int aV1Weight = 10;
+        int bV0Weight = 20;
+        int bV1Weight = 80;
+
+        LOG.info("Total count={}", totalCount);
+        LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
+        LOG.info("B service desired : 1.0 version weight={}%, 1.1 version weight={}%", bV0Weight, bV1Weight);
+        LOG.info("Weight offset desired={}%", offset);
+
+        for (int i = 0; i < totalCount; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aV0Count++;
+                    } else {
+                        aV1Count++;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bV0Count++;
+                    } else {
+                        bV1Count++;
+                    }
+                }
+            }
+        }
+
+        DecimalFormat format = new DecimalFormat("0.0000");
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / totalCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / totalCount));
+        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / totalCount));
+        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / totalCount));
+
+        LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
+        LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
+        LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
+        LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
+
+        Assert.assertEquals(aV0Reslut > aV0Weight - offset && aV0Reslut < aV0Weight + offset, true);
+        Assert.assertEquals(aV1Reslut > aV1Weight - offset && aV1Reslut < aV1Weight + offset, true);
+        Assert.assertEquals(bV0Reslut > bV0Weight - offset && bV0Reslut < bV0Weight + offset, true);
+        Assert.assertEquals(bV1Reslut > bV1Weight - offset && bV1Reslut < bV1Weight + offset, true);
+    }    
+    
+    
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-rule-region-weight.xml")
+    public void testRegionWeightRuleGray(String group, String serviceId, String testUrl) {
+        int aDevCount = 0;
+        int aQaCount = 0;
+        int bDevCount = 0;
+        int bQaCount = 0;
+
+        int totalCount = 3000;
+        int offset = 2;
+        int aDevWeight = 85;
+        int aQaWeight = 15;
+        int bDevWeight = 85;
+        int bQaWeight = 15;
+
+        LOG.info("Total count={}", totalCount);
+        LOG.info("A service desired : dev region weight={}%, qa region weight={}%", aDevWeight, aQaWeight);
+        LOG.info("B service desired : dev region weight={}%, qa region weight={}%", bDevWeight, bQaWeight);
+        LOG.info("Weight offset desired={}%", offset);
+
+        for (int i = 0; i < totalCount; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[R=dev]")) {
+                        aDevCount++;
+                    } else {
+                        aQaCount++;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[R=dev]")) {
+                        bDevCount++;
+                    } else {
+                        bQaCount++;
+                    }
+                }
+            }
+        }
+
+        DecimalFormat format = new DecimalFormat("0.0000");
+        double aDevReslut = Double.valueOf(format.format((double) aDevCount * 100 / totalCount));
+        double aQaReslut = Double.valueOf(format.format((double) aQaCount * 100 / totalCount));
+        double bDevReslut = Double.valueOf(format.format((double) bDevCount * 100 / totalCount));
+        double bQaReslut = Double.valueOf(format.format((double) bQaCount * 100 / totalCount));
+
+        LOG.info("Result : A service dev region weight={}%", aDevReslut);
+        LOG.info("Result : A service qa region weight={}%", aQaReslut);
+        LOG.info("Result : B service dev region weight={}%", bDevReslut);
+        LOG.info("Result : B service qa region weight={}%", bQaReslut);
+
+        Assert.assertEquals(aDevReslut > aDevWeight - offset && aDevReslut < aDevWeight + offset, true);
+        Assert.assertEquals(aQaReslut > aQaWeight - offset && aQaReslut < aQaWeight + offset, true);
+        Assert.assertEquals(bDevReslut > bDevWeight - offset && bDevReslut < bDevWeight + offset, true);
+        Assert.assertEquals(bQaReslut > bQaWeight - offset && bQaReslut < bQaWeight + offset, true);
     }
 }
