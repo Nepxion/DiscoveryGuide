@@ -12,6 +12,38 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
 
+## 启动灰度控制台
+
+运行[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)下discovery-springcloud-example-console的应用程序，它是连接服务注册发现中心、远程配置中心和服务的纽带
+
+自动化测试利用启动灰度控制台，实现灰度规则和策略的自动更新和清除。操作灰度规则和策略的方式有两种：
+- 推送灰度规则和策略到远程配置中心
+- 推送灰度规则和策略到服务
+方式选择，见配置文件中的“spring.application.test.gray.configcenter.enabled”配置项
+
+## 配置文件
+
+```xml
+# 测试用例类的扫描路径
+spring.application.test.scan.packages=com.nepxion.discovery.gray.test
+# 测试用例的灰度配置推送到远程配置中心，还是到服务。缺失则默认为true
+spring.application.test.gray.configcenter.enabled=true
+# 测试用例的灰度配置清除时，Key保留同时内容为空（reset），还是直接删除Key（clear）。缺失则默认为true
+spring.application.test.gray.reset.enabled=true
+# 测试用例的灰度配置推送后，等待生效的时间。缺失则默认为1000
+spring.application.test.gray.await.time=1000
+# 测试用例的灰度配置推送的控制台地址
+spring.application.test.console.url=http://localhost:2222/
+
+gateway.group=discovery-gray-group
+gateway.service.id=discovery-gray-gateway
+gateway.test.url=http://localhost:5001/discovery-gray-service-a/invoke/gateway
+
+zuul.group=discovery-gray-group
+zuul.service.id=discovery-gray-zuul
+zuul.test.url=http://localhost:5002/discovery-gray-service-a/invoke/zuul
+```
+
 ## 测试用例
 
 自动化测试代码参考[https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test)
@@ -34,6 +66,7 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
 
 ### 普通调用测试
+
 在测试方法上面增加注解@DTest，通过断言Assert来判断测试结果
 
 代码如下：
@@ -64,6 +97,7 @@ public class MyTestCases {
 ```
 
 ### 灰度调用测试
+
 在测试方法上面增加注解@DTestGray，通过断言Assert来判断测试结果。注解@DTestGray包含三个参数：
 1. group - 被测试服务所在的组
 2. serviceId - 被测试服务的服务名
@@ -126,33 +160,6 @@ public class MyTestCases {
         </plugins>
     </build>
 ```
-
-## 配置文件
-
-```xml
-# 测试用例类的扫描路径
-spring.application.test.scan.packages=com.nepxion.discovery.gray.test
-# 测试用例的灰度配置推送到远程配置中心，还是到服务。缺失则默认为true
-spring.application.test.gray.configcenter.enabled=true
-# 测试用例的灰度配置清除时，Key保留同时内容为空（reset），还是直接删除Key（clear）。缺失则默认为true
-spring.application.test.gray.reset.enabled=true
-# 测试用例的灰度配置推送后，等待生效的时间。缺失则默认为1000
-spring.application.test.gray.await.time=1000
-# 测试用例的灰度配置推送的控制台地址
-spring.application.test.console.url=http://localhost:2222/
-
-gateway.group=discovery-gray-group
-gateway.service.id=discovery-gray-gateway
-gateway.test.url=http://localhost:5001/discovery-gray-service-a/invoke/gateway
-
-zuul.group=discovery-gray-group
-zuul.service.id=discovery-gray-zuul
-zuul.test.url=http://localhost:5002/discovery-gray-service-a/invoke/zuul
-```
-
-## 启动灰度控制台
-
-运行[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)下discovery-springcloud-example-console的应用程序
 
 ## 测试结果
 
