@@ -34,6 +34,7 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 ## 配置文件
 
 ```xml
+# 自动化测试框架内置配置
 # 测试用例类的扫描路径
 spring.application.test.scan.packages=com.nepxion.discovery.gray.test
 # 测试用例的灰度配置推送到远程配置中心，还是到服务。缺失则默认为true
@@ -45,13 +46,19 @@ spring.application.test.gray.await.time=1000
 # 测试用例的灰度配置推送的控制台地址
 spring.application.test.console.url=http://localhost:2222/
 
+# 业务测试配置
+# Spring Cloud Gateway网关配置
 gateway.group=discovery-gray-group
 gateway.service.id=discovery-gray-gateway
 gateway.test.url=http://localhost:5001/discovery-gray-service-a/invoke/gateway
 
+# Zuul网关配置
 zuul.group=discovery-gray-group
 zuul.service.id=discovery-gray-zuul
 zuul.test.url=http://localhost:5002/discovery-gray-service-a/invoke/zuul
+
+# 测试用例的灰度权重测试开关。由于权重测试需要大量采样调用，会造成整个自动化测试时间很长，可以通过下面开关开启和关闭。缺失则默认为true
+gray.weight.testcases.enabled=true
 ```
 
 ## 测试用例
