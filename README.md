@@ -629,7 +629,7 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 
         <weight>
             <service consumer-service-name="discovery-gray-gateway" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
-            <!-- <service consumer-service-name="discovery-gray-zuul" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/> -->
+            <service consumer-service-name="discovery-gray-zuul" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
         </weight>
     </discovery>
 </rule>
