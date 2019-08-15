@@ -59,6 +59,10 @@ zuul.test.url=http://localhost:5002/discovery-gray-service-a/invoke/zuul
 
 # 测试用例的灰度权重测试开关。由于权重测试需要大量采样调用，会造成整个自动化测试时间很长，可以通过下面开关开启和关闭。缺失则默认为true
 gray.weight.testcases.enabled=true
+# 测试用例的灰度权重采样总数。采样总数越大，灰度权重准确率越高，但耗费时间越长
+gray.weight.testcase.sample.count=3000
+# 测试用例的灰度权重准确率偏离值。采样总数越大，灰度权重准确率偏离值越小
+gray.weight.testcase.result.offset=5
 ```
 
 ## 测试用例
@@ -207,20 +211,20 @@ Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][
 Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
 * Passed
 ---------- Run automation testcase :: testVersionWeightStrategyGray() ----------
-Total count=3000
+Sample count=3000
+Weight result offset desired=5%
 A service desired : 1.0 version weight=90%, 1.1 version weight=10%
 B service desired : 1.0 version weight=20%, 1.1 version weight=80%
-Weight offset desired=2%
 Result : A service 1.0 version weight=89.6%
 Result : A service 1.1 version weight=10.4%
 Result : B service 1.0 version weight=20.1333%
 Result : B service 1.1 version weight=79.8667%
 * Passed
 ---------- Run automation testcase :: testRegionWeightStrategyGray() ----------
-Total count=3000
+Sample count=3000
+Weight result offset desired=5%
 A service desired : dev region weight=85%, qa region weight=15%
 B service desired : dev region weight=85%, qa region weight=15%
-Weight offset desired=2%
 Result : A service dev region weight=83.7667%
 Result : A service qa region weight=16.2333%
 Result : B service dev region weight=86.2%
@@ -246,29 +250,29 @@ Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G
 Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
 * Passed
 ---------- Run automation testcase :: testVersionWeightRuleGray() ----------
-Total count=3000
+Sample count=3000
+Weight result offset desired=5%
 A service desired : 1.0 version weight=75%, 1.1 version weight=25%
 B service desired : 1.0 version weight=35%, 1.1 version weight=65%
-Weight offset desired=2%
 Result : A service 1.0 version weight=75.2667%
 Result : A service 1.1 version weight=24.7333%
 Result : B service 1.0 version weight=35.1667%
 Result : B service 1.1 version weight=64.8333%
 * Passed
 ---------- Run automation testcase :: testRegionWeightRuleGray() ----------
-Total count=3000
+Sample count=3000
+Weight result offset desired=5%
 A service desired : dev region weight=95%, qa region weight=5%
 B service desired : dev region weight=95%, qa region weight=5%
-Weight offset desired=2%
 Result : A service dev region weight=94.9333%
 Result : A service qa region weight=5.0667%
 Result : B service dev region weight=95.0667%
 Result : B service qa region weight=4.9333%
 * Passed
 ---------- Run automation testcase :: testVersionCompositeRuleGray() ----------
-Total count=3000
+Sample count=3000
+Weight result offset desired=5%
 A service desired : 1.0 version weight=40%, 1.1 version weight=60%
-Weight offset desired=2%
 Route desired : A Service 1.0 version -> B Service 1.0 version, A Service 1.1 version -> B Service 1.1 version
 Result : A service 1.0 version weight=39.8333%
 A service 1.1 version weight=60.1667%
