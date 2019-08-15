@@ -221,6 +221,26 @@ Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][
 Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
 Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
 * Passed
+---------- Run automation testcase :: testVersionWeightRuleGray() ----------
+Total count=3000
+A service desired : 1.0 version weight=75%, 1.1 version weight=25%
+B service desired : 1.0 version weight=35%, 1.1 version weight=65%
+Weight offset desired=2%
+Result : A service 1.0 version weight=75.2667%
+Result : A service 1.1 version weight=24.7333%
+Result : B service 1.0 version weight=35.1667%
+Result : B service 1.1 version weight=64.8333%
+* Passed
+---------- Run automation testcase :: testRegionWeightRuleGray() ----------
+Total count=3000
+A service desired : dev region weight=95%, qa region weight=5%
+B service desired : dev region weight=95%, qa region weight=5%
+Weight offset desired=2%
+Result : A service dev region weight=94.9333%
+Result : A service qa region weight=5.0667%
+Result : B service dev region weight=95.0667%
+Result : B service qa region weight=4.9333%
+* Passed
 ```
 
 ## Star走势图

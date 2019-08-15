@@ -154,4 +154,16 @@ public class MyTest {
         myTestCases.testRegionRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
         myTestCases.testRegionRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
     }
+
+    @Test
+    public void testVersionWeightRuleGray() throws Exception {
+        myTestCases.testVersionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+        myTestCases.testVersionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+    }
+
+    @Test
+    public void testRegionWeightRuleGray() throws Exception {
+        myTestCases.testRegionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+        myTestCases.testRegionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+    }
 }

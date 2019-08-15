@@ -465,10 +465,10 @@ public class MyTestCases {
 
         int totalCount = 3000;
         int offset = 2;
-        int aV0Weight = 90;
-        int aV1Weight = 10;
-        int bV0Weight = 20;
-        int bV1Weight = 80;
+        int aV0Weight = 75;
+        int aV1Weight = 25;
+        int bV0Weight = 35;
+        int bV1Weight = 65;
 
         LOG.info("Total count={}", totalCount);
         LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
@@ -524,10 +524,10 @@ public class MyTestCases {
 
         int totalCount = 3000;
         int offset = 2;
-        int aDevWeight = 85;
-        int aQaWeight = 15;
-        int bDevWeight = 85;
-        int bQaWeight = 15;
+        int aDevWeight = 95;
+        int aQaWeight = 5;
+        int bDevWeight = 95;
+        int bQaWeight = 5;
 
         LOG.info("Total count={}", totalCount);
         LOG.info("A service desired : dev region weight={}%, qa region weight={}%", aDevWeight, aQaWeight);
