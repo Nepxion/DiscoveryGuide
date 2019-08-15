@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,6 +32,12 @@ public class MyTestCases {
 
     @Autowired
     private TestRestTemplate testRestTemplate;
+
+    @Value("${gray.weight.testcase.sample.count:3000}")
+    private Integer sampleCount;
+
+    @Value("${gray.weight.testcase.result.resultOffset:5}")
+    private Integer resultOffset;
 
     @DTest
     public void testNoGray(String testUrl) {
@@ -153,19 +160,17 @@ public class MyTestCases {
         int bV0Count = 0;
         int bV1Count = 0;
 
-        int totalCount = 3000;
-        int offset = 5;
         int aV0Weight = 90;
         int aV1Weight = 10;
         int bV0Weight = 20;
         int bV1Weight = 80;
 
-        LOG.info("Total count={}", totalCount);
+        LOG.info("Sample count={}", sampleCount);
         LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
         LOG.info("B service desired : 1.0 version weight={}%, 1.1 version weight={}%", bV0Weight, bV1Weight);
-        LOG.info("Weight offset desired={}%", offset);
+        LOG.info("Weight result offset desired={}%", resultOffset);
 
-        for (int i = 0; i < totalCount; i++) {
+        for (int i = 0; i < sampleCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             String[] array = result.split("->");
@@ -190,20 +195,20 @@ public class MyTestCases {
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
-        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / totalCount));
-        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / totalCount));
-        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / totalCount));
-        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / totalCount));
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / sampleCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / sampleCount));
+        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / sampleCount));
+        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / sampleCount));
 
         LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
         LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
         LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
         LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
 
-        Assert.assertEquals(aV0Reslut > aV0Weight - offset && aV0Reslut < aV0Weight + offset, true);
-        Assert.assertEquals(aV1Reslut > aV1Weight - offset && aV1Reslut < aV1Weight + offset, true);
-        Assert.assertEquals(bV0Reslut > bV0Weight - offset && bV0Reslut < bV0Weight + offset, true);
-        Assert.assertEquals(bV1Reslut > bV1Weight - offset && bV1Reslut < bV1Weight + offset, true);
+        Assert.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
+        Assert.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
+        Assert.assertEquals(bV0Reslut > bV0Weight - resultOffset && bV0Reslut < bV0Weight + resultOffset, true);
+        Assert.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
     }
 
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-region-1.xml")
@@ -243,19 +248,17 @@ public class MyTestCases {
         int bDevCount = 0;
         int bQaCount = 0;
 
-        int totalCount = 3000;
-        int offset = 5;
         int aDevWeight = 85;
         int aQaWeight = 15;
         int bDevWeight = 85;
         int bQaWeight = 15;
 
-        LOG.info("Total count={}", totalCount);
+        LOG.info("Sample count={}", sampleCount);
         LOG.info("A service desired : dev region weight={}%, qa region weight={}%", aDevWeight, aQaWeight);
         LOG.info("B service desired : dev region weight={}%, qa region weight={}%", bDevWeight, bQaWeight);
-        LOG.info("Weight offset desired={}%", offset);
+        LOG.info("Weight result offset desired={}%", resultOffset);
 
-        for (int i = 0; i < totalCount; i++) {
+        for (int i = 0; i < sampleCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             String[] array = result.split("->");
@@ -280,20 +283,20 @@ public class MyTestCases {
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
-        double aDevReslut = Double.valueOf(format.format((double) aDevCount * 100 / totalCount));
-        double aQaReslut = Double.valueOf(format.format((double) aQaCount * 100 / totalCount));
-        double bDevReslut = Double.valueOf(format.format((double) bDevCount * 100 / totalCount));
-        double bQaReslut = Double.valueOf(format.format((double) bQaCount * 100 / totalCount));
+        double aDevReslut = Double.valueOf(format.format((double) aDevCount * 100 / sampleCount));
+        double aQaReslut = Double.valueOf(format.format((double) aQaCount * 100 / sampleCount));
+        double bDevReslut = Double.valueOf(format.format((double) bDevCount * 100 / sampleCount));
+        double bQaReslut = Double.valueOf(format.format((double) bQaCount * 100 / sampleCount));
 
         LOG.info("Result : A service dev region weight={}%", aDevReslut);
         LOG.info("Result : A service qa region weight={}%", aQaReslut);
         LOG.info("Result : B service dev region weight={}%", bDevReslut);
         LOG.info("Result : B service qa region weight={}%", bQaReslut);
 
-        Assert.assertEquals(aDevReslut > aDevWeight - offset && aDevReslut < aDevWeight + offset, true);
-        Assert.assertEquals(aQaReslut > aQaWeight - offset && aQaReslut < aQaWeight + offset, true);
-        Assert.assertEquals(bDevReslut > bDevWeight - offset && bDevReslut < bDevWeight + offset, true);
-        Assert.assertEquals(bQaReslut > bQaWeight - offset && bQaReslut < bQaWeight + offset, true);
+        Assert.assertEquals(aDevReslut > aDevWeight - resultOffset && aDevReslut < aDevWeight + resultOffset, true);
+        Assert.assertEquals(aQaReslut > aQaWeight - resultOffset && aQaReslut < aQaWeight + resultOffset, true);
+        Assert.assertEquals(bDevReslut > bDevWeight - resultOffset && bDevReslut < bDevWeight + resultOffset, true);
+        Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-customization.xml")
@@ -467,19 +470,17 @@ public class MyTestCases {
         int bV0Count = 0;
         int bV1Count = 0;
 
-        int totalCount = 3000;
-        int offset = 5;
         int aV0Weight = 75;
         int aV1Weight = 25;
         int bV0Weight = 35;
         int bV1Weight = 65;
 
-        LOG.info("Total count={}", totalCount);
+        LOG.info("Sample count={}", sampleCount);
         LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
         LOG.info("B service desired : 1.0 version weight={}%, 1.1 version weight={}%", bV0Weight, bV1Weight);
-        LOG.info("Weight offset desired={}%", offset);
+        LOG.info("Weight result offset desired={}%", resultOffset);
 
-        for (int i = 0; i < totalCount; i++) {
+        for (int i = 0; i < sampleCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             String[] array = result.split("->");
@@ -504,20 +505,20 @@ public class MyTestCases {
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
-        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / totalCount));
-        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / totalCount));
-        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / totalCount));
-        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / totalCount));
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / sampleCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / sampleCount));
+        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / sampleCount));
+        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / sampleCount));
 
         LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
         LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
         LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
         LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
 
-        Assert.assertEquals(aV0Reslut > aV0Weight - offset && aV0Reslut < aV0Weight + offset, true);
-        Assert.assertEquals(aV1Reslut > aV1Weight - offset && aV1Reslut < aV1Weight + offset, true);
-        Assert.assertEquals(bV0Reslut > bV0Weight - offset && bV0Reslut < bV0Weight + offset, true);
-        Assert.assertEquals(bV1Reslut > bV1Weight - offset && bV1Reslut < bV1Weight + offset, true);
+        Assert.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
+        Assert.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
+        Assert.assertEquals(bV0Reslut > bV0Weight - resultOffset && bV0Reslut < bV0Weight + resultOffset, true);
+        Assert.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
     }
 
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-rule-region-weight.xml")
@@ -527,19 +528,17 @@ public class MyTestCases {
         int bDevCount = 0;
         int bQaCount = 0;
 
-        int totalCount = 3000;
-        int offset = 5;
         int aDevWeight = 95;
         int aQaWeight = 5;
         int bDevWeight = 95;
         int bQaWeight = 5;
 
-        LOG.info("Total count={}", totalCount);
+        LOG.info("Sample count={}", sampleCount);
         LOG.info("A service desired : dev region weight={}%, qa region weight={}%", aDevWeight, aQaWeight);
         LOG.info("B service desired : dev region weight={}%, qa region weight={}%", bDevWeight, bQaWeight);
-        LOG.info("Weight offset desired={}%", offset);
+        LOG.info("Weight result offset desired={}%", resultOffset);
 
-        for (int i = 0; i < totalCount; i++) {
+        for (int i = 0; i < sampleCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             String[] array = result.split("->");
@@ -564,20 +563,20 @@ public class MyTestCases {
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
-        double aDevReslut = Double.valueOf(format.format((double) aDevCount * 100 / totalCount));
-        double aQaReslut = Double.valueOf(format.format((double) aQaCount * 100 / totalCount));
-        double bDevReslut = Double.valueOf(format.format((double) bDevCount * 100 / totalCount));
-        double bQaReslut = Double.valueOf(format.format((double) bQaCount * 100 / totalCount));
+        double aDevReslut = Double.valueOf(format.format((double) aDevCount * 100 / sampleCount));
+        double aQaReslut = Double.valueOf(format.format((double) aQaCount * 100 / sampleCount));
+        double bDevReslut = Double.valueOf(format.format((double) bDevCount * 100 / sampleCount));
+        double bQaReslut = Double.valueOf(format.format((double) bQaCount * 100 / sampleCount));
 
         LOG.info("Result : A service dev region weight={}%", aDevReslut);
         LOG.info("Result : A service qa region weight={}%", aQaReslut);
         LOG.info("Result : B service dev region weight={}%", bDevReslut);
         LOG.info("Result : B service qa region weight={}%", bQaReslut);
 
-        Assert.assertEquals(aDevReslut > aDevWeight - offset && aDevReslut < aDevWeight + offset, true);
-        Assert.assertEquals(aQaReslut > aQaWeight - offset && aQaReslut < aQaWeight + offset, true);
-        Assert.assertEquals(bDevReslut > bDevWeight - offset && bDevReslut < bDevWeight + offset, true);
-        Assert.assertEquals(bQaReslut > bQaWeight - offset && bQaReslut < bQaWeight + offset, true);
+        Assert.assertEquals(aDevReslut > aDevWeight - resultOffset && aDevReslut < aDevWeight + resultOffset, true);
+        Assert.assertEquals(aQaReslut > aQaWeight - resultOffset && aQaReslut < aQaWeight + resultOffset, true);
+        Assert.assertEquals(bDevReslut > bDevWeight - resultOffset && bDevReslut < bDevWeight + resultOffset, true);
+        Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-rule-version-composite.xml")
@@ -585,17 +584,15 @@ public class MyTestCases {
         int aV0Count = 0;
         int aV1Count = 0;
 
-        int totalCount = 3000;
-        int offset = 5;
         int aV0Weight = 40;
         int aV1Weight = 60;
 
-        LOG.info("Total count={}", totalCount);
+        LOG.info("Sample count={}", sampleCount);
         LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
-        LOG.info("Weight offset desired={}%", offset);
+        LOG.info("Weight result offset desired={}%", resultOffset);
         LOG.info("Route desired : A Service 1.0 version -> B Service 1.0 version, A Service 1.1 version -> B Service 1.1 version");
 
-        for (int i = 0; i < totalCount; i++) {
+        for (int i = 0; i < sampleCount; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             boolean aV0Matched = false;
@@ -628,12 +625,12 @@ public class MyTestCases {
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
-        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / totalCount));
-        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / totalCount));
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / sampleCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / sampleCount));
         LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
         LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
 
-        Assert.assertEquals(aV0Reslut > aV0Weight - offset && aV0Reslut < aV0Weight + offset, true);
-        Assert.assertEquals(aV1Reslut > aV1Weight - offset && aV1Reslut < aV1Weight + offset, true);
+        Assert.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
+        Assert.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
     }
 }
