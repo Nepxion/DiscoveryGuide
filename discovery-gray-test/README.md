@@ -241,6 +241,14 @@ Result : A service qa region weight=5.0667%
 Result : B service dev region weight=95.0667%
 Result : B service qa region weight=4.9333%
 * Passed
+---------- Run automation testcase :: testVersionCompositeRuleGray() ----------
+Total count=3000
+A service desired : 1.0 version weight=40%, 1.1 version weight=60%
+Weight offset desired=2%
+Route desired : A Service 1.0 version -> B Service 1.0 version, A Service 1.1 version -> B Service 1.1 version
+Result : A service 1.0 version weight=39.8333%
+A service 1.1 version weight=60.1667%
+* Passed
 ```
 
 ## Star走势图

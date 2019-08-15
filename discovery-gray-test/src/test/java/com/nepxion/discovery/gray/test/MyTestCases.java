@@ -173,14 +173,16 @@ public class MyTestCases {
                 if (value.contains("discovery-gray-service-a")) {
                     if (value.contains("[V=1.0]")) {
                         aV0Count++;
-                    } else {
+                    }
+                    if (value.contains("[V=1.1]")) {
                         aV1Count++;
                     }
                 }
                 if (value.contains("discovery-gray-service-b")) {
                     if (value.contains("[V=1.0]")) {
                         bV0Count++;
-                    } else {
+                    }
+                    if (value.contains("[V=1.1]")) {
                         bV1Count++;
                     }
                 }
@@ -261,14 +263,16 @@ public class MyTestCases {
                 if (value.contains("discovery-gray-service-a")) {
                     if (value.contains("[R=dev]")) {
                         aDevCount++;
-                    } else {
+                    }
+                    if (value.contains("[R=qa]")) {
                         aQaCount++;
                     }
                 }
                 if (value.contains("discovery-gray-service-b")) {
                     if (value.contains("[R=dev]")) {
                         bDevCount++;
-                    } else {
+                    }
+                    if (value.contains("[R=qa]")) {
                         bQaCount++;
                     }
                 }
@@ -455,7 +459,7 @@ public class MyTestCases {
             Assert.assertEquals((aDevMatched && bDevMatched) || (aQaMatched && bQaMatched), true);
         }
     }
-    
+
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-rule-version-weight.xml")
     public void testVersionWeightRuleGray(String group, String serviceId, String testUrl) {
         int aV0Count = 0;
@@ -483,14 +487,16 @@ public class MyTestCases {
                 if (value.contains("discovery-gray-service-a")) {
                     if (value.contains("[V=1.0]")) {
                         aV0Count++;
-                    } else {
+                    }
+                    if (value.contains("[V=1.1]")) {
                         aV1Count++;
                     }
                 }
                 if (value.contains("discovery-gray-service-b")) {
                     if (value.contains("[V=1.0]")) {
                         bV0Count++;
-                    } else {
+                    }
+                    if (value.contains("[V=1.1]")) {
                         bV1Count++;
                     }
                 }
@@ -512,9 +518,8 @@ public class MyTestCases {
         Assert.assertEquals(aV1Reslut > aV1Weight - offset && aV1Reslut < aV1Weight + offset, true);
         Assert.assertEquals(bV0Reslut > bV0Weight - offset && bV0Reslut < bV0Weight + offset, true);
         Assert.assertEquals(bV1Reslut > bV1Weight - offset && bV1Reslut < bV1Weight + offset, true);
-    }    
-    
-    
+    }
+
     @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-rule-region-weight.xml")
     public void testRegionWeightRuleGray(String group, String serviceId, String testUrl) {
         int aDevCount = 0;
@@ -542,14 +547,16 @@ public class MyTestCases {
                 if (value.contains("discovery-gray-service-a")) {
                     if (value.contains("[R=dev]")) {
                         aDevCount++;
-                    } else {
+                    }
+                    if (value.contains("[R=qa]")) {
                         aQaCount++;
                     }
                 }
                 if (value.contains("discovery-gray-service-b")) {
                     if (value.contains("[R=dev]")) {
                         bDevCount++;
-                    } else {
+                    }
+                    if (value.contains("[R=qa]")) {
                         bQaCount++;
                     }
                 }
@@ -571,5 +578,62 @@ public class MyTestCases {
         Assert.assertEquals(aQaReslut > aQaWeight - offset && aQaReslut < aQaWeight + offset, true);
         Assert.assertEquals(bDevReslut > bDevWeight - offset && bDevReslut < bDevWeight + offset, true);
         Assert.assertEquals(bQaReslut > bQaWeight - offset && bQaReslut < bQaWeight + offset, true);
+    }
+
+    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-rule-version-composite.xml")
+    public void testVersionCompositeRuleGray(String group, String serviceId, String testUrl) {
+        int aV0Count = 0;
+        int aV1Count = 0;
+
+        int totalCount = 3000;
+        int offset = 2;
+        int aV0Weight = 40;
+        int aV1Weight = 60;
+
+        LOG.info("Total count={}", totalCount);
+        LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
+        LOG.info("Weight offset desired={}%", offset);
+        LOG.info("Route desired : A Service 1.0 version -> B Service 1.0 version, A Service 1.1 version -> B Service 1.1 version");
+
+        for (int i = 0; i < totalCount; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            boolean aV0Matched = false;
+            boolean bV0Matched = false;
+            boolean aV1Matched = false;
+            boolean bV1Matched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-gray-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aV0Count++;
+                        aV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        aV1Count++;
+                        aV1Matched = true;
+                    }
+                }
+                if (value.contains("discovery-gray-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        bV1Matched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+        }
+
+        DecimalFormat format = new DecimalFormat("0.0000");
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / totalCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / totalCount));
+        LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
+        LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
+
+        Assert.assertEquals(aV0Reslut > aV0Weight - offset && aV0Reslut < aV0Weight + offset, true);
+        Assert.assertEquals(aV1Reslut > aV1Weight - offset && aV1Reslut < aV1Weight + offset, true);
     }
 }

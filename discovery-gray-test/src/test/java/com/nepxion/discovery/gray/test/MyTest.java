@@ -166,4 +166,10 @@ public class MyTest {
         myTestCases.testRegionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
         myTestCases.testRegionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
     }
+
+    @Test
+    public void testVersionCompositeRuleGray() throws Exception {
+        myTestCases.testVersionCompositeRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+        myTestCases.testVersionCompositeRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+    }
 }
