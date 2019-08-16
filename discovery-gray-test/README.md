@@ -10,7 +10,7 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 ## 目录
 - [请联系我](#请联系我)
 - [架构设计](#架构设计)
-- [启动灰度控制台](#启动灰度控制台)
+- [启动控制台](#启动控制台)
 - [配置文件](#配置文件)
 - [测试用例](#测试用例)
     - [引入测试包](#引入测试包)
@@ -28,15 +28,15 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 
 ## 架构设计
 
-通过Matrix Aop框架，实现TestAutoScanProxy和TestInterceptor拦截测试用例，实现灰度策略和规则的自动化推送
+通过Matrix Aop框架，实现TestAutoScanProxy和TestInterceptor拦截测试用例，实现配置内容的自动化推送
 
-## 启动灰度控制台
+## 启动控制台
 
 运行[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)下discovery-springcloud-example-console的应用程序，它是连接服务注册发现中心、远程配置中心和服务的纽带
 
-自动化测试利用启动灰度控制台，实现灰度规则和策略的自动更新和清除。操作灰度规则和策略的方式有两种：
-- 推送灰度规则和策略到远程配置中心，适用于灰度发布和路由
-- 推送灰度规则和策略到网关，只适用于灰度路由
+自动化测试利用控制台，实现配置的自动更新和清除。操作方式有两种：
+- 推送配置内容到远程配置中心。对于灰度功能来说，适用于灰度发布和路由
+- 推送配置内容到网关。对于灰度功能来说，只适用于灰度路由
 
 两种方式的选择，见配置文件中的“spring.application.test.gray.configcenter.enabled”配置项
 
@@ -46,13 +46,13 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 # 自动化测试框架内置配置
 # 测试用例类的扫描路径
 spring.application.test.scan.packages=com.nepxion.discovery.gray.test
-# 测试用例的灰度配置推送到远程配置中心，还是到服务。缺失则默认为true
-spring.application.test.gray.configcenter.enabled=true
-# 测试用例的灰度配置推送时，打印配置日志。缺失则默认为true
-spring.application.test.gray.config.print.enabled=true
-# 测试用例的灰度配置推送后，等待生效的时间。缺失则默认为3000
-spring.application.test.gray.await.time=3000
-# 测试用例的灰度配置推送的控制台地址
+# 测试用例的配置内容推送到远程配置中心，还是到服务。缺失则默认为true
+spring.application.test.configcenter.enabled=true
+# 测试用例的配置内容推送时，是否打印配置日志。缺失则默认为true
+spring.application.test.config.print.enabled=true
+# 测试用例的配置内容推送后，等待生效的时间。推送远程配置中心后，再通知各服务更新自身的配置缓存，需要一定的时间，缺失则默认为3000
+spring.application.test.config.operation.await.time=3000
+# 测试用例的配置内容推送的控制台地址。控制台是连接服务注册发现中心、远程配置中心和服务的纽带
 spring.application.test.console.url=http://localhost:2222/
 
 # 业务测试配置
@@ -124,7 +124,7 @@ build>
 /build>
 ```
 
-注意：灰度测试的用例书写，要用到Spring的Spel语法格式（即group = "#group", serviceId = "#serviceId"），需要引入Java8的带"-parameters"编译方式，见上面的<compilerArgs>参数设置
+注意：对于带有注解@DTestConfig的测试用例，要用到Spring的Spel语法格式（即group = "#group", serviceId = "#serviceId"），需要引入Java8的带"-parameters"编译方式，见上面的<compilerArgs>参数设置
 
 在IDE环境里需要设置"-parameters"的Compiler Argument：
 - Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
