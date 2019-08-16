@@ -39,6 +39,8 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 spring.application.test.scan.packages=com.nepxion.discovery.gray.test
 # 测试用例的灰度配置推送到远程配置中心，还是到服务。缺失则默认为true
 spring.application.test.gray.configcenter.enabled=true
+# 测试用例的灰度配置推送时，打印配置日志。缺失则默认为true
+spring.application.test.gray.config.print.enabled=true
 # 测试用例的灰度配置清除时，Key保留同时内容为空（reset），还是直接删除Key（clear）。缺失则默认为true
 spring.application.test.gray.reset.enabled=true
 # 测试用例的灰度配置推送后，等待生效的时间。缺失则默认为1000
