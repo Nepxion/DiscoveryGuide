@@ -9,9 +9,12 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 
 ## 目录
 - [请联系我](#请联系我)
+- [架构设计](#架构设计)
 - [启动灰度控制台](#启动灰度控制台)
 - [配置文件](#配置文件)
 - [测试用例](#测试用例)
+    - [引入测试包](#引入测试包)
+    - [测试入口](#测试入口)
     - [普通调用测试](#普通调用测试)
     - [灰度调用测试](#灰度调用测试)	
 - [测试报告](#测试报告)
@@ -21,6 +24,10 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 微信和公众号
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
+
+## 架构设计
+
+通过Matrix Aop框架，实现TestAutoScanProxy和TestInterceptor拦截测试用例，实现灰度策略和规则的自动化推送
 
 ## 启动灰度控制台
 
@@ -87,6 +94,82 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 | DiscoveryGrayServiceB2.java | B2 | 4002 | 1.1 | dev |
 | DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
+
+### 引入测试包
+
+```xml
+    <dependencies>
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-test-starter</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+注意：灰度测试的用例书写，要用到Spring的Spel语法格式（即group = "#group", serviceId = "#serviceId"），需要引入Java8的带"-parameters"编译方式，见上面的<compilerArgs>参数设置
+
+在IDE环境里需要设置"-parameters"的Compiler Argument：
+- Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
+ - Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
+
+### 测试入口
+
+结合Spring Boot Junit，TestApplication.class为测试框架内置应用启动程序，MyTestConfiguration用于初始化所有测试用例类。在测试方法上面加入JUnit的@Test注解
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = { TestApplication.class, MyTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class MyTest {
+    @Autowired
+    private MyTestCases myTestCases;
+
+    private static long startTime;
+
+    @BeforeClass
+    public static void beforeTest() {
+        startTime = System.currentTimeMillis();
+    }
+
+    @AfterClass
+    public static void afterTest() {
+        LOG.info("* Finished automation test in {} seconds", (System.currentTimeMillis() - startTime) / 1000);
+    }
+
+    @Test
+    public void testNoGray() throws Exception {
+        myTestCases.testNoGray(gatewayTestUrl);
+        myTestCases.testNoGray(zuulTestUrl);
+    }
+}
+```
+
+```java
+@Configuration
+public class MyTestConfiguration {
+    @Bean
+    public MyTestCases myTestCases() {
+        return new MyTestCases();
+    }
+}
+```
 
 ### 普通调用测试
 
@@ -160,32 +243,9 @@ public class MyTestCases {
 </rule>
 ```
 
-灰度测试的注解支持Spel语法格式，即group = "#group", serviceId = "#serviceId"。当使用者希望用这种方式的时候，需要在IDE和Maven里设置"-parameters"的Compiler Argument：
-1. IDE设置
-   - Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
-   - Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
-2. Maven设置
-```xml
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-```
-
 ## 测试报告
 
+- 路由策略测试报告
 ```xml
 ---------- Run automation testcase :: testNoGray() ----------
 Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
@@ -232,6 +292,10 @@ Result : A service qa region weight=16.2333%
 Result : B service dev region weight=86.2%
 Result : B service qa region weight=13.8%
 * Passed
+```
+
+- 路由规则测试报告
+```xml
 ---------- Run automation testcase :: testStrategyCustomizationGray() ----------
 Header : [a:"1", b:"2"]
 Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
