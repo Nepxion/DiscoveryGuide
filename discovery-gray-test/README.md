@@ -5,7 +5,7 @@
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
-Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动化测试框架，包括普通调用测试和灰度调用测试两种方式，使用者可扩展出以配置中心做变更的自动化测试（例如：阿里巴巴的Sentinel，FF4J的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便
+Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：阿里巴巴的Sentinel，FF4J的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把配置中心、灰度发布、熔断降级限流等组件一条龙组合起来做自动化测试
 
 ## 目录
 - [请联系我](#请联系我)
@@ -294,7 +294,7 @@ public class MyTestCases {
 
 ### 扩展调用测试
 
-除了支持灰度自动化测试外，使用者可扩展出以配置中心做变更的自动化测试。以阿里巴巴的Sentinel为例子，测试实现方式如下：
+除了支持灰度自动化测试外，使用者可扩展出以远程配置中心内容做变更的自动化测试。以阿里巴巴的Sentinel为例子，测试实现方式如下：
 - 远程配置中心约定，Apollo上Key的格式为{group}-{serviceId}-sentinel，Nacos上Group为代码中的{group}，Data ID为{serviceId}-{suffix}，即{serviceId}-sentinel
 - 执行测试用例前，把执行限流降级熔断等逻辑的内容（executePath = "sentinel-test.xml"）推送到远程配置中心
 - 执行测试用例，通过断言Assert来判断测试结果
