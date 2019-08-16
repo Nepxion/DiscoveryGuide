@@ -123,17 +123,17 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-version-1.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-1.xml", resetPath = "gray-default.xml")
     public void testVersionStrategyGray1(String group, String serviceId, String testUrl) {
         testVersionStrategyGray(testUrl);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-version-2.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-2.xml", resetPath = "gray-default.xml")
     public void testVersionStrategyGray2(String group, String serviceId, String testUrl) {
         testVersionStrategyGray(testUrl);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-version-3.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-3.xml", resetPath = "gray-default.xml")
     public void testVersionStrategyGray3(String group, String serviceId, String testUrl) {
         testVersionStrategyGray(testUrl);
     }
@@ -153,7 +153,7 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-version-weight.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-weight.xml", resetPath = "gray-default.xml")
     public void testVersionWeightStrategyGray(String group, String serviceId, String testUrl) {
         int aV0Count = 0;
         int aV1Count = 0;
@@ -211,17 +211,17 @@ public class MyTestCases {
         Assert.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-region-1.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-region-1.xml", resetPath = "gray-default.xml")
     public void testRegionStrategyGray1(String group, String serviceId, String testUrl) {
         testRegionStrategyGray(testUrl);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-region-2.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-region-2.xml", resetPath = "gray-default.xml")
     public void testRegionStrategyGray2(String group, String serviceId, String testUrl) {
         testRegionStrategyGray(testUrl);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-region-3.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-region-3.xml", resetPath = "gray-default.xml")
     public void testRegionStrategyGray3(String group, String serviceId, String testUrl) {
         testRegionStrategyGray(testUrl);
     }
@@ -241,7 +241,7 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-region-weight.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-region-weight.xml", resetPath = "gray-default.xml")
     public void testRegionWeightStrategyGray(String group, String serviceId, String testUrl) {
         int aDevCount = 0;
         int aQaCount = 0;
@@ -299,7 +299,7 @@ public class MyTestCases {
         Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-customization.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization.xml", resetPath = "gray-default.xml")
     public void testStrategyCustomizationGray1(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -326,7 +326,7 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-customization.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization.xml", resetPath = "gray-default.xml")
     public void testStrategyCustomizationGray2(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
@@ -359,7 +359,7 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-customization.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization.xml", resetPath = "gray-default.xml")
     public void testStrategyCustomizationGray3(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
@@ -393,7 +393,7 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-rule-version.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-version.xml", resetPath = "gray-default.xml")
     public void testVersionRuleGray(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -428,7 +428,7 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-rule-region.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-region.xml", resetPath = "gray-default.xml")
     public void testRegionRuleGray(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -463,7 +463,7 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-rule-version-weight.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-version-weight.xml", resetPath = "gray-default.xml")
     public void testVersionWeightRuleGray(String group, String serviceId, String testUrl) {
         int aV0Count = 0;
         int aV1Count = 0;
@@ -521,7 +521,7 @@ public class MyTestCases {
         Assert.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-rule-region-weight.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-region-weight.xml", resetPath = "gray-default.xml")
     public void testRegionWeightRuleGray(String group, String serviceId, String testUrl) {
         int aDevCount = 0;
         int aQaCount = 0;
@@ -579,7 +579,7 @@ public class MyTestCases {
         Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-rule-version-composite.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-version-composite.xml", resetPath = "gray-default.xml")
     public void testVersionCompositeRuleGray(String group, String serviceId, String testUrl) {
         int aV0Count = 0;
         int aV1Count = 0;
