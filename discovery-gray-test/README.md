@@ -36,7 +36,8 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 自动化测试利用启动灰度控制台，实现灰度规则和策略的自动更新和清除。操作灰度规则和策略的方式有两种：
 - 推送灰度规则和策略到远程配置中心，适用于灰度发布和路由
 - 推送灰度规则和策略到网关，只适用于灰度路由
-方式选择，见配置文件中的“spring.application.test.gray.configcenter.enabled”配置项
+
+两种方式的选择，见配置文件中的“spring.application.test.gray.configcenter.enabled”配置项
 
 ## 配置文件
 
