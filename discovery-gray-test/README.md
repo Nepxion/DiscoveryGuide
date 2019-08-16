@@ -49,8 +49,6 @@ spring.application.test.scan.packages=com.nepxion.discovery.gray.test
 spring.application.test.gray.configcenter.enabled=true
 # 测试用例的灰度配置推送时，打印配置日志。缺失则默认为true
 spring.application.test.gray.config.print.enabled=true
-# 测试用例的灰度配置清除时，Key保留同时内容为空（reset），还是直接删除Key（clear）。缺失则默认为true
-spring.application.test.gray.reset.enabled=true
 # 测试用例的灰度配置推送后，等待生效的时间。缺失则默认为1000
 spring.application.test.gray.await.time=1000
 # 测试用例的灰度配置推送的控制台地址
@@ -159,6 +157,12 @@ public class MyTest {
         myTestCases.testNoGray(gatewayTestUrl);
         myTestCases.testNoGray(zuulTestUrl);
     }
+
+    @Test
+    public void testVersionStrategyGray() throws Exception {
+        myTestCases.testVersionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        myTestCases.testVersionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+    }
 }
 ```
 
@@ -205,10 +209,26 @@ public class MyTestCases {
 
 ### 灰度调用测试
 
-在测试方法上面增加注解@DTestGray，通过断言Assert来判断测试结果。注解@DTestGray包含三个参数：
-1. group - 被测试服务所在的组
-2. serviceId - 被测试服务的服务名
-3. path - 灰度配置文件的路径，示例为xml格式
+在测试方法上面增加注解@DTestConfig，通过断言Assert来判断测试结果。注解DTestConfig包含如下参数：
+```xml
+// 组名
+String group();
+
+// 服务名
+String serviceId();
+
+// 组名-服务名组合键值的前缀
+String prefix() default StringUtils.EMPTY;
+
+// 组名-服务名组合键值的后缀
+String suffix() default StringUtils.EMPTY;
+
+// 测试用例运行前，执行配置推送的配置文件路径。用于真正生效的配置内容
+String beforeTestPath();
+
+// 测试用例运行后，执行配置推送的配置文件路径。用于重置配置到初始状态，如果为空，则直接删除从配置中心删除组名-服务名组合键值
+String afterTestPath() default StringUtils.EMPTY;
+```
 
 代码如下：
 ```java
@@ -216,7 +236,7 @@ public class MyTestCases {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @DTestGray(group = "#group", serviceId = "#serviceId", path = "test-config-strategy-version-1.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-version-1.xml", afterTestPath = "gray-default.xml")
     public void testVersionStrategyGray(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -234,13 +254,21 @@ public class MyTestCases {
 }
 ```
 
-灰度配置文件test-config-version-1.xml的内容如下：
+灰度配置文件gray-strategy-version-1.xml的内容如下：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
     <strategy>
         <version>1.0</version>
     </strategy>
+</rule>
+```
+
+灰度配置文件gray-default.xml的内容如下：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+
 </rule>
 ```
 
