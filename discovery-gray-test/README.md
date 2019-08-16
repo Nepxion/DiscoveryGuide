@@ -5,7 +5,7 @@
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
-Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：阿里巴巴的Sentinel，FF4J的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把配置中心、灰度发布、熔断降级限流等组件一条龙组合起来做自动化测试
+Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：阿里巴巴的Sentinel，FF4J的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把服务注册发现中心、远程配置中心、负载均衡、灰度发布、熔断降级限流、功能开关、Feign或者RestTemplate调用等中间件或者组件，一条龙组合起来进行自动化测试
 
 ## 目录
 - [请联系我](#请联系我)
