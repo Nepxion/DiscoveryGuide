@@ -5,7 +5,7 @@
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
-Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动化测试，包括普通调用测试和灰度调用测试插件。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便
+Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动化测试框架，包括普通调用测试和灰度调用测试两种方式。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便
 
 ## 目录
 - [请联系我](#请联系我)
