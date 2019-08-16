@@ -16,7 +16,8 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
     - [引入测试包](#引入测试包)
     - [测试入口](#测试入口)
     - [普通调用测试](#普通调用测试)
-    - [灰度调用测试](#灰度调用测试)	
+    - [灰度调用测试](#灰度调用测试)
+    - [扩展调用测试](#扩展调用测试)
 - [测试报告](#测试报告)
 - [Star走势图](#Star走势图)
 
@@ -178,7 +179,17 @@ public class MyTestConfiguration {
 
 ### 普通调用测试
 
-在测试方法上面增加注解@DTest，通过断言Assert来判断测试结果
+在测试方法上面增加注解@DTest，通过断言Assert来判断测试结果。注解@DTest内容如下：
+
+```xml
+@Target({ ElementType.METHOD, ElementType.TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+@Documented
+public @interface DTest {
+
+}
+```
 
 代码如下：
 
@@ -209,34 +220,43 @@ public class MyTestCases {
 
 ### 灰度调用测试
 
-在测试方法上面增加注解@DTestConfig，通过断言Assert来判断测试结果。注解DTestConfig包含如下参数：
+在测试方法上面增加注解@DTestConfig，通过断言Assert来判断测试结果。注解DTestConfig注解内容如下：
+
 ```xml
-// 组名
-String group();
+@Target({ ElementType.METHOD, ElementType.TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+@Documented
+public @interface DTestConfig {
+    // 组名
+    String group();
 
-// 服务名
-String serviceId();
+    // 服务名
+    String serviceId();
 
-// 组名-服务名组合键值的前缀
-String prefix() default StringUtils.EMPTY;
+    // 组名-服务名组合键值的前缀
+    String prefix() default StringUtils.EMPTY;
 
-// 组名-服务名组合键值的后缀
-String suffix() default StringUtils.EMPTY;
+    // 组名-服务名组合键值的后缀
+    String suffix() default StringUtils.EMPTY;
 
-// 测试用例运行前，执行配置推送的配置文件路径。用于真正生效的配置内容
-String beforeTestPath();
+    // 执行配置的文件路径。测试用例运行前，会把该文件里的内容推送到远程配置中心或者服务
+    String executePath();
 
-// 测试用例运行后，执行配置推送的配置文件路径。用于重置配置到初始状态，如果为空，则直接删除从配置中心删除组名-服务名组合键值
-String afterTestPath() default StringUtils.EMPTY;
+    // 重置配置的文件路径。测试用例运行后，会把该文件里的内容推送到远程配置中心或者服务。该文件内容是最初的默认配置
+    // 如果该注解属性为空，则直接删除从配置中心删除组名-服务名组合键值
+    String resetPath() default StringUtils.EMPTY;
+}
 ```
 
 代码如下：
+
 ```java
 public class MyTestCases {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", beforeTestPath = "gray-strategy-version-1.xml", afterTestPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-1.xml", resetPath = "gray-default.xml")
     public void testVersionStrategyGray(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -270,6 +290,26 @@ public class MyTestCases {
 <rule>
 
 </rule>
+```
+
+### 扩展调用测试
+
+除了支持灰度自动化测试外，使用者可扩展出以配置中心做变更的自动化测试。以阿里巴巴的Sentinel为例子，测试实现方式如下：
+- 远程配置中心约定，Apollo上Key的格式为{group}-{serviceId}-sentinel，Nacos上Group为代码中的{group}，Data ID为{serviceId}-{suffix}，即{serviceId}-sentinel
+- 执行测试用例前，把执行限流降级熔断等逻辑的内容（executePath = "sentinel-test.xml"）推送到远程配置中心
+- 执行测试用例，通过断言Assert来判断测试结果
+- 执行测试用例后，把修改过的内容（resetPath = "sentinel-default.xml"）复原，再推送一次到远程配置中心
+
+```java
+public class MyTestCases {
+    @Autowired
+    private TestRestTemplate testRestTemplate;
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", suffix = "sentinel" executePath = "sentinel-test.xml", resetPath = "sentinel-default.xml")
+    public void testVersionStrategyGray(String group, String serviceId, String testUrl) {
+        ...
+    }
+}
 ```
 
 ## 测试报告
