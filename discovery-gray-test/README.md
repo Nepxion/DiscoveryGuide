@@ -98,37 +98,37 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 ### 引入测试包
 
 ```xml
-    <dependencies>
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-test-starter</artifactId>
-            <version>${discovery.version}</version>
-        </dependency>
-    </dependencies>
+dependencies>
+    dependency>
+        groupId>com.nepxion</groupId>
+        artifactId>discovery-plugin-test-starter</artifactId>
+        version>${discovery.version}</version>
+    /dependency>
+/dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+build>
+    plugins>
+        plugin>
+            groupId>org.apache.maven.plugins</groupId>
+            artifactId>maven-compiler-plugin</artifactId>
+            configuration>
+                compilerArgs>
+                    arg>-parameters</arg>
+                /compilerArgs>
+                encoding>${project.build.sourceEncoding}</encoding>
+                source>${java.version}</source>
+                target>${java.version}</target>
+            /configuration>
+        /plugin>
+    /plugins>
+/build>
 ```
 
 注意：灰度测试的用例书写，要用到Spring的Spel语法格式（即group = "#group", serviceId = "#serviceId"），需要引入Java8的带"-parameters"编译方式，见上面的<compilerArgs>参数设置
 
 在IDE环境里需要设置"-parameters"的Compiler Argument：
 - Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
- - Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
+- Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
 
 ### 测试入口
 
