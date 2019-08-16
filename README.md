@@ -9,8 +9,8 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由两种，除此之外，不在本文介绍内的，还包括基于机器IP地址和端口的路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本和区域的匹配发布、版本和区域的权重发布
 - 全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
-  - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
-  - 消费端隔离：黑/白名单的IP地址的消费端隔离
+    - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
+    - 消费端隔离：黑/白名单的IP地址的消费端隔离
 - 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出（需使用者自行集成）
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
@@ -71,13 +71,13 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 
 ## 环境搭建
 - 下载代码
-  - Git clone https://github.com/Nepxion/DiscoveryGray.git 
+    - Git clone https://github.com/Nepxion/DiscoveryGray.git 
 - 代码导入IDE
 - 下载Nacos服务器
-  - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
+    - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
 - 启动Nacos服务器
-  - Windows环境下，运行bin目录下的startup.cmd
-  - Linux环境下，运行bin目录下的startup.sh
+    - Windows环境下，运行bin目录下的startup.cmd
+    - Linux环境下，运行bin目录下的startup.sh
 
 ## 启动服务 
 - 在IDE中，启动四个应用服务和两个网关服务，如下： 
