@@ -306,7 +306,7 @@ public class MyTestCases {
     private TestRestTemplate testRestTemplate;
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", suffix = "sentinel" executePath = "sentinel-test.xml", resetPath = "sentinel-default.xml")
-    public void testVersionStrategyGray(String group, String serviceId, String testUrl) {
+    public void testSentinel(String group, String serviceId, String testUrl) {
         ...
     }
 }
