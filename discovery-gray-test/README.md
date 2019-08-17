@@ -14,7 +14,7 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 - [配置文件](#配置文件)
 - [测试用例](#测试用例)
     - [测试包引入](#测试包引入)
-    - [测试入口](#测试入口)
+    - [测试入口程序](#测试入口程序)
     - [普通调用测试](#普通调用测试)
     - [灰度调用测试](#灰度调用测试)
     - [扩展调用测试](#扩展调用测试)
@@ -130,7 +130,7 @@ build>
 - Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
 - Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
 
-### 测试入口
+### 测试入口程序
 
 结合Spring Boot Junit，TestApplication.class为测试框架内置应用启动程序，MyTestConfiguration用于初始化所有测试用例类。在测试方法上面加入JUnit的@Test注解
 
