@@ -114,6 +114,9 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-g
 
 ### 灰度路由架构图
 
+部署架构图
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/BasicTopology.jpg)
+
 多版本灰度路由架构图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteVersion.jpg)
 
