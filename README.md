@@ -66,6 +66,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
 
+## 部署架构图
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/BasicTopology.jpg)
+
 ## 服务治理架构图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Govern.jpg)
 
@@ -113,9 +116,6 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-g
 ## 基于Header传递方式的网关灰度路由策略
 
 ### 灰度路由架构图
-
-部署架构图
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/BasicTopology.jpg)
 
 多版本灰度路由架构图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteVersion.jpg)
