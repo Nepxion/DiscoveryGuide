@@ -48,6 +48,9 @@ public class MyTest {
     @Value("${gray.weight.testcases.enabled:true}")
     private Boolean weightTestcasesEnabled;
 
+    @Value("${testcase.loop.times:1}")
+    private Integer loopTimes;
+
     @Autowired
     private MyTestCases myTestCases;
 
@@ -65,124 +68,162 @@ public class MyTest {
 
     @Test
     public void testNoGray() throws Exception {
-        myTestCases.testNoGray(gatewayTestUrl);
-        myTestCases.testNoGray(zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testNoGray(gatewayTestUrl);
+            myTestCases.testNoGray(zuulTestUrl);
+        }
     }
 
     @Test
     public void testEnabledStrategyGray1() throws Exception {
-        myTestCases.testEnabledStrategyGray1(gatewayTestUrl);
-        myTestCases.testEnabledStrategyGray1(zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testEnabledStrategyGray1(gatewayTestUrl);
+            myTestCases.testEnabledStrategyGray1(zuulTestUrl);
+        }
     }
 
     @Test
     public void testEnabledStrategyGray2() throws Exception {
-        myTestCases.testEnabledStrategyGray2(gatewayTestUrl);
-        myTestCases.testEnabledStrategyGray2(zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testEnabledStrategyGray2(gatewayTestUrl);
+            myTestCases.testEnabledStrategyGray2(zuulTestUrl);
+        }
     }
 
     @Test
     public void testVersionStrategyGray1() throws Exception {
-        myTestCases.testVersionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testVersionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testVersionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
     public void testVersionStrategyGray2() throws Exception {
-        myTestCases.testVersionStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testVersionStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testVersionStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
     public void testVersionStrategyGray3() throws Exception {
-        myTestCases.testVersionStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testVersionStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testVersionStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
     public void testVersionWeightStrategyGray() throws Exception {
         if (weightTestcasesEnabled) {
-            myTestCases.testVersionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            myTestCases.testVersionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
+            for (int i = 0; i < loopTimes; i++) {
+                myTestCases.testVersionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+                myTestCases.testVersionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
+            }
         }
     }
 
     @Test
     public void testRegionStrategyGray1() throws Exception {
-        myTestCases.testRegionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testRegionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testRegionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testRegionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
     public void testRegionStrategyGray2() throws Exception {
-        myTestCases.testRegionStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testRegionStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testRegionStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testRegionStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     public void testRegionStrategyGray3() throws Exception {
-        myTestCases.testRegionStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testRegionStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testRegionStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testRegionStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
     public void testRegionWeightStrategyGray() throws Exception {
         if (weightTestcasesEnabled) {
-            myTestCases.testRegionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            myTestCases.testRegionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
+            for (int i = 0; i < loopTimes; i++) {
+                myTestCases.testRegionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+                myTestCases.testRegionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
+            }
         }
     }
 
     @Test
     public void testStrategyCustomizationGray1() throws Exception {
-        myTestCases.testStrategyCustomizationGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testStrategyCustomizationGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testStrategyCustomizationGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testStrategyCustomizationGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
     public void testStrategyCustomizationGray2() throws Exception {
-        myTestCases.testStrategyCustomizationGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testStrategyCustomizationGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testStrategyCustomizationGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testStrategyCustomizationGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
     public void testStrategyCustomizationGray3() throws Exception {
-        myTestCases.testStrategyCustomizationGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testStrategyCustomizationGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testStrategyCustomizationGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testStrategyCustomizationGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
     }
 
     @Test
     public void testVersionRuleGray() throws Exception {
-        myTestCases.testVersionRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
-        myTestCases.testVersionRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testVersionRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            myTestCases.testVersionRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        }
     }
 
     @Test
     public void testRegionRuleGray() throws Exception {
-        myTestCases.testRegionRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
-        myTestCases.testRegionRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testRegionRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            myTestCases.testRegionRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+        }
     }
 
     @Test
     public void testVersionWeightRuleGray() throws Exception {
         if (weightTestcasesEnabled) {
-            myTestCases.testVersionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
-            myTestCases.testVersionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+            for (int i = 0; i < loopTimes; i++) {
+                myTestCases.testVersionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+                myTestCases.testVersionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+            }
         }
     }
 
     @Test
     public void testRegionWeightRuleGray() throws Exception {
         if (weightTestcasesEnabled) {
-            myTestCases.testRegionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
-            myTestCases.testRegionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+            for (int i = 0; i < loopTimes; i++) {
+                myTestCases.testRegionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+                myTestCases.testRegionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+            }
         }
     }
 
     @Test
     public void testVersionCompositeRuleGray() throws Exception {
         if (weightTestcasesEnabled) {
-            myTestCases.testVersionCompositeRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
-            myTestCases.testVersionCompositeRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+            for (int i = 0; i < loopTimes; i++) {
+                myTestCases.testVersionCompositeRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+                myTestCases.testVersionCompositeRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
+            }
         }
     }
 }
