@@ -233,17 +233,6 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 #### 通过前端传入灰度路由策略
 通过前端（Postman）方式传入灰度路由策略，来代替配置中心方式，传递全链路路由策略。注意：当配置中心和界面都配置后，以界面传入优先
 
-- 区域匹配策略，Header格式如下任选一个：
-```xml
-1. n-d-region=qa
-2. n-d-region={"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}
-```
-- 区域权重策略，Header格式如下任选一个：
-```xml
-1. n-d-region-weight=dev=99;qa=1
-2. n-d-region-weight={"discovery-gray-service-a":"dev=99;qa=1", "discovery-gray-service-b":"dev=99;qa=1"}
-```
-
 - 版本匹配策略，Header格式如下任选一个：
 ```xml
 1. n-d-version=1.0
@@ -254,6 +243,17 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```xml
 1. n-d-version-weight=1.0=90;1.1=10
 2. n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}
+```
+
+- 区域匹配策略，Header格式如下任选一个：
+```xml
+1. n-d-region=qa
+2. n-d-region={"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}
+```
+- 区域权重策略，Header格式如下任选一个：
+```xml
+1. n-d-region-weight=dev=99;qa=1
+2. n-d-region-weight={"discovery-gray-service-a":"dev=99;qa=1", "discovery-gray-service-b":"dev=99;qa=1"}
 ```
 
 如图所示
