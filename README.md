@@ -275,30 +275,6 @@ spring.application.strategy.zuul.header.priority=false
 
 - 内置策略解析映射到过滤器的自定义方式
 
-通过@Bean方式用内置的CustomizationGatewayStrategyRouteFilter和CustomizationZuulStrategyRouteFilter，覆盖框架内置的过滤类
-
-GatewayStrategyRouteFilter示例
-
-在配置类里@Bean方式进行过滤类创建
-```java
-@Bean
-@ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
-public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
-    return new CustomizationGatewayStrategyRouteFilter();
-}
-```
-
-ZuulStrategyRouteFilter示例
-
-在配置类里@Bean方式进行过滤类创建
-```java
-@Bean
-@ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
-public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
-    return new CustomizationZuulStrategyRouteFilter();
-}
-```
-
 增加Spring Cloud Gateway的解析策略，Group为discovery-gray-group，Data Id为discovery-gray-gateway，或者，增加Spring Cloud Gateway的解析策略，Group为discovery-gray-group，Data Id为discovery-gray-zuul，策略内容见下面XML内容，它所表达的功能逻辑：
 ```xml
 1. 当外部调用带有的Http Header中的值a=1同时b=2
@@ -326,12 +302,12 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
-    <!-- 网关端的基于Http Header传递的策略路由，全局缺省路由 -->
+    <!-- 基于Http Header传递的策略路由，全局缺省路由 -->
     <strategy>
         <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
     </strategy>
 
-    <!-- 网关端的基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
+    <!-- 基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
     <strategy-customization>
         <conditions>
             <condition id="condition1" header="a=1" version-id="version-route2"/>
