@@ -20,9 +20,6 @@ import com.nepxion.discovery.gray.zuul.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.gray.zuul.impl.MyZuulStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
-import com.nepxion.discovery.plugin.strategy.zuul.constant.ZuulStrategyConstant;
-import com.nepxion.discovery.plugin.strategy.zuul.filter.CustomizationZuulStrategyRouteFilter;
-import com.nepxion.discovery.plugin.strategy.zuul.filter.ZuulStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.zuul.tracer.ZuulStrategyTracer;
 
 @SpringBootApplication
@@ -38,12 +35,11 @@ public class DiscoveryGrayZuul {
         return new MyDiscoveryEnabledStrategy();
     }
 
-    @Bean
+    /*@Bean
     @ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
     public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
-        // return new MyZuulStrategyRouteFilter();
-        return new CustomizationZuulStrategyRouteFilter();
-    }
+        return new MyZuulStrategyRouteFilter();
+    }*/
 
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
