@@ -5,11 +5,9 @@
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
-Nepxion Discovery Test集成自动化测试和压力测试两个模块。
-
-自动化测试是基于Spring Boot/Spring Cloud的自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：支持阿里巴巴的Sentinel，FF4J的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把服务注册发现中心、远程配置中心、负载均衡、灰度发布、熔断降级限流、功能开关、Feign或者RestTemplate调用等中间件或者组件，一条龙组合起来进行自动化测试
-
-压力测试是基于wrk的压力测试框架，能用很少的线程压出很大的并发量
+Nepxion Discovery Test集成自动化测试和压力测试两个模块：
+- 自动化测试，基于Spring Boot/Spring Cloud的自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：支持阿里巴巴的Sentinel，FF4J的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把服务注册发现中心、远程配置中心、负载均衡、灰度发布、熔断降级限流、功能开关、Feign或者RestTemplate调用等中间件或者组件，一条龙组合起来进行自动化测试
+- 压力测试，基于wrk的压力测试框架，能用很少的线程压测出很大的并发量
 
 ## 目录
 - [请联系我](#请联系我)
@@ -31,7 +29,6 @@ Nepxion Discovery Test集成自动化测试和压力测试两个模块。
 微信和公众号
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
-
 
 ## 自动化测试
 
@@ -425,6 +422,10 @@ Result : A service 1.0 version weight=39.8333%
 A service 1.1 version weight=60.1667%
 * Passed
 ```
+
+## 压力测试
+
+压力测试代码参考[https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-performance](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-performance)
 
 ## Star走势图
 
