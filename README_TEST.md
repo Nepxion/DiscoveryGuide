@@ -23,6 +23,9 @@ Nepxion Discovery Test集成自动化测试和压力测试两个模块：
         - [扩展调用测试](#扩展调用测试)
     - [测试报告](#测试报告)
 - [压力测试](#压力测试)
+    - [测试环境](#测试环境)
+    - [测试介绍](#测试介绍)
+    - [测试步骤](#测试步骤)
 - [Star走势图](#Star走势图)
 
 ## 请联系我
@@ -430,11 +433,11 @@ A service 1.1 version weight=60.1667%
 - 准备一台机器部署网关（Spring Cloud或者Zuul）
 - 准备一台机器部署压测工具
 
-## 测试方法
+### 测试介绍
 - 使用wrk脚本进行性能测试，wrk脚本示例，请参考[压测脚本](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation/script.lua)，下面的测试命令行可以不必带脚本参数
 - 使用wrk详细说明参考[https://github.com/wg/wrk](https://github.com/wg/wrk)
 
-## 测试步骤
+### 测试步骤
 - 登录到wrk的机器，进入wrk目录
 - 运行命令 wrk -t64 -c2000 -d30s -H "token: abc" --timeout=2s --latency --script=script.lua http://localhost:5001/discovery-gray-service-a/invoke/gateway
 ```xml  
