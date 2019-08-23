@@ -427,9 +427,8 @@ A service 1.1 version weight=60.1667%
 
 ### 测试环境
 - 准备两台机器部署Spring Cloud应用
-- 准备一台机器部署网关(Spring Cloud或者Zuul网关)
-- 准备一台机器部署压测工具 
-- 应用编写hello接口，返回world
+- 准备一台机器部署网关（Spring Cloud或者Zuul）
+- 准备一台机器部署压测工具
 
 ## 测试方法
 - 使用wrk脚本进行性能测试，wrk脚本请参考[压测脚本](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation/script.lua)
