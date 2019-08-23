@@ -434,12 +434,12 @@ A service 1.1 version weight=60.1667%
 - 准备一台机器部署压测工具
 
 ### 测试介绍
-- 使用wrk脚本进行性能测试，wrk脚本示例，请参考[压测脚本](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation/script.lua)，下面的测试命令行可以不必带脚本参数
+- 使用wrk脚本进行性能测试，wrk脚本示例，请参考[压测脚本](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation/post.lua)，下面的测试命令行可以不必带脚本参数
 - 使用wrk详细说明参考[https://github.com/wg/wrk](https://github.com/wg/wrk)
 
 ### 测试步骤
 - 登录到wrk的机器，进入wrk目录
-- 运行命令 wrk -t64 -c2000 -d30s -H "token: abc" --timeout=2s --latency --script=script.lua http://localhost:5001/discovery-gray-service-a/invoke/gateway
+- 运行命令 wrk -t64 -c2000 -d30s -H "id: 123" -H "token: abc" --timeout=2s --latency --script=post.lua http://localhost:5001/discovery-gray-service-a/invoke/gateway
 ```xml  
 使用方法: wrk <选项> <被测HTTP服务的URL>
   Options:
