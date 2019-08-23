@@ -431,7 +431,7 @@ A service 1.1 version weight=60.1667%
 - 准备一台机器部署压测工具
 
 ## 测试方法
-- 使用wrk脚本进行性能测试，wrk脚本请参考[压测脚本](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation/script.lua)
+- 使用wrk脚本进行性能测试，wrk脚本示例，请参考[压测脚本](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation/script.lua)，下面的测试命令行可以不必带脚本参数
 - 使用wrk详细说明参考[https://github.com/wg/wrk](https://github.com/wg/wrk)
 
 ## 测试步骤
