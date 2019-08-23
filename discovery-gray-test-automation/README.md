@@ -1,24 +1,30 @@
-# Nepxion Discovery Automcation Test
+# Nepxion Discovery Test
 [![Total lines](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/master/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework)  [![Build Status](https://travis-ci.org/Nepxion/Discovery.svg?branch=master)](https://travis-ci.org/Nepxion/Discovery)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade_Dashboard)
 
 路过的同学，如果您觉得这个开源框架不错，顺手给它点个Star吧
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
-Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：支持阿里巴巴的Sentinel，FF4J的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把服务注册发现中心、远程配置中心、负载均衡、灰度发布、熔断降级限流、功能开关、Feign或者RestTemplate调用等中间件或者组件，一条龙组合起来进行自动化测试
+Nepxion Discovery Test集成自动化测试和压力测试两个模块。
+
+自动化测试是基于Spring Boot/Spring Cloud的自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：支持阿里巴巴的Sentinel，FF4J的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把服务注册发现中心、远程配置中心、负载均衡、灰度发布、熔断降级限流、功能开关、Feign或者RestTemplate调用等中间件或者组件，一条龙组合起来进行自动化测试
+
+压力测试是基于wrk的压力测试框架，能用很少的线程压出很大的并发量
 
 ## 目录
 - [请联系我](#请联系我)
-- [架构设计](#架构设计)
-- [启动控制台](#启动控制台)
-- [配置文件](#配置文件)
-- [测试用例](#测试用例)
-    - [测试包引入](#测试包引入)
-    - [测试入口程序](#测试入口程序)
-    - [普通调用测试](#普通调用测试)
-    - [灰度调用测试](#灰度调用测试)
-    - [扩展调用测试](#扩展调用测试)
-- [测试报告](#测试报告)
+- [自动化测试]
+    - [架构设计](#架构设计)
+    - [启动控制台](#启动控制台)
+    - [配置文件](#配置文件)
+    - [测试用例](#测试用例)
+        - [测试包引入](#测试包引入)
+        - [测试入口程序](#测试入口程序)
+        - [普通调用测试](#普通调用测试)
+        - [灰度调用测试](#灰度调用测试)
+        - [扩展调用测试](#扩展调用测试)
+    - [测试报告](#测试报告)
+- [压力测试]
 - [Star走势图](#Star走势图)
 
 ## 请联系我
@@ -26,11 +32,14 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
 
-## 架构设计
+
+## 自动化测试
+
+### 架构设计
 
 通过Matrix Aop框架，实现TestAutoScanProxy和TestInterceptor拦截测试用例，实现配置内容的自动化推送
 
-## 启动控制台
+### 启动控制台
 
 运行[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)下discovery-springcloud-example-console的应用程序，它是连接服务注册发现中心、远程配置中心和服务的纽带
 
@@ -40,7 +49,7 @@ Nepxion Discovery Automcation Test是一款基于Spring Boot/Spring Cloud自动�
 
 两种方式的选择，见配置文件中的“spring.application.test.gray.configcenter.enabled”配置项
 
-## 配置文件
+### 配置文件
 
 ```xml
 # 自动化测试框架内置配置
@@ -77,9 +86,9 @@ gray.weight.testcase.sample.count=1500
 gray.weight.testcase.result.offset=5
 ```
 
-## 测试用例
+### 测试用例
 
-自动化测试代码参考[https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test)
+自动化测试代码参考[https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation)
 
 - 自动化测试场景以API网关是测试的触发点，全链路如下：
 
@@ -98,7 +107,7 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 | DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
 | DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
 
-### 测试包引入
+#### 测试包引入
 
 ```xml
 dependencies>
@@ -133,7 +142,7 @@ build>
 - Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
 - Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
 
-### 测试入口程序
+#### 测试入口程序
 
 结合Spring Boot Junit，TestApplication.class为测试框架内置应用启动程序，MyTestConfiguration用于初始化所有测试用例类。在测试方法上面加入JUnit的@Test注解
 
@@ -180,7 +189,7 @@ public class MyTestConfiguration {
 }
 ```
 
-### 普通调用测试
+#### 普通调用测试
 
 在测试方法上面增加注解@DTest，通过断言Assert来判断测试结果。注解@DTest内容如下：
 
@@ -221,7 +230,7 @@ public class MyTestCases {
 }
 ```
 
-### 灰度调用测试
+#### 灰度调用测试
 
 在测试方法上面增加注解@DTestConfig，通过断言Assert来判断测试结果。注解DTestConfig注解内容如下：
 
@@ -295,7 +304,7 @@ public class MyTestCases {
 </rule>
 ```
 
-### 扩展调用测试
+#### 扩展调用测试
 
 除了支持灰度自动化测试外，使用者可扩展出以远程配置中心内容做变更的自动化测试。以阿里巴巴的Sentinel为例子，测试实现方式如下：
 - 远程配置中心约定，Apollo上Key的格式为{group}-{serviceId}-sentinel，Nacos上Group为代码中的{group}，Data ID为{serviceId}-{suffix}，即{serviceId}-sentinel
@@ -315,7 +324,7 @@ public class MyTestCases {
 }
 ```
 
-## 测试报告
+### 测试报告
 
 - 路由策略测试报告
 ```xml
