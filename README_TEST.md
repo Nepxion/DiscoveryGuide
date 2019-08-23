@@ -107,30 +107,30 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 #### 测试包引入
 
 ```xml
-dependencies>
-    dependency>
-        groupId>com.nepxion</groupId>
-        artifactId>discovery-plugin-test-starter</artifactId>
-        version>${discovery.version}</version>
-    /dependency>
-/dependencies>
+<dependencies>
+    <dependency>
+        <groupId>com.nepxion</groupId>
+        <artifactId>discovery-plugin-test-starter</artifactId>
+        <version>${discovery.version}</version>
+    </dependency>
+</dependencies>
 
-build>
-    plugins>
-        plugin>
-            groupId>org.apache.maven.plugins</groupId>
-            artifactId>maven-compiler-plugin</artifactId>
-            configuration>
-                compilerArgs>
-                    arg>-parameters</arg>
-                /compilerArgs>
-                encoding>${project.build.sourceEncoding}</encoding>
-                source>${java.version}</source>
-                target>${java.version}</target>
-            /configuration>
-        /plugin>
-    /plugins>
-/build>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <compilerArgs>
+                    <arg>-parameters</arg>
+                </compilerArgs>
+                <encoding>${project.build.sourceEncoding}</encoding>
+                <source>${java.version}</source>
+                <target>${java.version}</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 ```
 
 注意：对于带有注解@DTestConfig的测试用例，要用到Spring的Spel语法格式（即group = "#group", serviceId = "#serviceId"），需要引入Java8的带"-parameters"编译方式，见上面的<compilerArgs>参数设置
@@ -425,7 +425,31 @@ A service 1.1 version weight=60.1667%
 
 ## 压力测试
 
-压力测试代码参考[https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-performance](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-performance)
+### 测试环境
+- 准备两台机器部署Spring Cloud应用
+- 准备一台机器部署网关(Spring Cloud或者Zuul网关)
+- 准备一台机器部署压测工具 
+- 应用编写hello接口，返回world
+
+## 测试方法
+- 使用wrk脚本进行性能测试，wrk脚本请参考[压测脚本](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation/script.lua)
+- 使用wrk详细说明参考[https://github.com/wg/wrk](https://github.com/wg/wrk)
+
+## 测试步骤
+- 登录到wrk的机器，进入wrk目录
+- 运行命令 wrk -t64 -c2000 -d30s -H "token: abc" --timeout=2s --latency --script=script.lua http://localhost:5001/discovery-gray-service-a/invoke/gateway
+```xml  
+使用方法: wrk <选项> <被测HTTP服务的URL>
+  Options:
+    -c, --connections 跟服务器建立并保持的TCP连接数量
+    -d, --duration    压测时间。例如：2s，2m，2h
+    -t, --threads     使用多少个线程进行压测
+    -s, --script      指定Lua脚本路径
+    -H, --header      为每一个HTTP请求添加HTTP头。例如：-H "token: abc" -H "mobile: 13812345678" ，冒号后面要带空格
+        --latency     在压测结束后，打印延迟统计信息
+        --timeout     超时时间
+```
+- 等待结果，Requests/sec 表示每秒处理的请求数
 
 ## Star走势图
 
