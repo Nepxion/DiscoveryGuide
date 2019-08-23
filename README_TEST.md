@@ -447,7 +447,7 @@ A service 1.1 version weight=60.1667%
     -d, --duration    压测时间。例如：2s，2m，2h
     -t, --threads     使用多少个线程进行压测
     -s, --script      指定Lua脚本路径
-    -H, --header      为每一个HTTP请求添加HTTP头。例如：-H "token: abc" -H "mobile: 13812345678" ，冒号后面要带空格
+    -H, --header      为每一个HTTP请求添加HTTP头。例如：-H "id: 123" -H "token: abc"，冒号后面要带空格
         --latency     在压测结束后，打印延迟统计信息
         --timeout     超时时间
 ```
