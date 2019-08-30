@@ -796,7 +796,9 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 
 ### Docker容器化
 
-- 搭建Windows10操作系统或者Linux操作系统下的Docker环境。Windows10环境下，具体步骤参考[Docker安装步骤](https://github.com/Nepxion/Thunder/blob/master/thunder-spring-boot-docker-example/README.md)，Linux环境请自行研究
+- 搭建Windows10操作系统或者Linux操作系统下的Docker环境
+    - Windows10环境下，具体步骤参考[Docker安装步骤](https://github.com/Nepxion/Thunder/blob/master/thunder-spring-boot-docker-example/README.md)
+    - Linux环境请自行研究
 - 全自动部署和运行Docker化的服务
     - 在根目录下，一键运行install-docker-gateway.bat或者install-docker-gateway.sh，将会把Spring Cloud Gateway网关服务全自动部署且运行起来
     - 在根目录下，一键运行install-docker-zuul.bat或者install-docker-zuul.sh，将会把Zuul网关服务全自动部署且运行起来
