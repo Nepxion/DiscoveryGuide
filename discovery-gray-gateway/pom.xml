@@ -42,7 +42,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <executable>true</executable>
-                    <mainClass>com.nepxion.discovery.gray.gateway.DiscoveryGrayGateway</mainClass>
+                    <mainClass>${MainClass}</mainClass>
+                    <!-- <mainClass>com.nepxion.discovery.gray.gateway.DiscoveryGrayGateway</mainClass> -->
                     <layout>JAR</layout>
                 </configuration>
                 <executions>

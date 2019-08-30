@@ -20,6 +20,7 @@ PROJECT_NAME=discovery-gray-service
 DOCKER_HOST=tcp://localhost:2375
 # DOCKER_CERT_PATH=/User/Neptune/.docker/machine/certs
 IMAGE_NAME=gray-service-a1
+MAIN_CLASS=com.nepxion.discovery.gray.service.DiscoveryGrayServiceA1
 MACHINE_PORT=3001
 CONTAINER_PORT=3001
 RUN_MODE=-i -t
@@ -30,7 +31,7 @@ rmdir /s/q ${PROJECT_NAME}/target
 fi
 
 # 执行相关模块的Maven Install
-mvn clean install -DskipTests -pl ${PROJECT_NAME} -am
+mvn clean install -DskipTests -pl ${PROJECT_NAME} -am -DMainClass=${MAIN_CLASS}
 
 # 停止和删除Docker容器
 docker stop ${IMAGE_NAME}
