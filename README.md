@@ -801,12 +801,13 @@ public ServiceStrategyTracer serviceStrategyTracer() {
     - 在根目录下，一键运行install-docker-gateway.bat或者install-docker-gateway.sh，将会把Spring Cloud Gateway网关服务全自动部署且运行起来
     - 在根目录下，一键运行install-docker-zuul.bat或者install-docker-zuul.sh，将会把Zuul网关服务全自动部署且运行起来
     - 在根目录下，一键运行install-docker-service.bat或者install-docker-service.sh，将会把微服务服务全自动部署且运行起来
+
       注意：由于图方便，discovery-gray-service工程下包含了四个Spring Boot应用，我们需要把它们分开部署。该脚本默认只支持service-a1服务的部署，更改成其它三个服务的部署，还需要做一点工作
-      1. 更改pom.xml下的入口程序，即更改DiscoveryGrayServiceA1
+      1.更改pom.xml下的入口程序，即更改DiscoveryGrayServiceA1
       ```java
       <mainClass>com.nepxion.discovery.gray.service.DiscoveryGrayServiceA1</mainClass>
       ```
-      2. 更改install-docker-service.bat或者install-docker-service.sh里的相关参数
+      2.更改install-docker-service.bat或者install-docker-service.sh里的相关参数
       ```java
       IMAGE_NAME=discovery-gray-service-a1 更改为其它镜像名
       MACHINE_PORT=3001 更改为对应在application-xx.properties里定义的端口号
