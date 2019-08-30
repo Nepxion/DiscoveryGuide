@@ -19,6 +19,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 public class DiscoveryGrayServiceA2 {
     public static void main(String[] args) {
+        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
         System.setProperty("spring.profiles.active", "a2");
 
         new SpringApplicationBuilder(DiscoveryGrayServiceA2.class).run(args);

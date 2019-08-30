@@ -25,6 +25,8 @@ import com.nepxion.discovery.plugin.strategy.gateway.tracer.GatewayStrategyTrace
 @EnableDiscoveryClient
 public class DiscoveryGrayGateway {
     public static void main(String[] args) {
+        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
+
         new SpringApplicationBuilder(DiscoveryGrayGateway.class).run(args);
     }
 

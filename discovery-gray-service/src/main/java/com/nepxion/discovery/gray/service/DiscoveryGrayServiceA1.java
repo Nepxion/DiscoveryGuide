@@ -27,6 +27,7 @@ import com.nepxion.discovery.plugin.strategy.service.tracer.ServiceStrategyTrace
 @EnableFeignClients
 public class DiscoveryGrayServiceA1 {
     public static void main(String[] args) {
+        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
         System.setProperty("spring.profiles.active", "a1");
 
         new SpringApplicationBuilder(DiscoveryGrayServiceA1.class).run(args);

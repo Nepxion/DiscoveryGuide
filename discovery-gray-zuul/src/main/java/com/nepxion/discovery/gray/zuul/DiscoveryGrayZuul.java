@@ -27,6 +27,8 @@ import com.nepxion.discovery.plugin.strategy.zuul.tracer.ZuulStrategyTracer;
 @EnableZuulProxy
 public class DiscoveryGrayZuul {
     public static void main(String[] args) {
+        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
+
         new SpringApplicationBuilder(DiscoveryGrayZuul.class).run(args);
     }
 
