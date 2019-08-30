@@ -800,9 +800,9 @@ public ServiceStrategyTracer serviceStrategyTracer() {
     - Windows10环境下，具体步骤参考[Docker安装步骤](https://github.com/Nepxion/Thunder/blob/master/thunder-spring-boot-docker-example/README.md)
     - Linux环境请自行研究
 - 全自动部署和运行Docker化的服务
-    - 在根目录下，一键运行install-docker-gateway.bat或者.sh，将会把Spring Cloud Gateway网关服务全自动部署且运行起来
-    - 在根目录下，一键运行install-docker-zuul.bat或者.sh，将会把Zuul网关服务全自动部署且运行起来
-    - 在根目录下，一键运行install-docker-service.bat或者.sh，将会把微服务服务全自动部署且运行起来。注意：由于图方便，discovery-gray-service工程下包含了四个Spring Boot应用，我们需要把它们分开部署。该脚本默认只支持service-a1服务的部署，更改成其它三个服务的部署，还需要做一点工作
+    - 在根目录下，一键运行install-docker-gateway.bat或者.sh，把Spring Cloud Gateway网关全自动部署且运行起来
+    - 在根目录下，一键运行install-docker-zuul.bat或者.sh，把Zuul网关全自动部署且运行起来
+    - 在根目录下，一键运行install-docker-service.bat或者.sh，把微服务全自动部署且运行起来。注意：由于图方便，discovery-gray-service工程下包含了四个Spring Boot应用，我们需要把它们分开部署。该脚本默认只支持service-a1服务的部署，更改成其它三个服务的部署，还需要做一点工作
       ```java
       1. 更改pom.xml下的入口程序，即更改DiscoveryGrayServiceA1
       <mainClass>com.nepxion.discovery.gray.service.DiscoveryGrayServiceA1</mainClass>
