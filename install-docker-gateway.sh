@@ -12,7 +12,7 @@ echo '============================================================='
 echo '.'
 echo 'off'
 
-title=Nepxion Discovery
+title=Nepxion Discovery Gay [Gateway]
 color=0a
 
 PROJECT_NAME=discovery-gray-gateway

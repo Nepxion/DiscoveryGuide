@@ -1,4 +1,4 @@
-@echo on
+﻿@echo on
 @echo =============================================================
 @echo $                                                           $
 @echo $                     Nepxion Discovery                     $
@@ -12,7 +12,7 @@
 @echo.
 @echo off
 
-@title Nepxion Discovery
+@title Nepxion Discovery Gay [Zuul]
 @color 0a
 
 @set PROJECT_NAME=discovery-gray-zuul
