@@ -15,6 +15,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
 - 灰度路由和发布的自动化测试
+- Docker容器化和Kubernetes平台的无缝支持
 
 [Nacos] 阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
 
@@ -59,6 +60,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 - [全链路灰度调用链](#全链路灰度调用链)
     - [Header输出方式](#Header输出方式)
     - [日志输出方式](#日志输出方式)
+- [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
 ## 请联系我
@@ -789,6 +791,31 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 ```
 请参考在IDE控制台打印的结果
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
+
+## Docker容器化和Kubernetes平台
+
+### Docker容器化
+
+- 搭建Windows10操作系统或者Linux操作系统下的Docker环境。Windows10环境下，具体步骤参考[Docker安装步骤]{https://github.com/Nepxion/Thunder/blob/master/thunder-spring-boot-docker-example/README.md}，Linux环境请自行研究
+- 全自动部署和运行Docker化的服务
+    - 在根目录下，一键运行install-docker-gateway.bat或者install-docker-gateway.sh，将会把Spring Cloud Gateway网关服务全自动部署且运行起来
+    - 在根目录下，一键运行install-docker-zuul.bat或者install-docker-zuul.sh，将会把Zuul网关服务全自动部署且运行起来
+    - 在根目录下，一键运行install-docker-service.bat或者install-docker-service.sh，将会把微服务服务全自动部署且运行起来
+      注意：由于图方便，discovery-gray-service工程下包含了四个Spring Boot应用，我们需要把它们分开部署。该脚本默认只支持service-a1服务的部署，更改成其它三个服务的部署，还需要做一点工作
+      1. 更改pom.xml下的入口程序，即更改DiscoveryGrayServiceA1
+      ```java
+      <mainClass>com.nepxion.discovery.gray.service.DiscoveryGrayServiceA1</mainClass>
+      ```
+      2. 更改install-docker-service.bat或者install-docker-service.sh里的相关参数
+      ```java
+      IMAGE_NAME=discovery-gray-service-a1 更改为其它镜像名
+      MACHINE_PORT=3001 更改为对应在application-xx.properties里定义的端口号
+      CONTAINER_PORT=3001 更改为对应在application-xx.properties里定义的端口号
+      ```
+
+### Kubernetes平台
+
+请自行研究
 
 ## Star走势图
 
