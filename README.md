@@ -813,6 +813,8 @@ public ServiceStrategyTracer serviceStrategyTracer() {
       CONTAINER_PORT=3001 更改为对应在application-xx.properties里定义的端口号
       ```
 
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Docker.jpg)
+
 ### Kubernetes平台
 
 请自行研究
