@@ -19,7 +19,7 @@
 
 @set DOCKER_HOST=tcp://localhost:2375
 @rem @set DOCKER_CERT_PATH=C:\Users\Neptune\.docker\machine\certs
-@set IMAGE_NAME=discovery-gray-service-a1
+@set IMAGE_NAME=gray-service-a1
 @set MACHINE_PORT=3001
 @set CONTAINER_PORT=3001
 @set RUN_MODE=-i -t

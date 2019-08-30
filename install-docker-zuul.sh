@@ -19,7 +19,7 @@ PROJECT_NAME=discovery-gray-zuul
 
 DOCKER_HOST=tcp://localhost:2375
 # DOCKER_CERT_PATH=/User/Neptune/.docker/machine/certs
-IMAGE_NAME=discovery-gray-zuul
+IMAGE_NAME=gray-zuul
 MACHINE_PORT=5002
 CONTAINER_PORT=5002
 RUN_MODE=-i -t

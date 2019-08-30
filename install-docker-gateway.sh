@@ -19,7 +19,7 @@ PROJECT_NAME=discovery-gray-gateway
 
 DOCKER_HOST=tcp://localhost:2375
 # DOCKER_CERT_PATH=/User/Neptune/.docker/machine/certs
-IMAGE_NAME=discovery-gray-gateway
+IMAGE_NAME=gray-gateway
 MACHINE_PORT=5001
 CONTAINER_PORT=5001
 RUN_MODE=-i -t
