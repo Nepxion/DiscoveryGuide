@@ -15,6 +15,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 
 @RestController
@@ -23,11 +25,24 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     private static final Logger LOG = LoggerFactory.getLogger(BFeignImpl.class);
 
     @Override
+    @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
     public String invoke(@PathVariable(value = "value") String value) {
         value = doInvoke(value);
 
         LOG.info("调用路径：{}", value);
 
         return value;
+    }
+
+    public String handleBlock(String value, BlockException e) {
+        LOG.error("B feign server sentinel block causes, parameter={}, limit app={}, rule={}", value, e.getRuleLimitApp(), e.getRule(), e);
+
+        return "B feign server sentinel block causes";
+    }
+
+    public String handleFallback(String value) {
+        LOG.error("B feign server sentinel fallback causes, parameter={}", value);
+
+        return "B feign server sentinel fallback causes";
     }
 }
