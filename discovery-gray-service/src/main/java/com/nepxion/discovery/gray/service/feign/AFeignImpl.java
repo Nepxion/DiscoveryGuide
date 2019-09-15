@@ -40,7 +40,7 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     }
 
     public String handleBlock(String value, BlockException e) {
-        LOG.error("A feign server sentinel block causes, parameter={}, limit app={}, rule={}", value, e.getRuleLimitApp(), e.getRule(), e);
+        LOG.error("A feign server sentinel block causes, value={}, limitApp={}, rule={}", value, e.getRuleLimitApp(), e.getRule());
 
         return "A feign server sentinel block causes";
     }
