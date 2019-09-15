@@ -1,0 +1,9 @@
+[
+	{
+		"resource": "sentinel-resource",
+		"count": 2,
+		"grade": 0,
+		"passCount": 0,
+		"timeWindow": 10
+	}
+]

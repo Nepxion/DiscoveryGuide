@@ -1,0 +1,7 @@
+[
+	{
+		"resource": "sentinel-resource",
+		"limitApp": "1.0",
+		"strategy": 0
+	}
+]
