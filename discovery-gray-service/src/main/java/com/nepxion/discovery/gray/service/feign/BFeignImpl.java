@@ -35,10 +35,10 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 
     public String handleBlock(String value, BlockException e) {
-        return "B server sentinel block, cause=" + e.getClass().getName() + ", rule=" + e.getRule() + ", limitApp=" + e.getRuleLimitApp() + ", value=" + value;
+        return value + "-> B server sentinel block, cause=" + e.getClass().getName() + ", rule=" + e.getRule() + ", limitApp=" + e.getRuleLimitApp();
     }
 
     public String handleFallback(String value) {
-        return "B server sentinel fallback, value=" + value;
+        return value + "-> B server sentinel fallback";
     }
 }
