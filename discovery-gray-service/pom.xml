@@ -35,7 +35,13 @@
 
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-service-sentinel-nacos</artifactId>
+            <artifactId>discovery-plugin-strategy-starter-service-sentinel</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-sentinel-starter-nacos</artifactId>
             <version>${discovery.version}</version>
         </dependency>
     </dependencies>

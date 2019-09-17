@@ -45,7 +45,7 @@ public class DiscoveryGrayServiceA1 {
     }
 
     /*@Bean
-    public SentinelRequestOriginAdapter sentinelRequestOriginAdapter() {
-        return new MySentinelRequestOriginAdapter();
+    public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter() {
+        return new MyServiceSentinelRequestOriginAdapter();
     }*/
 }
