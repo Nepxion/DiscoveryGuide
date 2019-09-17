@@ -1,7 +1,7 @@
 [
 	{
 		"resource": "sentinel-resource",
-		"limitApp": "1.0",
+		"limitApp": "1.0&zhangsan",
 		"strategy": 0
 	}
 ]

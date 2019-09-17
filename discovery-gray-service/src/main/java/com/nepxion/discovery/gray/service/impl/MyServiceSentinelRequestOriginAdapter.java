@@ -18,7 +18,7 @@ import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.AbstractSe
 public class MyServiceSentinelRequestOriginAdapter extends AbstractServiceSentinelRequestOriginAdapter {
     @Override
     public String parseOrigin(HttpServletRequest request) {
-        String version = request.getHeader(DiscoveryConstant.N_D_VERSION);
+        String version = request.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION);
         String user = request.getHeader("user");
 
         return version + "&" + user;

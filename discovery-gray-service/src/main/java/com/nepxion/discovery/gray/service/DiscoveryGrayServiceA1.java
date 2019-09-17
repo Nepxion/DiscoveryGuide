@@ -17,9 +17,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.gray.service.impl.MyDiscoveryEnabledStrategy;
+import com.nepxion.discovery.gray.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.gray.service.impl.MyServiceStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
+import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.ServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.plugin.strategy.service.tracer.ServiceStrategyTracer;
 
 @SpringBootApplication
@@ -44,8 +46,8 @@ public class DiscoveryGrayServiceA1 {
         return new MyServiceStrategyTracer();
     }
 
-    /*@Bean
+    @Bean
     public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter() {
         return new MyServiceSentinelRequestOriginAdapter();
-    }*/
+    }
 }
