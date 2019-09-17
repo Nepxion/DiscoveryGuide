@@ -24,12 +24,26 @@
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
+            <!-- <artifactId>discovery-plugin-config-center-starter-apollo</artifactId> -->
             <version>${discovery.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-service-sentinel</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-sentinel-starter-nacos</artifactId>
+            <!-- <artifactId>discovery-plugin-strategy-sentinel-starter-apollo</artifactId> -->
             <version>${discovery.version}</version>
         </dependency>
     </dependencies>
@@ -82,6 +96,7 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
+                    <include>**/*.json</include>
                     <include>**/*.properties</include>
                 </includes>
             </resource>
@@ -89,6 +104,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.xml</include>
+                    <include>**/*.json</include>
                     <include>**/*.properties</include>
                 </includes>
             </resource>

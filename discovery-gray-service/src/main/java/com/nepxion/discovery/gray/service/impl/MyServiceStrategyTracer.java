@@ -33,6 +33,7 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
         MDC.put("spanid", "spanid=" + strategyContextHolder.getHeader("spanid"));
         MDC.put("mobile", "mobile=" + strategyContextHolder.getHeader("mobile"));
+        MDC.put("user", "user=" + strategyContextHolder.getHeader("user"));
 
         // 灰度路由调用链
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
@@ -67,6 +68,7 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         debugTraceMap.put("traceid", strategyContextHolder.getHeader("traceid"));
         debugTraceMap.put("spanid", strategyContextHolder.getHeader("spanid"));
         debugTraceMap.put("mobile", strategyContextHolder.getHeader("mobile"));
+        debugTraceMap.put("user", strategyContextHolder.getHeader("user"));
 
         return debugTraceMap;
     }
