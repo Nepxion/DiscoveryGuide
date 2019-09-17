@@ -43,4 +43,9 @@ public class DiscoveryGrayServiceA1 {
     public ServiceStrategyTracer serviceStrategyTracer() {
         return new MyServiceStrategyTracer();
     }
+
+    /*@Bean
+    public SentinelRequestOriginAdapter sentinelRequestOriginAdapter() {
+        return new MySentinelRequestOriginAdapter();
+    }*/
 }
