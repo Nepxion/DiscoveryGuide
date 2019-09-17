@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.AbstractServiceSentinelRequestOriginAdapter;
 
-// 版本+用户名，实现联合熔断
+// 版本号+用户名，实现组合式熔断
 public class MyServiceSentinelRequestOriginAdapter extends AbstractServiceSentinelRequestOriginAdapter {
     @Override
     public String parseOrigin(HttpServletRequest request) {
