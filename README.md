@@ -11,7 +11,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 - 全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
-- 全链路服务限流熔断降级权限，集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式熔断，包括基于服务名、基于组、基于版本、基于区域等熔断机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则	
+- 全链路服务限流熔断降级权限，集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式熔断，包括基于服务名、基于组、基于版本、基于区域等熔断机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则    
 - 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出（需使用者自行集成）
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
@@ -36,14 +36,14 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
     - [灰度路由架构图](#灰度路由架构图)
     - [配置网关灰度路由策略](#配置网关灰度路由策略)
         - [版本匹配灰度路由策略](#版本匹配灰度路由策略)
-        - [版本权重灰度路由策略](#版本权重灰度路由策略)	
+        - [版本权重灰度路由策略](#版本权重灰度路由策略)    
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
     - [通过其它方式设置网关灰度路由策略](#通过其它方式设置网关灰度路由策略)
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
         - [通过业务参数在网关过滤器中自定义灰度路由策略](#通过业务参数在网关过滤器中自定义灰度路由策略)
         - [通过业务参数在策略类中自定义灰度路由策略](#通过业务参数在策略类中自定义灰度路由策略)
-    - [配置前端灰度&网关灰度路由组合式策略](#配置前端灰度&网关灰度路由组合式策略)	
+    - [配置前端灰度&网关灰度路由组合式策略](#配置前端灰度&网关灰度路由组合式策略)    
 - [基于订阅方式的全链路灰度发布规则](#基于订阅方式的全链路灰度发布规则)
     - [配置全链路灰度匹配规则](#配置全链路灰度匹配规则)
         - [版本匹配灰度规则](#版本匹配灰度规则)
@@ -693,22 +693,22 @@ Reject to invoke because of isolation with different service group
 
 - 流控规则
 
-增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-flow，规则内容如下：
 ```xml
 [
-	{
-		"resource": "sentinel-resource",
-		"limitApp": "default",
-		"grade": 1,
-		"count": 1,
-		"strategy": 0,
-		"refResource": null,
-		"controlBehavior": 0,
-		"warmUpPeriodSec": 10,
-		"maxQueueingTimeMs": 500,
-		"clusterMode": false,
-		"clusterConfig": null
-	}
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "default",
+        "grade": 1,
+        "count": 1,
+        "strategy": 0,
+        "refResource": null,
+        "controlBehavior": 0,
+        "warmUpPeriodSec": 10,
+        "maxQueueingTimeMs": 500,
+        "clusterMode": false,
+        "clusterConfig": null
+    }
 ]
 ```
 如图所示
@@ -716,22 +716,17 @@ Reject to invoke because of isolation with different service group
 
 - 降级规则
 
-增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-degrade，规则内容如下：
 ```xml
 [
-	{
-		"resource": "sentinel-resource",
-		"limitApp": "default",
-		"grade": 1,
-		"count": 1,
-		"strategy": 0,
-		"refResource": null,
-		"controlBehavior": 0,
-		"warmUpPeriodSec": 10,
-		"maxQueueingTimeMs": 500,
-		"clusterMode": false,
-		"clusterConfig": null
-	}
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "default",
+        "count": 2,
+        "timeWindow": 10,
+        "grade": 0,
+        "passCount": 0
+    }
 ]
 ```
 如图所示
@@ -739,22 +734,14 @@ Reject to invoke because of isolation with different service group
 
 - 授权规则
 
-增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下：
 ```xml
 [
-	{
-		"resource": "sentinel-resource",
-		"limitApp": "default",
-		"grade": 1,
-		"count": 1,
-		"strategy": 0,
-		"refResource": null,
-		"controlBehavior": 0,
-		"warmUpPeriodSec": 10,
-		"maxQueueingTimeMs": 500,
-		"clusterMode": false,
-		"clusterConfig": null
-	}
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "discovery-gray-service-a",
+        "strategy": 0
+    }
 ]
 ```
 如图所示
@@ -762,22 +749,18 @@ Reject to invoke because of isolation with different service group
 
 - 系统规则
 
-增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-system，规则内容如下：
 ```xml
 [
-	{
-		"resource": "sentinel-resource",
-		"limitApp": "default",
-		"grade": 1,
-		"count": 1,
-		"strategy": 0,
-		"refResource": null,
-		"controlBehavior": 0,
-		"warmUpPeriodSec": 10,
-		"maxQueueingTimeMs": 500,
-		"clusterMode": false,
-		"clusterConfig": null
-	}
+    {
+        "resource": null,
+        "limitApp": null,
+        "highestSystemLoad": -1.0,
+        "highestCpuUsage": -1.0,
+        "qps": 200.0,
+        "avgRt": -1,
+        "maxThread": -1
+    }
 ]
 ```
 如图所示
@@ -785,22 +768,22 @@ Reject to invoke because of isolation with different service group
 
 - 热点参数流控规则
 
-增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-param-flow，规则内容如下：
 ```xml
 [
-	{
-		"resource": "sentinel-resource",
-		"limitApp": "default",
-		"grade": 1,
-		"count": 1,
-		"strategy": 0,
-		"refResource": null,
-		"controlBehavior": 0,
-		"warmUpPeriodSec": 10,
-		"maxQueueingTimeMs": 500,
-		"clusterMode": false,
-		"clusterConfig": null
-	}
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "default",
+        "grade": 1,
+        "paramIdx": 0,
+        "count": 1,
+        "controlBehavior": 0,
+        "maxQueueingTimeMs": 0,
+        "burstCount": 0,
+        "durationInSec": 1,
+        "paramFlowItemList": [],
+        "clusterMode": false
+    }
 ]
 ```
 如图所示
