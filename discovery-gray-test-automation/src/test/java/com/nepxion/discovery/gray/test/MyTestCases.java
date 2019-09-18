@@ -36,7 +36,7 @@ public class MyTestCases {
     @Value("${gray.weight.testcase.sample.count:3000}")
     private Integer sampleCount;
 
-    @Value("${gray.weight.testcase.result.offset:8}")
+    @Value("${gray.weight.testcase.result.offset:5}")
     private Integer resultOffset;
 
     @DTest
