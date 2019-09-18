@@ -370,7 +370,6 @@ public class MyGatewayStrategyRouteFilter extends DefaultGatewayStrategyRouteFil
 在配置类里@Bean方式进行过滤类创建，覆盖框架内置的过滤类
 ```java
 @Bean
-@ConditionalOnProperty(value = GatewayStrategyConstant.SPRING_APPLICATION_STRATEGY_GATEWAY_ROUTE_FILTER_ENABLED, matchIfMissing = true)
 public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
     return new MyGatewayStrategyRouteFilter();
 }
@@ -409,7 +408,6 @@ public class MyZuulStrategyRouteFilter extends DefaultZuulStrategyRouteFilter {
 在配置类里@Bean方式进行过滤类创建，覆盖框架内置的过滤类
 ```java
 @Bean
-@ConditionalOnProperty(value = ZuulStrategyConstant.SPRING_APPLICATION_STRATEGY_ZUUL_ROUTE_FILTER_ENABLED, matchIfMissing = true)
 public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
     return new MyZuulStrategyRouteFilter();
 }
