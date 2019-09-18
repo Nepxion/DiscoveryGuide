@@ -680,8 +680,10 @@ Reject to invoke because of isolation with different service group
 通过集成Sentinel，在服务端实现该功能
 
 支持Nacos和Apollo两个远程配置中心，更多配置中心，请参照Sentinel官方的DataSource集成方式，并自行集成
+```xml
 1. Nacos的Key格式：Group为元数据中配置的[组名]，Data Id为[服务名]-[规则类型]
 2. Apollo的Key格式：[组名]-[服务名]-[规则类型]
+```
 
 支持远程配置中心和本地规则文件的读取逻辑，即优先读取远程配置，如果不存在或者规则错误，则读取本地规则文件
 
