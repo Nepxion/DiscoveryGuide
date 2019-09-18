@@ -677,19 +677,132 @@ Reject to invoke because of isolation with different service group
 
 ## 全链路服务限流熔断降级权限
 
-通过集成Sentinel，实现在服务端实现下述功能
+通过集成Sentinel，在服务端实现该功能
+
+支持Nacos和Apollo两个远程配置中心，更多配置中心，请参照Sentinel官方的DataSource集成方式，并自行集成
+1. Nacos的Key格式：Group为元数据中配置的[组名]，Data Id为[服务名]-[规则类型]
+2. Apollo的Key格式：[组名]-[服务名]-[规则类型]
+
+支持远程配置中心和本地规则文件的读取逻辑，即优先读取远程配置，如果不存在或者规则错误，则读取本地规则文件
 
 ### 支持原生Sentinel规则
 
+原生Sentinel规则的用法，请参照Sentinel官方文档
+
 - 流控规则
+
+增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+```xml
+[
+	{
+		"resource": "sentinel-resource",
+		"limitApp": "default",
+		"grade": 1,
+		"count": 1,
+		"strategy": 0,
+		"refResource": null,
+		"controlBehavior": 0,
+		"warmUpPeriodSec": 10,
+		"maxQueueingTimeMs": 500,
+		"clusterMode": false,
+		"clusterConfig": null
+	}
+]
+```
+如图所示
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-1.jpg)
 
 - 降级规则
 
+增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+```xml
+[
+	{
+		"resource": "sentinel-resource",
+		"limitApp": "default",
+		"grade": 1,
+		"count": 1,
+		"strategy": 0,
+		"refResource": null,
+		"controlBehavior": 0,
+		"warmUpPeriodSec": 10,
+		"maxQueueingTimeMs": 500,
+		"clusterMode": false,
+		"clusterConfig": null
+	}
+]
+```
+如图所示
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-2.jpg)
+
 - 授权规则
+
+增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+```xml
+[
+	{
+		"resource": "sentinel-resource",
+		"limitApp": "default",
+		"grade": 1,
+		"count": 1,
+		"strategy": 0,
+		"refResource": null,
+		"controlBehavior": 0,
+		"warmUpPeriodSec": 10,
+		"maxQueueingTimeMs": 500,
+		"clusterMode": false,
+		"clusterConfig": null
+	}
+]
+```
+如图所示
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-3.jpg)
 
 - 系统规则
 
+增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+```xml
+[
+	{
+		"resource": "sentinel-resource",
+		"limitApp": "default",
+		"grade": 1,
+		"count": 1,
+		"strategy": 0,
+		"refResource": null,
+		"controlBehavior": 0,
+		"warmUpPeriodSec": 10,
+		"maxQueueingTimeMs": 500,
+		"clusterMode": false,
+		"clusterConfig": null
+	}
+]
+```
+如图所示
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-4.jpg)
+
 - 热点参数流控规则
+
+增加服务的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-a-sentinel-flow（[服务名]-sentinel-flow），规则内容如下：
+```xml
+[
+	{
+		"resource": "sentinel-resource",
+		"limitApp": "default",
+		"grade": 1,
+		"count": 1,
+		"strategy": 0,
+		"refResource": null,
+		"controlBehavior": 0,
+		"warmUpPeriodSec": 10,
+		"maxQueueingTimeMs": 500,
+		"clusterMode": false,
+		"clusterConfig": null
+	}
+]
+```
+如图所示
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-5.jpg)
 
 ### 整合灰度路由的LimitApp扩展
 
