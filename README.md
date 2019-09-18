@@ -11,6 +11,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 - 全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
+- 全链路服务限流熔断降级权限，集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式熔断，包括基于服务名、基于组、基于版本、基于区域等熔断机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则	
 - 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出（需使用者自行集成）
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
@@ -57,6 +58,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
     - [注册服务隔离](#注册服务隔离)
     - [消费端服务隔离](#消费端服务隔离)
     - [提供端服务隔离](#提供端服务隔离)
+- [全链路服务限流熔断降级权限](#全链路服务限流熔断降级权限)
+    - [支持原生Sentinel规则](#支持原生Sentinel规则)
+    - [整合灰度路由的Sentinel LimitApp扩展](#整合灰度路由的Sentinel LimitApp扩展)
 - [全链路灰度调用链](#全链路灰度调用链)
     - [Header输出方式](#Header输出方式)
     - [日志输出方式](#日志输出方式)
@@ -670,6 +674,34 @@ Reject to invoke because of isolation with different service group
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-1.jpg)
 如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-2.jpg)
+
+## 全链路服务限流熔断降级权限
+
+通过集成Sentinel，实现在服务端实现下述功能
+
+### 支持原生Sentinel规则
+
+- 流控规则
+
+- 降级规则
+
+- 授权规则
+
+- 系统规则
+
+- 热点参数流控规则
+
+### 整合灰度路由的Sentinel LimitApp扩展
+
+- 基于服务名的熔断
+
+- 基于组的熔断
+
+- 基于版本的熔断
+
+- 基于区域的熔断
+
+- 自定义业务参数组合的熔断
 
 ## 全链路灰度调用链
 
