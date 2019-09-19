@@ -59,9 +59,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
     - [消费端服务隔离](#消费端服务隔离)
     - [提供端服务隔离](#提供端服务隔离)
 - [全链路服务限流熔断降级权限](#全链路服务限流熔断降级权限)
-    - [支持原生Sentinel注解](#支持原生Sentinel注解)
-    - [支持原生Sentinel规则](#支持原生Sentinel规则)
-    - [支持基于灰度路由的LimitApp扩展的防护机制](#支持基于灰度路由的LimitApp扩展的防护机制)
+    - [原生Sentinel注解](#原生Sentinel注解)
+    - [原生Sentinel规则](#原生Sentinel规则)
+    - [基于灰度路由的LimitApp扩展的防护机制](#基于灰度路由的LimitApp扩展的防护机制)
 - [全链路灰度调用链](#全链路灰度调用链)
     - [Header输出方式](#Header输出方式)
     - [日志输出方式](#日志输出方式)
@@ -693,7 +693,7 @@ Reject to invoke because of isolation with different service group
 spring.application.strategy.sentinel.enabled=true
 ```
 
-### 支持原生Sentinel注解
+### 原生Sentinel注解
 
 参照下面代码，为接口方法增加@SentinelResource注解，value为sentinel-resource，blockHandler和fallback是防护其作用后需要执行的方法
 
@@ -723,7 +723,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 }
 ```
 
-### 支持原生Sentinel规则
+### 原生Sentinel规则
 
 原生Sentinel规则的用法，请参照Sentinel官方文档
 
@@ -825,7 +825,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-5.jpg)
 
-### 支持基于灰度路由的LimitApp扩展的防护机制
+### 基于灰度路由的LimitApp扩展的防护机制
 
 该方式对于上面5种规则都有效，这里以授权规则展开阐述。授权规则中，"strategy": 0 表示白名单，"strategy": 1 表示黑名单
 
