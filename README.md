@@ -827,7 +827,9 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 ### 基于灰度路由的LimitApp扩展的防护机制
 
-该方式对于上面5种规则都有效，这里以授权规则展开阐述。授权规则中，limitApp，如果有多个，可以通过“,”分隔。"strategy": 0 表示白名单，"strategy": 1 表示黑名单
+该方式对于上面5种规则都有效，这里以授权规则展开阐述
+
+授权规则中，limitApp，如果有多个，可以通过“,”分隔。"strategy": 0 表示白名单，"strategy": 1 表示黑名单
 
 - 基于服务名的防护机制
 
