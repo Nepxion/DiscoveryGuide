@@ -827,7 +827,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 ### 基于灰度路由的LimitApp扩展的防护机制
 
-该方式对于上面5种规则都有效，这里以授权规则展开阐述。授权规则中，"strategy": 0 表示白名单，"strategy": 1 表示黑名单
+该方式对于上面5种规则都有效，这里以授权规则展开阐述。授权规则中，limitApp，如果有多个，可以通过“,”分隔。"strategy": 0 表示白名单，"strategy": 1 表示黑名单
 
 - 基于服务名的防护机制
 
@@ -918,12 +918,12 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-regi
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-address
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示为地址和端口为192.168.0.88:8088的服务都允许访问服务discovery-gray-service-b
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示为地址和端口为192.168.0.88:8081和192.168.0.88:8082的服务都允许访问服务discovery-gray-service-b
 ```xml
 [
     {
         "resource": "sentinel-resource",
-        "limitApp": "192.168.0.88:8088",
+        "limitApp": "192.168.0.88:8081,192.168.0.88:8082",
         "strategy": 0
     }
 ]
