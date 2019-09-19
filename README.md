@@ -918,7 +918,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-regi
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-address
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示为地址和端口为192.168.0.88:8081和192.168.0.88:8082的服务都允许访问服务discovery-gray-service-b
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示地址和端口为192.168.0.88:8081和192.168.0.88:8082的服务都允许访问服务discovery-gray-service-b
 ```xml
 [
     {
@@ -930,6 +930,38 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-addr
 ```
 
 - 自定义业务参数的组合式防护机制
+
+通过适配类实现自定义业务参数的组合式防护机制
+```java
+// 版本号+用户名，实现组合式熔断
+public class MyServiceSentinelRequestOriginAdapter extends AbstractServiceSentinelRequestOriginAdapter {
+    @Override
+    public String parseOrigin(HttpServletRequest request) {
+        String version = request.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION);
+        String user = request.getHeader("user");
+
+        return version + "&" + user;
+    }
+}
+```
+在配置类里@Bean方式进行适配类创建
+```java
+@Bean
+public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter() {
+    return new MyServiceSentinelRequestOriginAdapter();
+}
+```
+
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示版本为1.0且传入的Http Header的user=zhangsan，同时满足这两个条件下的所有服务都允许访问服务discovery-gray-service-b
+```xml
+[
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "1.0&zhangsan",
+        "strategy": 0
+    }
+]
+```
 
 ## 全链路灰度调用链
 
