@@ -838,7 +838,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示服务discovery-gray-service-a允许访问服务discovery-gray-service-b
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示所有discovery-gray-service-a服务允许访问discovery-gray-service-b服务
 ```xml
 [
     {
@@ -871,14 +871,14 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-grou
 
 - 基于灰度版本的防护机制
 
-修改配置项Sentinel Request Origin Key为灰度版本的Header名称，修改授权规则中limitApp为对应的版本号，可实现基于版本号的防护机制
+修改配置项Sentinel Request Origin Key为灰度版本的Header名称，修改授权规则中limitApp为对应的版本，可实现基于版本的防护机制
 
 配置项
 ```xml
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-version
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示版本号为1.0的所有服务都允许访问服务discovery-gray-service-b
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示版本为1.0的所有服务都允许访问服务discovery-gray-service-b
 ```xml
 [
     {
@@ -891,14 +891,14 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-vers
 
 - 基于灰度区域的防护机制
 
-修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域值，可实现基于区域值的防护机制
+修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域，可实现基于区域的防护机制
 
 配置项
 ```xml
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-region
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示区域值为dev为的所有服务都允许访问服务discovery-gray-service-b
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示区域为dev为的所有服务都允许访问服务discovery-gray-service-b
 ```xml
 [
     {
@@ -918,7 +918,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-regi
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-address
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示为IP地址和端口为192.168.0.88:8088的服务都允许访问服务discovery-gray-service-b
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示为地址和端口为192.168.0.88:8088的服务都允许访问服务discovery-gray-service-b
 ```xml
 [
     {
