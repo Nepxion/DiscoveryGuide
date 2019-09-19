@@ -11,7 +11,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 - 全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
-- 全链路服务限流熔断降级权限，集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式熔断，包括基于服务名、基于组、基于版本、基于区域等熔断机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则    
+- 全链路服务限流熔断降级权限，集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则
 - 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出（需使用者自行集成）
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
@@ -59,8 +59,9 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
     - [消费端服务隔离](#消费端服务隔离)
     - [提供端服务隔离](#提供端服务隔离)
 - [全链路服务限流熔断降级权限](#全链路服务限流熔断降级权限)
+    - [支持原生Sentinel注解](#支持原生Sentinel注解)
     - [支持原生Sentinel规则](#支持原生Sentinel规则)
-    - [整合灰度路由的LimitApp扩展](#整合灰度路由的LimitApp扩展)
+    - [支持基于灰度路由的LimitApp扩展的防护机制](#支持基于灰度路由的LimitApp扩展的防护机制)
 - [全链路灰度调用链](#全链路灰度调用链)
     - [Header输出方式](#Header输出方式)
     - [日志输出方式](#日志输出方式)
@@ -685,7 +686,42 @@ Reject to invoke because of isolation with different service group
 2. Apollo的Key格式：[组名]-[服务名]-[规则类型]
 ```
 
-支持远程配置中心和本地规则文件的读取逻辑，即优先读取远程配置，如果不存在或者规则错误，则读取本地规则文件
+支持远程配置中心和本地规则文件的读取逻辑，即优先读取远程配置，如果不存在或者规则错误，则读取本地规则文件。动态实现远程配置中心对于规则的热刷新
+
+支持如下开关开启该动能，默认是关闭的
+```xml
+spring.application.strategy.sentinel.enabled=true
+```
+
+### 支持原生Sentinel注解
+
+参照下面代码，为接口方法增加@SentinelResource注解，value为sentinel-resource，blockHandler和fallback是防护其作用后需要执行的方法
+
+```java
+@RestController
+@ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-gray-service-b")
+public class BFeignImpl extends AbstractFeignImpl implements BFeign {
+    private static final Logger LOG = LoggerFactory.getLogger(BFeignImpl.class);
+
+    @Override
+    @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
+    public String invoke(@PathVariable(value = "value") String value) {
+        value = doInvoke(value);
+
+        LOG.info("调用路径：{}", value);
+
+        return value;
+    }
+
+    public String handleBlock(String value, BlockException e) {
+        return value + "-> B server sentinel block, cause=" + e.getClass().getName() + ", rule=" + e.getRule() + ", limitApp=" + e.getRuleLimitApp();
+    }
+
+    public String handleFallback(String value) {
+        return value + "-> B server sentinel fallback";
+    }
+}
+```
 
 ### 支持原生Sentinel规则
 
@@ -789,17 +825,111 @@ Reject to invoke because of isolation with different service group
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-5.jpg)
 
-### 整合灰度路由的LimitApp扩展
+### 支持基于灰度路由的LimitApp扩展的防护机制
 
-- 基于服务名的熔断
+该方式对于上面5种规则都有效，这里以授权规则展开阐述。授权规则中，"strategy": 0 表示白名单，"strategy": 1 表示黑名单
 
-- 基于组的熔断
+- 基于服务名的防护机制
 
-- 基于版本的熔断
+修改配置项Sentinel Request Origin Key为服务名的Header名称，修改授权规则中limitApp为对应的服务名，可实现基于服务名的防护机制
 
-- 基于区域的熔断
+配置项，该配置项默认为n-d-service-id，可以不配置
+```xml
+spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
+```
 
-- 自定义业务参数组合的熔断
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示服务discovery-gray-service-a允许访问服务discovery-gray-service-b
+```xml
+[
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "discovery-gray-service-a",
+        "strategy": 0
+    }
+]
+```
+
+- 基于灰度组的防护机制
+
+修改配置项Sentinel Request Origin Key为灰度组的Header名称，修改授权规则中limitApp为对应的组名，可实现基于组名的防护机制
+
+配置项
+```xml
+spring.application.strategy.service.sentinel.request.origin.key=n-d-service-group
+```
+
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示隶属my-group组的所有服务都允许访问服务discovery-gray-service-b
+```xml
+[
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "my-group",
+        "strategy": 0
+    }
+]
+```
+
+- 基于灰度版本的防护机制
+
+修改配置项Sentinel Request Origin Key为灰度版本的Header名称，修改授权规则中limitApp为对应的版本号，可实现基于版本号的防护机制
+
+配置项
+```xml
+spring.application.strategy.service.sentinel.request.origin.key=n-d-service-version
+```
+
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示版本号为1.0的所有服务都允许访问服务discovery-gray-service-b
+```xml
+[
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "1.0",
+        "strategy": 0
+    }
+]
+```
+
+- 基于灰度区域的防护机制
+
+修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域值，可实现基于区域值的防护机制
+
+配置项
+```xml
+spring.application.strategy.service.sentinel.request.origin.key=n-d-service-region
+```
+
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示区域值为dev为的所有服务都允许访问服务discovery-gray-service-b
+```xml
+[
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "dev",
+        "strategy": 0
+    }
+]
+```
+
+- 基于机器地址和端口的防护机制
+
+修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域值，可实现基于机器地址和端口的防护机制
+
+配置项
+```xml
+spring.application.strategy.service.sentinel.request.origin.key=n-d-service-address
+```
+
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示为IP地址和端口为192.168.0.88:8088的服务都允许访问服务discovery-gray-service-b
+```xml
+[
+    {
+        "resource": "sentinel-resource",
+        "limitApp": "192.168.0.88:8088",
+        "strategy": 0
+    }
+]
+```
+
+- 自定义业务参数的组合式防护机制
 
 ## 全链路灰度调用链
 
