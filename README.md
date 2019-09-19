@@ -965,6 +965,18 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 ]
 ```
 
+运行效果
+
+当传递的Http Header中user=lisi，不满足条件，最终调用在discovery-gray-service-b服务端被拒绝掉
+
+如图所示
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-6.jpg)
+
+当传递的Http Header中user=zhangsan，满足条件之一，当全链路调用中，API网关负载均衡discovery-gray-service-a服务到1.1版本后再去调用discovery-gray-service-b服务，不满足version=1.0的条件，最终调用在discovery-gray-service-b服务端被拒绝掉
+
+如图所示
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-7.jpg)
+
 ## 全链路灰度调用链
 
 灰度调用链主要包括如下6个参数。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
