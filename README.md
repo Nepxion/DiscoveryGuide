@@ -63,7 +63,18 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 - [全链路服务限流熔断降级权限](#全链路服务限流熔断降级权限)
     - [原生Sentinel注解](#原生Sentinel注解)
     - [原生Sentinel规则](#原生Sentinel规则)
+        - [流控规则](#流控规则)
+        - [降级规则](#降级规则)
+        - [授权规则](#授权规则)
+        - [系统规则](#系统规则)
+        - [热点参数流控规则](#热点参数流控规则)	
     - [基于灰度路由和Sentinel-LimitApp扩展的防护机制](#基于灰度路由和Sentinel-LimitApp扩展的防护机制)
+        - [基于服务名的防护机制](#基于服务名的防护机制)
+        - [基于灰度组的防护机制](#基于灰度组的防护机制)
+        - [基于灰度版本的防护机制](#基于灰度版本的防护机制)
+        - [基于灰度区域的防护机制](#基于灰度区域的防护机制)
+        - [基于机器地址和端口的防护机制](#基于机器地址和端口的防护机制)
+        - [自定义业务参数的组合式防护机制](#自定义业务参数的组合式防护机制)
 - [全链路灰度调用链](#全链路灰度调用链)
     - [Header输出方式](#Header输出方式)
     - [日志输出方式](#日志输出方式)
@@ -729,7 +740,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 原生Sentinel规则的用法，请参照Sentinel官方文档
 
-- 流控规则
+#### 流控规则
 
 增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-flow，规则内容如下：
 ```xml
@@ -752,7 +763,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-1.jpg)
 
-- 降级规则
+#### 降级规则
 
 增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-degrade，规则内容如下：
 ```xml
@@ -770,7 +781,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-2.jpg)
 
-- 授权规则
+#### 授权规则
 
 增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下：
 ```xml
@@ -785,7 +796,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-3.jpg)
 
-- 系统规则
+#### 系统规则
 
 增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-system，规则内容如下：
 ```xml
@@ -804,7 +815,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-4.jpg)
 
-- 热点参数流控规则
+#### 热点参数流控规则
 
 增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-param-flow，规则内容如下：
 ```xml
@@ -833,7 +844,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 授权规则中，limitApp，如果有多个，可以通过“,”分隔。"strategy": 0 表示白名单，"strategy": 1 表示黑名单
 
-- 基于服务名的防护机制
+#### 基于服务名的防护机制
 
 修改配置项Sentinel Request Origin Key为服务名的Header名称，修改授权规则中limitApp为对应的服务名，可实现基于服务名的防护机制
 
@@ -853,7 +864,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
 ]
 ```
 
-- 基于灰度组的防护机制
+#### 基于灰度组的防护机制
 
 修改配置项Sentinel Request Origin Key为灰度组的Header名称，修改授权规则中limitApp为对应的组名，可实现基于组名的防护机制
 
@@ -873,7 +884,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-grou
 ]
 ```
 
-- 基于灰度版本的防护机制
+#### 基于灰度版本的防护机制
 
 修改配置项Sentinel Request Origin Key为灰度版本的Header名称，修改授权规则中limitApp为对应的版本，可实现基于版本的防护机制
 
@@ -893,7 +904,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-vers
 ]
 ```
 
-- 基于灰度区域的防护机制
+#### 基于灰度区域的防护机制
 
 修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域，可实现基于区域的防护机制
 
@@ -913,7 +924,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-regi
 ]
 ```
 
-- 基于机器地址和端口的防护机制
+#### 基于机器地址和端口的防护机制
 
 修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域值，可实现基于机器地址和端口的防护机制
 
@@ -933,7 +944,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-addr
 ]
 ```
 
-- 自定义业务参数的组合式防护机制
+#### 自定义业务参数的组合式防护机制
 
 通过适配类实现自定义业务参数的组合式防护机制
 ```java
