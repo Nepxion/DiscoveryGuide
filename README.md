@@ -902,7 +902,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-vers
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-region
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示区域为dev为的所有服务都允许访问服务discovery-gray-service-b
+增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示区域为dev的所有服务都允许访问服务discovery-gray-service-b
 ```xml
 [
     {
