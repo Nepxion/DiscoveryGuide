@@ -1,11 +1,11 @@
-# Nepxion Discovery Gray
+# Nepxion Discovery Guide
 [![Total lines](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/master/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework)  [![Build Status](https://travis-ci.org/Nepxion/Discovery.svg?branch=master)](https://travis-ci.org/Nepxion/Discovery)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade_Dashboard)
 
 路过的同学，如果您觉得这个开源框架不错，顺手给它点个Star吧
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
-Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行修改为Edgware版），主要功能包括：
+Nepxion Discovery Guide是Nepxion Discovery的极简指南，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行修改为Edgware版），主要功能包括：
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由两种，除此之外，不在本文介绍内的，还包括基于机器IP地址和端口的路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本和区域的匹配发布、版本和区域的权重发布
 - 全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
@@ -98,7 +98,7 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 
 ## 环境搭建
 - 下载代码
-    - Git clone https://github.com/Nepxion/DiscoveryGray.git 
+    - Git clone https://github.com/Nepxion/DiscoveryGuide.git 
 - 代码导入IDE
 - 下载Nacos服务器
     - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
@@ -111,28 +111,28 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
 | --- | --- | --- | --- | --- |
-| DiscoveryGrayServiceA1.java | A1 | 3001 | 1.0 | dev |
-| DiscoveryGrayServiceA2.java | A2 | 3002 | 1.1 | qa |
-| DiscoveryGrayServiceB1.java | B1 | 4001 | 1.0 | qa |
-| DiscoveryGrayServiceB2.java | B2 | 4002 | 1.1 | dev |
-| DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
-| DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
+| DiscoveryGuideServiceA1.java | A1 | 3001 | 1.0 | dev |
+| DiscoveryGuideServiceA2.java | A2 | 3002 | 1.1 | qa |
+| DiscoveryGuideServiceB1.java | B1 | 4001 | 1.0 | qa |
+| DiscoveryGuideServiceB2.java | B2 | 4002 | 1.1 | dev |
+| DiscoveryGuideGateway.java | Gateway | 5001 | 1.0 | 无 |
+| DiscoveryGuideZuul.java | Zuul | 5002 | 1.0 | 无 |
 
 注：启动不分前后次序
 
 ## 环境验证
 - 导入Postman的测试脚本，[脚本地址](https://github.com/Nepxion/Discovery/raw/master/postman.json)
 
-- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-gray-service-a/invoke/gateway](http://localhost:5001/discovery-gray-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式：
+- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-guide-service-a/invoke/gateway](http://localhost:5001/discovery-guide-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式：
 ```xml
-gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] 
--> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
+gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] 
+-> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
 ```
 
-- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Zuul网关调用示例“，调用地址为[http://localhost:5002/discovery-gray-service-a/invoke/zuul](http://localhost:5002/discovery-gray-service-a/invoke/zuul)，相关的Header值已经预设，供开发者修改。测试通过Zuul网关的调用结果，结果为如下格式：
+- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery极简示例接口“ -> ”Zuul网关调用示例“，调用地址为[http://localhost:5002/discovery-guide-service-a/invoke/zuul](http://localhost:5002/discovery-guide-service-a/invoke/zuul)，相关的Header值已经预设，供开发者修改。测试通过Zuul网关的调用结果，结果为如下格式：
 ```xml
-zuul -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] 
--> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
+zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] 
+-> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
 ```
 
 - 上述步骤在下面每次更改规则策略的时候执行，并验证结果和规则策略的期望值是否相同
@@ -154,7 +154,7 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-g
 在Nacos配置中心，增加网关灰度路由策略
 
 #### 版本匹配灰度路由策略
-增加Spring Cloud Gateway的基于版本匹配路由的灰度策略，Group为discovery-gray-group，Data Id为discovery-gray-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
+增加Spring Cloud Gateway的基于版本匹配路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -164,12 +164,12 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-g
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-1.jpg)
 
 每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本的时候，可以简化成下面第一条
 ```xml
 1. <version>1.0</version>
-2. <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
+2. <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
 ```
 
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
@@ -179,12 +179,12 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-g
 ```
 或者
 ```xml
-"discovery-gray-service-b":"1.*;1.2.?"
+"discovery-guide-service-b":"1.*;1.2.?"
 ```
-表示discovery-gray-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
+表示discovery-guide-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
 
 #### 版本权重灰度路由策略
-增加Spring Cloud Gateway的基于版本权重路由的灰度策略，Group为discovery-gray-group，Data Id为discovery-gray-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%：
+增加Spring Cloud Gateway的基于版本权重路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -194,16 +194,16 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-g
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-2.jpg)
 
 每个服务调用的版本权重都可以自行指定，见下面第二条。当所有服务都选相同版本权重的时候，可以简化成下面第一条
 ```xml
 1. <version-weight>1.0=90;1.1=10</version-weight>
-2. <version-weight>{"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}</version-weight>
+2. <version-weight>{"discovery-guide-service-a":"1.0=90;1.1=10", "discovery-guide-service-b":"1.0=90;1.1=10"}</version-weight>
 ```
 
 #### 区域匹配灰度路由策略
-增加Zuul的基于区域匹配路由的灰度策略，Group为discovery-gray-group，Data Id为discovery-gray-zuul，策略内容如下，实现从Zuul发起的调用都走区域为dev的服务：
+增加Zuul的基于区域匹配路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用都走区域为dev的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -213,12 +213,12 @@ zuul -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-g
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-3.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-3.jpg)
 
 每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
 ```xml
 1. <region>dev</region>
-2. <region>{"discovery-gray-service-a":"dev", "discovery-gray-service-b":"dev"}</region>
+2. <region>{"discovery-guide-service-a":"dev", "discovery-guide-service-b":"dev"}</region>
 ```
 
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
@@ -228,12 +228,12 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 或者
 ```xml
-"discovery-gray-service-b":"d*;q?"
+"discovery-guide-service-b":"d*;q?"
 ```
-表示discovery-gray-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
+表示discovery-guide-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
 
 #### 区域权重灰度路由策略
-增加Zuul的基于区域权重路由的灰度策略，Group为discovery-gray-group，Data Id为discovery-gray-zuul，策略内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
+增加Zuul的基于区域权重路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -243,12 +243,12 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-4.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-4.jpg)
 
 每个服务调用的区域权重都可以自行指定，见下面第二条。当所有服务都选相同区域权重的时候，可以简化成下面第一条
 ```xml
 1. <region-weight>dev=85;qa=15</region-weight>
-2. <region-weight>{"discovery-gray-service-a":"dev=85;qa=15", "discovery-gray-service-b":"dev=85;qa=15"}</region-weight>
+2. <region-weight>{"discovery-guide-service-a":"dev=85;qa=15", "discovery-guide-service-b":"dev=85;qa=15"}</region-weight>
 ```
 
 ### 通过其它方式设置网关灰度路由策略
@@ -260,30 +260,30 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 - 版本匹配策略，Header格式如下任选一个：
 ```xml
 1. n-d-version=1.0
-2. n-d-version={"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
+2. n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
 ```
 
 - 版本权重策略，Header格式如下任选一个：
 ```xml
 1. n-d-version-weight=1.0=90;1.1=10
-2. n-d-version-weight={"discovery-gray-service-a":"1.0=90;1.1=10", "discovery-gray-service-b":"1.0=90;1.1=10"}
+2. n-d-version-weight={"discovery-guide-service-a":"1.0=90;1.1=10", "discovery-guide-service-b":"1.0=90;1.1=10"}
 ```
 
 - 区域匹配策略，Header格式如下任选一个：
 ```xml
 1. n-d-region=qa
-2. n-d-region={"discovery-gray-service-a":"qa", "discovery-gray-service-b":"qa"}
+2. n-d-region={"discovery-guide-service-a":"qa", "discovery-guide-service-b":"qa"}
 ```
 - 区域权重策略，Header格式如下任选一个：
 ```xml
 1. n-d-region-weight=dev=99;qa=1
-2. n-d-region-weight={"discovery-gray-service-a":"dev=99;qa=1", "discovery-gray-service-b":"dev=99;qa=1"}
+2. n-d-region-weight={"discovery-guide-service-a":"dev=99;qa=1", "discovery-guide-service-b":"dev=99;qa=1"}
 ```
 
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-5.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-5.jpg)
 
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-6.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-6.jpg)
 
 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。需要通过如下开关做控制：
 ```xml
@@ -299,21 +299,21 @@ spring.application.strategy.zuul.header.priority=false
 
 - 内置策略解析映射到过滤器的自定义方式
 
-增加Spring Cloud Gateway的解析策略，Group为discovery-gray-group，Data Id为discovery-gray-gateway，或者，增加Spring Cloud Gateway的解析策略，Group为discovery-gray-group，Data Id为discovery-gray-zuul，策略内容见下面XML内容，它所表达的功能逻辑：
+增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容见下面XML内容，它所表达的功能逻辑：
 ```xml
 1. 当外部调用带有的Http Header中的值a=1同时b=2
    <condition>节点中header="a=1;b=2"对应的version-id="version-route1"，找到下面
    <route>节点中id="version-route1" type="version"的那项，那么路由即为：
-   {"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}
+   {"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}
 
 2. 当外部调用带有的Http Header中的值a=1
    <condition>节点中header="a=1"对应的version-id="version-route2"，找到下面
    <route>中id="version-route2" type="version"的那项，那么路由即为：
-   {"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}
+   {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
 
 3. 当外部调用带有的Http Header中的值都不命中，找到上面
    <strategy>节点中的全局缺省路由，那么路由即为：
-   {"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}
+   {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
 
 4. 策略解析总共支持5种，可以单独一项使用，也可以多项叠加使用：
    1）version 版本路由
@@ -328,7 +328,7 @@ spring.application.strategy.zuul.header.priority=false
 <rule>
     <!-- 基于Http Header传递的策略路由，全局缺省路由 -->
     <strategy>
-        <version>{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</version>
+        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
     </strategy>
 
     <!-- 基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
@@ -339,14 +339,14 @@ spring.application.strategy.zuul.header.priority=false
         </conditions>
 
         <routes>
-            <route id="version-route1" type="version">{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}</route>
-            <route id="version-route2" type="version">{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.1"}</route>
+            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
+            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}</route>
         </routes>
     </strategy-customization>
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray2-7.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-7.jpg)
 
 - 用户覆盖过滤器的自定义方式
 
@@ -366,8 +366,8 @@ GatewayStrategyRouteFilter示例
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
 // 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
 public class MyGatewayStrategyRouteFilter extends DefaultGatewayStrategyRouteFilter {
-    private static final String DEFAULT_A_ROUTE_VERSION = "{\"discovery-gray-service-a\":\"1.0\", \"discovery-gray-service-b\":\"1.1\"}";
-    private static final String DEFAULT_B_ROUTE_VERSION = "{\"discovery-gray-service-a\":\"1.1\", \"discovery-gray-service-b\":\"1.0\"}";
+    private static final String DEFAULT_A_ROUTE_VERSION = "{\"discovery-guide-service-a\":\"1.0\", \"discovery-guide-service-b\":\"1.1\"}";
+    private static final String DEFAULT_B_ROUTE_VERSION = "{\"discovery-guide-service-a\":\"1.1\", \"discovery-guide-service-b\":\"1.0\"}";
 
     @Value("${a.route.version:" + DEFAULT_A_ROUTE_VERSION + "}")
     private String aRouteVersion;
@@ -404,8 +404,8 @@ ZuulStrategyRouteFilter示例
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
 // 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
 public class MyZuulStrategyRouteFilter extends DefaultZuulStrategyRouteFilter {
-    private static final String DEFAULT_A_ROUTE_VERSION = "{\"discovery-gray-service-a\":\"1.0\", \"discovery-gray-service-b\":\"1.1\"}";
-    private static final String DEFAULT_B_ROUTE_VERSION = "{\"discovery-gray-service-a\":\"1.1\", \"discovery-gray-service-b\":\"1.0\"}";
+    private static final String DEFAULT_A_ROUTE_VERSION = "{\"discovery-guide-service-a\":\"1.0\", \"discovery-guide-service-b\":\"1.1\"}";
+    private static final String DEFAULT_B_ROUTE_VERSION = "{\"discovery-guide-service-a\":\"1.1\", \"discovery-guide-service-b\":\"1.0\"}";
 
     @Value("${a.route.version:" + DEFAULT_A_ROUTE_VERSION + "}")
     private String aRouteVersion;
@@ -494,8 +494,8 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
         </conditions>
 
         <routes>
-            <route id="version-route1" type="version">{"discovery-gray-service-a":"1.0", "discovery-gray-service-b":"1.0"}</route>
-            <route id="version-route2" type="version">{"discovery-gray-service-a":"1.1", "discovery-gray-service-b":"1.1"}</route>
+            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
+            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
         </routes>
     </strategy-customization>
 </rule>
@@ -515,41 +515,41 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 ### 配置全链路灰度匹配规则
 
 #### 版本匹配灰度规则
-增加版本匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
+增加版本匹配的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
     <discovery>
         <version>
-            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-version-value="1.0" provider-version-value="1.0"/>
-            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-version-value="1.1" provider-version-value="1.1"/>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-version-value="1.0" provider-version-value="1.0"/>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-version-value="1.1" provider-version-value="1.1"/>
         </version>
     </discovery>
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray3-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide3-1.jpg)
 
 #### 区域匹配灰度规则
-增加区域匹配的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现dev区域的a服务只能访问dev区域的b服务，qa区域的a服务只能访问qa区域的b服务：
+增加区域匹配的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现dev区域的a服务只能访问dev区域的b服务，qa区域的a服务只能访问qa区域的b服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
     <discovery>
         <region>
-            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-region-value="dev" provider-region-value="dev"/>
-            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-region-value="qa" provider-region-value="qa"/>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-region-value="dev" provider-region-value="dev"/>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-region-value="qa" provider-region-value="qa"/>
         </region>
     </discovery>
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray3-2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide3-2.jpg)
 
 ### 配置全链路灰度权重规则
 
 #### 全局版本权重灰度规则
-增加全局版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现版本为1.0的服务提供90%的流量，版本为1.1的服务提供10%的流量：
+增加全局版本权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现版本为1.0的服务提供90%的流量，版本为1.1的服务提供10%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -561,26 +561,26 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide4-1.jpg)
 
 #### 局部版本权重灰度规则
-增加局部版本权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
+增加局部版本权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
     <discovery>
         <weight>
-            <service provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
-            <service provider-service-name="discovery-gray-service-b" provider-weight-value="1.0=20;1.1=80" type="version"/>
+            <service provider-service-name="discovery-guide-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
+            <service provider-service-name="discovery-guide-service-b" provider-weight-value="1.0=20;1.1=80" type="version"/>
         </weight>
     </discovery>
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide4-2.jpg)
 
 #### 全局区域权重灰度规则
-增加全局区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
+增加全局区域权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -592,30 +592,30 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-3.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide4-3.jpg)
 
 #### 局部区域权重灰度规则
-增加局部区域权重的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现a服务dev区域提供90%的流量，qa区域提供10%的流量；b服务dev区域提供20%的流量，qa区域提供80%的流量：
+增加局部区域权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务dev区域提供90%的流量，qa区域提供10%的流量；b服务dev区域提供20%的流量，qa区域提供80%的流量：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
     <discovery>
         <weight>
-            <service provider-service-name="discovery-gray-service-a" provider-weight-value="dev=90;qa=10" type="region"/>
-            <service provider-service-name="discovery-gray-service-b" provider-weight-value="dev=20;qa=80" type="region"/>
+            <service provider-service-name="discovery-guide-service-a" provider-weight-value="dev=90;qa=10" type="region"/>
+            <service provider-service-name="discovery-guide-service-b" provider-weight-value="dev=20;qa=80" type="region"/>
         </weight>
     </discovery>
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray4-4.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide4-4.jpg)
 
 注意：局部权重优先级高于全局权重，版本权重优先级高于区域权重
 
 请执行Postman操作，请仔细观察服务被随机权重调用到的概率
 
 ### 配置全链路灰度权重&灰度版本组合式规则
-增加组合式的灰度规则，Group为discovery-gray-group，Data Id为discovery-gray-group（全局发布，两者都是组名），规则内容如下，实现功能：
+增加组合式的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现功能：
 - a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 
@@ -626,30 +626,30 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
 <rule>
     <discovery>
         <version>
-            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-version-value="1.0" provider-version-value="1.0"/>
-            <service consumer-service-name="discovery-gray-service-a" provider-service-name="discovery-gray-service-b" consumer-version-value="1.1" provider-version-value="1.1"/>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-version-value="1.0" provider-version-value="1.0"/>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-version-value="1.1" provider-version-value="1.1"/>
         </version>
 
         <weight>
-            <service consumer-service-name="discovery-gray-gateway" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
-            <service consumer-service-name="discovery-gray-zuul" provider-service-name="discovery-gray-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
+            <service consumer-service-name="discovery-guide-gateway" provider-service-name="discovery-guide-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
+            <service consumer-service-name="discovery-guide-zuul" provider-service-name="discovery-guide-service-a" provider-weight-value="1.0=90;1.1=10" type="version"/>
         </weight>
     </discovery>
 </rule>
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide5-1.jpg)
 
 图形化界面验证
 - 下载[源码主页](https://github.com/Nepxion/Discovery)的工程，并导入IDE
 - 启动源码工程下的discovery-springcloud-example-console/ConsoleApplication
 - 启动源码工程下的discovery-console-desktop/ConsoleLauncher
 - 通过admin/admin登录，点击“显示服务拓扑”按钮，将呈现如下界面
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-2.jpg)
-- 在加入上述规则前，选中网关节点，右键点击“执行灰度路由”，在弹出路由界面中，依次加入“discovery-gray-service-a”和“discovery-gray-service-b”，点击“执行路由”按钮，将呈现如下界面
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-3.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide5-2.jpg)
+- 在加入上述规则前，选中网关节点，右键点击“执行灰度路由”，在弹出路由界面中，依次加入“discovery-guide-service-a”和“discovery-guide-service-b”，点击“执行路由”按钮，将呈现如下界面
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide5-3.jpg)
 - 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray5-4.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide5-4.jpg)
 
 ## 全链路服务隔离
 
@@ -673,7 +673,7 @@ spring.application.strategy.register.isolation.group.whitelist=
 # 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.consumer.isolation.enabled=true
 ```
-通过修改discovery-gray-service-b的Group名为其它名称，执行Postman调用，将发现从discovery-gray-service-a无法拿到discovery-gray-service-b的任何实例。意味着在discovery-gray-service-a消费端进行了隔离
+通过修改discovery-guide-service-b的Group名为其它名称，执行Postman调用，将发现从discovery-guide-service-a无法拿到discovery-guide-service-b的任何实例。意味着在discovery-guide-service-a消费端进行了隔离
 
 ### 提供端服务隔离
 基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-service-group值进行匹配。只需要在服务端（不适用网关），开启如下配置即可：
@@ -682,16 +682,16 @@ spring.application.strategy.consumer.isolation.enabled=true
 spring.application.strategy.provider.isolation.enabled=true
 
 # 灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截和消费端的服务隔离两项工作
-spring.application.strategy.scan.packages=com.nepxion.discovery.gray.service.feign
+spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.feign
 ```
 
-在Postman调用，执行[http://localhost:4001/invoke/abc](http://localhost:4001/invoke/abc)，去调用discovery-gray-service-b服务，将出现如下异常。意味着在discovery-gray-service-b提供端进行了隔离
+在Postman调用，执行[http://localhost:4001/invoke/abc](http://localhost:4001/invoke/abc)，去调用discovery-guide-service-b服务，将出现如下异常。意味着在discovery-guide-service-b提供端进行了隔离
 ```xml
 Reject to invoke because of isolation with different service group
 ```
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-1.jpg)
-如果加上n-d-service-group=discovery-gray-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray6-2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide6-1.jpg)
+如果加上n-d-service-group=discovery-guide-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide6-2.jpg)
 
 ## 全链路服务限流熔断降级权限
 
@@ -716,7 +716,7 @@ spring.application.strategy.sentinel.enabled=true
 
 ```java
 @RestController
-@ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-gray-service-b")
+@ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-b")
 public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     private static final Logger LOG = LoggerFactory.getLogger(BFeignImpl.class);
 
@@ -746,7 +746,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 #### 流控规则
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-flow，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-flow，规则内容如下：
 ```xml
 [
     {
@@ -765,11 +765,11 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ]
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-1.jpg)
 
 #### 降级规则
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-degrade，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-degrade，规则内容如下：
 ```xml
 [
     {
@@ -783,26 +783,26 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ]
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-2.jpg)
 
 #### 授权规则
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下：
 ```xml
 [
     {
         "resource": "sentinel-resource",
-        "limitApp": "discovery-gray-service-a",
+        "limitApp": "discovery-guide-service-a",
         "strategy": 0
     }
 ]
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-3.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-3.jpg)
 
 #### 系统规则
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-system，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-system，规则内容如下：
 ```xml
 [
     {
@@ -817,11 +817,11 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ]
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-4.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-4.jpg)
 
 #### 热点参数流控规则
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-param-flow，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-param-flow，规则内容如下：
 ```xml
 [
     {
@@ -840,7 +840,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ]
 ```
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-5.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-5.jpg)
 
 ### 基于灰度路由和Sentinel-LimitApp扩展的防护机制
 
@@ -857,12 +857,12 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示所有discovery-gray-service-a服务允许访问discovery-gray-service-b服务
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示所有discovery-guide-service-a服务允许访问discovery-guide-service-b服务
 ```xml
 [
     {
         "resource": "sentinel-resource",
-        "limitApp": "discovery-gray-service-a",
+        "limitApp": "discovery-guide-service-a",
         "strategy": 0
     }
 ]
@@ -877,7 +877,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-group
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示隶属my-group组的所有服务都允许访问服务discovery-gray-service-b
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示隶属my-group组的所有服务都允许访问服务discovery-guide-service-b
 ```xml
 [
     {
@@ -897,7 +897,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-grou
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-version
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示版本为1.0的所有服务都允许访问服务discovery-gray-service-b
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示版本为1.0的所有服务都允许访问服务discovery-guide-service-b
 ```xml
 [
     {
@@ -917,7 +917,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-vers
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-region
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示区域为dev的所有服务都允许访问服务discovery-gray-service-b
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示区域为dev的所有服务都允许访问服务discovery-guide-service-b
 ```xml
 [
     {
@@ -937,7 +937,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-regi
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-address
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示地址和端口为192.168.0.88:8081和192.168.0.88:8082的服务都允许访问服务discovery-gray-service-b
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示地址和端口为192.168.0.88:8081和192.168.0.88:8082的服务都允许访问服务discovery-guide-service-b
 ```xml
 [
     {
@@ -971,7 +971,7 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 }
 ```
 
-增加服务discovery-gray-service-b的规则，Group为discovery-gray-group，Data Id为discovery-gray-service-b-sentinel-authority，规则内容如下，表示版本为1.0且传入的Http Header的user=zhangsan，同时满足这两个条件下的所有服务都允许访问服务discovery-gray-service-b
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示版本为1.0且传入的Http Header的user=zhangsan，同时满足这两个条件下的所有服务都允许访问服务discovery-guide-service-b
 ```xml
 [
     {
@@ -984,15 +984,15 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 
 运行效果
 
-当传递的Http Header中user=lisi，不满足条件，最终调用在discovery-gray-service-b服务端被拒绝掉
+当传递的Http Header中user=lisi，不满足条件，最终调用在discovery-guide-service-b服务端被拒绝掉
 
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-6.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-6.jpg)
 
-当传递的Http Header中user=zhangsan，满足条件之一，当全链路调用中，API网关负载均衡discovery-gray-service-a服务到1.1版本后再去调用discovery-gray-service-b服务，不满足version=1.0的条件，最终调用在discovery-gray-service-b服务端被拒绝掉
+当传递的Http Header中user=zhangsan，满足条件之一，当全链路调用中，API网关负载均衡discovery-guide-service-a服务到1.1版本后再去调用discovery-guide-service-b服务，不满足version=1.0的条件，最终调用在discovery-guide-service-b服务端被拒绝掉
 
 如图所示
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGray7-7.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-7.jpg)
 
 ## 全链路灰度调用链
 
@@ -1133,4 +1133,4 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 
 ## Star走势图
 
-[![Stargazers over time](https://starchart.cc/Nepxion/DiscoveryGray.svg)](https://starchart.cc/Nepxion/DiscoveryGray)
+[![Stargazers over time](https://starchart.cc/Nepxion/DiscoveryGuide.svg)](https://starchart.cc/Nepxion/DiscoveryGuide)
