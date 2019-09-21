@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <version>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-version-value="1.0" provider-version-value="1.0"/>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-version-value="1.1" provider-version-value="1.1"/>
+        </version>
+
+        <weight>
+            <service consumer-service-name="discovery-guide-gateway" provider-service-name="discovery-guide-service-a" provider-weight-value="1.0=40;1.1=60" type="version"/>
+            <service consumer-service-name="discovery-guide-zuul" provider-service-name="discovery-guide-service-a" provider-weight-value="1.0=40;1.1=60" type="version"/>
+        </weight>
+    </discovery>
+</rule>

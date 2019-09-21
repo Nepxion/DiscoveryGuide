@@ -2,17 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.nepxion</groupId>
-    <artifactId>discovery-gray</artifactId>
-    <name>Nepxion Discovery Gray</name>
+    <artifactId>discovery-guide</artifactId>
+    <name>Nepxion Discovery Guide</name>
     <packaging>pom</packaging>
     <modelVersion>4.0.0</modelVersion>
     <version>1.0.0</version>
 
     <modules>
-        <module>discovery-gray-gateway</module>
-        <module>discovery-gray-zuul</module>
-        <module>discovery-gray-service</module>
-        <module>discovery-gray-test-automation</module>
+        <module>discovery-guide-gateway</module>
+        <module>discovery-guide-zuul</module>
+        <module>discovery-guide-service</module>
+        <module>discovery-guide-test-automation</module>
     </modules>
 
     <properties>
@@ -34,25 +34,25 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-gray-gateway</artifactId>
+                <artifactId>discovery-guide-gateway</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-gray-zuul</artifactId>
+                <artifactId>discovery-guide-zuul</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-gray-service</artifactId>
+                <artifactId>discovery-guide-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>discovery-gray-test-automation</artifactId>
+                <artifactId>discovery-guide-test-automation</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

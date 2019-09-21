@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <weight>
+            <service provider-service-name="discovery-guide-service-a" provider-weight-value="1.0=75;1.1=25" type="version"/>
+            <service provider-service-name="discovery-guide-service-b" provider-weight-value="1.0=35;1.1=65" type="version"/>
+        </weight>
+    </discovery>
+</rule>

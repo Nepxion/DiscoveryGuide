@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <discovery>
+        <region>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-region-value="dev" provider-region-value="dev"/>
+            <service consumer-service-name="discovery-guide-service-a" provider-service-name="discovery-guide-service-b" consumer-region-value="qa" provider-region-value="qa"/>
+        </region>
+    </discovery>
+</rule>

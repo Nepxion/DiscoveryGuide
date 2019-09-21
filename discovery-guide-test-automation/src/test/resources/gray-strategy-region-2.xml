@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <region>{"discovery-guide-service-a":"dev", "discovery-guide-service-b":"dev"}</region>
+    </strategy>
+</rule>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+         <version>{"discovery-guide-service-a":"*0", "discovery-guide-service-b":"?.0"}</version>
+    </strategy>
+</rule>

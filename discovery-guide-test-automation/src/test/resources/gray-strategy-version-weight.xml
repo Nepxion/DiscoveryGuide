@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <version-weight>{"discovery-guide-service-a":"1.0=90;1.1=10", "discovery-guide-service-b":"1.0=20;1.1=80"}</version-weight>
+    </strategy>
+</rule>
