@@ -41,20 +41,14 @@ Nepxion Discovery Test集成自动化测试和压力测试两个模块：
 
 ### 启动控制台
 
-运行[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)下discovery-springcloud-example-console的应用程序，它是连接服务注册发现中心、远程配置中心和服务的纽带
-
-自动化测试利用控制台，实现配置的自动更新和清除。操作方式有两种：
-- 推送配置内容到远程配置中心。对于灰度功能来说，适用于灰度发布和路由
-- 推送配置内容到网关。对于灰度功能来说，只适用于灰度路由
-
-两种方式的选择，见配置文件中的“spring.application.test.gray.configcenter.enabled”配置项
+运行[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)下discovery-springcloud-example-console的应用程序，它是连接服务注册发现中心、远程配置中心和服务的纽带，自动化测试利用控制台，实现配置的自动更新和清除
 
 ### 配置文件
 
 ```xml
 # 自动化测试框架内置配置
 # 测试用例类的扫描路径
-spring.application.test.scan.packages=com.nepxion.discovery.gray.test
+spring.application.test.scan.packages=com.nepxion.discovery.guide.test
 # 测试用例的配置内容推送时，是否打印配置日志。缺失则默认为true
 spring.application.test.config.print.enabled=true
 # 测试用例的配置内容推送后，等待生效的时间。推送远程配置中心后，再通知各服务更新自身的配置缓存，需要一定的时间，缺失则默认为3000
@@ -64,14 +58,14 @@ spring.application.test.console.url=http://localhost:2222/
 
 # 业务测试配置
 # Spring Cloud Gateway网关配置
-gateway.group=discovery-gray-group
-gateway.service.id=discovery-gray-gateway
-gateway.test.url=http://localhost:5001/discovery-gray-service-a/invoke/gateway
+gateway.group=discovery-guide-group
+gateway.service.id=discovery-guide-gateway
+gateway.test.url=http://localhost:5001/discovery-guide-service-a/invoke/gateway
 
 # Zuul网关配置
-zuul.group=discovery-gray-group
-zuul.service.id=discovery-gray-zuul
-zuul.test.url=http://localhost:5002/discovery-gray-service-a/invoke/zuul
+zuul.group=discovery-guide-group
+zuul.service.id=discovery-guide-zuul
+zuul.test.url=http://localhost:5002/discovery-guide-service-a/invoke/zuul
 
 # 每个测试用例执行循环次数
 testcase.loop.times=1
@@ -86,7 +80,7 @@ gray.weight.testcase.result.offset=5
 
 ### 测试用例
 
-自动化测试代码参考[https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation)
+自动化测试代码参考[https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test](https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test-automation)
 
 - 自动化测试场景以API网关是测试的触发点，全链路如下：
 
@@ -98,12 +92,12 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
 | --- | --- | --- | --- | --- |
-| DiscoveryGrayServiceA1.java | A1 | 3001 | 1.0 | dev |
-| DiscoveryGrayServiceA2.java | A2 | 3002 | 1.1 | qa |
-| DiscoveryGrayServiceB1.java | B1 | 4001 | 1.0 | qa |
-| DiscoveryGrayServiceB2.java | B2 | 4002 | 1.1 | dev |
-| DiscoveryGrayGateway.java | Gateway | 5001 | 1.0 | 无 |
-| DiscoveryGrayZuul.java | Zuul | 5002 | 1.0 | 无 |
+| DiscoveryGuideServiceA1.java | A1 | 3001 | 1.0 | dev |
+| DiscoveryGuideServiceA2.java | A2 | 3002 | 1.1 | qa |
+| DiscoveryGuideServiceB1.java | B1 | 4001 | 1.0 | qa |
+| DiscoveryGuideServiceB2.java | B2 | 4002 | 1.1 | dev |
+| DiscoveryGuideGateway.java | Gateway | 5001 | 1.0 | 无 |
+| DiscoveryGuideZuul.java | Zuul | 5002 | 1.0 | 无 |
 
 #### 测试包引入
 
@@ -327,29 +321,29 @@ public class MyTestCases {
 - 路由策略测试报告
 ```xml
 ---------- Run automation testcase :: testNoGray() ----------
-Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
+Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result2 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result3 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result4 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
 * Passed
 ---------- Run automation testcase :: testEnabledStrategyGray1() ----------
 Header : [mobile:"138"]
-Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
+Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result2 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result3 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result4 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
 * Passed
 ---------- Run automation testcase :: testVersionStrategyGray() ----------
-Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
+Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result2 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result3 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result4 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
 * Passed
 ---------- Run automation testcase :: testRegionStrategyGray() ----------
-Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
+Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result2 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result3 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result4 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
 * Passed
 ---------- Run automation testcase :: testVersionWeightStrategyGray() ----------
 Sample count=3000
@@ -377,22 +371,22 @@ Result : B service qa region weight=13.8%
 ```xml
 ---------- Run automation testcase :: testStrategyCustomizationGray() ----------
 Header : [a:"1", b:"2"]
-Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
+Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result2 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result3 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result4 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
 * Passed
 ---------- Run automation testcase :: testVersionRuleGray() ----------
-Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
+Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result2 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result3 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result4 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
 * Passed
 ---------- Run automation testcase :: testRegionRuleGray() ----------
-Result1 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result2 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
-Result3 : gateway -> discovery-gray-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-gray-group]
-Result4 : gateway -> discovery-gray-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-gray-group] -> discovery-gray-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-gray-group]
+Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result2 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
+Result3 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+Result4 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
 * Passed
 ---------- Run automation testcase :: testVersionWeightRuleGray() ----------
 Sample count=3000
@@ -432,12 +426,12 @@ A service 1.1 version weight=60.1667%
 - 准备一台机器部署压测工具
 
 ### 测试介绍
-- 使用wrk脚本进行性能测试，wrk脚本示例，请参考[压测脚本](https://github.com/Nepxion/DiscoveryGray/tree/master/discovery-gray-test-automation/post.lua)，下面的测试命令行可以不必带脚本参数
+- 使用wrk脚本进行性能测试，wrk脚本示例，请参考[压测脚本](https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test-automation/post.lua)，下面的测试命令行可以不必带脚本参数
 - 使用wrk详细说明参考[https://github.com/wg/wrk](https://github.com/wg/wrk)
 
 ### 测试步骤
 - 登录到wrk的机器，进入wrk目录
-- 运行命令 wrk -t64 -c2000 -d30s -H "id: 123" -H "token: abc" --timeout=2s --latency --script=post.lua http://localhost:5001/discovery-gray-service-a/invoke/gateway
+- 运行命令 wrk -t64 -c2000 -d30s -H "id: 123" -H "token: abc" --timeout=2s --latency --script=post.lua http://localhost:5001/discovery-guide-service-a/invoke/gateway
 ```xml  
 使用方法: wrk <选项> <被测HTTP服务的URL>
   Options:
