@@ -12,15 +12,15 @@ echo '============================================================='
 echo '.'
 echo 'off'
 
-title=Nepxion Discovery Gay [Service B1]
+title=Nepxion Discovery Guide [Service B1]
 color=0a
 
-PROJECT_NAME=discovery-gray-service
+PROJECT_NAME=discovery-guide-service
 
 DOCKER_HOST=tcp://localhost:2375
 # DOCKER_CERT_PATH=/User/Neptune/.docker/machine/certs
-IMAGE_NAME=gray-service-b1
-MAIN_CLASS=com.nepxion.discovery.gray.service.DiscoveryGrayServiceB1
+IMAGE_NAME=guide-service-b1
+MAIN_CLASS=com.nepxion.discovery.guide.service.DiscoveryGuideServiceB1
 MACHINE_PORT=4001
 CONTAINER_PORT=4001
 RUN_MODE=-i -t

@@ -12,15 +12,15 @@
 @echo.
 @echo off
 
-@title Nepxion Discovery Gay [Gateway]
+@title Nepxion Discovery Guide [Gateway]
 @color 0a
 
-@set PROJECT_NAME=discovery-gray-gateway
+@set PROJECT_NAME=discovery-guide-gateway
 
 @set DOCKER_HOST=tcp://localhost:2375
 @rem @set DOCKER_CERT_PATH=C:\Users\Neptune\.docker\machine\certs
-@set IMAGE_NAME=gray-gateway
-@set MAIN_CLASS=com.nepxion.discovery.gray.gateway.DiscoveryGrayGateway
+@set IMAGE_NAME=guide-gateway
+@set MAIN_CLASS=com.nepxion.discovery.guide.gateway.DiscoveryGuideGateway
 @set MACHINE_PORT=5001
 @set CONTAINER_PORT=5001
 @set RUN_MODE=-i -t
