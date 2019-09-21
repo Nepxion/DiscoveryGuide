@@ -89,6 +89,10 @@ Nepxion Discovery Gray是Nepxion Discovery的极简指南和示例，有助于�
 ## 部署架构拓扑图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/BasicTopology.jpg)
 
+## 灰度方式区别图
+
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Difference.jpg)
+
 ## 服务治理架构图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Govern.jpg)
 
