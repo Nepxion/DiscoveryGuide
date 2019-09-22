@@ -4,7 +4,7 @@
     <artifactId>discovery-guide-gateway</artifactId>
     <name>Nepxion Discovery Guide Gateway</name>
     <packaging>jar</packaging>
-    <modelVersion>4.0.0</modelVersion> 
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.nepxion</groupId>
