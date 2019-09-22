@@ -1024,7 +1024,7 @@ Header方式框架内部集成
 - 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
 
 ### 日志输出方式
-Spring Cloud Gateway网关
+- Spring Cloud Gateway网关
 
 继承GatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
@@ -1056,7 +1056,7 @@ public GatewayStrategyTracer gatewayStrategyTracer() {
 }
 ```
 
-Zuul网关
+- Zuul网关
 
 继承ZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
@@ -1088,7 +1088,7 @@ public ZuulStrategyTracer zuulStrategyTracer() {
 }
 ```
 
-Service服务
+- Service服务
 
 继承ServiceStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceLocal方法）或者更多通过MDC方式输出到日志
 ```java
