@@ -42,6 +42,7 @@ public class DiscoveryGuideGateway {
         return new MyGatewayStrategyRouteFilter();
     }*/
 
+    // 用以清除每次调用后GatewayStrategyContext的上下文对象，必须放在业务侧来初始化，抽象到框架层则无效
     @Bean
     public GatewayStrategyClearFilter gatewayStrategyContextClearFilter() {
         return new DefaultGatewayStrategyClearFilter();
