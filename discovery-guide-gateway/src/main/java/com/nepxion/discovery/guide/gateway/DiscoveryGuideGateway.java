@@ -19,6 +19,8 @@ import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
+import com.nepxion.discovery.plugin.strategy.gateway.filter.DefaultGatewayStrategyClearFilter;
+import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyClearFilter;
 import com.nepxion.discovery.plugin.strategy.gateway.tracer.GatewayStrategyTracer;
 
 @SpringBootApplication
@@ -39,6 +41,11 @@ public class DiscoveryGuideGateway {
     public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
         return new MyGatewayStrategyRouteFilter();
     }*/
+
+    @Bean
+    public GatewayStrategyClearFilter gatewayStrategyContextClearFilter() {
+        return new DefaultGatewayStrategyClearFilter();
+    }
 
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
