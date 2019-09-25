@@ -19,8 +19,6 @@ import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
-import com.nepxion.discovery.plugin.strategy.gateway.filter.DefaultGatewayStrategyClearFilter;
-import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyClearFilter;
 import com.nepxion.discovery.plugin.strategy.gateway.tracer.GatewayStrategyTracer;
 
 @SpringBootApplication
@@ -41,12 +39,6 @@ public class DiscoveryGuideGateway {
     public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
         return new MyGatewayStrategyRouteFilter();
     }*/
-
-    // 用以清除每次调用后GatewayStrategyContext的上下文对象，必须放在业务侧来初始化，抽象到框架层则无效
-    @Bean
-    public GatewayStrategyClearFilter gatewayStrategyContextClearFilter() {
-        return new DefaultGatewayStrategyClearFilter();
-    }
 
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
