@@ -29,9 +29,9 @@ Nepxion Discovery Test集成自动化测试和压力测试两个模块：
 - [Star走势图](#Star走势图)
 
 ## 请联系我
-微信和公众号
+微信、公众号和文档
 
-![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/文档-1.jpg)
 
 ## 自动化测试
 

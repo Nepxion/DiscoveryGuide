@@ -82,9 +82,9 @@ Nepxion Discovery Guide是Nepxion Discovery的极简指南，有助于使用者�
 - [Star走势图](#Star走势图)
 
 ## 请联系我
-微信和公众号
+微信、公众号和文档
 
-![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/文档-1.jpg)
 
 ## 部署架构拓扑图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/BasicTopology.jpg)
