@@ -1,11 +1,11 @@
-# Nepxion Discovery Test
+# Nepxion Discovery【探索】Test
 [![Total lines](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/master/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework)  [![Build Status](https://travis-ci.org/Nepxion/Discovery.svg?branch=master)](https://travis-ci.org/Nepxion/Discovery)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade_Dashboard)
 
 每一个访问路过的朋友，如果您觉得这个开源框架不错，请顺手给它点个Star吧
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
-Nepxion Discovery Test集成自动化测试和压力测试两个模块：
+Nepxion Discovery【探索】Test集成自动化测试和压力测试两个模块：
 - 自动化测试，基于Spring Boot/Spring Cloud的自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：支持阿里巴巴的Sentinel，FF4J的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把服务注册发现中心、远程配置中心、负载均衡、灰度发布、熔断降级限流、功能开关、Feign或者RestTemplate调用等中间件或者组件，一条龙组合起来进行自动化测试
 - 压力测试，基于wrk的异步压力测试框架，能用很少的线程压测出很大的并发量，使用简单方便
 

@@ -1,11 +1,11 @@
-# Nepxion Discovery Guide
+# Nepxion Discovery【探索】Guide
 [![Total lines](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/master/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework)  [![Build Status](https://travis-ci.org/Nepxion/Discovery.svg?branch=master)](https://travis-ci.org/Nepxion/Discovery)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade_Dashboard)
 
 每一个访问路过的朋友，如果您觉得这个开源框架不错，请顺手给它点个Star吧
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Star2.jpg)
 
-Nepxion Discovery Guide是Nepxion Discovery的极简指南，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行修改为Edgware版），主要功能包括：
+Nepxion Discovery【探索】Guide是Nepxion Discovery【探索】的极简指南，有助于使用者快速入门。它基于Spring Cloud Greenwich和Finchley版而制作（使用者可自行修改为Edgware版），主要功能包括：
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由两种，除此之外，不在本文介绍内的，还包括基于机器IP地址和端口的路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本和区域的匹配发布、版本和区域的权重发布
 - 全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
