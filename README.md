@@ -1129,7 +1129,7 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 
 原生的Feign Header传递可以使用RequestInterceptor拦截器实现，原生的RestTemplate Header传递可以使用ClientHttpRequestInterceptor拦截器实现
 
-本框架也使用这些原生的拦截器用作Header在灰度功能上的传递，为了避免使用者再去多创建一层拦截器，框架抽象出两个拦截适配器，用法和原生的两个拦截器一致
+本框架也使用这些原生的拦截器用作Header在灰度功能上的传递，为了避免使用者再去多创建一层拦截器，框架抽象出两个拦截适配器，用法和原生的两个拦截器一致，可以帮助使用者实现自定义Header的传递
 
 ### 自定义Feign-Header传递
 
