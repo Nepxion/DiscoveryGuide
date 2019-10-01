@@ -78,6 +78,9 @@ Nepxion Discovery【探索】Guide是Nepxion Discovery【探索】的极简指�
 - [全链路灰度调用链](#全链路灰度调用链)
     - [Header输出方式](#Header输出方式)
     - [日志输出方式](#日志输出方式)
+- [全链路Header传递](#全链路灰度调用链)
+    - [自定义Feign-Header传递](#自定义Feign-Header传递)
+    - [自定义RestTemplate-Header传递](#自定义RestTemplate-Header传递)	
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
@@ -1121,6 +1124,53 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 ```
 请参考在IDE控制台打印的结果
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
+
+## 全链路Header传递
+
+原生的Feign Header传递可以使用RequestInterceptor拦截器实现，原生的RestTemplate Header传递可以使用ClientHttpRequestInterceptor拦截器实现
+
+本框架也使用这些原生的拦截器用作Header在灰度功能上的传递，为了避免使用者再去多创建一层拦截器，框架抽象出两个拦截适配器，用法和原生的两个拦截器一致
+
+### 自定义Feign-Header传递
+
+实现FeignStrategyInterceptorAdapter.java，在apply方法里加入自定义的Header传递
+```java
+public class MyFeignStrategyInterceptorAdapter implements FeignStrategyInterceptorAdapter {
+    @Override
+    public void apply(RequestTemplate requestTemplate) {
+        requestTemplate.header("n-d-my-id", "123");
+    }
+}
+```
+在配置类里@Bean方式进行拦截适配器创建
+```java
+@Bean
+public FeignStrategyInterceptorAdapter feignStrategyInterceptorAdapter() {
+    return new MyFeignStrategyInterceptorAdapter();
+}
+```
+
+### 自定义RestTemplate-Header传递
+
+实现RestTemplateStrategyInterceptorAdapter.java，在intercept方法里加入自定义的Header传递
+```java
+public class MyRestTemplateStrategyInterceptorAdapter implements RestTemplateStrategyInterceptorAdapter {
+    @Override
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+        HttpHeaders headers = request.getHeaders();
+        headers.add("n-d-my-id", "456");
+
+        return execution.execute(request, body);
+    }
+}
+```
+在配置类里@Bean方式进行拦截适配器创建
+```java
+@Bean
+public RestTemplateStrategyInterceptorAdapter restTemplateStrategyInterceptorAdapter() {
+    return new MyRestTemplateStrategyInterceptorAdapter();
+}
+```
 
 ## Docker容器化和Kubernetes平台
 
