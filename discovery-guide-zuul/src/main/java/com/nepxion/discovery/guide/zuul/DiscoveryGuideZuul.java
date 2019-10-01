@@ -32,16 +32,19 @@ public class DiscoveryGuideZuul {
         new SpringApplicationBuilder(DiscoveryGuideZuul.class).run(args);
     }
 
+    // 自定义负载均衡的灰度策略
     @Bean
     public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
         return new MyDiscoveryEnabledStrategy();
     }
 
+    // 自定义灰度路由策略
     /*@Bean
     public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
         return new MyZuulStrategyRouteFilter();
     }*/
 
+    // 自定义调用链和灰度调用链通过MDC输出到日志
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
     public ZuulStrategyTracer zuulStrategyTracer() {
