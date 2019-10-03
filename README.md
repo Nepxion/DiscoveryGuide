@@ -60,7 +60,7 @@ Nepxion Discovery【探索】Guide是Nepxion Discovery【探索】的极简指�
     - [注册服务隔离](#注册服务隔离)
     - [消费端服务隔离](#消费端服务隔离)
     - [提供端服务隔离](#提供端服务隔离)
-- [全链路服务限流熔断降级权限](#全链路服务限流熔断降级权限)
+- [基于Sentinel的全链路服务限流熔断降级权限和灰度融合](#基于Sentinel的全链路服务限流熔断降级权限和灰度融合)
     - [原生Sentinel注解](#原生Sentinel注解)
     - [原生Sentinel规则](#原生Sentinel规则)
         - [流控规则](#流控规则)
@@ -75,12 +75,13 @@ Nepxion Discovery【探索】Guide是Nepxion Discovery【探索】的极简指�
         - [基于灰度区域的防护机制](#基于灰度区域的防护机制)
         - [基于机器地址和端口的防护机制](#基于机器地址和端口的防护机制)
         - [自定义业务参数的组合式防护机制](#自定义业务参数的组合式防护机制)
+- [基于Hystrix的全链路服务限流熔断和灰度融合](#基于Hystrix的全链路服务限流熔断和灰度融合)
 - [全链路灰度调用链](#全链路灰度调用链)
     - [Header输出方式](#Header输出方式)
     - [日志输出方式](#日志输出方式)
 - [全链路Header传递](#全链路灰度调用链)
     - [自定义Feign-Header传递](#自定义Feign-Header传递)
-    - [自定义RestTemplate-Header传递](#自定义RestTemplate-Header传递)	
+    - [自定义RestTemplate-Header传递](#自定义RestTemplate-Header传递)
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
@@ -700,7 +701,7 @@ Reject to invoke because of isolation with different service group
 如果加上n-d-service-group=discovery-guide-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide6-2.jpg)
 
-## 全链路服务限流熔断降级权限
+## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
 通过集成Sentinel，在服务端实现该功能
 
@@ -1005,6 +1006,26 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 
 如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-8.jpg)
+
+## 基于Hystrix的全链路服务限流熔断和灰度融合
+
+通过引入Hystrix组件实现服务限流熔断的功能，在执行灰度发布和路由时候，线程池隔离模式下进行调用会丢失上下文，那么需要下述步骤避免该情况。下面步骤同时适用于网关端和服务端
+
+- Pom引入
+```xml
+<!-- 当服务用Hystrix做线程隔离的时候，才需要导入下面的包 -->
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-hystrix</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+- 配置开启
+```xml
+# 开启服务端实现Hystrix线程隔离模式做服务隔离时，必须把spring.application.strategy.hystrix.threadlocal.supported设置为true，同时要引入discovery-plugin-strategy-starter-hystrix包，否则线程切换时会发生ThreadLocal上下文对象丢失。缺失则默认为false
+spring.application.strategy.hystrix.threadlocal.supported=true
+```
 
 ## 全链路灰度调用链
 
