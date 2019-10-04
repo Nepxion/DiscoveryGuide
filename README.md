@@ -100,13 +100,13 @@ Nepxion Discovery【探索】Guide是Nepxion Discovery【探索】的极简指�
 ## 相关链接
 
 ### 源码主页
-[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
+[源码主页](https://github.com/Nepxion/Discovery)
 
 ### 指南主页
-[https://github.com/Nepxion/DiscoveryGuide](https://github.com/Nepxion/DiscoveryGuide)
+[指南主页](https://github.com/Nepxion/DiscoveryGuide)
 
 ### 文档主页
-[https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)
+[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)
 
 ## 相关图示
 
