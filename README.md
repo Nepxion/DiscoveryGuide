@@ -31,6 +31,9 @@ Nepxion Discovery【探索】Guide是Nepxion Discovery【探索】的极简指�
 ## 目录
 - [请联系我](#请联系我)
 - [相关链接](#相关链接)
+    - [源码主页](#源码主页)
+    - [指南主页](#指南主页)
+    - [文档主页](#文档主页)
 - [相关图示](#相关图示)
     - [部署架构拓扑图](#部署架构拓扑图)
     - [服务治理架构图](#服务治理架构图)
@@ -94,7 +97,7 @@ Nepxion Discovery【探索】Guide是Nepxion Discovery【探索】的极简指�
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/文档-1.jpg)
 
-## 相关连接
+## 相关链接
 
 ### 源码主页
 [https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
