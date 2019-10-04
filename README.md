@@ -30,7 +30,11 @@ Nepxion Discovery【探索】Guide是Nepxion Discovery【探索】的极简指�
 
 ## 目录
 - [请联系我](#请联系我)
-- [服务治理架构图](#服务治理架构图)
+- [相关链接](#相关链接)
+- [相关图示](#相关图示)
+    - [部署架构拓扑图](#部署架构拓扑图)
+    - [服务治理架构图](#服务治理架构图)
+    - [灰度方式区别图](#灰度方式区别图)
 - [环境搭建](#环境搭建)
 - [启动服务](#启动服务)
 - [环境验证](#环境验证)
@@ -90,15 +94,27 @@ Nepxion Discovery【探索】Guide是Nepxion Discovery【探索】的极简指�
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/文档-1.jpg)
 
-## 部署架构拓扑图
+## 相关连接
+
+### 源码主页
+[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)
+
+### 指南主页
+[https://github.com/Nepxion/DiscoveryGuide](https://github.com/Nepxion/DiscoveryGuide)
+
+### 文档主页
+[https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)
+
+## 相关图示
+
+### 部署架构拓扑图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/BasicTopology.jpg)
 
-## 灰度方式区别图
-
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Difference.jpg)
-
-## 服务治理架构图
+### 服务治理架构图
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Govern.jpg)
+
+### 灰度方式区别图
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Difference.jpg)
 
 ## 环境搭建
 - 下载代码
