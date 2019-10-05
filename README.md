@@ -319,12 +319,12 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 # 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
 spring.application.strategy.gateway.header.priority=false
 # 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
-# spring.application.strategy.gateway.original.header.ignored=true
+spring.application.strategy.gateway.original.header.ignored=true
 
 # 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
 spring.application.strategy.zuul.header.priority=false
 # 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
-# spring.application.strategy.zuul.original.header.ignored=true
+spring.application.strategy.zuul.original.header.ignored=true
 ``` 
 
 #### 通过业务参数在网关过滤器中自定义灰度路由策略
@@ -824,6 +824,7 @@ Reject to invoke because of isolation with different service group
 
 支持如下开关开启该动能，默认是关闭的
 ```vb
+# 启动和关闭Sentinel限流降级熔断权限等功能。缺失则默认为false
 spring.application.strategy.sentinel.enabled=true
 ```
 
