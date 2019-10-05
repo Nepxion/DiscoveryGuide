@@ -196,12 +196,12 @@ zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-
 ```
 
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
-```xml
+```
 * - 表示调用范围为所有服务的所有版本
 1.* - 表示调用范围为所有服务的1开头的所有版本
 ```
 或者
-```xml
+```
 "discovery-guide-service-b":"1.*;1.2.?"
 ```
 表示discovery-guide-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
@@ -220,7 +220,7 @@ zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-2.jpg)
 
 每个服务调用的版本权重都可以自行指定，见下面第二条。当所有服务都选相同版本权重的时候，可以简化成下面第一条
-```xml
+```
 1. <version-weight>1.0=90;1.1=10</version-weight>
 2. <version-weight>{"discovery-guide-service-a":"1.0=90;1.1=10", "discovery-guide-service-b":"1.0=90;1.1=10"}</version-weight>
 ```
@@ -239,18 +239,18 @@ zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-3.jpg)
 
 每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
-```xml
+```
 1. <region>dev</region>
 2. <region>{"discovery-guide-service-a":"dev", "discovery-guide-service-b":"dev"}</region>
 ```
 
 如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
-```xml
+```
 * - 表示调用范围为所有服务的所有区域
 d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 或者
-```xml
+```
 "discovery-guide-service-b":"d*;q?"
 ```
 表示discovery-guide-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
@@ -269,7 +269,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-4.jpg)
 
 每个服务调用的区域权重都可以自行指定，见下面第二条。当所有服务都选相同区域权重的时候，可以简化成下面第一条
-```xml
+```
 1. <region-weight>dev=85;qa=15</region-weight>
 2. <region-weight>{"discovery-guide-service-a":"dev=85;qa=15", "discovery-guide-service-b":"dev=85;qa=15"}</region-weight>
 ```
@@ -281,29 +281,29 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 通过前端（Postman）方式传入灰度路由策略，来代替配置中心方式，传递全链路路由策略。注意：当配置中心和界面都配置后，以界面传入优先
 
 - 版本匹配策略，Header格式如下任选一个：
-```xml
+```
 1. n-d-version=1.0
 2. n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
 ```
 
 - 版本权重策略，Header格式如下任选一个：
-```xml
+```
 1. n-d-version-weight=1.0=90;1.1=10
 2. n-d-version-weight={"discovery-guide-service-a":"1.0=90;1.1=10", "discovery-guide-service-b":"1.0=90;1.1=10"}
 ```
 
 - 区域匹配策略，Header格式如下任选一个：
-```xml
+```
 1. n-d-region=qa
 2. n-d-region={"discovery-guide-service-a":"qa", "discovery-guide-service-b":"qa"}
 ```
 - 区域权重策略，Header格式如下任选一个：
-```xml
+```
 1. n-d-region-weight=dev=99;qa=1
 2. n-d-region-weight={"discovery-guide-service-a":"dev=99;qa=1", "discovery-guide-service-b":"dev=99;qa=1"}
 ```
 - 机器地址策略：
-```xml
+```
 1. n-d-address={"discovery-guide-service-a":"127.0.0.1:3001", "discovery-guide-service-b":"127.0.0.1:4002"}
 ```
 
@@ -331,7 +331,7 @@ spring.application.strategy.zuul.header.priority=false
 - 内置策略解析映射到过滤器的自定义方式
 
 增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容见下面XML内容，它所表达的功能逻辑：
-```xml
+```
 1. 当外部调用带有的Http Header中的值a=1同时b=2
    <condition>节点中header="a=1;b=2"对应的version-id="version-route1"，找到下面
    <route>节点中id="version-route1" type="version"的那项，那么路由即为：
@@ -587,7 +587,7 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
 }
 ```
 需要通过如下开关开启该功能
-```xml
+```vb
 # 启动和关闭路由策略的时候，对RPC方式的调用拦截。缺失则默认为false
 spring.application.strategy.rpc.intercept.enabled=true
 ```
@@ -618,7 +618,7 @@ spring.application.strategy.rpc.intercept.enabled=true
 
 上述配置，模拟出全链路中，两条独立不受干扰的调用路径：
 
-```xml
+```
 1. APP v1.0 -> 网关 -> A服务 v1.0 -> B服务 v1.0
 2. APP v1.1 -> 网关 -> A服务 v1.1 -> B服务 v1.1
 ```
@@ -772,19 +772,19 @@ spring.application.strategy.rpc.intercept.enabled=true
 
 ### 注册服务隔离
 基于Group黑/白名单的策略，即当前的服务所在的Group，不在Group的黑名单或者在白名单里，才允许被注册。只需要在网关或者服务端，开启如下配置即可：
-```xml
+```vb
 # 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
 spring.application.strategy.register.isolation.enabled=true
 ```
 黑/白名单通过如下方式配置
-```xml
+```vb
 spring.application.strategy.register.isolation.group.blacklist=
 spring.application.strategy.register.isolation.group.whitelist=
 ```
 
 ### 消费端服务隔离
 基于Group是否相同的策略，即消费端拿到的提供端列表，两者的Group必须相同。只需要在网关或者服务端，开启如下配置即可：
-```xml
+```vb
 # 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.consumer.isolation.enabled=true
 ```
@@ -792,7 +792,7 @@ spring.application.strategy.consumer.isolation.enabled=true
 
 ### 提供端服务隔离
 基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-service-group值进行匹配。只需要在服务端（不适用网关），开启如下配置即可：
-```xml
+```vb
 # 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.provider.isolation.enabled=true
 
@@ -801,7 +801,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 ```
 
 在Postman调用，执行[http://localhost:4001/invoke/abc](http://localhost:4001/invoke/abc)，去调用discovery-guide-service-b服务，将出现如下异常。意味着在discovery-guide-service-b提供端进行了隔离
-```xml
+```
 Reject to invoke because of isolation with different service group
 ```
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide6-1.jpg)
@@ -813,7 +813,7 @@ Reject to invoke because of isolation with different service group
 通过集成Sentinel，在服务端实现该功能
 
 封装NacosDataSource和ApolloDataSource，支持Nacos和Apollo两个远程配置中心，零代码实现Sentinel功能。更多的远程配置中心，请参照Sentinel官方的DataSource并自行集成
-```xml
+```
 1. Nacos的Key格式：Group为元数据中配置的[组名]，Data Id为[服务名]-[规则类型]
 2. Apollo的Key格式：[组名]-[服务名]-[规则类型]
 ```
@@ -821,7 +821,7 @@ Reject to invoke because of isolation with different service group
 支持远程配置中心和本地规则文件的读取逻辑，即优先读取远程配置，如果不存在或者规则错误，则读取本地规则文件。动态实现远程配置中心对于规则的热刷新
 
 支持如下开关开启该动能，默认是关闭的
-```xml
+```vb
 spring.application.strategy.sentinel.enabled=true
 ```
 
@@ -862,7 +862,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 #### 流控规则
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-flow，规则内容如下：
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -885,7 +885,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 #### 降级规则
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-degrade，规则内容如下：
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -903,7 +903,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 #### 授权规则
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下：
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -918,7 +918,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 #### 系统规则
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-system，规则内容如下：
-```xml
+```
 [
     {
         "resource": null,
@@ -937,7 +937,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 #### 热点参数流控规则
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-param-flow，规则内容如下：
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -968,12 +968,12 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 修改配置项Sentinel Request Origin Key为服务名的Header名称，修改授权规则中limitApp为对应的服务名，可实现基于服务名的防护机制
 
 配置项，该配置项默认为n-d-service-id，可以不配置
-```xml
+```vb
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
 ```
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示所有discovery-guide-service-a服务允许访问discovery-guide-service-b服务
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -988,12 +988,12 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
 修改配置项Sentinel Request Origin Key为灰度组的Header名称，修改授权规则中limitApp为对应的组名，可实现基于组名的防护机制
 
 配置项
-```xml
+```vb
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-group
 ```
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示隶属my-group组的所有服务都允许访问服务discovery-guide-service-b
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -1008,12 +1008,12 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-grou
 修改配置项Sentinel Request Origin Key为灰度版本的Header名称，修改授权规则中limitApp为对应的版本，可实现基于版本的防护机制
 
 配置项
-```xml
+```vb
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-version
 ```
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示版本为1.0的所有服务都允许访问服务discovery-guide-service-b
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -1028,12 +1028,12 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-vers
 修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域，可实现基于区域的防护机制
 
 配置项
-```xml
+```vb
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-region
 ```
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示区域为dev的所有服务都允许访问服务discovery-guide-service-b
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -1048,12 +1048,12 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-regi
 修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域值，可实现基于机器地址和端口的防护机制
 
 配置项
-```xml
+```vb
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-address
 ```
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示地址和端口为192.168.0.88:8081和192.168.0.88:8082的服务都允许访问服务discovery-guide-service-b
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -1087,7 +1087,7 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 ```
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下，表示版本为1.0且传入的Http Header的user=zhangsan，同时满足这两个条件下的所有服务都允许访问服务discovery-guide-service-b
-```xml
+```
 [
     {
         "resource": "sentinel-resource",
@@ -1129,7 +1129,7 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 ```
 
 - 配置开启
-```xml
+```vb
 # 开启服务端实现Hystrix线程隔离模式做服务隔离时，必须把spring.application.strategy.hystrix.threadlocal.supported设置为true，同时要引入discovery-plugin-strategy-starter-hystrix包，否则线程切换时会发生ThreadLocal上下文对象丢失。缺失则默认为false
 spring.application.strategy.hystrix.threadlocal.supported=true
 ```
@@ -1137,7 +1137,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 ## 全链路灰度调用链
 
 灰度调用链主要包括如下6个参数。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
-```xml
+```
 1. n-d-service-group - 服务所属组或者应用
 2. n-d-service-type - 服务类型，分为“网关”和“服务”
 3. n-d-service-id - 服务ID
@@ -1254,7 +1254,7 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
 
 对于调用链功能的开启和关闭，需要通过如下开关做控制：
-```xml
+```vb
 # 启动和关闭调用链。缺失则默认为false
 spring.application.strategy.trace.enabled=true
 # 启动和关闭调用链的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
@@ -1264,7 +1264,7 @@ spring.application.strategy.trace.debug.enabled=true
 ## 全链路Header传递
 
 框架会默认把相关的Header，进行全链路传递，可以通过如下配置进行。除此之外，凡是以“n-d-”开头的任何Header，框架都会默认全链路传递
-```xml
+```vb
 # 启动和关闭路由策略的时候，对REST方式的调用拦截。缺失则默认为true
 spring.application.strategy.rest.intercept.enabled=true
 # 启动和关闭Header传递的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
