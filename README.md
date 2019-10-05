@@ -316,9 +316,13 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```xml
 # 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
 spring.application.strategy.gateway.header.priority=false
+# 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
+# spring.application.strategy.gateway.original.header.ignored=true
 
 # 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
 spring.application.strategy.zuul.header.priority=false
+# 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
+# spring.application.strategy.zuul.original.header.ignored=true
 ``` 
 
 #### 通过业务参数在网关过滤器中自定义灰度路由策略
@@ -581,6 +585,11 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
         return true;
     }
 }
+```
+需要通过如下开关开启该功能
+```xml
+# 启动和关闭路由策略的时候，对RPC方式的调用拦截。缺失则默认为false
+spring.application.strategy.rpc.intercept.enabled=true
 ```
 
 ### 配置前端灰度&网关灰度路由组合式策略
@@ -1244,7 +1253,27 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 请参考在IDE控制台打印的结果
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
 
+对于调用链功能的开启和关闭，需要通过如下开关做控制：
+```xml
+# 启动和关闭调用链。缺失则默认为false
+spring.application.strategy.trace.enabled=true
+# 启动和关闭调用链的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
+spring.application.strategy.trace.debug.enabled=true
+```
+
 ## 全链路Header传递
+
+框架会默认把相关的Header，进行全链路传递，可以通过如下配置进行。除此之外，凡是以“n-d-”开头的任何Header，框架都会默认全链路传递
+```xml
+# 启动和关闭路由策略的时候，对REST方式的调用拦截。缺失则默认为true
+spring.application.strategy.rest.intercept.enabled=true
+# 启动和关闭Header传递的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
+spring.application.strategy.rest.intercept.debug.enabled=true
+# 灰度路由策略的时候，对REST方式调用拦截的时候（支持Feign或者RestTemplate调用），希望把来自外部自定义的Header参数（用于框架内置上下文Header，例如：traceid, spanid等）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
+spring.application.strategy.context.request.headers=traceid;spanid
+# 灰度路由策略的时候，对REST方式调用拦截的时候（支持Feign或者RestTemplate调用），希望把来自外部自定义的Header参数（用于业务系统子定义Header，例如：mobile）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
+spring.application.strategy.business.request.headers=user;mobile
+```
 
 原生的Feign Header传递可以使用RequestInterceptor拦截器实现，原生的RestTemplate Header传递可以使用ClientHttpRequestInterceptor拦截器实现
 
