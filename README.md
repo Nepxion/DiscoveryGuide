@@ -469,9 +469,9 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(MyDiscoveryEnabledStrategy.class);
 
+    // 对Rest调用传来的Header参数（例如：mobile）做策略
     @Override
     public boolean apply(Server server) {
-        // 对Rest调用传来的Header参数（例如：mobile）做策略
         String mobile = strategyContextHolder.getHeader("mobile");
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerVersion(server);
