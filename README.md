@@ -313,7 +313,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-6.jpg)
 
 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。需要通过如下开关做控制：
-```xml
+```vb
 # 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
 spring.application.strategy.gateway.header.priority=false
 # 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
