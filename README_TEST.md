@@ -1,3 +1,5 @@
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Cover.jpg)
+
 # Nepxion Discovery【探索】测试框架
 [![Total lines](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/master/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework)  [![Build Status](https://travis-ci.org/Nepxion/Discovery.svg?branch=master)](https://travis-ci.org/Nepxion/Discovery)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade_Dashboard)
 
@@ -45,7 +47,7 @@ Nepxion Discovery【探索】测试框架集成自动化测试和压力测试两
 
 ### 配置文件
 
-```xml
+```vb
 # 自动化测试框架内置配置
 # 测试用例类的扫描路径
 spring.application.test.scan.packages=com.nepxion.discovery.guide.test
@@ -84,7 +86,7 @@ gray.weight.testcase.result.offset=5
 
 - 自动化测试场景以API网关是测试的触发点，全链路如下：
 
-```xml
+```
 API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 ```
 
@@ -185,7 +187,7 @@ public class MyTestConfiguration {
 
 在测试方法上面增加注解@DTest，通过断言Assert来判断测试结果。注解@DTest内容如下：
 
-```xml
+```java
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
@@ -226,7 +228,7 @@ public class MyTestCases {
 
 在测试方法上面增加注解@DTestConfig，通过断言Assert来判断测试结果。注解DTestConfig注解内容如下：
 
-```xml
+```java
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
@@ -319,7 +321,7 @@ public class MyTestCases {
 ### 测试报告
 
 - 路由策略测试报告
-```xml
+```
 ---------- Run automation testcase :: testNoGray() ----------
 Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
 Result2 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
@@ -368,7 +370,7 @@ Result : B service qa region weight=13.8%
 ```
 
 - 路由规则测试报告
-```xml
+```
 ---------- Run automation testcase :: testStrategyCustomizationGray() ----------
 Header : [a:"1", b:"2"]
 Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3002][V=1.1][R=qa][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4002][V=1.1][R=dev][G=discovery-guide-group]
@@ -432,7 +434,7 @@ A service 1.1 version weight=60.1667%
 ### 测试步骤
 - 登录到wrk的机器，进入wrk目录
 - 运行命令 wrk -t64 -c2000 -d30s -H "id: 123" -H "token: abc" --timeout=2s --latency --script=post.lua http://localhost:5001/discovery-guide-service-a/invoke/gateway
-```xml  
+```
 使用方法: wrk <选项> <被测HTTP服务的URL>
   Options:
     -c, --connections 跟服务器建立并保持的TCP连接数量
