@@ -167,12 +167,15 @@ zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-
 ### 灰度路由架构图
 
 多版本灰度路由架构图
+
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteVersion.jpg)
 
 多区域灰度路由架构图
+
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteRegion.jpg)
 
 多IP和端口灰度路由架构图
+
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteAddress.jpg)
 
 ### 配置网关灰度路由策略
