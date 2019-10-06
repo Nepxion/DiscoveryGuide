@@ -45,6 +45,9 @@ Nepxion Discovery【探索】使用指南，基于Spring Cloud Greenwich版、Fi
 - [环境验证](#环境验证)
 - [基于Header传递方式的网关灰度路由策略](#基于Header传递方式的网关灰度路由策略)
     - [灰度路由架构图](#灰度路由架构图)
+        - [多版本灰度路由架构图](#多版本灰度路由架构图)
+        - [多区域灰度路由架构图](#多区域灰度路由架构图)
+        - [多IP和端口灰度路由架构图](#多IP和端口灰度路由架构图)
     - [配置网关灰度路由策略](#配置网关灰度路由策略)
         - [版本匹配灰度路由策略](#版本匹配灰度路由策略)
         - [版本权重灰度路由策略](#版本权重灰度路由策略)
@@ -166,15 +169,15 @@ zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-
 
 ### 灰度路由架构图
 
-多版本灰度路由架构图
+#### 多版本灰度路由架构图
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteVersion.jpg)
 
-多区域灰度路由架构图
+#### 多区域灰度路由架构图
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteRegion.jpg)
 
-多IP和端口灰度路由架构图
+#### 多IP和端口灰度路由架构图
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/RouteAddress.jpg)
 
