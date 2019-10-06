@@ -188,7 +188,6 @@ zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-
     </strategy>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-1.jpg)
 
 每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本的时候，可以简化成下面第一条
@@ -218,7 +217,6 @@ zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-
     </strategy>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-2.jpg)
 
 每个服务调用的版本权重都可以自行指定，见下面第二条。当所有服务都选相同版本权重的时候，可以简化成下面第一条
@@ -237,7 +235,6 @@ zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-
     </strategy>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-3.jpg)
 
 每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
@@ -267,7 +264,6 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-4.jpg)
 
 每个服务调用的区域权重都可以自行指定，见下面第二条。当所有服务都选相同区域权重的时候，可以简化成下面第一条
@@ -311,7 +307,6 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 n-d-address={"discovery-guide-service-a":"127.0.0.1:3001", "discovery-guide-service-b":"127.0.0.1:4002"}
 ```
 
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-5.jpg)
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-6.jpg)
@@ -380,7 +375,6 @@ spring.application.strategy.zuul.original.header.ignored=true
     </strategy-customization>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-7.jpg)
 
 - 用户覆盖过滤器的自定义方式
@@ -646,7 +640,6 @@ spring.application.strategy.rpc.intercept.enabled=true
     </discovery>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide3-1.jpg)
 
 #### 区域匹配灰度规则
@@ -662,7 +655,6 @@ spring.application.strategy.rpc.intercept.enabled=true
     </discovery>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide3-2.jpg)
 
 ### 配置全链路灰度权重规则
@@ -679,7 +671,6 @@ spring.application.strategy.rpc.intercept.enabled=true
     </discovery>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide4-1.jpg)
 
 #### 局部版本权重灰度规则
@@ -695,7 +686,6 @@ spring.application.strategy.rpc.intercept.enabled=true
     </discovery>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide4-2.jpg)
 
 #### 全局区域权重灰度规则
@@ -710,7 +700,6 @@ spring.application.strategy.rpc.intercept.enabled=true
     </discovery>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide4-3.jpg)
 
 #### 局部区域权重灰度规则
@@ -726,7 +715,6 @@ spring.application.strategy.rpc.intercept.enabled=true
     </discovery>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide4-4.jpg)
 
 注意：局部权重优先级高于全局权重，版本权重优先级高于区域权重
@@ -756,7 +744,6 @@ spring.application.strategy.rpc.intercept.enabled=true
     </discovery>
 </rule>
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide5-1.jpg)
 
 图形化界面验证
@@ -884,7 +871,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-1.jpg)
 
 #### 降级规则
@@ -902,7 +888,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-2.jpg)
 
 #### 授权规则
@@ -917,7 +902,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-3.jpg)
 
 #### 系统规则
@@ -936,7 +920,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-4.jpg)
 
 #### 热点参数流控规则
@@ -959,7 +942,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-5.jpg)
 
 ### 基于灰度路由和Sentinel-LimitApp扩展的防护机制
@@ -1106,17 +1088,14 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 
 - 当传递的Http Header中user=zhangsan，当全链路调用中，API网关负载均衡discovery-guide-service-a服务到1.0版本后再去调用discovery-guide-service-b服务，最终调用成功
 
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-6.jpg)
 
 - 当传递的Http Header中user=lisi，不满足条件，最终调用在discovery-guide-service-b服务端被拒绝掉
 
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-7.jpg)
 
 - 当传递的Http Header中user=zhangsan，满足条件之一，当全链路调用中，API网关负载均衡discovery-guide-service-a服务到1.1版本后再去调用discovery-guide-service-b服务，不满足version=1.0的条件，最终调用在discovery-guide-service-b服务端被拒绝掉
 
-如图所示
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide7-8.jpg)
 
 ## 基于Hystrix的全链路服务限流熔断和灰度融合
