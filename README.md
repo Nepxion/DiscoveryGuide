@@ -518,10 +518,10 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(MyDiscoveryEnabledStrategy.class);
 
     @Autowired
-    private ServiceStrategyContextHolder serviceStrategyContextHolder;
+    private PluginAdapter pluginAdapter;
 
     @Autowired
-    private PluginAdapter pluginAdapter;
+    private ServiceStrategyContextHolder serviceStrategyContextHolder;
 
     @Override
     public boolean apply(Server server) {
@@ -1060,8 +1060,8 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-addr
 
 通过适配类实现自定义业务参数的组合式防护机制
 ```java
-// 版本号+用户名，实现组合式熔断
-public class MyServiceSentinelRequestOriginAdapter extends AbstractServiceSentinelRequestOriginAdapter {
+// 自定义版本号+用户名，实现组合式熔断
+public class MyServiceSentinelRequestOriginAdapter extends DefaultServiceSentinelRequestOriginAdapter {
     @Override
     public String parseOrigin(HttpServletRequest request) {
         String version = request.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION);
@@ -1149,6 +1149,7 @@ Header方式框架内部集成
 
 继承GatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
+// 自定义调用链和灰度调用链通过MDC输出到日志。使用者集成时候，关注trace方法中的MDC.put和release方法中MDC.clear代码部分即可
 public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
     @Override
     public void trace(ServerWebExchange exchange) {
@@ -1181,6 +1182,7 @@ public GatewayStrategyTracer gatewayStrategyTracer() {
 
 继承ZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
+// 自定义调用链和灰度调用链通过MDC输出到日志。使用者集成时候，关注trace方法中的MDC.put和release方法中MDC.clear代码部分即可
 public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
     @Override
     public void trace(RequestContext context) {
@@ -1213,6 +1215,7 @@ public ZuulStrategyTracer zuulStrategyTracer() {
 
 继承ServiceStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceLocal方法）或者更多通过MDC方式输出到日志
 ```java
+// 自定义调用链和灰度调用链通过MDC输出到日志。使用者集成时候，关注trace方法中的MDC.put和release方法中MDC.clear代码部分即可
 public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     @Override
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
@@ -1273,7 +1276,8 @@ spring.application.strategy.business.request.headers=user;mobile
 
 实现FeignStrategyInterceptorAdapter.java，在apply方法里加入自定义的Header传递
 ```java
-public class MyFeignStrategyInterceptorAdapter implements FeignStrategyInterceptorAdapter {
+// 自定义Feign拦截器中的Header传递
+public class MyFeignStrategyInterceptorAdapter extends DefaultFeignStrategyInterceptorAdapter {
     @Override
     public void apply(RequestTemplate requestTemplate) {
         requestTemplate.header("n-d-my-id", "123");
@@ -1292,7 +1296,8 @@ public FeignStrategyInterceptorAdapter feignStrategyInterceptorAdapter() {
 
 实现RestTemplateStrategyInterceptorAdapter.java，在intercept方法里加入自定义的Header传递
 ```java
-public class MyRestTemplateStrategyInterceptorAdapter implements RestTemplateStrategyInterceptorAdapter {
+// 自定义RestTemplate拦截器中的Header传递
+public class MyRestTemplateStrategyInterceptorAdapter extends DefaultRestTemplateStrategyInterceptorAdapter {
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         HttpHeaders headers = request.getHeaders();
