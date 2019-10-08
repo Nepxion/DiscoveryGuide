@@ -16,10 +16,10 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpResponse;
 
-import com.nepxion.discovery.plugin.strategy.service.adapter.RestTemplateStrategyInterceptorAdapter;
+import com.nepxion.discovery.plugin.strategy.service.adapter.DefaultRestTemplateStrategyInterceptorAdapter;
 
 // 自定义RestTemplate拦截器中的Header传递
-public class MyRestTemplateStrategyInterceptorAdapter implements RestTemplateStrategyInterceptorAdapter {
+public class MyRestTemplateStrategyInterceptorAdapter extends DefaultRestTemplateStrategyInterceptorAdapter {
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         HttpHeaders headers = request.getHeaders();

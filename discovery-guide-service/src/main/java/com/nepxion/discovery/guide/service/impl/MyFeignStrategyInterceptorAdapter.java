@@ -11,10 +11,10 @@ package com.nepxion.discovery.guide.service.impl;
 
 import feign.RequestTemplate;
 
-import com.nepxion.discovery.plugin.strategy.service.adapter.FeignStrategyInterceptorAdapter;
+import com.nepxion.discovery.plugin.strategy.service.adapter.DefaultFeignStrategyInterceptorAdapter;
 
 // 自定义Feign拦截器中的Header传递
-public class MyFeignStrategyInterceptorAdapter implements FeignStrategyInterceptorAdapter {
+public class MyFeignStrategyInterceptorAdapter extends DefaultFeignStrategyInterceptorAdapter {
     @Override
     public void apply(RequestTemplate requestTemplate) {
         requestTemplate.header("n-d-my-id", "123");
