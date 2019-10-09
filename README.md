@@ -111,7 +111,7 @@ Nepxion Discovery【探索】使用指南，基于Spring Cloud Greenwich版、Fi
 [指南主页](https://github.com/Nepxion/DiscoveryGuide)
 
 ### 文档主页
-[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)
+[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA#list/path=%2FNepxion)
 
 ## 相关图示
 
