@@ -17,6 +17,11 @@
     </modules>
 
     <properties>
+        <!-- <discovery.version>5.4.1</discovery.version>
+        <spring.cloud.version>Hoxton.M3</spring.cloud.version>
+        <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
+        <spring.boot.version>2.2.0.RC1</spring.boot.version> -->
+
         <discovery.version>5.4.1</discovery.version>
         <spring.cloud.version>Greenwich.SR3</spring.cloud.version>
         <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
