@@ -1327,6 +1327,8 @@ public RestTemplateStrategyInterceptorAdapter restTemplateStrategyInterceptorAda
     - 一键运行install-docker-gateway.bat或者.sh，把Spring Cloud Gateway网关全自动部署且运行起来
     - 一键运行install-docker-zuul.bat或者.sh，把Zuul网关全自动部署且运行起来
     - 一键运行install-docker-service-xx.bat或者.sh，把微服务全自动部署且运行起来。注意，必须依次运行，即等上一个部署完毕后才能执行下一个
+    - 一键运行install-docker-consoel.bat或者.sh，把控制台全自动部署且运行起来
+- 上述步骤为演示步骤，和DevOps平台结合在一起，更为完美
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Docker.jpg)
 
