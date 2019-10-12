@@ -12,6 +12,7 @@
         <module>discovery-guide-gateway</module>
         <module>discovery-guide-zuul</module>
         <module>discovery-guide-service</module>
+        <module>discovery-guide-console</module>
         <module>discovery-guide-test-automation</module>
     </modules>
 
@@ -47,6 +48,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-guide-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-guide-console</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

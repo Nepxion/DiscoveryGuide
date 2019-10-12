@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>discovery-guide-console</artifactId>
+    <name>Nepxion Discovery Guide Console</name>
+    <packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.nepxion</groupId>
+        <artifactId>discovery-guide</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-console-starter-nacos</artifactId>
+            <!-- <artifactId>discovery-console-starter-apollo</artifactId> -->
+            <version>${discovery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <!-- <groupId>org.springframework.cloud</groupId> -->
+            <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
+            <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                    <mainClass>${MainClass}</mainClass>
+                    <!-- <mainClass>com.nepxion.discovery.guide.console.DiscoveryGuideConsole</mainClass> -->
+                    <layout>JAR</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <attach>false</attach>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>${ImageName}</imageName>
+                    <baseImage>openjdk:8-jre-alpine</baseImage>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <exposes>
+                        <expose>${ExposePort}</expose>
+                    </exposes>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.json</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.json</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>

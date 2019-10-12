@@ -58,6 +58,8 @@ public class MyTest {
 
     @BeforeClass
     public static void beforeTest() {
+        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
+
         startTime = System.currentTimeMillis();
     }
 
