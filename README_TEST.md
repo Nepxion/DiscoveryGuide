@@ -43,7 +43,7 @@ Nepxion Discovery【探索】测试框架集成自动化测试和压力测试两
 
 ### 启动控制台
 
-运行[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)下discovery-springcloud-example-console的应用程序，它是连接服务注册发现中心、远程配置中心和服务的纽带，自动化测试利用控制台，实现配置的自动更新和清除
+运行[指南示例](https://github.com/Nepxion/DiscoveryGuide)下的DiscoveryGuideConsole.java控制台服务，它是连接服务注册发现中心、远程配置中心和服务的纽带，自动化测试利用控制台实现配置的自动更新和清除
 
 ### 配置文件
 
@@ -56,7 +56,7 @@ spring.application.test.config.print.enabled=true
 # 测试用例的配置内容推送后，等待生效的时间。推送远程配置中心后，再通知各服务更新自身的配置缓存，需要一定的时间，缺失则默认为3000
 spring.application.test.config.operation.await.time=3000
 # 测试用例的配置内容推送的控制台地址。控制台是连接服务注册发现中心、远程配置中心和服务的纽带
-spring.application.test.console.url=http://localhost:2222/
+spring.application.test.console.url=http://localhost:6001/
 
 # 业务测试配置
 # Spring Cloud Gateway网关配置

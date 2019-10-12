@@ -135,7 +135,7 @@ Nepxion Discovery【探索】使用指南，基于Spring Cloud Greenwich版、Fi
     - Linux环境下，运行bin目录下的startup.sh
 
 ## 启动服务 
-- 在IDE中，启动四个应用服务和两个网关服务，如下： 
+- 在IDE中，启动四个应用服务和两个网关服务，控制台服务可选，如下： 
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
 | --- | --- | --- | --- | --- |
@@ -145,6 +145,7 @@ Nepxion Discovery【探索】使用指南，基于Spring Cloud Greenwich版、Fi
 | DiscoveryGuideServiceB2.java | B2 | 4002 | 1.1 | dev |
 | DiscoveryGuideGateway.java | Gateway | 5001 | 1.0 | 无 |
 | DiscoveryGuideZuul.java | Zuul | 5002 | 1.0 | 无 |
+| DiscoveryGuideConsole.java | Console | 6001 | 1.0 | 无 |
 
 注：启动不分前后次序
 
