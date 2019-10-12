@@ -82,7 +82,7 @@ gray.weight.testcase.result.offset=5
 
 ### 测试用例
 
-自动化测试代码参考[https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test](https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test-automation)
+自动化测试代码参考[指南示例自动化测试](https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test-automation)
 
 - 自动化测试场景以API网关是测试的触发点，全链路如下：
 
