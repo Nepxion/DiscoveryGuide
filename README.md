@@ -147,7 +147,7 @@ Nepxion Discovery【探索】使用指南，基于Spring Cloud Greenwich版、Fi
 | DiscoveryGuideZuul.java | Zuul | 5002 | 1.0 | 无 |
 | DiscoveryGuideConsole.java | Console | 6001 | 1.0 | 无 |
 
-注：启动不分前后次序
+- 启动之前，需要把七个服务配置文件里的middleware.host=192.168.0.107改成使用者本地的IP地址。原因是本示例基于Docker而制作，Docker是不能采用localhost为IP地址的
 
 ## 环境验证
 - 导入Postman的测试脚本，[脚本地址](https://github.com/Nepxion/Discovery/raw/master/postman.json)
