@@ -13,6 +13,10 @@ Nepxion Discovery【探索】测试框架集成自动化测试和压力测试两
 
 ## 目录
 - [请联系我](#请联系我)
+- [相关链接](#相关链接)
+    - [源码主页](#源码主页)
+    - [指南主页](#指南主页)
+    - [文档主页](#文档主页)
 - [自动化测试](#自动化测试)
     - [架构设计](#架构设计)
     - [启动控制台](#启动控制台)
@@ -34,6 +38,17 @@ Nepxion Discovery【探索】测试框架集成自动化测试和压力测试两
 微信、公众号和文档
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/公众号-1.jpg)![Alt text](https://github.com/Nepxion/Docs/raw/master/zxing-doc/文档-1.jpg)
+
+## 相关链接
+
+### 源码主页
+[源码主页](https://github.com/Nepxion/Discovery)
+
+### 指南主页
+[指南主页](https://github.com/Nepxion/DiscoveryGuide)
+
+### 文档主页
+[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA#list/path=%2FNepxion)
 
 ## 自动化测试
 
