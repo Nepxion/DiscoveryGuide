@@ -20,15 +20,16 @@ import com.netflix.loadbalancer.Server;
 public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(MyDiscoveryEnabledStrategy.class);
 
-    // 对Rest调用传来的Header参数（例如：mobile）做策略
+    // 对REST调用传来的Header参数（例如：mobile）做策略
     @Override
     public boolean apply(Server server) {
         String mobile = strategyContextHolder.getHeader("mobile");
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerVersion(server);
         String region = pluginAdapter.getServerRegion(server);
+        String address = server.getHostPort();
 
-        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}", mobile, serviceId, version, region);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}, address={}", mobile, serviceId, version, region, address);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上

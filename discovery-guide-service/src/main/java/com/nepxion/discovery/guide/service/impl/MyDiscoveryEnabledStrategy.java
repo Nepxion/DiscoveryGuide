@@ -42,14 +42,15 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
         return applyFromMethod(server);
     }
 
-    // 根据Rest调用传来的Header参数（例如：mobile），选取执行调用请求的服务实例
+    // 根据REST调用传来的Header参数（例如：mobile），选取执行调用请求的服务实例
     private boolean applyFromHeader(Server server) {
         String mobile = serviceStrategyContextHolder.getHeader("mobile");
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerVersion(server);
         String region = pluginAdapter.getServerRegion(server);
+        String address = server.getHostPort();
 
-        LOG.info("REST拦截 - 负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}", mobile, serviceId, version, region);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}, address={}", mobile, serviceId, version, region, address);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上
@@ -75,8 +76,9 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerVersion(server);
         String region = pluginAdapter.getServerRegion(server);
+        String address = server.getHostPort();
 
-        LOG.info("RPC拦截 - 负载均衡用户定制触发：attributes={}, serviceId={}, version={}, region={}", attributes, serviceId, version, region);
+        LOG.info("负载均衡用户定制触发：attributes={}, serviceId={}, version={}, region={}, address={}", attributes, serviceId, version, region, address);
 
         if (attributes.containsKey(ServiceStrategyConstant.PARAMETER_MAP)) {
             Map<String, Object> parameterMap = (Map<String, Object>) attributes.get(ServiceStrategyConstant.PARAMETER_MAP);
