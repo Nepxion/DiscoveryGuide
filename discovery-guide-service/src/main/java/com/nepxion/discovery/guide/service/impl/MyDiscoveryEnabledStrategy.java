@@ -49,7 +49,7 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
         String version = pluginAdapter.getServerVersion(server);
         String region = pluginAdapter.getServerRegion(server);
 
-        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}", mobile, serviceId, version, region);
+        LOG.info("REST拦截 - 负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}", mobile, serviceId, version, region);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上
@@ -76,7 +76,7 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
         String version = pluginAdapter.getServerVersion(server);
         String region = pluginAdapter.getServerRegion(server);
 
-        LOG.info("负载均衡用户定制触发：attributes={}, serviceId={}, version={}, region={}", attributes, serviceId, version, region);
+        LOG.info("RPC拦截 - 负载均衡用户定制触发：attributes={}, serviceId={}, version={}, region={}", attributes, serviceId, version, region);
 
         if (attributes.containsKey(ServiceStrategyConstant.PARAMETER_MAP)) {
             Map<String, Object> parameterMap = (Map<String, Object>) attributes.get(ServiceStrategyConstant.PARAMETER_MAP);
