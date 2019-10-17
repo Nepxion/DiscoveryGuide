@@ -1340,4 +1340,4 @@ public RestTemplateStrategyInterceptorAdapter restTemplateStrategyInterceptorAda
 
 ## Star走势图
 
-[![Stargazers over time](https://starchart.cc/Nepxion/DiscoveryGuide.svg)](https://starchart.cc/Nepxion/DiscoveryGuide)
+[![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)
