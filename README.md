@@ -869,8 +869,10 @@ Reject to invoke because of isolation with different service group
     </configuration>
 </plugin>
 ```
+
 更多的配置方式，参考[https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md](https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md)
-- 
+
+- xx
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
