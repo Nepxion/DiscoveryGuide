@@ -13,6 +13,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
+- 基于Git插件的提交ID或者编译版本代替灰度版本
 - 全链路服务限流熔断降级权限，集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
 - 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出（需使用者自行集成）
 - 全链路Header传递
@@ -73,6 +74,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [注册服务隔离](#注册服务隔离)
     - [消费端服务隔离](#消费端服务隔离)
     - [提供端服务隔离](#提供端服务隔离)
+- [基于Git插件的提交ID或者编译版本代替灰度版本](#基于Git插件的提交ID或者编译版本代替灰度版本)
 - [基于Sentinel的全链路服务限流熔断降级权限和灰度融合](#基于Sentinel的全链路服务限流熔断降级权限和灰度融合)
     - [原生Sentinel注解](#原生Sentinel注解)
     - [原生Sentinel规则](#原生Sentinel规则)
@@ -809,6 +811,66 @@ Reject to invoke because of isolation with different service group
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide6-1.jpg)
 如果加上n-d-service-group=discovery-guide-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide6-2.jpg)
+
+# 基于Git插件的提交ID或者编译版本代替灰度版本
+
+通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（提交ID）或者git.build.version（编译版本）来代替灰度版本，这样就可以避免使用者动工维护灰度版本号
+
+- 需要在4个工程下的pom.xml里增加git-commit-id-plugin
+
+精简化配置
+```xml
+<plugin>
+    <groupId>pl.project13.maven</groupId>
+    <artifactId>git-commit-id-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>revision</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+    </configuration>
+</plugin>
+```
+
+特色化配置
+```xml
+<plugin>
+    <groupId>pl.project13.maven</groupId>
+    <artifactId>git-commit-id-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>revision</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <!-- 指定git信息文件是否生成。缺失则默认为false -->
+        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+        <!-- 指定.git文件夹路径。缺失则默认为${project.basedir}/.git -->
+        <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+        <!-- 指定git信息文件的输出路径 -->
+        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.json</generateGitPropertiesFilename>
+        <!-- <generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename> -->
+        <!-- 指定git信息文件的输出格式。缺失则默认为properties -->
+        <format>json</format>
+        <!-- 指定当.git文件夹未找到时，构建是否失败。若设置true，则构建失败，若设置false，则跳过执行该构建步骤。缺失则默认为true -->
+        <failOnNoGitDirectory>true</failOnNoGitDirectory>
+        <!-- 指定当项目打包类型为pom时，是否取消构建。缺失则默认为true -->
+        <skipPoms>false</skipPoms>
+        <!-- 指定构建过程中，是否打印详细信息。缺失则默认为false -->
+        <verbose>false</verbose>
+        <!-- 指定日期格式 -->
+        <dateFormat>yyyy-MM-dd HH:mm:ss.SSS</dateFormat>
+    </configuration>
+</plugin>
+```
+更多的配置方式，参考[https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md](https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md)
+- 
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
