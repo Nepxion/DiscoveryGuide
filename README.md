@@ -1326,7 +1326,47 @@ public RestTemplateStrategyInterceptorAdapter restTemplateStrategyInterceptorAda
 - 搭建Windows10操作系统或者Linux操作系统下的Docker环境
     - Windows10环境下，具体步骤参考[Docker安装步骤](https://github.com/Nepxion/Thunder/blob/master/thunder-spring-boot-docker-example/README.md)
     - Linux环境请自行研究
-- 需要在4个工程下的pom.xml里增加spring-boot-maven-plugin和docker-maven-plugin，具体参考示例
+- 需要在4个工程下的pom.xml里增加spring-boot-maven-plugin和docker-maven-plugin
+```xml
+<plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <configuration>
+        <executable>true</executable>
+        <mainClass>com.nepxion.discovery.guide.gateway.DiscoveryGuideGateway</mainClass>
+        <layout>JAR</layout>
+    </configuration>
+    <executions>
+        <execution>
+            <goals>
+                <goal>repackage</goal>
+            </goals>
+            <configuration>
+                <attach>false</attach>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+<plugin>
+    <groupId>com.spotify</groupId>
+    <artifactId>docker-maven-plugin</artifactId>
+    <configuration>
+        <imageName>${ImageName}</imageName>
+        <baseImage>openjdk:8-jre-alpine</baseImage>
+        <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+        <exposes>
+            <expose>${ExposePort}</expose>
+        </exposes>
+        <resources>
+            <resource>
+                <targetPath>/</targetPath>
+                <directory>${project.build.directory}</directory>
+                <include>${project.build.finalName}.jar</include>
+            </resource>
+        </resources>
+    </configuration>
+</plugin>
+```
 - 需要在4个工程下bootstrap.properties里的middleware.host=localhost改成使用者本地物理IP地址（Docker是不能去连接容器外地址为localhost的中间件服务器）
 - 全自动部署和运行Docker化的服务。在根目录下
     - 一键运行install-docker-gateway.bat或者.sh，把Spring Cloud Gateway网关全自动部署且运行起来
