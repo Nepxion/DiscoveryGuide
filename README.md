@@ -814,11 +814,11 @@ Reject to invoke because of isolation with different service group
 
 # 基于Git插件的提交ID或者编译版本代替灰度版本
 
-通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（提交ID）或者git.build.version（编译版本）来代替灰度版本，这样就可以避免使用者动工维护灰度版本号
+通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（最后一次代码的提交ID）或者git.build.version（对应到Maven工程的版本）来代替灰度版本，这样就可以避免使用者动工维护灰度版本号
 
 - 需要在4个工程下的pom.xml里增加git-commit-id-plugin
 
-精简化配置
+默认配置
 ```xml
 <plugin>
     <groupId>pl.project13.maven</groupId>
@@ -831,12 +831,13 @@ Reject to invoke because of isolation with different service group
         </execution>
     </executions>
     <configuration>
+        <!-- 必须配置，并指定为true -->
         <generateGitPropertiesFile>true</generateGitPropertiesFile>
     </configuration>
 </plugin>
 ```
 
-特色化配置
+特色配置
 ```xml
 <plugin>
     <groupId>pl.project13.maven</groupId>
@@ -872,7 +873,29 @@ Reject to invoke because of isolation with different service group
 
 更多的配置方式，参考[https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md](https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md)
 
-- xx
+- 增加配置项
+```vb
+# 开启和关闭使用Git的git.commit.id或者git.build.version或者更多其它字段来作为服务版本号。缺失则默认为false
+spring.application.git.generator.enabled=true
+# 插件git-commit-id-plugin产生git信息文件的输出路径，支持properties和json两种格式，支持classpath:xxx和file:xxx两种路径，这些需要和插件里的配置保持一致。缺失则默认为classpath:git.properties
+spring.application.git.generator.path=classpath:git.properties
+# spring.application.git.generator.path=classpath:git.json
+# 使用Git的git.commit.id或者git.build.version或者更多其它字段来作为服务版本号。缺失则默认为git.commit.id
+spring.application.git.version.key=git.commit.id
+# spring.application.git.version.key=git.build.version
+```
+
+注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如：
+```vb
+# 输出到工程跟目录下
+<generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename>
+# 输出成json格式
+<format>json</format>
+
+对应为
+
+spring.application.git.generator.path=file:git.json
+```
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
