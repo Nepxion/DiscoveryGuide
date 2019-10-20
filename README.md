@@ -887,13 +887,14 @@ spring.application.git.version.key=git.commit.id
 
 注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如：
 ```vb
-# 输出到工程跟目录下
+# 输出到工程根目录下
 <generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename>
 # 输出成json格式
 <format>json</format>
-
-对应为
-
+```
+下面配置项必须上面两个配置项的操作逻辑相同
+```vb
+# 输出到工程根目录下的json格式文件
 spring.application.git.generator.path=file:git.json
 ```
 
