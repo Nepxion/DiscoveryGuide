@@ -13,10 +13,10 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
-- 基于Git插件的提交ID或者编译版本代替灰度版本
 - 全链路服务限流熔断降级权限，集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
 - 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出（需使用者自行集成）
 - 全链路Header传递
+- 元数据Metadata自动化策略。包括基于服务名前缀自动创建灰度组名和基于Git插件自动创建灰度版本号
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
 - 灰度路由和发布的自动化测试
@@ -97,8 +97,8 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [自定义Feign-Header传递](#自定义Feign-Header传递)
     - [自定义RestTemplate-Header传递](#自定义RestTemplate-Header传递)
 - [元数据Metadata自动化策略](#元数据Metadata自动化策略)
-    - [基于服务名前缀替代灰度组名](#基于服务名前缀替代灰度组名)
-    - [基于Git插件的提交ID或者编译版本代替灰度版本](#基于Git插件的提交ID或者编译版本代替灰度版本)	
+    - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
+    - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)	
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
@@ -1326,9 +1326,9 @@ public RestTemplateStrategyInterceptorAdapter restTemplateStrategyInterceptorAda
 
 ## 元数据Metadata自动化策略
 
-### 基于服务名前缀替代灰度组名
+### 基于服务名前缀自动创建灰度组名
 
-通过指定长度截断服务名的前缀来替代灰度组名，这样就可以避免使用者手工维护灰度组名。当两者都启用的时候，截断方式的组名优先级要高于手工配置的组名
+通过指定长度截断服务名的前缀来自动创建灰度组名，这样就可以避免使用者手工维护灰度组名。当两者都启用的时候，截断方式的组名优先级要高于手工配置的组名
 
 - 增加配置项
 ```vb
@@ -1338,9 +1338,9 @@ spring.application.group.generator.enabled=true
 spring.application.group.generator.length=15
 ```
 
-### 基于Git插件的提交ID或者编译版本代替灰度版本
+### 基于Git插件自动创建灰度版本号
 
-通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（最后一次代码的提交ID）或者git.build.version（对应到Maven工程的版本）来代替灰度版本，这样就可以避免使用者手工维护灰度版本号。当两者都启用的时候，Git插件方式的版本号优先级要高于手工配置的版本号
+通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（最后一次代码的提交ID）或者git.build.version（对应到Maven工程的版本）来自动创建灰度版本号，这样就可以避免使用者手工维护灰度版本号。当两者都启用的时候，Git插件方式的版本号优先级要高于手工配置的版本号
 
 - 增加Git编译插件
 
