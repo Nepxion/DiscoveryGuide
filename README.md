@@ -74,7 +74,6 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [注册服务隔离](#注册服务隔离)
     - [消费端服务隔离](#消费端服务隔离)
     - [提供端服务隔离](#提供端服务隔离)
-- [基于Git插件的提交ID或者编译版本代替灰度版本](#基于Git插件的提交ID或者编译版本代替灰度版本)
 - [基于Sentinel的全链路服务限流熔断降级权限和灰度融合](#基于Sentinel的全链路服务限流熔断降级权限和灰度融合)
     - [原生Sentinel注解](#原生Sentinel注解)
     - [原生Sentinel规则](#原生Sentinel规则)
@@ -97,6 +96,9 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - [全链路Header传递](#全链路灰度调用链)
     - [自定义Feign-Header传递](#自定义Feign-Header传递)
     - [自定义RestTemplate-Header传递](#自定义RestTemplate-Header传递)
+- [元数据Metadata自动化策略](#元数据Metadata自动化策略)
+    - [基于服务名前缀替代灰度组名](#基于服务名前缀替代灰度组名)
+    - [基于Git插件的提交ID或者编译版本代替灰度版本](#基于Git插件的提交ID或者编译版本代替灰度版本)	
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
@@ -812,116 +814,6 @@ Reject to invoke because of isolation with different service group
 如果加上n-d-service-group=discovery-guide-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide6-2.jpg)
 
-# 基于Git插件的提交ID或者编译版本代替灰度版本
-
-通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（最后一次代码的提交ID）或者git.build.version（对应到Maven工程的版本）来代替灰度版本，这样就可以避免使用者手工维护灰度版本号。当两者都启用的时候，Git插件方式的版本号优先级要高于手工配置的版本号
-
-- 增加Git编译插件
-
-需要在4个工程下的pom.xml里增加git-commit-id-plugin
-
-默认配置
-```xml
-<plugin>
-    <groupId>pl.project13.maven</groupId>
-    <artifactId>git-commit-id-plugin</artifactId>
-    <executions>
-        <execution>
-            <goals>
-                <goal>revision</goal>
-            </goals>
-        </execution>
-    </executions>
-    <configuration>
-        <!-- 必须配置，并指定为true -->
-        <generateGitPropertiesFile>true</generateGitPropertiesFile>
-    </configuration>
-</plugin>
-```
-
-特色配置
-```xml
-<plugin>
-    <groupId>pl.project13.maven</groupId>
-    <artifactId>git-commit-id-plugin</artifactId>
-    <executions>
-        <execution>
-            <goals>
-                <goal>revision</goal>
-            </goals>
-        </execution>
-    </executions>
-    <configuration>
-        <!-- 指定git信息文件是否生成。缺失则默认为false -->
-        <generateGitPropertiesFile>true</generateGitPropertiesFile>
-        <!-- 指定.git文件夹路径。缺失则默认为${project.basedir}/.git -->
-        <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
-        <!-- 指定git信息文件的输出路径 -->
-        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.json</generateGitPropertiesFilename>
-        <!-- <generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename> -->
-        <!-- 指定git信息文件的输出格式。缺失则默认为properties -->
-        <format>json</format>
-        <!-- 指定当.git文件夹未找到时，构建是否失败。若设置true，则构建失败，若设置false，则跳过执行该构建步骤。缺失则默认为true -->
-        <failOnNoGitDirectory>true</failOnNoGitDirectory>
-        <!-- 指定当项目打包类型为pom时，是否取消构建。缺失则默认为true -->
-        <skipPoms>false</skipPoms>
-        <!-- 指定构建过程中，是否打印详细信息。缺失则默认为false -->
-        <verbose>false</verbose>
-        <!-- 指定日期格式 -->
-        <dateFormat>yyyy-MM-dd HH:mm:ss.SSS</dateFormat>
-    </configuration>
-</plugin>
-```
-
-更多的配置方式，参考[https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md](https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md)
-
-需要增加下面的配置，保证git相关文件被打包进去
-```xml
-<resources>
-    <resource>
-        <directory>src/main/java</directory>
-        <includes>
-            <include>**/*.xml</include>
-            <include>**/*.json</include>
-            <include>**/*.properties</include>
-        </includes>
-    </resource>
-    <resource>
-        <directory>src/main/resources</directory>
-        <includes>
-            <include>**/*.xml</include>
-            <include>**/*.json</include>
-            <include>**/*.properties</include>
-        </includes>
-    </resource>
-</resources>
-```
-
-- 增加配置项
-```vb
-# 开启和关闭使用Git的git.commit.id或者git.build.version或者更多其它字段来作为服务版本号。缺失则默认为false
-spring.application.git.generator.enabled=true
-# 插件git-commit-id-plugin产生git信息文件的输出路径，支持properties和json两种格式，支持classpath:xxx和file:xxx两种路径，这些需要和插件里的配置保持一致。缺失则默认为classpath:git.properties
-spring.application.git.generator.path=classpath:git.properties
-# spring.application.git.generator.path=classpath:git.json
-# 使用Git的git.commit.id或者git.build.version或者更多其它字段来作为服务版本号。缺失则默认为git.commit.id
-spring.application.git.version.key=git.commit.id
-# spring.application.git.version.key=git.build.version
-```
-
-注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如：
-```vb
-# 输出到工程根目录下
-<generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename>
-# 输出成json格式
-<format>json</format>
-```
-下面配置项必须上面两个配置项的操作逻辑相同
-```vb
-# 输出到工程根目录下的json格式文件
-spring.application.git.generator.path=file:git.json
-```
-
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
 通过集成Sentinel，在服务端实现该功能
@@ -1430,6 +1322,130 @@ public class MyRestTemplateStrategyInterceptorAdapter extends DefaultRestTemplat
 public RestTemplateStrategyInterceptorAdapter restTemplateStrategyInterceptorAdapter() {
     return new MyRestTemplateStrategyInterceptorAdapter();
 }
+```
+
+## 元数据Metadata自动化策略
+
+### 基于服务名前缀替代灰度组名
+
+通过指定长度截断服务名的前缀来替代灰度组名，这样就可以避免使用者手工维护灰度组名。当两者都启用的时候，截断方式的组名优先级要高于手工配置的组名
+
+- 增加配置项
+```vb
+# 开启和关闭使用服务名前缀来作为服务组名。缺失则默认为false
+spring.application.group.generator.enabled=true
+# 服务名前缀的长度，必须大于0
+spring.application.group.generator.length=15
+```
+
+### 基于Git插件的提交ID或者编译版本代替灰度版本
+
+通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（最后一次代码的提交ID）或者git.build.version（对应到Maven工程的版本）来代替灰度版本，这样就可以避免使用者手工维护灰度版本号。当两者都启用的时候，Git插件方式的版本号优先级要高于手工配置的版本号
+
+- 增加Git编译插件
+
+需要在4个工程下的pom.xml里增加git-commit-id-plugin
+
+默认配置
+```xml
+<plugin>
+    <groupId>pl.project13.maven</groupId>
+    <artifactId>git-commit-id-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>revision</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <!-- 必须配置，并指定为true -->
+        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+    </configuration>
+</plugin>
+```
+
+特色配置
+```xml
+<plugin>
+    <groupId>pl.project13.maven</groupId>
+    <artifactId>git-commit-id-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>revision</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <!-- 指定git信息文件是否生成。缺失则默认为false -->
+        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+        <!-- 指定.git文件夹路径。缺失则默认为${project.basedir}/.git -->
+        <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+        <!-- 指定git信息文件的输出路径 -->
+        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.json</generateGitPropertiesFilename>
+        <!-- <generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename> -->
+        <!-- 指定git信息文件的输出格式。缺失则默认为properties -->
+        <format>json</format>
+        <!-- 指定当.git文件夹未找到时，构建是否失败。若设置true，则构建失败，若设置false，则跳过执行该构建步骤。缺失则默认为true -->
+        <failOnNoGitDirectory>true</failOnNoGitDirectory>
+        <!-- 指定当项目打包类型为pom时，是否取消构建。缺失则默认为true -->
+        <skipPoms>false</skipPoms>
+        <!-- 指定构建过程中，是否打印详细信息。缺失则默认为false -->
+        <verbose>false</verbose>
+        <!-- 指定日期格式 -->
+        <dateFormat>yyyy-MM-dd HH:mm:ss.SSS</dateFormat>
+    </configuration>
+</plugin>
+```
+
+更多的配置方式，参考[https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md](https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md)
+
+需要增加下面的配置，保证git相关文件被打包进去
+```xml
+<resources>
+    <resource>
+        <directory>src/main/java</directory>
+        <includes>
+            <include>**/*.xml</include>
+            <include>**/*.json</include>
+            <include>**/*.properties</include>
+        </includes>
+    </resource>
+    <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+            <include>**/*.xml</include>
+            <include>**/*.json</include>
+            <include>**/*.properties</include>
+        </includes>
+    </resource>
+</resources>
+```
+
+- 增加配置项
+```vb
+# 开启和关闭使用Git的git.commit.id或者git.build.version或者更多其它字段来作为服务版本号。缺失则默认为false
+spring.application.git.generator.enabled=true
+# 插件git-commit-id-plugin产生git信息文件的输出路径，支持properties和json两种格式，支持classpath:xxx和file:xxx两种路径，这些需要和插件里的配置保持一致。缺失则默认为classpath:git.properties
+spring.application.git.generator.path=classpath:git.properties
+# spring.application.git.generator.path=classpath:git.json
+# 使用Git的git.commit.id或者git.build.version或者更多其它字段来作为服务版本号。缺失则默认为git.commit.id
+spring.application.git.version.key=git.commit.id
+# spring.application.git.version.key=git.build.version
+```
+
+注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如：
+```vb
+# 输出到工程根目录下
+<generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename>
+# 输出成json格式
+<format>json</format>
+```
+下面配置项必须上面两个配置项的操作逻辑相同
+```vb
+# 输出到工程根目录下的json格式文件
+spring.application.git.generator.path=file:git.json
 ```
 
 ## Docker容器化和Kubernetes平台
