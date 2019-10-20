@@ -816,7 +816,9 @@ Reject to invoke because of isolation with different service group
 
 通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（最后一次代码的提交ID）或者git.build.version（对应到Maven工程的版本）来代替灰度版本，这样就可以避免使用者动工维护灰度版本号
 
-- 需要在4个工程下的pom.xml里增加git-commit-id-plugin
+- 增加Git编译插件
+
+需要在4个工程下的pom.xml里增加git-commit-id-plugin
 
 默认配置
 ```xml
@@ -872,6 +874,28 @@ Reject to invoke because of isolation with different service group
 ```
 
 更多的配置方式，参考[https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md](https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md)
+
+需要增加下面的配置，保证git相关文件被打包进去
+```xml
+<resources>
+    <resource>
+        <directory>src/main/java</directory>
+        <includes>
+            <include>**/*.xml</include>
+            <include>**/*.json</include>
+            <include>**/*.properties</include>
+        </includes>
+    </resource>
+    <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+            <include>**/*.xml</include>
+            <include>**/*.json</include>
+            <include>**/*.properties</include>
+        </includes>
+    </resource>
+</resources>
+```
 
 - 增加配置项
 ```vb
