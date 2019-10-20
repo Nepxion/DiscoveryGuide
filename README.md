@@ -814,7 +814,7 @@ Reject to invoke because of isolation with different service group
 
 # 基于Git插件的提交ID或者编译版本代替灰度版本
 
-通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（最后一次代码的提交ID）或者git.build.version（对应到Maven工程的版本）来代替灰度版本，这样就可以避免使用者动工维护灰度版本号
+通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（最后一次代码的提交ID）或者git.build.version（对应到Maven工程的版本）来代替灰度版本，这样就可以避免使用者动工维护灰度版本号。当两者都启用的时候，Git插件方式的版本号优先级要高于手工配置的版本号
 
 - 增加Git编译插件
 
