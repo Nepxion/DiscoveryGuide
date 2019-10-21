@@ -42,7 +42,7 @@ public class MyZuulStrategyLoggerTracer extends DefaultZuulStrategyTracer {
         MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
         MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
 
-        LOG.info("全链路灰度调用链输出");
+        LOG.info("全链路灰度调用链输出到日志");
 
         LOG.info("request={}", context.getRequest());
     }
@@ -51,7 +51,7 @@ public class MyZuulStrategyLoggerTracer extends DefaultZuulStrategyTracer {
     public void release(RequestContext context) {
         MDC.clear();
 
-        LOG.info("全链路灰度调用链清除");
+        LOG.info("全链路灰度调用链日志清除");
     }
 
     // Debug用

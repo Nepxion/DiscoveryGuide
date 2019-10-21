@@ -21,6 +21,7 @@ import com.nepxion.discovery.guide.service.impl.MyFeignStrategyInterceptorAdapte
 import com.nepxion.discovery.guide.service.impl.MyRestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceStrategyLoggerTracer;
+import com.nepxion.discovery.guide.service.impl.MyServiceStrategyZipkinTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
 import com.nepxion.discovery.plugin.strategy.service.adapter.FeignStrategyInterceptorAdapter;
@@ -60,8 +61,15 @@ public class DiscoveryGuideServiceA1 {
     // 自定义调用链和灰度调用链通过MDC输出到日志
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-    public ServiceStrategyTracer serviceStrategyTracer() {
+    public ServiceStrategyTracer serviceStrategyLoggerTracer() {
         return new MyServiceStrategyLoggerTracer();
+    }
+
+    // 自定义调用链和灰度调用链通过MDC输出到Zipkin
+    @Bean
+    @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
+    public ServiceStrategyTracer serviceStrategyZipkinTracer() {
+        return new MyServiceStrategyZipkinTracer();
     }
 
     // 自定义组合式熔断
