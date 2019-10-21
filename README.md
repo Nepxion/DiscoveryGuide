@@ -73,7 +73,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [配置全链路灰度权重&灰度版本组合式规则](#配置全链路灰度权重&灰度版本组合式规则)
 - [基于多方式的规则和策略推送](#基于多方式的规则和策略推送)
     - [基于远程配置中心的规则和策略订阅推送](#基于远程配置中心的规则和策略订阅推送)
-    - [基于Actuator Endpoint的规则和策略推送](#基于Actuator Endpoint的规则和策略推送)
+    - [基于Actuator-Endpoint的规则和策略推送](#基于Actuator-Endpoint的规则和策略推送)
     - [基于Swagger和Rest的规则和策略推送](#基于Swagger和Rest的规则和策略推送)	
 - [基于Group的全链路服务隔离](#基于Group的全链路服务隔离)
     - [注册服务隔离](#注册服务隔离)
@@ -789,7 +789,7 @@ Apollo订阅推送界面
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Apollo1.jpg)
 
-### 基于Actuator Endpoint的规则和策略推送
+### 基于Actuator-Endpoint的规则和策略推送
 
 Spring Boot Admin的Actuator Endpoint推送界面
 
