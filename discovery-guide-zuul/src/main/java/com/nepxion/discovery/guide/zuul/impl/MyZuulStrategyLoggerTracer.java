@@ -1,4 +1,4 @@
-package com.nepxion.discovery.guide.gateway.impl;
+package com.nepxion.discovery.guide.zuul.impl;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -15,18 +15,18 @@ import java.util.Map;
 import org.jboss.logging.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.server.ServerWebExchange;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
-import com.nepxion.discovery.plugin.strategy.gateway.tracer.DefaultGatewayStrategyTracer;
+import com.nepxion.discovery.plugin.strategy.zuul.tracer.DefaultZuulStrategyTracer;
+import com.netflix.zuul.context.RequestContext;
 
 // 自定义调用链和灰度调用链通过MDC输出到日志。使用者集成时候，关注trace方法中的MDC.put和release方法中MDC.clear代码部分即可
-public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
-    private static final Logger LOG = LoggerFactory.getLogger(MyGatewayStrategyTracer.class);
+public class MyZuulStrategyLoggerTracer extends DefaultZuulStrategyTracer {
+    private static final Logger LOG = LoggerFactory.getLogger(MyZuulStrategyLoggerTracer.class);
 
     @Override
-    public void trace(ServerWebExchange exchange) {
-        super.trace(exchange);
+    public void trace(RequestContext context) {
+        super.trace(context);
 
         // 自定义调用链
         MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
@@ -44,11 +44,11 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
 
         LOG.info("全链路灰度调用链输出");
 
-        LOG.info("request={}", exchange.getRequest());
+        LOG.info("request={}", context.getRequest());
     }
 
     @Override
-    public void release(ServerWebExchange exchange) {
+    public void release(RequestContext context) {
         MDC.clear();
 
         LOG.info("全链路灰度调用链清除");

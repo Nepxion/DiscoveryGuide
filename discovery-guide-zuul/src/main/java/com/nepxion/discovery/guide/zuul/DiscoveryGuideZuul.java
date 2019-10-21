@@ -17,7 +17,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyTracer;
+import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyLoggerTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
 import com.nepxion.discovery.plugin.strategy.zuul.tracer.ZuulStrategyTracer;
@@ -48,6 +48,6 @@ public class DiscoveryGuideZuul {
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
     public ZuulStrategyTracer zuulStrategyTracer() {
-        return new MyZuulStrategyTracer();
+        return new MyZuulStrategyLoggerTracer();
     }
 }

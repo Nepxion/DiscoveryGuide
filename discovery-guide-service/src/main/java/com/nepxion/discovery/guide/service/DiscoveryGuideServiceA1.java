@@ -20,7 +20,7 @@ import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.service.impl.MyFeignStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyRestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
-import com.nepxion.discovery.guide.service.impl.MyServiceStrategyTracer;
+import com.nepxion.discovery.guide.service.impl.MyServiceStrategyLoggerTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
 import com.nepxion.discovery.plugin.strategy.service.adapter.FeignStrategyInterceptorAdapter;
@@ -61,7 +61,7 @@ public class DiscoveryGuideServiceA1 {
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
     public ServiceStrategyTracer serviceStrategyTracer() {
-        return new MyServiceStrategyTracer();
+        return new MyServiceStrategyLoggerTracer();
     }
 
     // 自定义组合式熔断
