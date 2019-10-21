@@ -1435,6 +1435,33 @@ spring.application.git.version.key=git.commit.id
 # spring.application.git.version.key=git.build.version
 ```
 
+下面是可供选择的Git字段，比较实际意义的字段为git.commit.id，git.commit.id.abbrev，git.build.version，git.total.commit.count
+```vb
+git.branch=master
+git.build.host=Nepxion
+git.build.time=2019-10-21T10\:07\:41+0800
+git.build.user.email=1394997@qq.com
+git.build.user.name=Nepxion
+git.build.version=1.0.0
+git.closest.tag.commit.count=
+git.closest.tag.name=
+git.commit.id=04d7e45b11b975db37bdcdbc5a97c02e9d80e5fa
+git.commit.id.abbrev=04d7e45
+git.commit.id.describe=04d7e45-dirty
+git.commit.id.describe-short=04d7e45-dirty
+git.commit.message.full=\u4FEE\u6539\u914D\u7F6E
+git.commit.message.short=\u4FEE\u6539\u914D\u7F6E
+git.commit.time=2019-10-21T09\:09\:25+0800
+git.commit.user.email=1394997@qq.com
+git.commit.user.name=Nepxion
+git.dirty=true
+git.local.branch.ahead=0
+git.local.branch.behind=0
+git.remote.origin.url=https\://github.com/Nepxion/DiscoveryGuide.git
+git.tags=
+git.total.commit.count=765
+```
+
 注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如：
 ```vb
 # 输出到工程根目录下
