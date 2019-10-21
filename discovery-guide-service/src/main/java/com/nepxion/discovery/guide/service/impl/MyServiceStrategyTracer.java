@@ -55,6 +55,11 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     }
 
     @Override
+    public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
+
+    }
+
+    @Override
     public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         MDC.clear();
 
