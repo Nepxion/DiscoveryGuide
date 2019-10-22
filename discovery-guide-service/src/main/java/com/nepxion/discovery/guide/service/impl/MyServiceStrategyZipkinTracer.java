@@ -13,14 +13,12 @@ import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.tag.Tags;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.google.common.collect.ImmutableMap;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.service.tracer.DefaultServiceStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.service.tracer.ServiceStrategyTracerInterceptor;
@@ -64,11 +62,10 @@ public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer 
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
         Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
         if (span != null) {
-            Map<String, Object> exceptionMap = new HashMap<String, Object>();
-            exceptionMap.put("event", Tags.ERROR.getKey());
-            exceptionMap.put("error.object", e);
-
-            span.log(exceptionMap);
+            span.log(new ImmutableMap.Builder<String, Object>()
+                    .put("event", Tags.ERROR.getKey())
+                    .put("exception object", e)
+                    .build());
         }
 
         LOG.info("全链路灰度调用链异常输出到Zipkin");
