@@ -45,7 +45,7 @@ public class DiscoveryGuideGateway {
     // 自定义调用链和灰度调用链通过MDC输出到日志
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-    public GatewayStrategyTracer gatewayStrategyTracer() {
+    public GatewayStrategyTracer gatewayStrategyLoggerTracer() {
         return new MyGatewayStrategyLoggerTracer();
     }
 }

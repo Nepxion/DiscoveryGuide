@@ -65,7 +65,7 @@ public class DiscoveryGuideServiceA1 {
         return new MyServiceStrategyLoggerTracer();
     }
 
-    // 自定义调用链和灰度调用链通过MDC输出到Zipkin
+    // 自定义调用链和灰度调用链输出到Zipkin
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
     public ServiceStrategyTracer serviceStrategyZipkinTracer() {
