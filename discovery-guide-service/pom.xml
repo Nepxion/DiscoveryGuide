@@ -12,39 +12,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <properties>
-        <java.version>1.8</java.version>
-
-    </properties>
-
     <dependencies>
-
-        <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-spring-zipkin-cloud-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.opentracing</groupId>
-            <artifactId>opentracing-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.opentracing</groupId>
-            <artifactId>opentracing-util</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.opentracing</groupId>
-            <artifactId>opentracing-noop</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.opentracing</groupId>
-            <artifactId>opentracing-mock</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-starter-nacos</artifactId>
@@ -77,6 +45,32 @@
             <artifactId>discovery-plugin-strategy-sentinel-starter-nacos</artifactId>
             <!-- <artifactId>discovery-plugin-strategy-sentinel-starter-apollo</artifactId> -->
             <version>${discovery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.opentracing.contrib</groupId>
+            <artifactId>opentracing-spring-zipkin-cloud-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.opentracing</groupId>
+            <artifactId>opentracing-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.opentracing</groupId>
+            <artifactId>opentracing-util</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.opentracing</groupId>
+            <artifactId>opentracing-noop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.opentracing</groupId>
+            <artifactId>opentracing-mock</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

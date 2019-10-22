@@ -13,6 +13,26 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-starter-nacos</artifactId>
+            <!-- <artifactId>discovery-plugin-starter-consul</artifactId> -->
+            <!-- <artifactId>discovery-plugin-starter-eureka</artifactId> -->
+            <version>${discovery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
+            <!-- <artifactId>discovery-plugin-config-center-starter-apollo</artifactId> -->
+            <version>${discovery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>io.opentracing.contrib</groupId>
@@ -38,27 +58,6 @@
             <groupId>io.opentracing</groupId>
             <artifactId>opentracing-mock</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-starter-nacos</artifactId>
-            <!-- <artifactId>discovery-plugin-starter-consul</artifactId> -->
-            <!-- <artifactId>discovery-plugin-starter-eureka</artifactId> -->
-            <version>${discovery.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
-            <!-- <artifactId>discovery-plugin-config-center-starter-apollo</artifactId> -->
-            <version>${discovery.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
-            <version>${discovery.version}</version>
         </dependency>
     </dependencies>
 
