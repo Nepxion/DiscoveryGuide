@@ -9,6 +9,7 @@ package com.nepxion.discovery.guide.zuul;
  * @version 1.0
  */
 
+import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyZipkinTracer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -49,5 +50,10 @@ public class DiscoveryGuideZuul {
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
     public ZuulStrategyTracer zuulStrategyLoggerTracer() {
         return new MyZuulStrategyLoggerTracer();
+    }
+
+    @Bean
+    public MyZuulStrategyZipkinTracer zuulStrategyZipkinTracer(){
+        return new MyZuulStrategyZipkinTracer();
     }
 }
