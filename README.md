@@ -1273,7 +1273,7 @@ public class MyServiceStrategyLoggerTracer extends DefaultServiceStrategyTracer 
 
     @Override
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
-        // 日志方式对异常不需要做特殊处理
+        // 一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会中断
         trace(interceptor, invocation);
     }
 
