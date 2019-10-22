@@ -63,7 +63,7 @@ public class MyServiceStrategyLoggerTracer extends DefaultServiceStrategyTracer 
     public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         MDC.clear();
 
-        LOG.info("全链路灰度调用链日志清除");
+        LOG.info("全链路灰度调用链日志上下文清除");
     }
 
     // Debug用
