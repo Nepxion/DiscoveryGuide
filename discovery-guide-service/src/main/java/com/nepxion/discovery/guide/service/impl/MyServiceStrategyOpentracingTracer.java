@@ -26,9 +26,9 @@ import com.nepxion.discovery.plugin.strategy.service.tracer.DefaultServiceStrate
 import com.nepxion.discovery.plugin.strategy.service.tracer.ServiceStrategyTracerInterceptor;
 import com.nepxion.discovery.plugin.strategy.tracer.StrategyTracerContext;
 
-// 自定义调用链和灰度调用链输出到Zipkin
-public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer {
-    private static final Logger LOG = LoggerFactory.getLogger(MyServiceStrategyZipkinTracer.class);
+// 自定义调用链和灰度调用链输出到Opentracing
+public class MyServiceStrategyOpentracingTracer extends DefaultServiceStrategyTracer {
+    private static final Logger LOG = LoggerFactory.getLogger(MyServiceStrategyOpentracingTracer.class);
 
     @Autowired
     private Tracer tracer;
@@ -57,7 +57,7 @@ public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer 
 
         StrategyTracerContext.getCurrentContext().setContext(span);
 
-        LOG.info("全链路灰度调用链输出到Zipkin");
+        LOG.info("全链路灰度调用链输出到Opentracing");
     }
 
     @Override
@@ -70,7 +70,7 @@ public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer 
                     .build());
         }
 
-        LOG.info("全链路灰度调用链异常输出到Zipkin");
+        LOG.info("全链路灰度调用链异常输出到Opentracing");
     }
 
     @Override
@@ -82,6 +82,6 @@ public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer 
             StrategyTracerContext.clearCurrentContext();
         }
 
-        LOG.info("全链路灰度调用链Zipkin上下文清除");
+        LOG.info("全链路灰度调用链Opentracing上下文清除");
     }
 }

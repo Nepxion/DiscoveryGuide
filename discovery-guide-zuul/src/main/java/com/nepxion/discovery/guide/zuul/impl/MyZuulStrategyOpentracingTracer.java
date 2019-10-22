@@ -24,9 +24,9 @@ import com.nepxion.discovery.plugin.strategy.tracer.StrategyTracerContext;
 import com.nepxion.discovery.plugin.strategy.zuul.tracer.DefaultZuulStrategyTracer;
 import com.netflix.zuul.context.RequestContext;
 
-// 自定义调用链和灰度调用链输出到Zipkin
-public class MyZuulStrategyZipkinTracer extends DefaultZuulStrategyTracer {
-    private static final Logger LOG = LoggerFactory.getLogger(MyZuulStrategyZipkinTracer.class);
+// 自定义调用链和灰度调用链输出到Opentracing
+public class MyZuulStrategyOpentracingTracer extends DefaultZuulStrategyTracer {
+    private static final Logger LOG = LoggerFactory.getLogger(MyZuulStrategyOpentracingTracer.class);
 
     @Autowired
     private Tracer tracer;
@@ -53,7 +53,7 @@ public class MyZuulStrategyZipkinTracer extends DefaultZuulStrategyTracer {
 
         StrategyTracerContext.getCurrentContext().setContext(span);
 
-        LOG.info("全链路灰度调用链输出到Zipkin");
+        LOG.info("全链路灰度调用链输出到Opentracing");
     }
 
     @Override
@@ -65,6 +65,6 @@ public class MyZuulStrategyZipkinTracer extends DefaultZuulStrategyTracer {
             StrategyTracerContext.clearCurrentContext();
         }
 
-        LOG.info("全链路灰度调用链Zipkin上下文清除");
+        LOG.info("全链路灰度调用链Opentracing上下文清除");
     }
 }

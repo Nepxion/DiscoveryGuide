@@ -9,7 +9,6 @@ package com.nepxion.discovery.guide.zuul;
  * @version 1.0
  */
 
-import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyZipkinTracer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -18,6 +17,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
+import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyOpentracingTracer;
 import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyLoggerTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
@@ -52,10 +52,10 @@ public class DiscoveryGuideZuul {
         return new MyZuulStrategyLoggerTracer();
     }
 
-    // 自定义调用链和灰度调用链输出到Zipkin
+    // 自定义调用链和灰度调用链输出到Opentracing
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-    public MyZuulStrategyZipkinTracer zuulStrategyZipkinTracer(){
-        return new MyZuulStrategyZipkinTracer();
+    public MyZuulStrategyOpentracingTracer zuulStrategyOpentracingTracer(){
+        return new MyZuulStrategyOpentracingTracer();
     }
 }

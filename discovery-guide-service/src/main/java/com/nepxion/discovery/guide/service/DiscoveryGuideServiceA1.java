@@ -21,7 +21,7 @@ import com.nepxion.discovery.guide.service.impl.MyFeignStrategyInterceptorAdapte
 import com.nepxion.discovery.guide.service.impl.MyRestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceStrategyLoggerTracer;
-import com.nepxion.discovery.guide.service.impl.MyServiceStrategyZipkinTracer;
+import com.nepxion.discovery.guide.service.impl.MyServiceStrategyOpentracingTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
 import com.nepxion.discovery.plugin.strategy.service.adapter.FeignStrategyInterceptorAdapter;
@@ -71,10 +71,10 @@ public class DiscoveryGuideServiceA1 {
         return new MyServiceStrategyLoggerTracer();
     }
 
-    // 自定义调用链和灰度调用链输出到Zipkin
+    // 自定义调用链和灰度调用链输出到Opentracing
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-    public ServiceStrategyTracer serviceStrategyZipkinTracer() {
-        return new MyServiceStrategyZipkinTracer();
+    public ServiceStrategyTracer serviceStrategyOpentracingTracer() {
+        return new MyServiceStrategyOpentracingTracer();
     }
 }
