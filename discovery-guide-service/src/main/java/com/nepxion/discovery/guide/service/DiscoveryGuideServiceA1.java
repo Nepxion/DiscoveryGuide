@@ -58,6 +58,12 @@ public class DiscoveryGuideServiceA1 {
         return new MyRestTemplateStrategyInterceptorAdapter();
     }
 
+    // 自定义组合式熔断
+    @Bean
+    public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter() {
+        return new MyServiceSentinelRequestOriginAdapter();
+    }
+
     // 自定义调用链和灰度调用链通过MDC输出到日志
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
@@ -70,11 +76,5 @@ public class DiscoveryGuideServiceA1 {
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
     public ServiceStrategyTracer serviceStrategyZipkinTracer() {
         return new MyServiceStrategyZipkinTracer();
-    }
-
-    // 自定义组合式熔断
-    @Bean
-    public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter() {
-        return new MyServiceSentinelRequestOriginAdapter();
     }
 }

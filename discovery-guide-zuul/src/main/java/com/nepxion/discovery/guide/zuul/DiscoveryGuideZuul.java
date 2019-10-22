@@ -52,7 +52,9 @@ public class DiscoveryGuideZuul {
         return new MyZuulStrategyLoggerTracer();
     }
 
+    // 自定义调用链和灰度调用链输出到Zipkin
     @Bean
+    @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
     public MyZuulStrategyZipkinTracer zuulStrategyZipkinTracer(){
         return new MyZuulStrategyZipkinTracer();
     }
