@@ -1191,8 +1191,8 @@ Header方式框架内部集成
 
 继承GatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
-// 自定义调用链和灰度调用链通过MDC输出到日志。使用者集成时候，关注trace方法中的MDC.put和release方法中MDC.clear代码部分即可
-public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
+// 自定义调用链和灰度调用链通过MDC输出到日志
+public class MyGatewayStrategyLoggerTracer extends DefaultGatewayStrategyTracer {
     @Override
     public void trace(ServerWebExchange exchange) {
         super.trace(exchange);
@@ -1215,8 +1215,8 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
 ```java
 @Bean
 @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public GatewayStrategyTracer gatewayStrategyTracer() {
-    return new MyGatewayStrategyTracer();
+public GatewayStrategyTracer gatewayStrategyLoggerTracer() {
+    return new MyGatewayStrategyLoggerTracer();
 }
 ```
 
@@ -1224,8 +1224,8 @@ public GatewayStrategyTracer gatewayStrategyTracer() {
 
 继承ZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
 ```java
-// 自定义调用链和灰度调用链通过MDC输出到日志。使用者集成时候，关注trace方法中的MDC.put和release方法中MDC.clear代码部分即可
-public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
+// 自定义调用链和灰度调用链通过MDC输出到日志
+public class MyZuulStrategyLoggerTracer extends DefaultZuulStrategyTracer {
     @Override
     public void trace(RequestContext context) {
         super.trace(context);
@@ -1248,8 +1248,8 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
 ```java
 @Bean
 @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public ZuulStrategyTracer zuulStrategyTracer() {
-    return new MyZuulStrategyTracer();
+public ZuulStrategyTracer zuulStrategyLoggerTracer() {
+    return new MyZuulStrategyLoggerTracer();
 }
 ```
 
@@ -1257,8 +1257,8 @@ public ZuulStrategyTracer zuulStrategyTracer() {
 
 继承ServiceStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceLocal方法）或者更多通过MDC方式输出到日志
 ```java
-// 自定义调用链和灰度调用链通过MDC输出到日志。使用者集成时候，关注trace方法中的MDC.put和release方法中MDC.clear代码部分即可
-public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
+// 自定义调用链和灰度调用链通过MDC输出到日志
+public class MyServiceStrategyLoggerTracer extends DefaultServiceStrategyTracer {
     @Override
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         super.trace(interceptor, invocation);
@@ -1272,6 +1272,12 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     }
 
     @Override
+    public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
+        // 日志方式对异常不需要做特殊处理
+        trace(interceptor, invocation);
+    }
+
+    @Override
     public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         MDC.clear();
     }
@@ -1281,8 +1287,8 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
 ```java
 @Bean
 @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public ServiceStrategyTracer serviceStrategyTracer() {
-    return new MyServiceStrategyTracer();
+public ServiceStrategyTracer serviceStrategyLoggerTracer() {
+    return new MyServiceStrategyLoggerTracer();
 }
 ```
 请参考在IDE控制台打印的结果
