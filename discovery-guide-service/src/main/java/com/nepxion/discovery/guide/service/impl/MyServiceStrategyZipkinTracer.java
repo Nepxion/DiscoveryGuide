@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.service.tracer.DefaultServiceStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.service.tracer.ServiceStrategyTracerInterceptor;
+import com.nepxion.discovery.plugin.strategy.tracer.StrategyTracerContext;
 
 // 自定义调用链和灰度调用链输出到Zipkin
 public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer {
@@ -32,14 +33,12 @@ public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer 
     @Autowired
     private Tracer tracer;
 
-    private Span span;
-
     @Override
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         super.trace(interceptor, invocation);
 
         Tracer.SpanBuilder spanBuilder = tracer.buildSpan(DiscoveryConstant.SERVICE_TYPE);
-        span = spanBuilder.start();
+        Span span = spanBuilder.start();
 
         // 自定义调用链
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
@@ -56,24 +55,32 @@ public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer 
         span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, pluginAdapter.getVersion());
         span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
 
+        StrategyTracerContext.getCurrentContext().setContext(span);
+
         LOG.info("全链路灰度调用链输出到Zipkin");
     }
 
     @Override
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
-        Map<String, Object> exceptionMap = new HashMap<String, Object>();
-        exceptionMap.put("event", Tags.ERROR.getKey());
-        exceptionMap.put("error.object", e);
+        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
+        if (span != null) {
+            Map<String, Object> exceptionMap = new HashMap<String, Object>();
+            exceptionMap.put("event", Tags.ERROR.getKey());
+            exceptionMap.put("error.object", e);
 
-        span.log(exceptionMap);
+            span.log(exceptionMap);
+        }
 
         LOG.info("全链路灰度调用链异常输出到Zipkin");
     }
 
     @Override
     public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        if (tracer != null && span != null) {
+        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
+        if (span != null) {
             span.finish();
+
+            StrategyTracerContext.clearCurrentContext();
         }
 
         LOG.info("全链路灰度调用链Zipkin上下文清除");

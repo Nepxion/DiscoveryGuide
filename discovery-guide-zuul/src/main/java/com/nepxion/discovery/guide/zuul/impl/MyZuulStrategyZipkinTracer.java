@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.plugin.strategy.tracer.StrategyTracerContext;
 import com.nepxion.discovery.plugin.strategy.zuul.tracer.DefaultZuulStrategyTracer;
 import com.netflix.zuul.context.RequestContext;
 
@@ -28,14 +29,12 @@ public class MyZuulStrategyZipkinTracer extends DefaultZuulStrategyTracer {
     @Autowired
     private Tracer tracer;
 
-    private Span span;
-
     @Override
     public void trace(RequestContext context) {
         super.trace(context);
 
         Tracer.SpanBuilder spanBuilder = tracer.buildSpan(DiscoveryConstant.GATEWAY_TYPE);
-        span = spanBuilder.start();
+        Span span = spanBuilder.start();
 
         // 自定义调用链
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
@@ -50,13 +49,18 @@ public class MyZuulStrategyZipkinTracer extends DefaultZuulStrategyTracer {
         span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
         span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
 
+        StrategyTracerContext.getCurrentContext().setContext(span);
+
         LOG.info("全链路灰度调用链输出到Zipkin");
     }
 
     @Override
     public void release(RequestContext context) {
-        if (tracer != null && span != null) {
+        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
+        if (span != null) {
             span.finish();
+
+            StrategyTracerContext.clearCurrentContext();
         }
 
         LOG.info("全链路灰度调用链Zipkin上下文清除");
