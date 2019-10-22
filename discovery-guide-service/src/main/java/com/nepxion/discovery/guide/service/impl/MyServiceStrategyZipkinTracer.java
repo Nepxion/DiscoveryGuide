@@ -13,7 +13,6 @@ import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.tag.Tags;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,31 +38,30 @@ public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer 
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         super.trace(interceptor, invocation);
 
-        Method method = invocation.getMethod();
-        String methodName = interceptor.getMethodName(invocation);
-        String className = method.getDeclaringClass().getName();
-
-        Tracer.SpanBuilder spanBuilder = tracer.buildSpan(methodName);
-        spanBuilder.withTag(Tags.COMPONENT.getKey(), "discovery");
-        spanBuilder.withTag("methodName", methodName);
-        spanBuilder.withTag("className", className);
-
+        Tracer.SpanBuilder spanBuilder = tracer.buildSpan(DiscoveryConstant.SERVICE_TYPE);
         span = spanBuilder.start();
 
+        // 自定义调用链
+        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
+        span.setTag("class name", interceptor.getMethod(invocation).getDeclaringClass().getName());
+        span.setTag("method name", interceptor.getMethodName(invocation));
+        span.setTag("mobile", strategyContextHolder.getHeader("mobile"));
+        span.setTag("user", strategyContextHolder.getHeader("user"));
+
         // 灰度路由调用链
-        span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + pluginAdapter.getServiceType());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + pluginAdapter.getServiceId());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, "地址=" + pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + pluginAdapter.getVersion());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + pluginAdapter.getRegion());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, pluginAdapter.getGroup());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, pluginAdapter.getServiceType());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_ID, pluginAdapter.getServiceId());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, pluginAdapter.getVersion());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
 
         LOG.info("全链路灰度调用链输出到Zipkin");
     }
 
     @Override
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
-        Map<String, Object> exceptionMap = new HashMap<>();
+        Map<String, Object> exceptionMap = new HashMap<String, Object>();
         exceptionMap.put("event", Tags.ERROR.getKey());
         exceptionMap.put("error.object", e);
 
@@ -74,7 +72,7 @@ public class MyServiceStrategyZipkinTracer extends DefaultServiceStrategyTracer 
 
     @Override
     public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        if (span != null && tracer != null) {
+        if (tracer != null && span != null) {
             span.finish();
         }
 

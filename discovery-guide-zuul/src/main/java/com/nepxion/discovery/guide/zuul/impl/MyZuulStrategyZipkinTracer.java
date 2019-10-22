@@ -34,9 +34,13 @@ public class MyZuulStrategyZipkinTracer extends DefaultZuulStrategyTracer {
     public void trace(RequestContext context) {
         super.trace(context);
 
-        Tracer.SpanBuilder spanBuilder = tracer.buildSpan("opentracingSpan");
-        spanBuilder.withTag(Tags.COMPONENT.getKey(), "discovery");
+        Tracer.SpanBuilder spanBuilder = tracer.buildSpan(DiscoveryConstant.GATEWAY_TYPE);
         span = spanBuilder.start();
+
+        // 自定义调用链
+        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
+        span.setTag("mobile", strategyContextHolder.getHeader("mobile"));
+        span.setTag("user", strategyContextHolder.getHeader("user"));
 
         // 灰度路由调用链
         span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
@@ -51,7 +55,7 @@ public class MyZuulStrategyZipkinTracer extends DefaultZuulStrategyTracer {
 
     @Override
     public void release(RequestContext context) {
-        if (span != null && tracer != null) {
+        if (tracer != null && span != null) {
             span.finish();
         }
 
