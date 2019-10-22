@@ -17,11 +17,9 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyOpentracingTracer;
-import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyLoggerTracer;
+import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
-import com.nepxion.discovery.plugin.strategy.zuul.tracer.ZuulStrategyTracer;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -45,17 +43,10 @@ public class DiscoveryGuideZuul {
         return new MyZuulStrategyRouteFilter();
     }*/
 
-    // 自定义调用链和灰度调用链通过MDC输出到日志
+    // 自定义调用链和灰度调用链
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-    public ZuulStrategyTracer zuulStrategyLoggerTracer() {
-        return new MyZuulStrategyLoggerTracer();
-    }
-
-    // 自定义调用链和灰度调用链输出到Opentracing
-    @Bean
-    @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-    public MyZuulStrategyOpentracingTracer zuulStrategyOpentracingTracer(){
-        return new MyZuulStrategyOpentracingTracer();
+    public MyZuulStrategyTracer zuulStrategyTracer(){
+        return new MyZuulStrategyTracer();
     }
 }
