@@ -35,8 +35,7 @@ public class MyZuulStrategyOpentracingTracer extends DefaultZuulStrategyTracer {
     public void trace(RequestContext context) {
         super.trace(context);
 
-        Tracer.SpanBuilder spanBuilder = tracer.buildSpan(DiscoveryConstant.GATEWAY_TYPE);
-        Span span = spanBuilder.start();
+        Span span = tracer.buildSpan(DiscoveryConstant.GATEWAY_TYPE).start();
 
         // 自定义调用链
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);

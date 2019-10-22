@@ -37,8 +37,7 @@ public class MyServiceStrategyOpentracingTracer extends DefaultServiceStrategyTr
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         super.trace(interceptor, invocation);
 
-        Tracer.SpanBuilder spanBuilder = tracer.buildSpan(DiscoveryConstant.SERVICE_TYPE);
-        Span span = spanBuilder.start();
+        Span span = tracer.buildSpan(DiscoveryConstant.SERVICE_TYPE).start();
 
         // 自定义调用链
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
