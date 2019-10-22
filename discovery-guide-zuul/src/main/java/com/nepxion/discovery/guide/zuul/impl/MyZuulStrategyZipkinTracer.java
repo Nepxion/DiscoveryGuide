@@ -6,6 +6,7 @@ package com.nepxion.discovery.guide.zuul.impl;
  * <p>Copyright: Copyright (c) 2017-2050</p>
  * <p>Company: Nepxion</p>
  * @author Haojun Ren
+ * @author Shun Zhang
  * @version 1.0
  */
 
