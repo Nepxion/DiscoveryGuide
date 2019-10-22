@@ -20,7 +20,7 @@ import org.springframework.web.server.ServerWebExchange;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.gateway.tracer.DefaultGatewayStrategyTracer;
 
-// 自定义调用链和灰度调用链通过MDC输出到日志。使用者集成时候，关注trace方法中的MDC.put和release方法中MDC.clear代码部分即可
+// 自定义调用链和灰度调用链通过MDC输出到日志
 public class MyGatewayStrategyLoggerTracer extends DefaultGatewayStrategyTracer {
     private static final Logger LOG = LoggerFactory.getLogger(MyGatewayStrategyLoggerTracer.class);
 
