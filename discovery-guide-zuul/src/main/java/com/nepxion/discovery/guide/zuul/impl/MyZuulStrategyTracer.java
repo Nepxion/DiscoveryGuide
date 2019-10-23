@@ -96,7 +96,7 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
         return new ImmutableMap.Builder<String, String>()
                 // 可以自定义traceid和spanid
                 // .put("traceid", StringUtils.isNotEmpty(strategyContextHolder.getHeader("traceid")) ? strategyContextHolder.getHeader("traceid") : StringUtils.EMPTY)
-                // .put("spanid", StringUtils.isNotEmpty(strategyContextHolder.getHeader("spanid")) ? strategyContextHolder.getHeader("spanid") : StringUtils.EMPTY)                
+                // .put("spanid", StringUtils.isNotEmpty(strategyContextHolder.getHeader("spanid")) ? strategyContextHolder.getHeader("spanid") : StringUtils.EMPTY)
                 .put("traceid", span.context().toTraceId())
                 .put("spanid", span.context().toSpanId())
                 .put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY)
