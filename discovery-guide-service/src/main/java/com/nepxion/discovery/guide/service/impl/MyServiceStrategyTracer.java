@@ -40,11 +40,9 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         Span span = tracer.buildSpan(DiscoveryConstant.DISCOVERY_TRACER_NAME).start();
 
-        // 全链路灰度调用链输出到日志
         log(span);
         LOG.info("全链路灰度调用链输出到日志");
 
-        // 全链路灰度调用链输出到Opentracing
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
         span.setTag("class", interceptor.getMethod(invocation).getDeclaringClass().getName());
         span.setTag("method", interceptor.getMethodName(invocation));
@@ -66,11 +64,10 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
         Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
 
-        // 全链路灰度调用链异常输出到日志。一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会串不起来
+        // 一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会串不起来
         log(span);
         LOG.info("全链路灰度调用链异常输出到日志");
 
-        // 全链路灰度调用链异常输出到Opentracing
         span.log(new ImmutableMap.Builder<String, Object>()
                 .put("event", Tags.ERROR.getKey())
                 .put("exception", e)
@@ -80,11 +77,9 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
 
     @Override
     public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        // 全链路灰度调用链日志上下文清除
         MDC.clear();
         LOG.info("全链路灰度调用链日志上下文清除");
 
-        // 全链路灰度调用链Opentracing上下文清除
         Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
         span.finish();
         StrategyTracerContext.clearCurrentContext();

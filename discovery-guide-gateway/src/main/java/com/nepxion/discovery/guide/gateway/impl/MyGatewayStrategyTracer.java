@@ -39,11 +39,9 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
     public void trace(ServerWebExchange exchange) {
         Span span = tracer.buildSpan(DiscoveryConstant.DISCOVERY_TRACER_NAME).start();
 
-        // 全链路灰度调用链输出到日志
         log(span);
         LOG.info("全链路灰度调用链输出到日志");
 
-        // 全链路灰度调用链输出到Opentracing
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
         span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
         span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
@@ -61,11 +59,9 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
 
     @Override
     public void release(ServerWebExchange exchange) {
-        // 全链路灰度调用链日志上下文清除
         MDC.clear();
         LOG.info("全链路灰度调用链日志上下文清除");
 
-        // 全链路灰度调用链Opentracing上下文清除
         Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
         span.finish();
         StrategyTracerContext.clearCurrentContext();
