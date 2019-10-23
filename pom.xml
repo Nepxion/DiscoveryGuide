@@ -100,11 +100,11 @@
                 <version>${opentracing.jaeger.version}</version>
             </dependency>
 
-            <!-- <dependency>
+            <dependency>
                 <groupId>io.opentracing.contrib</groupId>
                 <artifactId>opentracing-spring-zipkin-cloud-starter</artifactId>
                 <version>${opentracing.zipkin.version}</version>
-            </dependency> -->
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
