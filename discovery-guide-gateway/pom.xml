@@ -33,6 +33,12 @@
             <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
             <version>${discovery.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.opentracing.contrib</groupId>
+            <artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
+            <!-- <artifactId>opentracing-spring-zipkin-cloud-starter</artifactId> -->
+        </dependency>
     </dependencies>
 
     <build>

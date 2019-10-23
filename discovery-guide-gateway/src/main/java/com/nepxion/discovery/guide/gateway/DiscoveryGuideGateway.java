@@ -16,7 +16,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyLoggerTracer;
+import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyTracer;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
 import com.nepxion.discovery.plugin.strategy.gateway.tracer.GatewayStrategyTracer;
@@ -42,10 +42,10 @@ public class DiscoveryGuideGateway {
         return new MyGatewayStrategyRouteFilter();
     }*/
 
-    // 自定义调用链和灰度调用链通过MDC输出到日志
+    // 自定义调用链和灰度调用链
     @Bean
     @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-    public GatewayStrategyTracer gatewayStrategyLoggerTracer() {
-        return new MyGatewayStrategyLoggerTracer();
+    public GatewayStrategyTracer gatewayStrategyTracer() {
+        return new MyGatewayStrategyTracer();
     }
 }
