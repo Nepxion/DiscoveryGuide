@@ -46,8 +46,8 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
 
         // 全链路灰度调用链输出到Opentracing
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
-        span.setTag("class name", interceptor.getMethod(invocation).getDeclaringClass().getName());
-        span.setTag("method name", interceptor.getMethodName(invocation));
+        span.setTag("class", interceptor.getMethod(invocation).getDeclaringClass().getName());
+        span.setTag("method", interceptor.getMethodName(invocation));
         span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
         span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
         span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, pluginAdapter.getGroup());
@@ -66,15 +66,14 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
         Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
 
-        // 全链路灰度调用链异常输出到日志
-        // 一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会串不起来
+        // 全链路灰度调用链异常输出到日志。一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会串不起来
         log(span);
         LOG.info("全链路灰度调用链异常输出到日志");
 
         // 全链路灰度调用链异常输出到Opentracing
         span.log(new ImmutableMap.Builder<String, Object>()
                 .put("event", Tags.ERROR.getKey())
-                .put("exception object", e)
+                .put("exception", e)
                 .build());
         LOG.info("全链路灰度调用链异常输出到Opentracing");
     }
