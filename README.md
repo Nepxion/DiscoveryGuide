@@ -14,8 +14,8 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
-- 全链路服务限流熔断降级权限，集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
-- 全链路灰度调用链。包括Header方式和日志方式，Header方式框架内部集成，日志方式通过MDC输出（需使用者自行集成）
+- 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
+- 全链路灰度调用链。包括Header方式、Opentracing + Uber Jaeger、日志方式等单个或者组合式的全链路灰度调用链
 - 全链路Header传递
 - 元数据Metadata自动化策略。包括基于服务名前缀自动创建灰度组名和基于Git插件自动创建灰度版本号
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
@@ -97,7 +97,8 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - [基于Hystrix的全链路服务限流熔断和灰度融合](#基于Hystrix的全链路服务限流熔断和灰度融合)
 - [全链路灰度调用链](#全链路灰度调用链)
     - [Header输出方式](#Header输出方式)
-    - [日志输出方式](#日志输出方式)
+    - [Opentracing-Jaeger输出方式](#Opentracing-Jaeger输出方式)	
+    - [日志输出方式](#日志输出方式)	
 - [全链路Header传递](#全链路灰度调用链)
     - [自定义Feign-Header传递](#自定义Feign-Header传递)
     - [自定义RestTemplate-Header传递](#自定义RestTemplate-Header传递)
@@ -1177,7 +1178,6 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 5. n-d-service-version - 服务版本
 6. n-d-service-region - 服务所属区域
 ```
-灰度调用链输出分为Header方式和日志方式
 
 ### Header输出方式
 
@@ -1186,28 +1186,69 @@ Header方式框架内部集成
 - Zuul网关端自行会传输Header值（参考Discovery源码中的AbstractZuulStrategyRouteFilter.java）
 - 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
 
-### 日志输出方式
+### Opentracing-Jaeger输出方式
+```
+1. 从[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA#list/path=%2FNepxion)获取Jaeger-1.14.0.zip，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
+2. 执行Postman调用后，访问[http://localhost:16686](http://localhost:16686)查看灰度调用链，支持WebMvc和WebFlux两种方式
+```
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger2.jpg)
+
 - Spring Cloud Gateway网关
 
-继承GatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
+继承DefaultGatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）和自定义的参数输出到日志和Opentracing
 ```java
-// 自定义调用链和灰度调用链通过MDC输出到日志
-public class MyGatewayStrategyLoggerTracer extends DefaultGatewayStrategyTracer {
+// 自定义调用链和灰度调用链输出到日志和Opentracing
+public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
+    private static final Logger LOG = LoggerFactory.getLogger(MyGatewayStrategyTracer.class);
+
+    @Autowired
+    private Tracer tracer;
+
     @Override
     public void trace(ServerWebExchange exchange) {
-        super.trace(exchange);
-        
-        // 输出到日志
-        MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
-        ...
+        Span span = tracer.buildSpan(DiscoveryConstant.DISCOVERY_TRACER_NAME).start();
 
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
-        ...
+        log(span);
+        LOG.info("全链路灰度调用链输出到日志");
+
+        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
+        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
+        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
+        span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_ID, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ID));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
+        StrategyTracerContext.getCurrentContext().setContext(span);
+        LOG.info("全链路灰度调用链输出到Opentracing");
+
+        super.trace(exchange);
     }
 
     @Override
     public void release(ServerWebExchange exchange) {
         MDC.clear();
+        LOG.info("全链路灰度调用链日志上下文清除");
+
+        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
+        span.finish();
+        StrategyTracerContext.clearCurrentContext();
+        LOG.info("全链路灰度调用链Opentracing上下文清除");
+    }
+
+    private void log(Span span) {
+        MDC.put("traceid", "traceid=" + span.context().toTraceId());
+        MDC.put("spanid", "spanid=" + span.context().toSpanId());
+        MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
+        MDC.put("user", "user=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ID));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, "地址=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
     }
 }
 ```
@@ -1215,32 +1256,66 @@ public class MyGatewayStrategyLoggerTracer extends DefaultGatewayStrategyTracer 
 ```java
 @Bean
 @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public GatewayStrategyTracer gatewayStrategyLoggerTracer() {
-    return new MyGatewayStrategyLoggerTracer();
+public GatewayStrategyTracer gatewayStrategyTracer() {
+    return new MyGatewayStrategyTracer();
 }
 ```
 
 - Zuul网关
 
-继承ZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）或者更多通过MDC方式输出到日志
+继承DefaultZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）和自定义的参数输出到日志和Opentracing
 ```java
-// 自定义调用链和灰度调用链通过MDC输出到日志
-public class MyZuulStrategyLoggerTracer extends DefaultZuulStrategyTracer {
+// 自定义调用链和灰度调用链输出到日志和Opentracing
+public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
+    private static final Logger LOG = LoggerFactory.getLogger(MyZuulStrategyTracer.class);
+
+    @Autowired
+    private Tracer tracer;
+
     @Override
     public void trace(RequestContext context) {
-        super.trace(context);
-        
-        // 输出到日志
-        MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
-        ...
+        Span span = tracer.buildSpan(DiscoveryConstant.DISCOVERY_TRACER_NAME).start();
 
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
-        ...
+        log(span);
+        LOG.info("全链路灰度调用链输出到日志");
+
+        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
+        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
+        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
+        span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_ID, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ID));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
+        span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
+        StrategyTracerContext.getCurrentContext().setContext(span);
+        LOG.info("全链路灰度调用链输出到Opentracing");
+
+        super.trace(context);
     }
 
     @Override
     public void release(RequestContext context) {
         MDC.clear();
+        LOG.info("全链路灰度调用链日志上下文清除");
+
+        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
+        span.finish();
+        StrategyTracerContext.clearCurrentContext();
+        LOG.info("全链路灰度调用链Opentracing上下文清除");
+    }
+
+    private void log(Span span) {
+        MDC.put("traceid", "traceid=" + span.context().toTraceId());
+        MDC.put("spanid", "spanid=" + span.context().toSpanId());
+        MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
+        MDC.put("user", "user=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ID));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, "地址=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
     }
 }
 ```
@@ -1248,38 +1323,83 @@ public class MyZuulStrategyLoggerTracer extends DefaultZuulStrategyTracer {
 ```java
 @Bean
 @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public ZuulStrategyTracer zuulStrategyLoggerTracer() {
-    return new MyZuulStrategyLoggerTracer();
+public MyZuulStrategyTracer zuulStrategyTracer(){
+    return new MyZuulStrategyTracer();
 }
 ```
 
 - Service服务
 
-继承ServiceStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceLocal方法）或者更多通过MDC方式输出到日志
+继承DefaultZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）和自定义的参数输出到日志和Opentracing
 ```java
-// 自定义调用链和灰度调用链通过MDC输出到日志
-public class MyServiceStrategyLoggerTracer extends DefaultServiceStrategyTracer {
+// 自定义调用链和灰度调用链输出到日志和Opentracing
+public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
+    private static final Logger LOG = LoggerFactory.getLogger(MyServiceStrategyTracer.class);
+
+    @Autowired
+    private Tracer tracer;
+
     @Override
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        super.trace(interceptor, invocation);
-        
-        // 输出到日志
-        MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
-        ...
+        Span span = tracer.buildSpan(DiscoveryConstant.DISCOVERY_TRACER_NAME).start();
 
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
-        ...
+        log(span);
+        LOG.info("全链路灰度调用链输出到日志");
+
+        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
+        span.setTag("class", interceptor.getMethod(invocation).getDeclaringClass().getName());
+        span.setTag("method", interceptor.getMethodName(invocation));
+        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
+        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
+        span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, pluginAdapter.getGroup());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, pluginAdapter.getServiceType());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_ID, pluginAdapter.getServiceId());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, pluginAdapter.getVersion());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
+        StrategyTracerContext.getCurrentContext().setContext(span);
+        LOG.info("全链路灰度调用链输出到Opentracing");
+
+        super.trace(interceptor, invocation);
     }
 
     @Override
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
-        // 一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会中断
-        trace(interceptor, invocation);
+        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
+
+        // 一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会串不起来
+        log(span);
+        LOG.info("全链路灰度调用链异常输出到日志");
+
+        span.log(new ImmutableMap.Builder<String, Object>()
+                .put("event", Tags.ERROR.getKey())
+                .put("exception", e)
+                .build());
+        LOG.info("全链路灰度调用链异常输出到Opentracing");
     }
 
     @Override
     public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         MDC.clear();
+        LOG.info("全链路灰度调用链日志上下文清除");
+
+        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
+        span.finish();
+        StrategyTracerContext.clearCurrentContext();
+        LOG.info("全链路灰度调用链Opentracing上下文清除");
+    }
+
+    private void log(Span span) {
+        MDC.put("traceid", "traceid=" + span.context().toTraceId());
+        MDC.put("spanid", "spanid=" + span.context().toSpanId());
+        MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
+        MDC.put("user", "user=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY));
+        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + pluginAdapter.getServiceType());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + pluginAdapter.getServiceId());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, "地址=" + pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + pluginAdapter.getVersion());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + pluginAdapter.getRegion());
     }
 }
 ```
@@ -1287,12 +1407,10 @@ public class MyServiceStrategyLoggerTracer extends DefaultServiceStrategyTracer 
 ```java
 @Bean
 @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public ServiceStrategyTracer serviceStrategyLoggerTracer() {
-    return new MyServiceStrategyLoggerTracer();
+public ServiceStrategyTracer serviceStrategyTracer() {
+    return new MyServiceStrategyTracer();
 }
 ```
-请参考在IDE控制台打印的结果
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
 
 对于调用链功能的开启和关闭，需要通过如下开关做控制：
 ```vb
@@ -1301,6 +1419,13 @@ spring.application.strategy.trace.enabled=true
 # 启动和关闭调用链的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
 spring.application.strategy.trace.debug.enabled=true
 ```
+
+### 日志输出方式
+
+已经集成在Opentracing-Jaeger输出方式中
+
+参考在IDE控制台打印的结果
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
 
 ## 全链路Header传递
 
