@@ -94,8 +94,8 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
 
     private void log(Span span) {
         // 可以自定义traceid和spanid
-        // MDC.put("traceid", "traceid=" + strategyContextHolder.getHeader("traceid"));
-        // MDC.put("spanid", "spanid=" + strategyContextHolder.getHeader("spanid"));
+        // MDC.put("traceid", "traceid=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("traceid")) ? strategyContextHolder.getHeader("traceid") : StringUtils.EMPTY));
+        // MDC.put("spanid", "spanid=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("spanid")) ? strategyContextHolder.getHeader("spanid") : StringUtils.EMPTY));
         MDC.put("traceid", "traceid=" + span.context().toTraceId());
         MDC.put("spanid", "spanid=" + span.context().toSpanId());
         MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
@@ -114,6 +114,9 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
 
         return new ImmutableMap.Builder<String, String>()
+                // 可以自定义traceid和spanid
+                // .put("traceid", StringUtils.isNotEmpty(strategyContextHolder.getHeader("traceid")) ? strategyContextHolder.getHeader("traceid") : StringUtils.EMPTY)
+                // .put("spanid", StringUtils.isNotEmpty(strategyContextHolder.getHeader("spanid")) ? strategyContextHolder.getHeader("spanid") : StringUtils.EMPTY)                 
                 .put("traceid", span.context().toTraceId())
                 .put("spanid", span.context().toSpanId())
                 .put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY)
