@@ -1187,10 +1187,10 @@ Header方式框架内部集成
 - 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
 
 ### Opentracing-Jaeger输出方式
-```
+
 1. 从[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA#list/path=%2FNepxion)获取Jaeger-1.14.0.zip，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
 2. 执行Postman调用后，访问[http://localhost:16686](http://localhost:16686)查看灰度调用链，支持WebMvc和WebFlux两种方式
-```
+
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger1.jpg)
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger2.jpg)
 
