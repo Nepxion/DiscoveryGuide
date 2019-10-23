@@ -1178,6 +1178,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 5. n-d-service-version - 服务版本
 6. n-d-service-region - 服务所属区域
 ```
+灰度调用链输出分为Header方式、 Opentracing + Uber Jaeger方式、日志MDC方式，三种方式可以并存使用。Opentracing + Uber Jaeger方式支持WebMvc和WebFlux
 
 ### Header输出方式
 
