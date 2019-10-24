@@ -91,12 +91,12 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     private void log(Span span) {
         MDC.put(DiscoveryConstant.TRACE_ID, DiscoveryConstant.TRACE_ID + "=" + span.context().toTraceId());
         MDC.put(DiscoveryConstant.SPAN_ID, DiscoveryConstant.SPAN_ID + "=" + span.context().toSpanId());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + pluginAdapter.getServiceType());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + pluginAdapter.getServiceId());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, "地址=" + pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + pluginAdapter.getVersion());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + pluginAdapter.getRegion());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, DiscoveryConstant.N_D_SERVICE_GROUP + "=" + pluginAdapter.getGroup());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, DiscoveryConstant.N_D_SERVICE_TYPE + "=" + pluginAdapter.getServiceType());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, DiscoveryConstant.N_D_SERVICE_ID + "=" + pluginAdapter.getServiceId());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, DiscoveryConstant.N_D_SERVICE_ADDRESS + "=" + pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, DiscoveryConstant.N_D_SERVICE_VERSION + "=" + pluginAdapter.getVersion());
+        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, DiscoveryConstant.N_D_SERVICE_REGION + "=" + pluginAdapter.getRegion());
         MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
         MDC.put("user", "user=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY));
     }
