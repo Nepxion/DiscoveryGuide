@@ -31,8 +31,6 @@
         <spring.cloud.alibaba.version>2.0.0.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.0.7.RELEASE</spring.boot.version> -->
 
-        <!-- <opentracing.spring.jaeger.cloud.version>2.0.3</opentracing.spring.jaeger.cloud.version> -->
-        <opentracing.spring.cloud.version>0.3.7</opentracing.spring.cloud.version>
         <opentracing.spring.jaeger.version>2.0.3</opentracing.spring.jaeger.version>
 
         <java.version>1.8</java.version>
@@ -93,18 +91,6 @@
                 <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- <dependency>
-                <groupId>io.opentracing.contrib</groupId>
-                <artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
-                <version>${opentracing.spring.jaeger.cloud.version}</version>
-            </dependency> -->
-
-            <dependency>
-                <groupId>io.opentracing.contrib</groupId>
-                <artifactId>opentracing-spring-cloud-starter</artifactId>
-                <version>${opentracing.spring.cloud.version}</version>
             </dependency>
 
             <dependency>

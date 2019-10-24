@@ -10,7 +10,6 @@ package com.nepxion.discovery.guide.service;
  */
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -20,13 +19,12 @@ import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.service.impl.MyFeignStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyRestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
-import com.nepxion.discovery.guide.service.impl.MyServiceStrategyTracer;
+import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
-import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
+import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.service.adapter.FeignStrategyInterceptorAdapter;
 import com.nepxion.discovery.plugin.strategy.service.adapter.RestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.ServiceSentinelRequestOriginAdapter;
-import com.nepxion.discovery.plugin.strategy.service.tracer.ServiceStrategyTracer;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -63,10 +61,9 @@ public class DiscoveryGuideServiceA1 {
         return new MyServiceSentinelRequestOriginAdapter();
     }
 
-    // 自定义调用链和灰度调用链
+    // 自定义调用链上下文参数
     @Bean
-    @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-    public ServiceStrategyTracer serviceStrategyTracer() {
-        return new MyServiceStrategyTracer();
+    public StrategyTracerAdapter strategyTracerAdapter() {
+        return new MyStrategyTracerAdapter();
     }
 }

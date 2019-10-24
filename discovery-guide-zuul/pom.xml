@@ -34,14 +34,10 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
-        </dependency> -->
-
         <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-spring-cloud-starter</artifactId>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-zuul-opentracing</artifactId>
+            <version>${discovery.version}</version>
         </dependency>
 
         <dependency>

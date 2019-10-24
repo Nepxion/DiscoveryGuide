@@ -10,16 +10,15 @@ package com.nepxion.discovery.guide.zuul;
  */
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyTracer;
+import com.nepxion.discovery.guide.zuul.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
-import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
+import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -43,10 +42,9 @@ public class DiscoveryGuideZuul {
         return new MyZuulStrategyRouteFilter();
     }*/
 
-    // 自定义调用链和灰度调用链
+    // 自定义调用链上下文参数
     @Bean
-    @ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-    public MyZuulStrategyTracer zuulStrategyTracer(){
-        return new MyZuulStrategyTracer();
+    public StrategyTracerAdapter strategyTracerAdapter() {
+        return new MyStrategyTracerAdapter();
     }
 }
