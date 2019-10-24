@@ -88,8 +88,8 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
         Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
 
         return new ImmutableMap.Builder<String, String>()
-                .put("traceid", span.context().toTraceId())
-                .put("spanid", span.context().toSpanId())
+                .put(DiscoveryConstant.N_D_SERVICE_TRACE_ID, span.context().toTraceId())
+                .put(DiscoveryConstant.N_D_SERVICE_SPAN_ID, span.context().toSpanId())
                 .put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY)
                 .put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY)
                 .build();
