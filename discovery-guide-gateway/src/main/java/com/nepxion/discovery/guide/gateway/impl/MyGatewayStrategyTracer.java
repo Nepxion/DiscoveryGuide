@@ -40,7 +40,7 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         Span span = tracer.buildSpan(DiscoveryConstant.SPAN_NAME).start();
         StrategyTracerContext.getCurrentContext().setContext(span);
 
-        mdcTraceHeader();
+        super.trace(exchange);
         LOG.info("全链路灰度调用链输出到日志");
 
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.TAG_COMPONENT_NAME);
@@ -59,13 +59,11 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
             }
         }
         LOG.info("全链路灰度调用链输出到Opentracing");
-
-        super.trace(exchange);
     }
 
     @Override
     public void release(ServerWebExchange exchange) {
-        mdcClear();
+        super.release(exchange);
         LOG.info("全链路灰度调用链日志上下文清除");
 
         Span span = getContextSpan();

@@ -40,7 +40,7 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
         Span span = tracer.buildSpan(DiscoveryConstant.SPAN_NAME).start();
         StrategyTracerContext.getCurrentContext().setContext(span);
 
-        mdcTraceHeader();
+        super.trace(context);
         LOG.info("全链路灰度调用链输出到日志");
 
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.TAG_COMPONENT_NAME);
@@ -59,13 +59,11 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
             }
         }
         LOG.info("全链路灰度调用链输出到Opentracing");
-
-        super.trace(context);
     }
 
     @Override
     public void release(RequestContext context) {
-        mdcClear();
+        super.release(context);
         LOG.info("全链路灰度调用链日志上下文清除");
 
         Span span = getContextSpan();

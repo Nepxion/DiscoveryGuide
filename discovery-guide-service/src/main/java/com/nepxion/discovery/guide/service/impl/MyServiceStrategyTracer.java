@@ -41,7 +41,7 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         Span span = tracer.buildSpan(DiscoveryConstant.SPAN_NAME).start();
         StrategyTracerContext.getCurrentContext().setContext(span);
 
-        mdcTraceLocal();
+        super.trace(interceptor, invocation);
         LOG.info("全链路灰度调用链输出到日志");
 
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.TAG_COMPONENT_NAME);
@@ -62,14 +62,11 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
             }
         }
         LOG.info("全链路灰度调用链输出到Opentracing");
-
-        super.trace(interceptor, invocation);
     }
 
     @Override
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
-        // 一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会串不起来
-        mdcTraceLocal();
+        super.error(interceptor, invocation, e);
         LOG.info("全链路灰度调用链异常输出到日志");
 
         Span span = getContextSpan();
@@ -84,7 +81,7 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
 
     @Override
     public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        mdcClear();
+        super.release(interceptor, invocation);
         LOG.info("全链路灰度调用链日志上下文清除");
 
         Span span = getContextSpan();
