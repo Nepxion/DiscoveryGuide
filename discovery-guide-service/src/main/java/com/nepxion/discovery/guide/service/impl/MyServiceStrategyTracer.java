@@ -38,16 +38,16 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
 
     @Override
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        Span span = tracer.buildSpan(DiscoveryConstant.DISCOVERY_TRACER_NAME).start();
+        Span span = tracer.buildSpan(DiscoveryConstant.SPAN_NAME).start();
 
         log(span);
         LOG.info("全链路灰度调用链输出到日志");
 
-        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
+        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.TAG_COMPONENT_NAME);
         span.setTag("class", interceptor.getMethod(invocation).getDeclaringClass().getName());
         span.setTag("method", interceptor.getMethodName(invocation));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_TRACE_ID, span.context().toTraceId());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_SPAN_ID, span.context().toSpanId());
+        span.setTag(DiscoveryConstant.TRACE_ID, span.context().toTraceId());
+        span.setTag(DiscoveryConstant.SPAN_ID, span.context().toSpanId());
         span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, pluginAdapter.getGroup());
         span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, pluginAdapter.getServiceType());
         span.setTag(DiscoveryConstant.N_D_SERVICE_ID, pluginAdapter.getServiceId());
@@ -89,8 +89,8 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     }
 
     private void log(Span span) {
-        MDC.put(DiscoveryConstant.N_D_SERVICE_TRACE_ID, "traceid=" + span.context().toTraceId());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_SPAN_ID, "spanid=" + span.context().toSpanId());
+        MDC.put(DiscoveryConstant.TRACE_ID, DiscoveryConstant.TRACE_ID + "=" + span.context().toTraceId());
+        MDC.put(DiscoveryConstant.SPAN_ID, DiscoveryConstant.SPAN_ID + "=" + span.context().toSpanId());
         MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
         MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + pluginAdapter.getServiceType());
         MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + pluginAdapter.getServiceId());
@@ -106,8 +106,8 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
 
         return new ImmutableMap.Builder<String, String>()
-                .put(DiscoveryConstant.N_D_SERVICE_TRACE_ID, span.context().toTraceId())
-                .put(DiscoveryConstant.N_D_SERVICE_SPAN_ID, span.context().toSpanId())
+                .put(DiscoveryConstant.TRACE_ID, span.context().toTraceId())
+                .put(DiscoveryConstant.SPAN_ID, span.context().toSpanId())
                 .put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY)
                 .put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY)
                 .build();
