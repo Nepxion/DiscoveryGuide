@@ -16,6 +16,7 @@ import io.opentracing.tag.Tags;
 
 import java.util.Map;
 
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.MDC;
 import org.slf4j.Logger;
@@ -38,8 +39,9 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
     @Override
     public void trace(RequestContext context) {
         Span span = tracer.buildSpan(DiscoveryConstant.SPAN_NAME).start();
+        StrategyTracerContext.getCurrentContext().setContext(span);
 
-        log(span);
+        logTraceHeader();
         LOG.info("全链路灰度调用链输出到日志");
 
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.TAG_COMPONENT_NAME);
@@ -51,9 +53,12 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
         span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
         span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
         span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
-        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
-        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
-        StrategyTracerContext.getCurrentContext().setContext(span);
+        Map<String, String> customizationMap = getCustomizationMap();
+        if (MapUtils.isNotEmpty(customizationMap)) {
+            for (Map.Entry<String, String> entry : customizationMap.entrySet()) {
+                span.setTag(entry.getKey(), entry.getValue());
+            }
+        }
         LOG.info("全链路灰度调用链输出到Opentracing");
 
         super.trace(context);
@@ -64,34 +69,43 @@ public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
         MDC.clear();
         LOG.info("全链路灰度调用链日志上下文清除");
 
-        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
-        span.finish();
+        Span span = getContextSpan();
+        if (span != null) {
+            span.finish();
+        }
         StrategyTracerContext.clearCurrentContext();
         LOG.info("全链路灰度调用链Opentracing上下文清除");
     }
 
-    private void log(Span span) {
-        MDC.put(DiscoveryConstant.TRACE_ID, DiscoveryConstant.TRACE_ID + "=" + span.context().toTraceId());
-        MDC.put(DiscoveryConstant.SPAN_ID, DiscoveryConstant.SPAN_ID + "=" + span.context().toSpanId());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, DiscoveryConstant.N_D_SERVICE_GROUP + "=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, DiscoveryConstant.N_D_SERVICE_TYPE + "=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, DiscoveryConstant.N_D_SERVICE_ID + "=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ID));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, DiscoveryConstant.N_D_SERVICE_ADDRESS + "=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, DiscoveryConstant.N_D_SERVICE_VERSION + "=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, DiscoveryConstant.N_D_SERVICE_REGION + "=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
-        MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
-        MDC.put("user", "user=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY));
+    @Override
+    public String getTraceId() {
+        Span span = getContextSpan();
+        if (span != null) {
+            return span.context().toTraceId();
+        }
+
+        return null;
     }
 
     @Override
-    public Map<String, String> getDebugTraceMap() {
-        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
+    public String getSpanId() {
+        Span span = getContextSpan();
+        if (span != null) {
+            return span.context().toSpanId();
+        }
 
+        return null;
+    }
+
+    @Override
+    public Map<String, String> getCustomizationMap() {
         return new ImmutableMap.Builder<String, String>()
-                .put(DiscoveryConstant.TRACE_ID, span.context().toTraceId())
-                .put(DiscoveryConstant.SPAN_ID, span.context().toSpanId())
                 .put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY)
                 .put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY)
                 .build();
+    }
+
+    private Span getContextSpan() {
+        return (Span) StrategyTracerContext.getCurrentContext().getContext();
     }
 }

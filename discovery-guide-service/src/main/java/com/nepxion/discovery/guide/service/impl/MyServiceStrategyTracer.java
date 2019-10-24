@@ -17,6 +17,7 @@ import io.opentracing.tag.Tags;
 import java.util.Map;
 
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.MDC;
 import org.slf4j.Logger;
@@ -39,8 +40,9 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     @Override
     public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
         Span span = tracer.buildSpan(DiscoveryConstant.SPAN_NAME).start();
+        StrategyTracerContext.getCurrentContext().setContext(span);
 
-        log(span);
+        logTraceLocal();
         LOG.info("全链路灰度调用链输出到日志");
 
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.TAG_COMPONENT_NAME);
@@ -54,9 +56,12 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
         span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, pluginAdapter.getVersion());
         span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
-        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
-        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
-        StrategyTracerContext.getCurrentContext().setContext(span);
+        Map<String, String> customizationMap = getCustomizationMap();
+        if (MapUtils.isNotEmpty(customizationMap)) {
+            for (Map.Entry<String, String> entry : customizationMap.entrySet()) {
+                span.setTag(entry.getKey(), entry.getValue());
+            }
+        }
         LOG.info("全链路灰度调用链输出到Opentracing");
 
         super.trace(interceptor, invocation);
@@ -64,16 +69,17 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
 
     @Override
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
-        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
-
         // 一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会串不起来
-        log(span);
+        logTraceLocal();
         LOG.info("全链路灰度调用链异常输出到日志");
 
-        span.log(new ImmutableMap.Builder<String, Object>()
-                .put("event", Tags.ERROR.getKey())
-                .put("exception", e)
-                .build());
+        Span span = getContextSpan();
+        if (span != null) {
+            span.log(new ImmutableMap.Builder<String, Object>()
+                    .put("event", Tags.ERROR.getKey())
+                    .put("exception", e)
+                    .build());
+        }
         LOG.info("全链路灰度调用链异常输出到Opentracing");
     }
 
@@ -82,34 +88,43 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         MDC.clear();
         LOG.info("全链路灰度调用链日志上下文清除");
 
-        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
-        span.finish();
+        Span span = getContextSpan();
+        if (span != null) {
+            span.finish();
+        }
         StrategyTracerContext.clearCurrentContext();
         LOG.info("全链路灰度调用链Opentracing上下文清除");
     }
 
-    private void log(Span span) {
-        MDC.put(DiscoveryConstant.TRACE_ID, DiscoveryConstant.TRACE_ID + "=" + span.context().toTraceId());
-        MDC.put(DiscoveryConstant.SPAN_ID, DiscoveryConstant.SPAN_ID + "=" + span.context().toSpanId());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, DiscoveryConstant.N_D_SERVICE_GROUP + "=" + pluginAdapter.getGroup());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, DiscoveryConstant.N_D_SERVICE_TYPE + "=" + pluginAdapter.getServiceType());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, DiscoveryConstant.N_D_SERVICE_ID + "=" + pluginAdapter.getServiceId());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, DiscoveryConstant.N_D_SERVICE_ADDRESS + "=" + pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, DiscoveryConstant.N_D_SERVICE_VERSION + "=" + pluginAdapter.getVersion());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, DiscoveryConstant.N_D_SERVICE_REGION + "=" + pluginAdapter.getRegion());
-        MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
-        MDC.put("user", "user=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY));
+    @Override
+    public String getTraceId() {
+        Span span = getContextSpan();
+        if (span != null) {
+            return span.context().toTraceId();
+        }
+
+        return null;
     }
 
     @Override
-    public Map<String, String> getDebugTraceMap() {
-        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
+    public String getSpanId() {
+        Span span = getContextSpan();
+        if (span != null) {
+            return span.context().toSpanId();
+        }
 
+        return null;
+    }
+
+    @Override
+    public Map<String, String> getCustomizationMap() {
         return new ImmutableMap.Builder<String, String>()
-                .put(DiscoveryConstant.TRACE_ID, span.context().toTraceId())
-                .put(DiscoveryConstant.SPAN_ID, span.context().toSpanId())
                 .put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY)
                 .put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY)
                 .build();
+    }
+
+    private Span getContextSpan() {
+        return (Span) StrategyTracerContext.getCurrentContext().getContext();
     }
 }
