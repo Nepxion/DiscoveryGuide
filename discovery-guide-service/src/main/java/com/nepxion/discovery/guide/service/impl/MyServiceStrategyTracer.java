@@ -46,14 +46,16 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
         span.setTag("class", interceptor.getMethod(invocation).getDeclaringClass().getName());
         span.setTag("method", interceptor.getMethodName(invocation));
-        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
-        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
+        span.setTag(DiscoveryConstant.N_D_SERVICE_TRACE_ID, span.context().toTraceId());
+        span.setTag(DiscoveryConstant.N_D_SERVICE_SPAN_ID, span.context().toSpanId());
         span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, pluginAdapter.getGroup());
         span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, pluginAdapter.getServiceType());
         span.setTag(DiscoveryConstant.N_D_SERVICE_ID, pluginAdapter.getServiceId());
         span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
         span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, pluginAdapter.getVersion());
         span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
+        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
+        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
         StrategyTracerContext.getCurrentContext().setContext(span);
         LOG.info("全链路灰度调用链输出到Opentracing");
 
