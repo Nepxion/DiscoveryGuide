@@ -19,7 +19,6 @@ import java.util.Map;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.logging.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
         Span span = tracer.buildSpan(DiscoveryConstant.SPAN_NAME).start();
         StrategyTracerContext.getCurrentContext().setContext(span);
 
-        logTraceLocal();
+        mdcTraceLocal();
         LOG.info("全链路灰度调用链输出到日志");
 
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.TAG_COMPONENT_NAME);
@@ -70,7 +69,7 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
     @Override
     public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
         // 一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会串不起来
-        logTraceLocal();
+        mdcTraceLocal();
         LOG.info("全链路灰度调用链异常输出到日志");
 
         Span span = getContextSpan();
@@ -85,7 +84,7 @@ public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
 
     @Override
     public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        MDC.clear();
+        mdcClear();
         LOG.info("全链路灰度调用链日志上下文清除");
 
         Span span = getContextSpan();

@@ -18,7 +18,6 @@ import java.util.Map;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.logging.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
         Span span = tracer.buildSpan(DiscoveryConstant.SPAN_NAME).start();
         StrategyTracerContext.getCurrentContext().setContext(span);
 
-        logTraceHeader();
+        mdcTraceHeader();
         LOG.info("全链路灰度调用链输出到日志");
 
         span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.TAG_COMPONENT_NAME);
@@ -66,7 +65,7 @@ public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
 
     @Override
     public void release(ServerWebExchange exchange) {
-        MDC.clear();
+        mdcClear();
         LOG.info("全链路灰度调用链日志上下文清除");
 
         Span span = getContextSpan();
