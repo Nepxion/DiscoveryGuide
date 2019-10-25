@@ -19,7 +19,7 @@
     <properties>
         <discovery.version>5.5.0-SNAPSHOT</discovery.version>
 
-        <!-- <spring.cloud.version>Hoxton.M3</spring.cloud.version>
+        <!-- <spring.cloud.version>Hoxton.RC1</spring.cloud.version>
         <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version> -->
 
