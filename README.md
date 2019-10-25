@@ -15,7 +15,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
 - 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
-- 全链路灰度调用链。包括Header方式、Opentracing + Uber Jaeger、日志方式等单个或者组合式的全链路灰度调用链
+- 全链路灰度调用链。包括Header方式、Opentracing方式、日志方式等单个或者组合式的全链路灰度调用链
 - 全链路Header传递
 - 元数据Metadata自动化策略。包括基于服务名前缀自动创建灰度组名和基于Git插件自动创建灰度版本号
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
@@ -97,7 +97,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - [基于Hystrix的全链路服务限流熔断和灰度融合](#基于Hystrix的全链路服务限流熔断和灰度融合)
 - [全链路灰度调用链](#全链路灰度调用链)
     - [Header输出方式](#Header输出方式)
-    - [Opentracing-Jaeger输出方式](#Opentracing-Jaeger输出方式)	
+    - [Opentracing输出方式](#Opentracing输出方式)
     - [日志输出方式](#日志输出方式)	
 - [全链路Header传递](#全链路灰度调用链)
     - [自定义Feign-Header传递](#自定义Feign-Header传递)
@@ -1178,7 +1178,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 5. n-d-service-version - 服务版本
 6. n-d-service-region - 服务所属区域
 ```
-灰度调用链输出分为Header方式、 Opentracing + Uber Jaeger方式、日志MDC方式，三种方式可以并存使用。Opentracing + Uber Jaeger方式支持WebMvc和WebFlux
+灰度调用链输出分为Header方式、 Opentracing方式、日志MDC方式，三种方式可以并存使用。Opentracing方式支持WebMvc和WebFlux
 
 ### Header输出方式
 
@@ -1186,7 +1186,9 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 - Zuul网关端自行会传输Header值（参考Discovery源码中的AbstractZuulStrategyRouteFilter.java）
 - 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
 
-### Opentracing-Jaeger输出方式
+### Opentracing输出方式
+
+Opentracing输出方式以Uber Jaeger为例来说明
 
 1. 从[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA#list/path=%2FNepxion)获取Jaeger-1.14.0.zip，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
 2. 执行Postman调用后，访问[http://localhost:16686](http://localhost:16686)查看灰度调用链
@@ -1243,7 +1245,7 @@ spring.application.strategy.trace.debug.enabled=true
 
 ### 日志输出方式
 
-可以单独输出，也可以通过Opentracing-Jaeger输出方式，使用方式跟Opentracing-Jaeger类似
+可以单独输出，也可以通过Opentracing输出方式，使用方式跟Opentracing方式类似
 
 参考在IDE控制台打印的结果
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
