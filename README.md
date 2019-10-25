@@ -1182,7 +1182,6 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 
 ### Header输出方式
 
-Header方式框架内部集成
 - Spring Cloud Gateway网关端自行会传输Header值（参考Discovery源码中的AbstractGatewayStrategyRouteFilter.java）
 - Zuul网关端自行会传输Header值（参考Discovery源码中的AbstractZuulStrategyRouteFilter.java）
 - 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
@@ -1190,226 +1189,43 @@ Header方式框架内部集成
 ### Opentracing-Jaeger输出方式
 
 1. 从[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA#list/path=%2FNepxion)获取Jaeger-1.14.0.zip，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
-2. 执行Postman调用后，访问[http://localhost:16686](http://localhost:16686)查看灰度调用链，支持WebMvc和WebFlux两种方式
+2. 执行Postman调用后，访问[http://localhost:16686](http://localhost:16686)查看灰度调用链
+3. 灰度调用链支持WebMvc和WebFlux两种方式，以GRAY字样的标记来标识
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger1.jpg)
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger2.jpg)
 
-- Spring Cloud Gateway网关
-
-继承DefaultGatewayStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）和自定义的参数输出到日志和Opentracing
+自定义调用链上下文参数的创建（该类不是必须的），继承DefaultStrategyTracerAdapter
 ```java
-// 自定义调用链和灰度调用链输出到日志和Opentracing
-public class MyGatewayStrategyTracer extends DefaultGatewayStrategyTracer {
-    private static final Logger LOG = LoggerFactory.getLogger(MyGatewayStrategyTracer.class);
-
-    @Autowired
-    private Tracer tracer;
-
+// 自定义调用链上下文参数的创建
+// 对于getTraceId和getSpanId方法，在Opentracing等调用链中间件引入的情况下，由调用链中间件决定，在这里定义不会起作用；在Opentracing等调用链中间件未引入的情况下，在这里定义才有效，下面代码中表示从Http Header中获取，并全链路传递
+// 对于getCustomizationMap方法，表示输出到调用链中的定制化业务参数，可以同时输出到日志和Opentracing等调用链中间件，下面代码中表示从Http Header中获取，并全链路传递
+public class MyStrategyTracerAdapter extends DefaultStrategyTracerAdapter {
     @Override
-    public void trace(ServerWebExchange exchange) {
-        Span span = tracer.buildSpan(DiscoveryConstant.DISCOVERY_TRACER_NAME).start();
-
-        log(span);
-        LOG.info("全链路灰度调用链输出到日志");
-
-        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
-        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
-        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
-        span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_ID, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ID));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
-        StrategyTracerContext.getCurrentContext().setContext(span);
-        LOG.info("全链路灰度调用链输出到Opentracing");
-
-        super.trace(exchange);
+    public String getTraceId() {
+        return StringUtils.isNotEmpty(strategyContextHolder.getHeader(DiscoveryConstant.TRACE_ID)) ? strategyContextHolder.getHeader(DiscoveryConstant.TRACE_ID) : StringUtils.EMPTY;
     }
 
     @Override
-    public void release(ServerWebExchange exchange) {
-        MDC.clear();
-        LOG.info("全链路灰度调用链日志上下文清除");
-
-        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
-        span.finish();
-        StrategyTracerContext.clearCurrentContext();
-        LOG.info("全链路灰度调用链Opentracing上下文清除");
+    public String getSpanId() {
+        return StringUtils.isNotEmpty(strategyContextHolder.getHeader(DiscoveryConstant.SPAN_ID)) ? strategyContextHolder.getHeader(DiscoveryConstant.SPAN_ID) : StringUtils.EMPTY;
     }
 
-    private void log(Span span) {
-        MDC.put("traceid", "traceid=" + span.context().toTraceId());
-        MDC.put("spanid", "spanid=" + span.context().toSpanId());
-        MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
-        MDC.put("user", "user=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ID));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, "地址=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
+    @Override
+    public Map<String, String> getCustomizationMap() {
+        return new ImmutableMap.Builder<String, String>()
+                .put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY)
+                .put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY)
+                .build();
     }
 }
+
 ```
 在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
 ```java
 @Bean
-@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public GatewayStrategyTracer gatewayStrategyTracer() {
-    return new MyGatewayStrategyTracer();
-}
-```
-
-- Zuul网关
-
-继承DefaultZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）和自定义的参数输出到日志和Opentracing
-```java
-// 自定义调用链和灰度调用链输出到日志和Opentracing
-public class MyZuulStrategyTracer extends DefaultZuulStrategyTracer {
-    private static final Logger LOG = LoggerFactory.getLogger(MyZuulStrategyTracer.class);
-
-    @Autowired
-    private Tracer tracer;
-
-    @Override
-    public void trace(RequestContext context) {
-        Span span = tracer.buildSpan(DiscoveryConstant.DISCOVERY_TRACER_NAME).start();
-
-        log(span);
-        LOG.info("全链路灰度调用链输出到日志");
-
-        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
-        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
-        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
-        span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_ID, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ID));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
-        span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
-        StrategyTracerContext.getCurrentContext().setContext(span);
-        LOG.info("全链路灰度调用链输出到Opentracing");
-
-        super.trace(context);
-    }
-
-    @Override
-    public void release(RequestContext context) {
-        MDC.clear();
-        LOG.info("全链路灰度调用链日志上下文清除");
-
-        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
-        span.finish();
-        StrategyTracerContext.clearCurrentContext();
-        LOG.info("全链路灰度调用链Opentracing上下文清除");
-    }
-
-    private void log(Span span) {
-        MDC.put("traceid", "traceid=" + span.context().toTraceId());
-        MDC.put("spanid", "spanid=" + span.context().toSpanId());
-        MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
-        MDC.put("user", "user=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_GROUP));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_TYPE));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ID));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, "地址=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_ADDRESS));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + strategyContextHolder.getHeader(DiscoveryConstant.N_D_SERVICE_REGION));
-    }
-}
-```
-在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
-```java
-@Bean
-@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public MyZuulStrategyTracer zuulStrategyTracer(){
-    return new MyZuulStrategyTracer();
-}
-```
-
-- Service服务
-
-继承DefaultZuulStrategyTracer.java，trace方法里把6个参数（参考父类里debugTraceHeader方法）和自定义的参数输出到日志和Opentracing
-```java
-// 自定义调用链和灰度调用链输出到日志和Opentracing
-public class MyServiceStrategyTracer extends DefaultServiceStrategyTracer {
-    private static final Logger LOG = LoggerFactory.getLogger(MyServiceStrategyTracer.class);
-
-    @Autowired
-    private Tracer tracer;
-
-    @Override
-    public void trace(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        Span span = tracer.buildSpan(DiscoveryConstant.DISCOVERY_TRACER_NAME).start();
-
-        log(span);
-        LOG.info("全链路灰度调用链输出到日志");
-
-        span.setTag(Tags.COMPONENT.getKey(), DiscoveryConstant.DISCOVERY_NAME);
-        span.setTag("class", interceptor.getMethod(invocation).getDeclaringClass().getName());
-        span.setTag("method", interceptor.getMethodName(invocation));
-        span.setTag("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
-        span.setTag("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
-        span.setTag(DiscoveryConstant.N_D_SERVICE_GROUP, pluginAdapter.getGroup());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_TYPE, pluginAdapter.getServiceType());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_ID, pluginAdapter.getServiceId());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_ADDRESS, pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_VERSION, pluginAdapter.getVersion());
-        span.setTag(DiscoveryConstant.N_D_SERVICE_REGION, pluginAdapter.getRegion());
-        StrategyTracerContext.getCurrentContext().setContext(span);
-        LOG.info("全链路灰度调用链输出到Opentracing");
-
-        super.trace(interceptor, invocation);
-    }
-
-    @Override
-    public void error(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation, Throwable e) {
-        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
-
-        // 一般来说，日志方式对异常不需要做特殊处理，但必须也要把上下文参数放在MDC里，否则链路中异常环节会串不起来
-        log(span);
-        LOG.info("全链路灰度调用链异常输出到日志");
-
-        span.log(new ImmutableMap.Builder<String, Object>()
-                .put("event", Tags.ERROR.getKey())
-                .put("exception", e)
-                .build());
-        LOG.info("全链路灰度调用链异常输出到Opentracing");
-    }
-
-    @Override
-    public void release(ServiceStrategyTracerInterceptor interceptor, MethodInvocation invocation) {
-        MDC.clear();
-        LOG.info("全链路灰度调用链日志上下文清除");
-
-        Span span = (Span) StrategyTracerContext.getCurrentContext().getContext();
-        span.finish();
-        StrategyTracerContext.clearCurrentContext();
-        LOG.info("全链路灰度调用链Opentracing上下文清除");
-    }
-
-    private void log(Span span) {
-        MDC.put("traceid", "traceid=" + span.context().toTraceId());
-        MDC.put("spanid", "spanid=" + span.context().toSpanId());
-        MDC.put("mobile", "mobile=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY));
-        MDC.put("user", "user=" + (StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY));
-        MDC.put(DiscoveryConstant.N_D_SERVICE_GROUP, "服务组名=" + pluginAdapter.getGroup());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_TYPE, "服务类型=" + pluginAdapter.getServiceType());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ID, "服务名=" + pluginAdapter.getServiceId());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_ADDRESS, "地址=" + pluginAdapter.getHost() + ":" + pluginAdapter.getPort());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_VERSION, "版本=" + pluginAdapter.getVersion());
-        MDC.put(DiscoveryConstant.N_D_SERVICE_REGION, "区域=" + pluginAdapter.getRegion());
-    }
-}
-```
-在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
-```java
-@Bean
-@ConditionalOnProperty(value = StrategyConstant.SPRING_APPLICATION_STRATEGY_TRACE_ENABLED, matchIfMissing = false)
-public ServiceStrategyTracer serviceStrategyTracer() {
-    return new MyServiceStrategyTracer();
+public StrategyTracerAdapter strategyTracerAdapter() {
+    return new MyStrategyTracerAdapter();
 }
 ```
 
@@ -1417,13 +1233,17 @@ public ServiceStrategyTracer serviceStrategyTracer() {
 ```vb
 # 启动和关闭调用链。缺失则默认为false
 spring.application.strategy.trace.enabled=true
+# 启动和关闭调用链的日志输出。缺失则默认为false
+spring.application.strategy.trace.logger.enabled=true
+# 启动和关闭调用链的Opentracing输出，支持F版或更高版本的配置，其它版本不需要该行配置。缺失则默认为false
+spring.application.strategy.trace.opentracing.enabled=true
 # 启动和关闭调用链的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
 spring.application.strategy.trace.debug.enabled=true
 ```
 
 ### 日志输出方式
 
-已经集成在Opentracing-Jaeger输出方式中
+可以单独输出，也可以通过Opentracing-Jaeger输出方式，使用方式跟Opentracing-Jaeger类似
 
 参考在IDE控制台打印的结果
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
@@ -1436,8 +1256,8 @@ spring.application.strategy.trace.debug.enabled=true
 spring.application.strategy.rest.intercept.enabled=true
 # 启动和关闭Header传递的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
 spring.application.strategy.rest.intercept.debug.enabled=true
-# 灰度路由策略的时候，对REST方式调用拦截的时候（支持Feign或者RestTemplate调用），希望把来自外部自定义的Header参数（用于框架内置上下文Header，例如：traceid, spanid等）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
-spring.application.strategy.context.request.headers=traceid;spanid
+# 灰度路由策略的时候，对REST方式调用拦截的时候（支持Feign或者RestTemplate调用），希望把来自外部自定义的Header参数（用于框架内置上下文Header，例如：trace-id, span-id等）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
+spring.application.strategy.context.request.headers=trace-id;span-id
 # 灰度路由策略的时候，对REST方式调用拦截的时候（支持Feign或者RestTemplate调用），希望把来自外部自定义的Header参数（用于业务系统子定义Header，例如：mobile）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
 spring.application.strategy.business.request.headers=user;mobile
 ```
