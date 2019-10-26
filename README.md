@@ -1169,7 +1169,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 
 ## 全链路灰度调用链
 
-灰度调用链主要包括如下6个参数。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
+灰度调用链主要包括如下11个参数，以n-d-service开头的是必须的，其它是可选的或者按照场景而定。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
 ```
 1. n-d-service-group - 服务所属组或者应用
 2. n-d-service-type - 服务类型，分为“网关”和“服务”
@@ -1177,6 +1177,11 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 4. n-d-service-address - 服务地址，包括Host和Port
 5. n-d-service-version - 服务版本
 6. n-d-service-region - 服务所属区域
+7. n-d-version - 版本路由值
+8. n-d-region - 区域路由值
+9. n-d-address - 地址路由值 
+10. n-d-version-weight - 版本权重路由值
+11. n-d-region-weight - 区域权重路由值
 ```
 灰度调用链输出分为Header方式、 Opentracing方式、日志MDC方式，三种方式可以并存使用。Opentracing方式支持WebMvc和WebFlux
 
