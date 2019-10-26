@@ -1201,6 +1201,9 @@ Opentracing输出方式以Uber Jaeger为例来说明
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger1.jpg)
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger3.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger4.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger5.jpg)
 
 自定义调用链上下文参数的创建（该类不是必须的），继承DefaultStrategyTracerAdapter
 ```java
