@@ -1205,6 +1205,14 @@ Opentracing输出方式以Uber Jaeger为例来说明
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger4.jpg)
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Jaeger5.jpg)
 
+请注意如下配置，将决定终端界面的显示
+1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的GRAY Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
+2. 如果关闭，灰度信息输出到原生的Span节点中，意味着在界面显示中，灰度信息会和原生Span节点的调用信息、协议信息等混在一起，缺点是信息庞杂混合，优点是Span节点数不会增长
+```vb
+# 启动和关闭调用链的灰度信息在Opentracing中以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中。缺失则默认为true
+spring.application.strategy.trace.opentracing.separate.span.enabled=true
+```
+
 自定义调用链上下文参数的创建（该类不是必须的），继承DefaultStrategyTracerAdapter
 ```java
 // 自定义调用链上下文参数的创建
@@ -1245,8 +1253,12 @@ public StrategyTracerAdapter strategyTracerAdapter() {
 spring.application.strategy.trace.enabled=true
 # 启动和关闭调用链的日志输出。缺失则默认为false
 spring.application.strategy.trace.logger.enabled=true
+# 调用链的日志输出中，是否显示MDC前面的Key。缺失则默认为true
+spring.application.strategy.trace.logger.mdc.key.shown=true
 # 启动和关闭调用链的Opentracing输出，支持F版或更高版本的配置，其它版本不需要该行配置。缺失则默认为false
 spring.application.strategy.trace.opentracing.enabled=true
+# 启动和关闭调用链的灰度信息在Opentracing中以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中。缺失则默认为true
+spring.application.strategy.trace.opentracing.separate.span.enabled=true
 # 启动和关闭调用链的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
 spring.application.strategy.trace.debug.enabled=true
 ```
