@@ -901,6 +901,9 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 原生Sentinel规则的用法，请参照Sentinel官方文档
 
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Sentinel1.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Sentinel2.jpg)
+
 #### 流控规则
 
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-flow，规则内容如下：
