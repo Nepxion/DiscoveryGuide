@@ -105,7 +105,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - [元数据Metadata自动化策略](#元数据Metadata自动化策略)
     - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
     - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)
-- [服务侧注解](#服务侧注解)
+- [全链路中的服务侧注解](#全链路中的服务侧注解)
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
@@ -1483,7 +1483,7 @@ git.total.commit.count=765
 spring.application.git.generator.path=file:git.json
 ```
 
-## 服务侧注解
+## 全链路中的服务侧注解
 
 服务侧对于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能，默认映射到RestController类（含有@RestController注解），并配合如下的扫描路径才能工作
 ```vb
