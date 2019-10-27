@@ -1265,7 +1265,7 @@ spring.application.strategy.trace.debug.enabled=true
 
 ### 日志输出方式
 
-可以单独输出，也可以通过Opentracing输出方式，使用方式跟Opentracing方式类似
+可以单独输出，也可以结合Opentracing一起组合输出，使用方式跟Opentracing方式类似 
 
 参考在IDE控制台打印的结果
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Tracer.jpg)
