@@ -58,9 +58,9 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [版本权重灰度路由策略](#版本权重灰度路由策略)
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
-    - [通过其它方式设置网关灰度路由策略](#通过其它方式设置网关灰度路由策略)
+    - [通过其它方式设置灰度路由策略](#通过其它方式设置灰度路由策略)
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
-        - [通过业务参数在网关过滤器中自定义灰度路由策略](#通过业务参数在网关过滤器中自定义灰度路由策略)
+        - [通过业务参数在过滤器中自定义灰度路由策略](#通过业务参数在过滤器中自定义灰度路由策略)
         - [通过业务参数在策略类中自定义灰度路由策略](#通过业务参数在策略类中自定义灰度路由策略)
     - [配置前端灰度&网关灰度路由组合式策略](#配置前端灰度&网关灰度路由组合式策略)
 - [基于订阅方式的全链路灰度发布规则](#基于订阅方式的全链路灰度发布规则)
@@ -293,8 +293,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 2. <region-weight>{"discovery-guide-service-a":"dev=85;qa=15", "discovery-guide-service-b":"dev=85;qa=15"}</region-weight>
 ```
 
-### 通过其它方式设置网关灰度路由策略
-除了上面通过配置中心发布灰度规路由则外，还有如下三种方式:
+### 通过其它方式设置灰度路由策略
+除了上面通过配置中心发布灰度规路由则外，还有如下三种方式，这三种方式既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
 
 #### 通过前端传入灰度路由策略
 通过前端（Postman）方式传入灰度路由策略，来代替配置中心方式，传递全链路路由策略。注意：当配置中心和界面都配置后，以界面传入优先
@@ -345,10 +345,11 @@ spring.application.strategy.zuul.header.priority=false
 spring.application.strategy.zuul.original.header.ignored=true
 ``` 
 
-#### 通过业务参数在网关过滤器中自定义灰度路由策略
-通过网关过滤器传递Http Header的方式传递全链路灰度路由策略。下面代码只适用于Zuul和Spring Cloud Gateway网关，Service微服务不需要加该方式
+#### 通过业务参数在过滤器中自定义灰度路由策略
+通过网关过滤器传递Http Header的方式传递全链路灰度路由策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务就不需要加，当不存在的网关的时候，服务上就可以考虑。
 
 - 内置策略解析映射到过滤器的自定义方式
+下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
 
 增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容见下面XML内容，它所表达的功能逻辑：
 ```
@@ -399,14 +400,17 @@ spring.application.strategy.zuul.original.header.ignored=true
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/DiscoveryGuide2-7.jpg)
 
 - 用户覆盖过滤器的自定义方式
-
-继承GatewayStrategyRouteFilter或者ZuulStrategyRouteFilter，覆盖掉如下方法中的一个或者多个，通过@Bean方式覆盖框架内置的过滤类
+通过覆盖过滤器方式自定义灰度路由策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务就不需要加，当不存在的网关的时候，服务上就可以考虑。继承GatewayStrategyRouteFilter、ZuulStrategyRouteFilter或者ServiceStrategyRouteFilter，覆盖掉如下方法中的一个或者多个，通过@Bean方式覆盖框架内置的过滤类
 ```java
-protected String getRouteVersion();
+public String getRouteVersion();
 
-protected String getRouteRegion();
+public String getRouteRegion();
 
-protected String getRouteAddress();
+public String getRouteAddress();
+
+public String getRouteVersionWeight();
+
+public String getRouteRegionWeight();
 ```
 
 GatewayStrategyRouteFilter示例
@@ -657,7 +661,7 @@ spring.application.strategy.rpc.intercept.enabled=true
 
 例如：前端存在1.0和2.0版本，微服务存在1.0和2.0版本，由于存在版本不兼容的情况（前端1.0版本只能调用微服务的1.0版本，前端2.0版本只能调用微服务的2.0版本），那么前端调用网关时候，可以通过Header传递它的版本号给网关，网关根据前端版本号，去路由对应版本的微服务
 
-该场景可以用“通过业务参数在网关过滤器中自定义灰度路由策略”的方案来解决，如下：
+该场景可以用“通过业务参数在过滤器中自定义灰度路由策略”的方案来解决，如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
