@@ -62,7 +62,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
         - [通过业务参数在过滤器中自定义灰度路由策略](#通过业务参数在过滤器中自定义灰度路由策略)
         - [通过业务参数在策略类中自定义灰度路由策略](#通过业务参数在策略类中自定义灰度路由策略)
-    - [配置前端灰度&网关灰度路由组合式策略](#配置前端灰度&网关灰度路由组合式策略)
+    - [配置前端灰度和网关灰度路由组合式策略](#配置前端灰度和网关灰度路由组合式策略)
 - [基于订阅方式的全链路灰度发布规则](#基于订阅方式的全链路灰度发布规则)
     - [配置全链路灰度匹配规则](#配置全链路灰度匹配规则)
         - [版本匹配灰度规则](#版本匹配灰度规则)
@@ -72,7 +72,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [局部版本权重灰度规则](#局部版本权重灰度规则)
         - [全局区域权重灰度规则](#全局区域权重灰度规则)
         - [局部区域权重灰度规则](#局部区域权重灰度规则)
-    - [配置全链路灰度权重&灰度版本组合式规则](#配置全链路灰度权重&灰度版本组合式规则)
+    - [配置全链路灰度权重和灰度版本组合式规则](#配置全链路灰度权重和灰度版本组合式规则)
 - [基于多方式的规则和策略推送](#基于多方式的规则和策略推送)
     - [基于远程配置中心的规则和策略订阅推送](#基于远程配置中心的规则和策略订阅推送)
     - [基于Actuator-Endpoint的规则和策略推送](#基于Actuator-Endpoint的规则和策略推送)
@@ -656,7 +656,7 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
 spring.application.strategy.rpc.intercept.enabled=true
 ```
 
-### 配置前端灰度&网关灰度路由组合式策略
+### 配置前端灰度和网关灰度路由组合式策略
 当前端（例如：APP）和后端微服务同时存在多个版本时，可以执行“前端灰度&网关灰度路由组合式策略”
 
 例如：前端存在1.0和2.0版本，微服务存在1.0和2.0版本，由于存在版本不兼容的情况（前端1.0版本只能调用微服务的1.0版本，前端2.0版本只能调用微服务的2.0版本），那么前端调用网关时候，可以通过Header传递它的版本号给网关，网关根据前端版本号，去路由对应版本的微服务
@@ -787,7 +787,7 @@ spring.application.strategy.rpc.intercept.enabled=true
 
 请执行Postman操作，请仔细观察服务被随机权重调用到的概率
 
-### 配置全链路灰度权重&灰度版本组合式规则
+### 配置全链路灰度权重和灰度版本组合式规则
 增加组合式的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现功能：
 - a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
@@ -1539,7 +1539,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 ```
 当使用者不希望只局限于RestController类（含有@RestController注解）方式，而要求在任何类中实现上述功能，那么框架提供@ServiceStrategy注解，使用者把它加在类头部即可，可以达到和@RestController注解同样的效果
 
-## Docker容器化和Kubernetes平台
+## Docker容器化和Kubernetes平台支持
 
 ### Docker容器化
 
@@ -1597,7 +1597,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 
 ![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Docker.jpg)
 
-### Kubernetes平台
+### Kubernetes平台支持
 
 请自行研究
 
