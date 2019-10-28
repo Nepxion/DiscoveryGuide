@@ -485,6 +485,44 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 }
 ```
 
+ServiceStrategyRouteFilter示例
+
+在代码里根据不同的Header选择不同的路由路径
+```java
+// 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
+// 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
+public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFilter {
+    private static final String DEFAULT_A_ROUTE_VERSION = "{\"discovery-guide-service-b\":\"1.1\"}";
+    private static final String DEFAULT_B_ROUTE_VERSION = "{\"discovery-guide-service-b\":\"1.0\"}";
+
+    @Value("${a.route.version:" + DEFAULT_A_ROUTE_VERSION + "}")
+    private String aRouteVersion;
+
+    @Value("${b.route.version:" + DEFAULT_B_ROUTE_VERSION + "}")
+    private String bRouteVersion;
+
+    @Override
+    public String getRouteVersion() {
+        String user = strategyContextHolder.getHeader("user");
+
+        if (StringUtils.equals(user, "zhangsan")) {
+            return aRouteVersion;
+        } else if (StringUtils.equals(user, "lisi")) {
+            return bRouteVersion;
+        }
+
+        return super.getRouteVersion();
+    }
+}
+```
+在配置类里@Bean方式进行过滤类创建，覆盖框架内置的过滤类
+```java
+@Bean
+public ServiceStrategyRouteFilter serviceStrategyRouteFilter() {
+    return new MyServiceStrategyRouteFilter();
+}
+```
+
 #### 通过业务参数在策略类中自定义灰度路由策略
 通过策略方式自定义灰度路由策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，同时全链路中网关和服务都必须加该方式
 ```java
