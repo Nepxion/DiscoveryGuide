@@ -43,6 +43,12 @@ public class DiscoveryGuideServiceA1 {
         return new MyDiscoveryEnabledStrategy();
     }
 
+    // 自定义灰度路由策略
+    /*@Bean
+    public ServiceStrategyRouteFilter serviceStrategyRouteFilter() {
+        return new MyServiceStrategyRouteFilter();
+    }*/
+
     // 自定义Feign拦截器中的Header传递
     @Bean
     public FeignStrategyInterceptorAdapter feignStrategyInterceptorAdapter() {
