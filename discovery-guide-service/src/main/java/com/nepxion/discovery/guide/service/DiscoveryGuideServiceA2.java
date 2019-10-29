@@ -21,6 +21,9 @@ public class DiscoveryGuideServiceA2 {
     public static void main(String[] args) {
         System.setProperty("nepxion.banner.shown.ansi.mode", "true");
         System.setProperty("spring.profiles.active", "a2");
+        System.setProperty("project.name", "guide-service-a");
+        System.setProperty("csp.sentinel.dashboard.server", "localhost:8075");
+        System.setProperty("csp.sentinel.api.port", "3002");
 
         new SpringApplicationBuilder(DiscoveryGuideServiceA2.class).run(args);
     }
