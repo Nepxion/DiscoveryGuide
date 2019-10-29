@@ -945,8 +945,8 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 原生Sentinel规则的用法，请参照Sentinel官方文档
 
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Sentinel1.jpg)
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Sentinel2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Sentinel3.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Sentinel4.jpg)
 
 #### 流控规则
 
