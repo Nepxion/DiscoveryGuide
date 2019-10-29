@@ -1227,7 +1227,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 6. n-d-service-region - 服务所属区域
 7. n-d-version - 版本路由值
 8. n-d-region - 区域路由值
-9. n-d-address - 地址路由值 
+9. n-d-address - 地址路由值
 10. n-d-version-weight - 版本权重路由值
 11. n-d-region-weight - 区域权重路由值
 ```
