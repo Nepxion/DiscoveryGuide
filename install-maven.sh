@@ -19,3 +19,4 @@ mvn clean install -DskipTests -pl discovery-guide-service -am -DMainClass=com.ne
 mvn clean install -DskipTests -pl discovery-guide-gateway -am -DMainClass=com.nepxion.discovery.guide.gateway.DiscoveryGuideGateway
 mvn clean install -DskipTests -pl discovery-guide-zuul    -am -DMainClass=com.nepxion.discovery.guide.zuul.DiscoveryGuideZuul
 mvn clean install -DskipTests -pl discovery-guide-console -am -DMainClass=com.nepxion.discovery.guide.console.DiscoveryGuideConsole
+mvn clean install -DskipTests -pl discovery-guide-admin -am -DMainClass=com.nepxion.discovery.guide.console.DiscoveryGuideAdmin
