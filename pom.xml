@@ -13,6 +13,7 @@
         <module>discovery-guide-zuul</module>
         <module>discovery-guide-service</module>
         <module>discovery-guide-console</module>
+        <module>discovery-guide-admin</module>
         <module>discovery-guide-test-automation</module>
     </modules>
 
@@ -21,17 +22,21 @@
 
         <!-- <spring.cloud.version>Hoxton.RC1</spring.cloud.version>
         <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
-        <spring.boot.version>2.2.0.RELEASE</spring.boot.version> -->
+        <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
+        <spring.boot.admin.version>2.1.6</spring.boot.admin.version> -->
 
         <spring.cloud.version>Greenwich.SR3</spring.cloud.version>
         <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
+        <spring.boot.admin.version>2.1.6</spring.boot.admin.version>
 
         <!-- <spring.cloud.version>Finchley.SR4</spring.cloud.version>
         <spring.cloud.alibaba.version>2.0.0.RELEASE</spring.cloud.alibaba.version>
-        <spring.boot.version>2.0.7.RELEASE</spring.boot.version> -->
+        <spring.boot.version>2.0.7.RELEASE</spring.boot.version>
+        <spring.boot.admin.version>2.0.6</spring.boot.admin.version> -->
 
         <opentracing.spring.jaeger.version>2.0.3</opentracing.spring.jaeger.version>
+        <prometheus.version>0.8.0</prometheus.version>
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -60,6 +65,12 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>discovery-guide-console</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>discovery-guide-admin</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -94,9 +105,23 @@
             </dependency>
 
             <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring.boot.admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>io.opentracing.contrib</groupId>
                 <artifactId>opentracing-spring-jaeger-starter</artifactId>
                 <version>${opentracing.spring.jaeger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.prometheus</groupId>
+                <artifactId>simpleclient_spring_boot</artifactId>
+                <version>${prometheus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

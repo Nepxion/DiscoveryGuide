@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <artifactId>discovery-guide-zuul</artifactId>
-    <name>Nepxion Discovery Guide Zuul</name>
+    <artifactId>discovery-guide-admin</artifactId>
+    <name>Nepxion Discovery Guide Admin</name>
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,35 +14,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-starter-nacos</artifactId>
-            <!-- <artifactId>discovery-plugin-starter-consul</artifactId> -->
-            <!-- <artifactId>discovery-plugin-starter-eureka</artifactId> -->
-            <version>${discovery.version}</version>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <!-- <groupId>org.springframework.cloud</groupId> -->
+            <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
+            <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
         </dependency>
 
         <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
-            <!-- <artifactId>discovery-plugin-config-center-starter-apollo</artifactId> -->
-            <version>${discovery.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
-            <version>${discovery.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-zuul-opentracing</artifactId>
-            <version>${discovery.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-spring-jaeger-starter</artifactId>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
 
         <dependency>
@@ -65,7 +46,7 @@
                 <configuration>
                     <executable>true</executable>
                     <mainClass>${MainClass}</mainClass>
-                    <!-- <mainClass>com.nepxion.discovery.guide.zuul.DiscoveryGuideZuul</mainClass> -->
+                    <!-- <mainClass>com.nepxion.discovery.guide.admin.DiscoveryGuideAdmin</mainClass> -->
                     <layout>JAR</layout>
                 </configuration>
                 <executions>
@@ -96,20 +77,6 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
                 </configuration>
             </plugin>
         </plugins>

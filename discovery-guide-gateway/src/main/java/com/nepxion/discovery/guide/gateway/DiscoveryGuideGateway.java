@@ -9,6 +9,9 @@ package com.nepxion.discovery.guide.gateway;
  * @version 1.0
  */
 
+import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
+import io.prometheus.client.spring.boot.EnableSpringBootMetricsCollector;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -21,6 +24,8 @@ import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnablePrometheusEndpoint
+@EnableSpringBootMetricsCollector
 public class DiscoveryGuideGateway {
     public static void main(String[] args) {
         System.setProperty("nepxion.banner.shown.ansi.mode", "true");

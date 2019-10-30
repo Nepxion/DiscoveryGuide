@@ -149,7 +149,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - Linux环境下，运行bin目录下的startup.sh
 
 ## 启动服务 
-- 在IDE中，启动四个应用服务和两个网关服务，控制台服务可选，如下： 
+- 在IDE中，启动四个应用服务和两个网关服务，控制平台服务和监控平台服务可选，如下： 
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 |
 | --- | --- | --- | --- | --- |
@@ -160,6 +160,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 | DiscoveryGuideGateway.java | Gateway | 5001 | 1.0 | 无 |
 | DiscoveryGuideZuul.java | Zuul | 5002 | 1.0 | 无 |
 | DiscoveryGuideConsole.java | Console | 6001 | 1.0 | 无 |
+| DiscoveryGuideAdmin.java | Admin | 6002 | 1.0 | 无 |
 
 ## 环境验证
 - 导入Postman的测试脚本，[脚本地址](https://github.com/Nepxion/Discovery/raw/master/postman.json)
