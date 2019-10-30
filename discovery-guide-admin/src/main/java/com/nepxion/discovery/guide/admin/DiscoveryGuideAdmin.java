@@ -10,8 +10,6 @@ package com.nepxion.discovery.guide.admin;
  */
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
-import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
-import io.prometheus.client.spring.boot.EnableSpringBootMetricsCollector;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -20,8 +18,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableAdminServer
-@EnablePrometheusEndpoint
-@EnableSpringBootMetricsCollector
 public class DiscoveryGuideAdmin {
     public static void main(String[] args) {
         new SpringApplicationBuilder(DiscoveryGuideAdmin.class).run(args);
