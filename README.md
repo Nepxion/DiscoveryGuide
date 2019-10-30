@@ -21,6 +21,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
 - 灰度路由和发布的自动化测试
+- 监控中间件的无缝整合。包括Spring Boot Admin、Prometheus、Grafana等
 - Docker容器化和Kubernetes平台的无缝支持部署
 
 [**Nacos**] 阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
@@ -108,6 +109,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
     - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)
 - [全链路服务侧注解](#全链路服务侧注解)
+- [监控中间件的无缝整合](#监控中间件的无缝整合)
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
@@ -1539,6 +1541,14 @@ spring.application.git.generator.path=file:git.json
 spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.feign
 ```
 当使用者不希望只局限于RestController类（含有@RestController注解）方式，而要求在任何类中实现上述功能，那么框架提供@ServiceStrategy注解，使用者把它加在类头部即可，可以达到和@RestController注解同样的效果
+
+## 监控中间件的无缝整合
+
+包括Spring Boot Admin、Prometheus、Grafana等
+
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Admin7.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Prometheus.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Grafana.jpg)
 
 ## Docker容器化和Kubernetes平台支持
 
