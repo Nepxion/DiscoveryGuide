@@ -840,7 +840,7 @@ Apollo订阅推送界面
 
 Spring Boot Admin的Actuator Endpoint推送界面
 
-![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Admin2.jpg)
+![Alt text](https://github.com/Nepxion/Docs/raw/master/discovery-doc/Admin6.jpg)
 
 ### 基于Swagger和Rest的规则和策略推送
 
