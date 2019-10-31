@@ -21,16 +21,19 @@
             <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
         </dependency>
 
+        <!-- 框架支持监控平台的Spring Boot Admin监控服务器 -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
         </dependency>
 
+        <!-- 框架支持监控平台的Spring Boot Admin监控，可以不引入 -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
+        <!-- 框架支持监控平台的Prometheus监控，可以不引入 -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>

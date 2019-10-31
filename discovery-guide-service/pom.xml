@@ -13,6 +13,7 @@
     </parent>
 
     <dependencies>
+        <!-- 框架支持服务基于配置中心的核心实现，必须引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-starter-nacos</artifactId>
@@ -21,6 +22,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 框架支持服务实现配置中心的灰度配置和策略订阅，可以不引入。强烈建议引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
@@ -28,12 +30,14 @@
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 框架支持服务的策略扩展包，可以不引入。强烈建议引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 框架支持服务的Sentinel灰度增强功能，可以不引入。必须和下面的包配套引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service-sentinel</artifactId>
@@ -47,6 +51,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 框架支持服务的Opentracing调用链，可以不引入。必须和下面的包配套引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service-opentracing</artifactId>
@@ -58,11 +63,13 @@
             <artifactId>opentracing-spring-jaeger-starter</artifactId>
         </dependency>
 
+        <!-- 框架支持服务的Spring Boot Admin监控，可以不引入 -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
+        <!-- 框架支持服务的Prometheus监控，可以不引入 -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>

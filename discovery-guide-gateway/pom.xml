@@ -13,6 +13,7 @@
     </parent>
 
     <dependencies>
+        <!-- 框架支持网关基于配置中心的核心实现，必须引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-starter-nacos</artifactId>
@@ -21,6 +22,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 框架支持网关实现配置中心的灰度配置和策略订阅，可以不引入。强烈建议引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
@@ -28,12 +30,14 @@
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 框架支持网关的策略扩展包，可以不引入。强烈建议引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 框架支持网关的Opentracing调用链，可以不引入。必须和下面的包配套引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-gateway-opentracing</artifactId>
@@ -45,11 +49,13 @@
             <artifactId>opentracing-spring-jaeger-starter</artifactId>
         </dependency>
 
+        <!-- 框架支持网关的Spring Boot Admin监控，可以不引入 -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
+        <!-- 框架支持网关的Prometheus监控，可以不引入 -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>

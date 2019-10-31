@@ -13,6 +13,7 @@
     </parent>
 
     <dependencies>
+        <!-- 框架支持自动化测试，必须引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-test-starter</artifactId>
