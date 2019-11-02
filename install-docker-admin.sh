@@ -23,6 +23,7 @@ IMAGE_NAME=guide-admin
 MAIN_CLASS=com.nepxion.discovery.guide.admin.DiscoveryGuideAdmin
 MACHINE_PORT=6002
 CONTAINER_PORT=6002
+MIDDLEWARE_HOST=10.0.75.1
 RUN_MODE=-i -t
 # RUN_MODE=-d
 
@@ -47,4 +48,4 @@ cd ${PROJECT_NAME}
 mvn package docker:build -DskipTests -DImageName=${IMAGE_NAME} -DExposePort=${CONTAINER_PORT}
 
 # 安装和启动Docker容器，并自动执行端口映射
-docker run ${RUN_MODE} -p ${MACHINE_PORT}:${CONTAINER_PORT} -h ${IMAGE_NAME} --name ${IMAGE_NAME} ${IMAGE_NAME}:latest
+docker run --env middleware.host=${MIDDLEWARE_HOST} ${RUN_MODE} -p ${MACHINE_PORT}:${CONTAINER_PORT} -h ${IMAGE_NAME} --name ${IMAGE_NAME} ${IMAGE_NAME}:latest
