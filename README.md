@@ -1615,7 +1615,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
     </configuration>
 </plugin>
 ```
-- 拷贝discovery-guide-docker目录下的所有脚本文件到跟目录下
+- 拷贝discovery-guide-docker目录下的所有脚本文件到根目录下
 - 所有脚本文件下的MIDDLEWARE_HOST=10.0.75.1改成使用者本地物理IP地址（Docker是不能去连接容器外地址为localhost的中间件服务器）
 - 全自动部署和运行Docker化的服务。在根目录下
     - 一键运行install-docker-gateway.bat或者.sh，把Spring Cloud Gateway网关全自动部署且运行起来
