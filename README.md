@@ -19,7 +19,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
 - 全链路监控。包括全链路调用链监控（Tracing）和全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）
     - 全链路调用链监控（Tracing）包括Header方式、Opentracing方式、日志方式等单个或者组合式的全链路灰度调用链。Opentracing方式不支持Edgware版（Spring Boot 1.x.x），不支持Finchley版（Spring Boot 2.0.x）的Spring Cloud Gateway，除此之外的版本都支持
-    - 全链路指标监控（Metrics）包括Prometheus、Grafana、Spring Boot Admin等
+    - 全链路指标监控（Metrics）包括Prometheus、Grafana、Spring Boot Admin
 - 全链路Header传递
 - 元数据Metadata自动化策略。包括基于服务名前缀自动创建灰度组名和基于Git插件自动创建灰度版本号
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
