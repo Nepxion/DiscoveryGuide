@@ -23,6 +23,7 @@
 @set MAIN_CLASS=com.nepxion.discovery.guide.service.DiscoveryGuideServiceB1
 @set MACHINE_PORT=4001
 @set CONTAINER_PORT=4001
+@set MIDDLEWARE_HOST=10.0.75.1
 @set RUN_MODE=-i -t
 @rem @set RUN_MODE=-d
 
@@ -45,6 +46,6 @@ cd %PROJECT_NAME%
 call mvn package docker:build -DskipTests -DImageName=%IMAGE_NAME% -DExposePort=%CONTAINER_PORT%
 
 @rem 安装和启动Docker容器，并自动执行端口映射
-call docker run %RUN_MODE% -p %MACHINE_PORT%:%CONTAINER_PORT% -h %IMAGE_NAME% --name %IMAGE_NAME% %IMAGE_NAME%:latest
+call docker run --env middleware.host=%MIDDLEWARE_HOST% %RUN_MODE% -p %MACHINE_PORT%:%CONTAINER_PORT% -h %IMAGE_NAME% --name %IMAGE_NAME% %IMAGE_NAME%:latest
 
 pause
