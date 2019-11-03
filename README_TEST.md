@@ -8,8 +8,8 @@
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Star2.jpg)
 
 如果本文档由于Github网速原因无法完整阅读，请访问
-- [Nepxion Discovery【探索】微服务企业级解决方案(PDF版)](http://nepxion.gitee.io/docs/web-doc/discovery-solution-pdf.html)
-- [Nepxion Discovery【探索】测试篇(PDF版)](http://nepxion.gitee.io/docs/web-doc/discovery-test-pdf.html) 或 [Nepxion Discovery【探索】测试篇(HTML版)](http://nepxion.gitee.io/docs/web-doc/discovery-test.html)
+- [Nepxion Discovery【探索】微服务企业级解决方案(PDF版)](http://nepxion.gitee.io/docs/link-doc/discovery-solution-pdf.html)
+- [Nepxion Discovery【探索】测试篇(PDF版)](http://nepxion.gitee.io/docs/link-doc/discovery-test-pdf.html) 或 [Nepxion Discovery【探索】测试篇(HTML版)](http://nepxion.gitee.io/docs/link-doc/discovery-test.html)
 
 Nepxion Discovery【探索】框架测试集成自动化测试和压力测试两个模块：
 - 自动化测试，基于Spring Boot/Spring Cloud的自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：支持阿里巴巴的Sentinel，FF4j的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把服务注册发现中心、远程配置中心、负载均衡、灰度发布、熔断降级限流、功能开关、Feign或者RestTemplate调用等中间件或者组件，一条龙组合起来进行自动化测试
