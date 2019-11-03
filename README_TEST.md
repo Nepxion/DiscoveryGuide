@@ -52,7 +52,7 @@ Nepxion Discovery【探索】框架测试集成自动化测试和压力测试两
 [指南主页](https://github.com/Nepxion/DiscoveryGuide)
 
 ### 文档主页
-[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)
+[文档主页](https://gitee.com/Nepxion/Docs/tree/master/web-doc)
 
 ## 自动化测试
 

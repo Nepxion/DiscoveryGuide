@@ -136,7 +136,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 [指南主页](https://github.com/Nepxion/DiscoveryGuide)
 
 ### 文档主页
-[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)
+[文档主页](https://gitee.com/Nepxion/Docs/tree/master/web-doc)
 
 ## 相关图示
 
@@ -1231,7 +1231,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 
 ### 全链路调用链监控-Tracing
 
-调用链监控，在本文主要指灰度调用链监控
+调用链监控，在本文主要指灰度调用链监控。快速入门操作，请访问[Nepxion Discovery 灰度发布路由调用链](https://pan.baidu.com/s/1PbksbZKVY7reBrnVb3RS6Q)，注意一定要下载下来看，不要在线看，否则不清晰
 
 灰度调用链主要包括如下11个参数，以n-d-service开头的是必须的，其它是可选的或者按照场景而定。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
 ```
@@ -1259,7 +1259,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 
 Opentracing输出方式以Uber Jaeger为例来说明
 
-1. 从[文档主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)获取Jaeger-1.14.0.zip，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
+1. 从[网盘主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)获取Jaeger-1.14.0.zip，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
 2. 执行Postman调用后，访问[http://localhost:16686](http://localhost:16686)查看灰度调用链
 3. 灰度调用链支持WebMvc和WebFlux两种方式，以GRAY字样的标记来标识
 
