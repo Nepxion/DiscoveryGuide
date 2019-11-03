@@ -9,7 +9,7 @@
 
 如果本文档由于Github网速原因无法完整阅读，请访问
 - [Nepxion Discovery【探索】微服务企业级解决方案(PDF)](http://nepxion.gitee.io/docs/web-doc/discovery-solution-pdf.html)
-- [Nepxion Discovery【探索】指南篇(PDF)](http://nepxion.gitee.io/docs/web-doc/discovery-guide-pdf.html)或者[Nepxion Discovery【探索】指南篇(HTML)](http://nepxion.gitee.io/docs/web-doc/discovery-guide.html)
+- [Nepxion Discovery【探索】指南篇(PDF)](http://nepxion.gitee.io/docs/web-doc/discovery-guide-pdf.html) 或者 [Nepxion Discovery【探索】指南篇(HTML)](http://nepxion.gitee.io/docs/web-doc/discovery-guide.html)
 
 Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley版和Hoxton版而制作，对于Edgware版，使用者需要自行修改。使用指南主要涉及的功能包括：
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、基于机器IP地址和端口的路由
