@@ -38,9 +38,13 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - 灰度路由和发布的自动化测试
 - Docker容器化和Kubernetes平台的无缝支持部署
 
-成为阿里巴巴中间件Nacos和Spring Cloud Alibaba项目的相关开源
+成为阿里巴巴中间件Nacos的相关开源
 
-<img src="https://github.com/HaojunRen/Docs/raw/master/discovery-doc/AwardNacos1.jpg" alt="Nacos" width="400"> <img src="https://github.com/HaojunRen/Docs/raw/master/discovery-doc/AwardSCA1.jpg" alt="Spring Cloud Alibaba" width="400">
+<img src="https://github.com/HaojunRen/Docs/raw/master/discovery-doc/AwardNacos1.jpg" alt="Nacos" width="800">
+
+成为阿里巴巴中间件Spring Cloud Alibaba项目的相关开源
+
+<img src="https://github.com/HaojunRen/Docs/raw/master/discovery-doc/AwardSCA1.jpg" alt="Spring Cloud Alibaba" width="800">
 
 [**Nacos**] 阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
 
