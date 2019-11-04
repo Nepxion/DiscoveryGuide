@@ -21,7 +21,7 @@ Nepxion Discovery【探索】，基于Spring Cloud Discovery服务注册发现�
 - 支持和兼容Spring Cloud Edgware版、Finchley版、Greenwich版和Hoxton版
 
 Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley版和Hoxton版而制作（对于Edgware版，使用者需要自行修改）。使用指南主要涉及的功能包括：
-- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、基于机器IP地址和端口的路由
+- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、机器IP地址和端口的路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本和区域的匹配发布、版本和区域的权重发布
 - 基于多方式的规则和策略推送。包括基于远程配置中心的规则和策略订阅推送（本文以Nacos为例）、基于Actuator Endpoint的规则和策略推送、基于Swagger和Rest的规则和策略推送
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
@@ -76,6 +76,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [版本权重灰度路由策略](#版本权重灰度路由策略)
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
+        - [机器IP地址和端口路由策略](#机器IP地址和端口路由策略)
     - [通过其它方式设置灰度路由策略](#通过其它方式设置灰度路由策略)
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
         - [通过业务参数在过滤器中自定义灰度路由策略](#通过业务参数在过滤器中自定义灰度路由策略)
@@ -317,6 +318,37 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 2. <region-weight>{"discovery-guide-service-a":"dev=85;qa=15", "discovery-guide-service-b":"dev=85;qa=15"}</region-weight>
 ```
 
+#### 机器IP地址和端口路由策略
+增加Spring Cloud Gateway的基于机器IP地址和端口路由策略的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <!-- <address>127.0.0.1:3001</address> -->
+        <!-- <address>127.0.0.1</address> -->
+        <address>3001</address>
+    </strategy>
+</rule>
+```
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-5.jpg)
+
+每个服务调用的端口都可以自行指定，见下面第二条。当所有服务都选同一端口的时候，可以简化成下面第一条（单机版不适用于该策略）
+```
+1. <address>3001</address>
+2. <address>{"discovery-guide-service-a":"3001", "discovery-guide-service-b":"3001"}</address>
+```
+
+如果上述表达式还未满足需求，也可以采用通配符（具体详细用法，参考Spring AntPathMatcher）
+```
+* - 表示调用范围为所有服务的所有端口
+3* - 表示调用范围为所有服务的3开头的所有端口
+```
+或者
+```
+"discovery-guide-service-b":"3*;400?"
+```
+表示discovery-guide-service-b服务的端口调用范围是3开头的所有端口，或者是4开头的所有端口（末尾必须是1个字符）
+
 ### 通过其它方式设置灰度路由策略
 除了上面通过配置中心发布灰度规路由则外，还有如下三种方式，这三种方式既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
 
@@ -347,14 +379,16 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 2. n-d-region-weight={"discovery-guide-service-a":"dev=99;qa=1", "discovery-guide-service-b":"dev=99;qa=1"}
 ```
 
-- 机器IP地址和端口策略：
+- 机器IP地址和端口策略，Header格式如下任选一个：
 ```
-n-d-address={"discovery-guide-service-a":"127.0.0.1:3001", "discovery-guide-service-b":"127.0.0.1:4002"}
+1. n-d-address={"discovery-guide-service-a":"127.0.0.1:3001", "discovery-guide-service-b":"127.0.0.1:4002"}
+2. n-d-address={"discovery-guide-service-a":"127.0.0.1", "discovery-guide-service-b":"127.0.0.1"}
+3. n-d-address={"discovery-guide-service-a":"3001", "discovery-guide-service-b":"4002"}
 ```
-
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-5.jpg)
 
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-6.jpg)
+
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-7.jpg)
 
 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。需要通过如下开关做控制：
 ```vb
@@ -421,7 +455,7 @@ spring.application.strategy.zuul.original.header.ignored=true
     </strategy-customization>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-7.jpg)
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-8.jpg)
 
 - 用户覆盖过滤器的自定义方式
 通过覆盖过滤器方式自定义灰度路由策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务就不需要加，当不存在的网关的时候，服务上就可以考虑。继承GatewayStrategyRouteFilter、ZuulStrategyRouteFilter或者ServiceStrategyRouteFilter，覆盖掉如下方法中的一个或者多个，通过@Bean方式覆盖框架内置的过滤类
