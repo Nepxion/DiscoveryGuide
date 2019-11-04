@@ -11,7 +11,16 @@
 - [Nepxion Discovery【探索】微服务企业级解决方案(PDF版)](http://nepxion.gitee.io/docs/link-doc/discovery-solution-pdf.html)
 - [Nepxion Discovery【探索】指南篇(PDF版)](http://nepxion.gitee.io/docs/link-doc/discovery-guide-pdf.html) 或 [Nepxion Discovery【探索】指南篇(HTML版)](http://nepxion.gitee.io/docs/link-doc/discovery-guide.html)
 
-Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley版和Hoxton版而制作，对于Edgware版，使用者需要自行修改。使用指南主要涉及的功能包括：
+Nepxion Discovery【探索】，基于Spring Cloud Discovery服务注册发现、Ribbon负载均衡、Feign和RestTemplate调用等组件全方位增强的企业级微服务开源解决方案，更贴近企业级需求，更具有企业级的插件引入、开箱即用特征
+- 支持Eureka、Consul、Zookeeper和阿里巴巴的Nacos四个服务注册发现中心
+- 支持阿里巴巴的Nacos、携程的Apollo和Redis三个远程配置中心
+- 支持Hystrix或者阿里巴巴Sentinel的两个熔断隔离限流降级中间件
+- 支持Uber Jaeger和Twitter Zipkin等遵循Opentracing规范的调用链中间件
+- 支持Prometheus、Grafana和Spring Boot Admin监控中间件
+- 支持Spring Cloud Gateway、Zuul网关和微服务三大模块的灰度发布和路由等一系列功能
+- 支持和兼容Spring Cloud Edgware版、Finchley版、Greenwich版和Hoxton版
+
+Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley版和Hoxton版而制作（对于Edgware版，使用者需要自行修改）。使用指南主要涉及的功能包括：
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、基于机器IP地址和端口的路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本和区域的匹配发布、版本和区域的权重发布
 - 基于多方式的规则和策略推送。包括基于远程配置中心的规则和策略订阅推送（本文以Nacos为例）、基于Actuator Endpoint的规则和策略推送、基于Swagger和Rest的规则和策略推送
