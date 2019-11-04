@@ -319,7 +319,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 
 #### 机器IP地址和端口路由策略
-增加Spring Cloud Gateway的基于机器IP地址和端口路由策略的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
+增加Zuul的基于机器IP地址和端口路由策略的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
