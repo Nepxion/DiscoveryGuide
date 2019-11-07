@@ -15,10 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
-import com.nepxion.discovery.guide.service.feign.BFeignImpl;
-
 public class RedisOperation {
-    private static final Logger LOG = LoggerFactory.getLogger(BFeignImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RedisOperation.class);
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;

@@ -1,5 +1,14 @@
 package com.nepxion.discovery.guide.service.middleware;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Ankeway
+ * @version 1.0
+ */
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -12,55 +21,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * <p>Title: Nepxion Discovery</p>
- * <p>Description: Nepxion Discovery</p>
- * <p>Copyright: Copyright (c) 2017-2050</p>
- * <p>Company: Nepxion</p>
- * @author Haojun Ren
- * @version 1.0
- */
-
 @Configuration
 public class RabbitMQOperation {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(RabbitMQOperation.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RabbitMQOperation.class);
 
-	static final String EXCHANGE = "MyGroup";
+    private static final String EXCHANGE = "MyGroup";
+    private static final String ROUTINGKEY = "MyDataId";
 
-	static final String ROUTINGKEY = "MyDataId";
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
-	@Autowired
-	private AmqpTemplate amqpTemplate;
+    @Bean
+    public Queue queue() {
+        return new Queue(RabbitMQOperation.ROUTINGKEY);
+    }
 
-	@Bean
-	public Queue queue() {
-		return new Queue(RabbitMQOperation.ROUTINGKEY);
-	}
+    @Bean
+    public TopicExchange exchange() {
+        return new TopicExchange(RabbitMQOperation.EXCHANGE);
+    }
 
-	@Bean
-	public TopicExchange exchange() {
-		return new TopicExchange(RabbitMQOperation.EXCHANGE);
-	}
+    @Bean
+    Binding bindingExchangeMessages(Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(RabbitMQOperation.ROUTINGKEY);
+    }
 
-	@Bean
-	Binding bindingExchangeMessages(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(RabbitMQOperation.ROUTINGKEY);
-	}
+    public void invokeRabbitMQ() {
+        produceRabbitMQ();
+    }
 
-	public void invokeRabbitMQ() {
-		senderRabbitMQ();
-	}
+    public void produceRabbitMQ() {
+        String message = "MyMessage";
 
-	public void senderRabbitMQ() {
-		String message = "MyMessage";
-		LOG.info("RabbitMQ send, exchange={}, routingKey={}, message={}", RabbitMQOperation.EXCHANGE, RabbitMQOperation.ROUTINGKEY, message);
-		amqpTemplate.convertAndSend(RabbitMQOperation.EXCHANGE, RabbitMQOperation.ROUTINGKEY, message);
-	}
+        amqpTemplate.convertAndSend(RabbitMQOperation.EXCHANGE, RabbitMQOperation.ROUTINGKEY, message);
 
-	@RabbitListener(queues = RabbitMQOperation.ROUTINGKEY)
-	public void receiverRabbitMQ(String message) {
-		LOG.info("RabbitMQ receive, result={}", message);
-	}
-	 
+        LOG.info("RabbitMQ produce, exchange={}, routingKey={}, message={}", RabbitMQOperation.EXCHANGE, RabbitMQOperation.ROUTINGKEY, message);
+    }
+
+    @RabbitListener(queues = RabbitMQOperation.ROUTINGKEY)
+    public void subscribeRabbitMQ(String message) {
+        LOG.info("RabbitMQ subscribe, result={}", message);
+    }
 }
