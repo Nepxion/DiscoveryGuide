@@ -1315,6 +1315,9 @@ Opentracing输出方式以Uber Jaeger为例来说明
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger4.jpg)
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger5.jpg)
 
+主流中间件+灰度全链路监控
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger6.jpg)
+
 请注意如下配置，将决定终端界面的显示
 1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的GRAY Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
 2. 如果关闭，灰度信息输出到原生的Span节点中，意味着在界面显示中，灰度信息会和原生Span节点的调用信息、协议信息等混在一起，缺点是信息庞杂混合，优点是Span节点数不会增长
