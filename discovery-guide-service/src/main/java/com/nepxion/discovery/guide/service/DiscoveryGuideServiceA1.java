@@ -21,6 +21,7 @@ import com.nepxion.discovery.guide.service.impl.MyRestTemplateStrategyIntercepto
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.guide.service.middleware.MongoDBOperation;
+import com.nepxion.discovery.guide.service.middleware.MySQLOperation;
 import com.nepxion.discovery.guide.service.middleware.RabbitMQOperation;
 import com.nepxion.discovery.guide.service.middleware.RedisOperation;
 import com.nepxion.discovery.guide.service.middleware.RocketMQOperation;
@@ -83,6 +84,11 @@ public class DiscoveryGuideServiceA1 {
     @Bean
     public MongoDBOperation mongoDBOperation() {
         return new MongoDBOperation();
+    }
+
+    @Bean
+    public MySQLOperation mySQLOperation() {
+        return new MySQLOperation();
     }
 
     @Bean
