@@ -58,7 +58,8 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
 
         redisOperation.invokeRedis();
         myBatisOperation.invokeMyBatis();
-        mongoDBOperation.invokeMongodb();
+        mongoDBOperation.invokeMongoDB();
+
         return value;
     }
 
