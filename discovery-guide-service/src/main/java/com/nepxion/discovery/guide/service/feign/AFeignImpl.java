@@ -20,7 +20,7 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.middleware.MongoDBOperation;
-import com.nepxion.discovery.guide.service.middleware.MySQLOperation;
+import com.nepxion.discovery.guide.service.middleware.MyBatisOperation;
 import com.nepxion.discovery.guide.service.middleware.RabbitMQOperation;
 import com.nepxion.discovery.guide.service.middleware.RedisOperation;
 import com.nepxion.discovery.guide.service.middleware.RocketMQOperation;
@@ -36,12 +36,13 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     @Override
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
     public String invoke(@PathVariable(value = "value") String value) {
-        redisOperation.invokeRedis();
-
         value = doInvoke(value);
         value = bFeign.invoke(value);
 
         LOG.info("调用路径：{}", value);
+
+        redisOperation.invokeRedis();
+        myBatisOperation.invokeMyBatis();
 
         return value;
     }
@@ -58,7 +59,7 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     private MongoDBOperation mongoDBOperation;
 
     @Autowired
-    private MySQLOperation mySQLOperation;
+    private MyBatisOperation myBatisOperation;
 
     @Autowired
     private RabbitMQOperation rabbitMQOperation;

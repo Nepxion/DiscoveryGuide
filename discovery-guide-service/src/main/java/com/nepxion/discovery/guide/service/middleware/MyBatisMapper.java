@@ -9,6 +9,9 @@ package com.nepxion.discovery.guide.service.middleware;
  * @version 1.0
  */
 
-public class MySQLOperation {
+import org.apache.ibatis.annotations.Select;
 
+public interface MyBatisMapper {
+    @Select("SELECT COUNT(*) FROM permission")
+    int count();
 }
