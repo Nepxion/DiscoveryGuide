@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.guide.service.middleware.MongoDBOperation;
+import com.nepxion.discovery.guide.service.middleware.MySQLOperation;
+import com.nepxion.discovery.guide.service.middleware.RabbitMQOperation;
+import com.nepxion.discovery.guide.service.middleware.RedisOperation;
+import com.nepxion.discovery.guide.service.middleware.RocketMQOperation;
 
 @RestController
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-a")
@@ -31,6 +36,8 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     @Override
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
     public String invoke(@PathVariable(value = "value") String value) {
+        redisOperation.invokeRedis();
+
         value = doInvoke(value);
         value = bFeign.invoke(value);
 
@@ -46,4 +53,19 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     public String handleFallback(String value) {
         return value + "-> A server sentinel fallback";
     }
+
+    @Autowired
+    private MongoDBOperation mongoDBOperation;
+
+    @Autowired
+    private MySQLOperation mySQLOperation;
+
+    @Autowired
+    private RabbitMQOperation rabbitMQOperation;
+
+    @Autowired
+    private RedisOperation redisOperation;
+
+    @Autowired
+    private RocketMQOperation rocketMQOperation;
 }
