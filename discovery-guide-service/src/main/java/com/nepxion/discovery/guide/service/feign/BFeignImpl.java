@@ -35,6 +35,8 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     public String invoke(@PathVariable(value = "value") String value) {
         value = doInvoke(value);
 
+        redisOperation.invokeRedis();
+
         LOG.info("调用路径：{}", value);
 
         return value;
@@ -50,9 +52,9 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
     @Autowired
     private MongoDBOperation mongoDBOperation;
-    
+
     @Autowired
-    private MySQLOperation mySQLOperation;    
+    private MySQLOperation mySQLOperation;
 
     @Autowired
     private RabbitMQOperation rabbitMQOperation;
