@@ -1315,7 +1315,7 @@ Opentracing输出方式以Uber Jaeger为例来说明
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger4.jpg)
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger5.jpg)
 
-主流中间件+灰度全链路监控
+集成主流中间件 + 灰度全链路监控
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger6.jpg)
 
 请注意如下配置，将决定终端界面的显示
