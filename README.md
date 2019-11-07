@@ -1305,7 +1305,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 
 Opentracing输出方式以Uber Jaeger为例来说明
 
-1. 从[网盘主页](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)获取Jaeger-1.14.0.zip，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
+1. 从[网盘文档](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)获取，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
 2. 执行Postman调用后，访问[http://localhost:16686](http://localhost:16686)查看灰度调用链
 3. 灰度调用链支持WebMvc和WebFlux两种方式，以GRAY字样的标记来标识
 
