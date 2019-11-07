@@ -33,6 +33,21 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     @Autowired
     private BFeign bFeign;
 
+    @Autowired
+    private MongoDBOperation mongoDBOperation;
+
+    @Autowired
+    private MyBatisOperation myBatisOperation;
+
+    @Autowired
+    private RabbitMQOperation rabbitMQOperation;
+
+    @Autowired
+    private RedisOperation redisOperation;
+
+    @Autowired
+    private RocketMQOperation rocketMQOperation;
+
     @Override
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
     public String invoke(@PathVariable(value = "value") String value) {
@@ -54,19 +69,4 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     public String handleFallback(String value) {
         return value + "-> A server sentinel fallback";
     }
-
-    @Autowired
-    private MongoDBOperation mongoDBOperation;
-
-    @Autowired
-    private MyBatisOperation myBatisOperation;
-
-    @Autowired
-    private RabbitMQOperation rabbitMQOperation;
-
-    @Autowired
-    private RedisOperation redisOperation;
-
-    @Autowired
-    private RocketMQOperation rocketMQOperation;
 }

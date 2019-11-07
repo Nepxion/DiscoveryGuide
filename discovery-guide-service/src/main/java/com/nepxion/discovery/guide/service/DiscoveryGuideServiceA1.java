@@ -9,7 +9,6 @@ package com.nepxion.discovery.guide.service;
  * @version 1.0
  */
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -21,11 +20,6 @@ import com.nepxion.discovery.guide.service.impl.MyFeignStrategyInterceptorAdapte
 import com.nepxion.discovery.guide.service.impl.MyRestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
-import com.nepxion.discovery.guide.service.middleware.MongoDBOperation;
-import com.nepxion.discovery.guide.service.middleware.MyBatisOperation;
-import com.nepxion.discovery.guide.service.middleware.RabbitMQOperation;
-import com.nepxion.discovery.guide.service.middleware.RedisOperation;
-import com.nepxion.discovery.guide.service.middleware.RocketMQOperation;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.service.adapter.FeignStrategyInterceptorAdapter;
@@ -35,7 +29,6 @@ import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.ServiceSen
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@MapperScan("com.nepxion.discovery.guide.service")
 public class DiscoveryGuideServiceA1 {
     public static void main(String[] args) {
         System.setProperty("nepxion.banner.shown.ansi.mode", "true");
@@ -81,30 +74,5 @@ public class DiscoveryGuideServiceA1 {
     @Bean
     public StrategyTracerAdapter strategyTracerAdapter() {
         return new MyStrategyTracerAdapter();
-    }
-
-    @Bean
-    public MongoDBOperation mongoDBOperation() {
-        return new MongoDBOperation();
-    }
-
-    @Bean
-    public MyBatisOperation myBatisOperation() {
-        return new MyBatisOperation();
-    }
-
-    @Bean
-    public RabbitMQOperation rabbitMQOperation() {
-        return new RabbitMQOperation();
-    }
-
-    @Bean
-    public RedisOperation redisOperation() {
-        return new RedisOperation();
-    }
-
-    @Bean
-    public RocketMQOperation rocketMQOperation() {
-        return new RocketMQOperation();
     }
 }
