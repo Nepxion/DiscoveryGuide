@@ -1316,7 +1316,9 @@ Opentracing输出方式以Uber Jaeger为例来说明
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger5.jpg)
 
 集成主流中间件 + 灰度全链路监控
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger6.jpg)
+
+代码请从[指南示例高级版](https://github.com/Nepxion/DiscoveryGuide)获取，分支premium
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger.jpg)
 
 请注意如下配置，将决定终端界面的显示
 1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的GRAY Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
