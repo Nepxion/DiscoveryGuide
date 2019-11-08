@@ -33,17 +33,17 @@ public class RabbitMQOperation {
 
     @Bean
     public Queue queue() {
-        return new Queue(RabbitMQOperation.ROUTINGKEY);
+        return new Queue(ROUTINGKEY);
     }
 
     @Bean
     public TopicExchange exchange() {
-        return new TopicExchange(RabbitMQOperation.EXCHANGE);
+        return new TopicExchange(EXCHANGE);
     }
 
     @Bean
     Binding bindingExchangeMessages(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(RabbitMQOperation.ROUTINGKEY);
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTINGKEY);
     }
 
     public void invokeRabbitMQ() {
@@ -53,12 +53,12 @@ public class RabbitMQOperation {
     public void produceRabbitMQ() {
         String message = "MyMessage";
 
-        amqpTemplate.convertAndSend(RabbitMQOperation.EXCHANGE, RabbitMQOperation.ROUTINGKEY, message);
+        amqpTemplate.convertAndSend(EXCHANGE, ROUTINGKEY, message);
 
-        LOG.info("RabbitMQ produce, exchange={}, routingKey={}, message={}", RabbitMQOperation.EXCHANGE, RabbitMQOperation.ROUTINGKEY, message);
+        LOG.info("RabbitMQ produce, exchange={}, routingKey={}, message={}", EXCHANGE, ROUTINGKEY, message);
     }
 
-    @RabbitListener(queues = RabbitMQOperation.ROUTINGKEY)
+    @RabbitListener(queues = ROUTINGKEY)
     public void subscribeRabbitMQ(String message) {
         LOG.info("RabbitMQ subscribe, result={}", message);
     }
