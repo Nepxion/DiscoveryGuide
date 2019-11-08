@@ -9,6 +9,11 @@ package com.nepxion.discovery.guide.service.middleware;
  * @version 1.0
  */
 
-public class RocketMQOperation {
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
+public class RocketMQOperation {
+    public void invokeRocketMQ() {
+
+    }
 }

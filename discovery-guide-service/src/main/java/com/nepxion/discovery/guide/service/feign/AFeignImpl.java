@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.guide.service.middleware.ActiveMQOperation;
 import com.nepxion.discovery.guide.service.middleware.MongoDBOperation;
 import com.nepxion.discovery.guide.service.middleware.MyBatisOperation;
 import com.nepxion.discovery.guide.service.middleware.RabbitMQOperation;
@@ -34,16 +35,19 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     private BFeign bFeign;
 
     @Autowired
-    private MongoDBOperation mongoDBOperation;
+    private MyBatisOperation myBatisOperation;
 
     @Autowired
-    private MyBatisOperation myBatisOperation;
+    private RedisOperation redisOperation;
+
+    @Autowired
+    private MongoDBOperation mongoDBOperation;
 
     @Autowired
     private RabbitMQOperation rabbitMQOperation;
 
     @Autowired
-    private RedisOperation redisOperation;
+    private ActiveMQOperation activeMQOperation;
 
     @Autowired
     private RocketMQOperation rocketMQOperation;
@@ -56,10 +60,12 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
 
         LOG.info("调用路径：{}", value);
 
-        redisOperation.invokeRedis();
         myBatisOperation.invokeMyBatis();
-        rabbitMQOperation.invokeRabbitMQ();
+        redisOperation.invokeRedis();
         mongoDBOperation.invokeMongoDB();
+        rabbitMQOperation.invokeRabbitMQ();
+        activeMQOperation.invokeActiveMQ();
+        rocketMQOperation.invokeRocketMQ();
 
         return value;
     }

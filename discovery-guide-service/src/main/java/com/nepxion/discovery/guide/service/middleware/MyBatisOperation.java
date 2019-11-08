@@ -9,10 +9,14 @@ package com.nepxion.discovery.guide.service.middleware;
  * @version 1.0
  */
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
+@MapperScan("com.nepxion.discovery.guide.service.middleware")
 public class MyBatisOperation {
     private static final Logger LOG = LoggerFactory.getLogger(MyBatisOperation.class);
 

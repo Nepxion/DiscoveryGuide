@@ -42,7 +42,7 @@ public class RabbitMQOperation {
     }
 
     @Bean
-    Binding bindingExchangeMessages(Queue queue, TopicExchange exchange) {
+    public Binding bindingExchangeMessages(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(ROUTINGKEY);
     }
 
@@ -60,6 +60,6 @@ public class RabbitMQOperation {
 
     @RabbitListener(queues = ROUTINGKEY)
     public void subscribeRabbitMQ(String message) {
-        LOG.info("RabbitMQ subscribe, result={}", message);
+        LOG.info("RabbitMQ subscribe, message={}", message);
     }
 }
