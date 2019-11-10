@@ -43,6 +43,6 @@ public class MongoDBOperation {
         Query query = Query.query(criteria);
         List<MongoDBEntity> mongoDBEntityList = mongoTemplate.find(query, MongoDBEntity.class);
 
-        LOG.info("::::: MongoDB got, group={}, dataId={}, result={}", group, dataId, mongoDBEntityList);
+        LOG.info("::::: MongoDB got, group={}, dataId={}, result count={}", group, dataId, mongoDBEntityList.size());
     }
 }
