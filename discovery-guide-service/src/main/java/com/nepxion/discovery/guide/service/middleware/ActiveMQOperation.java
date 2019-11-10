@@ -34,11 +34,11 @@ public class ActiveMQOperation {
 
         jmsMessagingTemplate.convertAndSend(DESTINATION, message);
 
-        LOG.info("ActiveMQ produce, destination={}, message={}", DESTINATION, message);
+        LOG.info("::::: ActiveMQ produced, destination={}, message={}", DESTINATION, message);
     }
 
     @JmsListener(destination = DESTINATION)
     public void subscribe(String message) {
-        LOG.info("ActiveMQ subscribe, message={}", message);
+        LOG.info("::::: ActiveMQ subscribed, message={}", message);
     }
 }

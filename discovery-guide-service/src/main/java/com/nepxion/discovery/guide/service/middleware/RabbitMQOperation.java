@@ -55,11 +55,11 @@ public class RabbitMQOperation {
 
         amqpTemplate.convertAndSend(EXCHANGE, ROUTINGKEY, message);
 
-        LOG.info("RabbitMQ produce, exchange={}, routingKey={}, message={}", EXCHANGE, ROUTINGKEY, message);
+        LOG.info("::::: RabbitMQ produced, exchange={}, routingKey={}, message={}", EXCHANGE, ROUTINGKEY, message);
     }
 
     @RabbitListener(queues = ROUTINGKEY)
     public void subscribe(String message) {
-        LOG.info("RabbitMQ subscribe, message={}", message);
+        LOG.info("::::: RabbitMQ subscribed, message={}", message);
     }
 }

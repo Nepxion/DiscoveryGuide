@@ -33,10 +33,10 @@ public class RedisOperation {
         hashOperations.put(group, dataId, message);
         stringRedisTemplate.convertAndSend(group + "-" + dataId, message);
 
-        LOG.info("Redis publish, group={}, dataId={}, message={}", group, dataId, message);
+        LOG.info("::::: Redis published, group={}, dataId={}, message={}", group, dataId, message);
 
         String result = hashOperations.get(group, dataId);
 
-        LOG.info("Redis get, group={}, dataId={}, result={}", group, dataId, result);
+        LOG.info("::::: Redis got, group={}, dataId={}, result={}", group, dataId, result);
     }
 }

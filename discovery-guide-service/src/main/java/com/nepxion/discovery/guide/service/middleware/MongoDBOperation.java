@@ -37,12 +37,12 @@ public class MongoDBOperation {
         mongoDBEntity.setMessage(message);
         mongoTemplate.save(mongoDBEntity);
 
-        LOG.info("MongoDB save, group={}, dataId={}, message={}", group, dataId, message);
+        LOG.info("::::: MongoDB saved, group={}, dataId={}, message={}", group, dataId, message);
 
         Criteria criteria = Criteria.where("group").is(group);
         Query query = Query.query(criteria);
         List<MongoDBEntity> mongoDBEntityList = mongoTemplate.find(query, MongoDBEntity.class);
 
-        LOG.info("MongoDB get, group={}, dataId={}, result={}", group, dataId, mongoDBEntityList);
+        LOG.info("::::: MongoDB got, group={}, dataId={}, result={}", group, dataId, mongoDBEntityList);
     }
 }

@@ -26,6 +26,6 @@ public class MyBatisOperation {
     public void operate() {
         int count = myBatisMapper.count();
 
-        LOG.info("MyBatis select count={}", count);
+        LOG.info("::::: MyBatis selected count={}", count);
     }
 }
