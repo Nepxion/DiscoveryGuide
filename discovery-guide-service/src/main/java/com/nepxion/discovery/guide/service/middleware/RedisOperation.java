@@ -23,7 +23,7 @@ public class RedisOperation {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    public void invokeRedis() {
+    public void operate() {
         HashOperations<String, String, String> hashOperations = stringRedisTemplate.opsForHash();
 
         String group = "MyGroup";

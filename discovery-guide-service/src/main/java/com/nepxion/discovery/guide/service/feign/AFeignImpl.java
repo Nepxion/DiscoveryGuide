@@ -19,12 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
-import com.nepxion.discovery.guide.service.middleware.ActiveMQOperation;
-import com.nepxion.discovery.guide.service.middleware.MongoDBOperation;
-import com.nepxion.discovery.guide.service.middleware.MyBatisOperation;
-import com.nepxion.discovery.guide.service.middleware.RabbitMQOperation;
-import com.nepxion.discovery.guide.service.middleware.RedisOperation;
-import com.nepxion.discovery.guide.service.middleware.RocketMQOperation;
+import com.nepxion.discovery.guide.service.middleware.MiddlewareOperation;
 
 @RestController
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-a")
@@ -35,22 +30,7 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     private BFeign bFeign;
 
     @Autowired
-    private MyBatisOperation myBatisOperation;
-
-    @Autowired
-    private RedisOperation redisOperation;
-
-    @Autowired
-    private MongoDBOperation mongoDBOperation;
-
-    @Autowired
-    private RabbitMQOperation rabbitMQOperation;
-
-    @Autowired
-    private ActiveMQOperation activeMQOperation;
-
-    @Autowired
-    private RocketMQOperation rocketMQOperation;
+    private MiddlewareOperation middlewareOperation;
 
     @Override
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
@@ -60,12 +40,7 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
 
         LOG.info("调用路径：{}", value);
 
-        myBatisOperation.invokeMyBatis();
-        redisOperation.invokeRedis();
-        mongoDBOperation.invokeMongoDB();
-        rabbitMQOperation.invokeRabbitMQ();
-        activeMQOperation.invokeActiveMQ();
-        rocketMQOperation.invokeRocketMQ();
+        middlewareOperation.operate();
 
         return value;
     }

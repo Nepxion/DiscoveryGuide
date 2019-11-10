@@ -23,7 +23,7 @@ public class MyBatisOperation {
     @Autowired
     private MyBatisMapper myBatisMapper;
 
-    public void invokeMyBatis() {
+    public void operate() {
         int count = myBatisMapper.count();
 
         LOG.info("MyBatis select count={}", count);

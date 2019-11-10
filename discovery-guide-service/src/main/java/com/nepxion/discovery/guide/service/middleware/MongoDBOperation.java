@@ -26,7 +26,7 @@ public class MongoDBOperation {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public void invokeMongoDB() {
+    public void operate() {
         String group = "MyGroup";
         String dataId = "MyDataId";
         String message = "MyMessage";

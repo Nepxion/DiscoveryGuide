@@ -46,11 +46,11 @@ public class RabbitMQOperation {
         return BindingBuilder.bind(queue).to(exchange).with(ROUTINGKEY);
     }
 
-    public void invokeRabbitMQ() {
-        produceRabbitMQ();
+    public void operate() {
+        produce();
     }
 
-    public void produceRabbitMQ() {
+    public void produce() {
         String message = "MyMessage";
 
         amqpTemplate.convertAndSend(EXCHANGE, ROUTINGKEY, message);
@@ -59,7 +59,7 @@ public class RabbitMQOperation {
     }
 
     @RabbitListener(queues = ROUTINGKEY)
-    public void subscribeRabbitMQ(String message) {
+    public void subscribe(String message) {
         LOG.info("RabbitMQ subscribe, message={}", message);
     }
 }

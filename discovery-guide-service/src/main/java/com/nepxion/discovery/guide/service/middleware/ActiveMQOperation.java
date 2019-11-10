@@ -25,11 +25,11 @@ public class ActiveMQOperation {
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
 
-    public void invokeActiveMQ() {
-        produceActiveMQ();
+    public void operate() {
+        produce();
     }
 
-    public void produceActiveMQ() {
+    public void produce() {
         String message = "MyMessage";
 
         jmsMessagingTemplate.convertAndSend(DESTINATION, message);
@@ -38,7 +38,7 @@ public class ActiveMQOperation {
     }
 
     @JmsListener(destination = DESTINATION)
-    public void subscribeActiveMQ(String message) {
+    public void subscribe(String message) {
         LOG.info("ActiveMQ subscribe, message={}", message);
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RocketMQOperation {
-    public void invokeRocketMQ() {
+    public void operate() {
 
     }
 }
