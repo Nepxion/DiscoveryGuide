@@ -17,6 +17,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 public class DiscoveryGuideConsole {
     public static void main(String[] args) {
+        // 彩色旗标显示设置
         System.setProperty("nepxion.banner.shown.ansi.mode", "true");
 
         new SpringApplicationBuilder(DiscoveryGuideConsole.class).run(args);
