@@ -23,6 +23,7 @@ import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 @EnableDiscoveryClient
 public class DiscoveryGuideGateway {
     public static void main(String[] args) {
+        // 彩色旗标显示设置
         System.setProperty("nepxion.banner.shown.ansi.mode", "true");
 
         new SpringApplicationBuilder(DiscoveryGuideGateway.class).run(args);

@@ -58,6 +58,7 @@ public class MyTest {
 
     @BeforeClass
     public static void beforeTest() {
+        // 彩色旗标显示设置
         System.setProperty("nepxion.banner.shown.ansi.mode", "true");
 
         startTime = System.currentTimeMillis();
