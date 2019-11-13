@@ -379,7 +379,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 2. n-d-region-weight={"discovery-guide-service-a":"dev=99;qa=1", "discovery-guide-service-b":"dev=99;qa=1"}
 ```
 
-- 机器IP地址和端口策略，Header格式如下任选一个：
+- 机器IP地址和端口匹配策略，Header格式如下任选一个：
 ```
 1. n-d-address={"discovery-guide-service-a":"127.0.0.1:3001", "discovery-guide-service-b":"127.0.0.1:4002"}
 2. n-d-address={"discovery-guide-service-a":"127.0.0.1", "discovery-guide-service-b":"127.0.0.1"}
