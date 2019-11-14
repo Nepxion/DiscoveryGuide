@@ -1,4 +1,4 @@
-﻿@echo on
+@echo on
 @echo =============================================================
 @echo $                                                           $
 @echo $                     Nepxion Discovery                     $
