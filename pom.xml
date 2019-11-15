@@ -20,20 +20,20 @@
     <properties>
         <discovery.version>5.5.0</discovery.version>
 
-        <!-- <spring.cloud.version>Hoxton.RC2</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
+        <!-- <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
+        <spring.cloud.alibaba.version>2.2.0.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.2.1.RELEASE</spring.boot.version>
         <spring.boot.admin.version>2.1.6</spring.boot.admin.version>
         <micrometer.prometheus.version>1.3.1</micrometer.prometheus.version> -->
 
         <spring.cloud.version>Greenwich.SR3</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.1.0.RELEASE</spring.cloud.alibaba.version>
+        <spring.cloud.alibaba.version>2.1.1.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.1.10.RELEASE</spring.boot.version>
         <spring.boot.admin.version>2.1.6</spring.boot.admin.version>
         <micrometer.prometheus.version>1.3.1</micrometer.prometheus.version>
 
         <!-- <spring.cloud.version>Finchley.SR4</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.0.0.RELEASE</spring.cloud.alibaba.version>
+        <spring.cloud.alibaba.version>2.0.1.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.0.7.RELEASE</spring.boot.version>
         <spring.boot.admin.version>2.0.6</spring.boot.admin.version>
         <micrometer.prometheus.version>1.0.11</micrometer.prometheus.version> -->
