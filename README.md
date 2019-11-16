@@ -1314,14 +1314,14 @@ Opentracing输出方式以Uber Jaeger为例来说明
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger3.jpg)
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger4.jpg)
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger5.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger6.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger7.jpg)
 
 集成主流中间件 + 灰度全链路监控
 
 代码请从[指南示例高级版](https://github.com/Nepxion/DiscoveryGuide)获取，分支为premium。运行出下图强大效果的前提，需要事先搭建Nacos、Jaeger、ActiveMQ、MongoDB、RabbitMQ、Redis、RocketMQ以及MySQL数据库等环境
 使用者如果不想搭建环境，想直接观看效果，可以直接把[离线数据](https://github.com/Nepxion/DiscoveryGuide/raw/master/tracing.json)导入到Jaeger界面（JSON File栏，拖进去即可），观看到下图效果
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger.jpg)
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/JaegerPremium1.jpg)
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/JaegerPremium2.jpg)
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/JaegerPremium3.jpg)
 
 请注意如下配置，将决定终端界面的显示
 1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的GRAY Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
