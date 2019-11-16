@@ -1,0 +1,1383 @@
+{
+    "data": [
+        {
+            "traceID": "41b32aadccc46ae9",
+            "spans": [
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "25737dfdb149c46b",
+                    "flags": 1,
+                    "operationName": "GRAY",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "41b32aadccc46ae9"
+                        }
+                    ],
+                    "startTime": 1573884934584000,
+                    "duration": 563491,
+                    "tags": [
+                        {
+                            "key": "n-d-service-group",
+                            "type": "string",
+                            "value": "discovery-guide-group"
+                        },
+                        {
+                            "key": "n-d-service-type",
+                            "type": "string",
+                            "value": "gateway"
+                        },
+                        {
+                            "key": "n-d-service-id",
+                            "type": "string",
+                            "value": "discovery-guide-gateway"
+                        },
+                        {
+                            "key": "mobile",
+                            "type": "string",
+                            "value": ""
+                        },
+                        {
+                            "key": "n-d-service-region",
+                            "type": "string",
+                            "value": "default"
+                        },
+                        {
+                            "key": "span-id",
+                            "type": "string",
+                            "value": "25737dfdb149c46b"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "gray"
+                        },
+                        {
+                            "key": "n-d-service-address",
+                            "type": "string",
+                            "value": "10.0.75.1:5001"
+                        },
+                        {
+                            "key": "plugin",
+                            "type": "string",
+                            "value": "Nepxion Discovery"
+                        },
+                        {
+                            "key": "trace-id",
+                            "type": "string",
+                            "value": "41b32aadccc46ae9"
+                        },
+                        {
+                            "key": "n-d-service-version",
+                            "type": "string",
+                            "value": "1.0"
+                        },
+                        {
+                            "key": "user",
+                            "type": "string",
+                            "value": ""
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p1",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "148c385b8e4138ac",
+                    "flags": 1,
+                    "operationName": "GET",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884936146000,
+                    "duration": 505283,
+                    "tags": [
+                        {
+                            "key": "http.status_code",
+                            "type": "int64",
+                            "value": 200
+                        },
+                        {
+                            "key": "http.url",
+                            "type": "string",
+                            "value": "http://10.0.75.1:4001/invoke/gateway%20-%3E%20discovery-guide-service-a%5B10.0.75.1:3001%5D%5BV=1.0%5D%5BR=dev%5D%5BG=discovery-guide-group%5D"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "feign"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "client"
+                        },
+                        {
+                            "key": "http.method",
+                            "type": "string",
+                            "value": "GET"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "427791589131a674",
+                    "flags": 1,
+                    "operationName": "GRAY",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "854056ed9bd1da72"
+                        }
+                    ],
+                    "startTime": 1573884936591000,
+                    "duration": 29834,
+                    "tags": [
+                        {
+                            "key": "n-d-service-group",
+                            "type": "string",
+                            "value": "discovery-guide-group"
+                        },
+                        {
+                            "key": "method",
+                            "type": "string",
+                            "value": "invoke"
+                        },
+                        {
+                            "key": "n-d-service-type",
+                            "type": "string",
+                            "value": "service"
+                        },
+                        {
+                            "key": "n-d-service-id",
+                            "type": "string",
+                            "value": "discovery-guide-service-b"
+                        },
+                        {
+                            "key": "mobile",
+                            "type": "string",
+                            "value": ""
+                        },
+                        {
+                            "key": "n-d-service-region",
+                            "type": "string",
+                            "value": "qa"
+                        },
+                        {
+                            "key": "span-id",
+                            "type": "string",
+                            "value": "427791589131a674"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "gray"
+                        },
+                        {
+                            "key": "n-d-service-address",
+                            "type": "string",
+                            "value": "10.0.75.1:4001"
+                        },
+                        {
+                            "key": "plugin",
+                            "type": "string",
+                            "value": "Nepxion Discovery"
+                        },
+                        {
+                            "key": "trace-id",
+                            "type": "string",
+                            "value": "41b32aadccc46ae9"
+                        },
+                        {
+                            "key": "n-d-service-version",
+                            "type": "string",
+                            "value": "1.0"
+                        },
+                        {
+                            "key": "user",
+                            "type": "string",
+                            "value": ""
+                        },
+                        {
+                            "key": "class",
+                            "type": "string",
+                            "value": "com.nepxion.discovery.guide.service.feign.BFeignImpl"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p3",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "854056ed9bd1da72",
+                    "flags": 1,
+                    "operationName": "invoke",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "148c385b8e4138ac"
+                        }
+                    ],
+                    "startTime": 1573884936391000,
+                    "duration": 267089,
+                    "tags": [
+                        {
+                            "key": "http.status_code",
+                            "type": "int64",
+                            "value": 200
+                        },
+                        {
+                            "key": "http.url",
+                            "type": "string",
+                            "value": "http://10.0.75.1:4001/invoke/gateway%20-%3E%20discovery-guide-service-a%5B10.0.75.1:3001%5D%5BV=1.0%5D%5BR=dev%5D%5BG=discovery-guide-group%5D"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-web-servlet"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "server"
+                        },
+                        {
+                            "key": "http.method",
+                            "type": "string",
+                            "value": "GET"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [
+                        {
+                            "timestamp": 1573884936422000,
+                            "fields": [
+                                {
+                                    "key": "event",
+                                    "type": "string",
+                                    "value": "preHandle"
+                                },
+                                {
+                                    "key": "handler",
+                                    "type": "string",
+                                    "value": "public java.lang.String com.nepxion.discovery.guide.service.feign.BFeignImpl.invoke(java.lang.String)"
+                                },
+                                {
+                                    "key": "handler.class_simple_name",
+                                    "type": "string",
+                                    "value": "BFeignImpl"
+                                },
+                                {
+                                    "key": "handler.method_name",
+                                    "type": "string",
+                                    "value": "invoke"
+                                }
+                            ]
+                        },
+                        {
+                            "timestamp": 1573884936651000,
+                            "fields": [
+                                {
+                                    "key": "event",
+                                    "type": "string",
+                                    "value": "afterCompletion"
+                                },
+                                {
+                                    "key": "handler",
+                                    "type": "string",
+                                    "value": "public java.lang.String com.nepxion.discovery.guide.service.feign.BFeignImpl.invoke(java.lang.String)"
+                                }
+                            ]
+                        }
+                    ],
+                    "processID": "p3",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "588e80008df45c4c",
+                    "flags": 1,
+                    "operationName": "Execute",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884937820000,
+                    "duration": 63614,
+                    "tags": [
+                        {
+                            "key": "db.instance",
+                            "type": "string",
+                            "value": "permission"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-jdbc"
+                        },
+                        {
+                            "key": "db.type",
+                            "type": "string",
+                            "value": "mysql"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "client"
+                        },
+                        {
+                            "key": "db.statement",
+                            "type": "string",
+                            "value": "SELECT COUNT(*) FROM permission"
+                        },
+                        {
+                            "key": "peer.address",
+                            "type": "string",
+                            "value": "127.0.0.1:3306"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "66007621feb55a10",
+                    "flags": 1,
+                    "operationName": "HGET",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884938223000,
+                    "duration": 1922,
+                    "tags": [
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-redis"
+                        },
+                        {
+                            "key": "db.type",
+                            "type": "string",
+                            "value": "redis"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "client"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "83c787cdab4f9576",
+                    "flags": 1,
+                    "operationName": "insert",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884938413000,
+                    "duration": 86222,
+                    "tags": [
+                        {
+                            "key": "db.instance",
+                            "type": "string",
+                            "value": "test"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-mongo"
+                        },
+                        {
+                            "key": "db.type",
+                            "type": "string",
+                            "value": "mongo"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "client"
+                        },
+                        {
+                            "key": "db.statement",
+                            "type": "string",
+                            "value": "{ \"insert\" : \"MongoDBEntity\", \"ordered\" : true, \"$db\" : \"test\", \"documents\" : [{ \"_id\" : { \"$oid\" : \"5dcf940a0b9edf4ba082c049\" }, \"group\" : \"MyGroup\", \"dataId\" : \"MyDataId\", \"message\" : \"MyMessage\", \"_class\" : \"com.nepxion.discovery.guide.service.middleware.MongoDBEntity\" }] }"
+                        },
+                        {
+                            "key": "peer.hostname",
+                            "type": "string",
+                            "value": "localhost"
+                        },
+                        {
+                            "key": "peer.port",
+                            "type": "int64",
+                            "value": 27017
+                        },
+                        {
+                            "key": "peer.ipv4",
+                            "type": "string",
+                            "value": "127.0.0.1"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "3e89b8a26a5e0eb1",
+                    "flags": 1,
+                    "operationName": "HSET",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884938179000,
+                    "duration": 38528,
+                    "tags": [
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-redis"
+                        },
+                        {
+                            "key": "db.type",
+                            "type": "string",
+                            "value": "redis"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "client"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "ef4f5a70e7ae98d3",
+                    "flags": 1,
+                    "operationName": "consumer",
+                    "references": [
+                        {
+                            "refType": "FOLLOWS_FROM",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "1b1c71e03d90d9ec"
+                        }
+                    ],
+                    "startTime": 1573884938629000,
+                    "duration": 6603,
+                    "tags": [
+                        {
+                            "key": "routingkey",
+                            "type": "string",
+                            "value": "MyDataId"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "rabbitmq"
+                        },
+                        {
+                            "key": "consumerqueue",
+                            "type": "string",
+                            "value": "MyDataId"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "consumer"
+                        },
+                        {
+                            "key": "messageid",
+                            "type": "string",
+                            "value": "null"
+                        },
+                        {
+                            "key": "exchange",
+                            "type": "string",
+                            "value": "MyGroup"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "681b6a8d7d069e99",
+                    "flags": 1,
+                    "operationName": "PUBLISH",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884938219000,
+                    "duration": 1319,
+                    "tags": [
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-redis"
+                        },
+                        {
+                            "key": "db.type",
+                            "type": "string",
+                            "value": "redis"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "client"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "36f3089a8bdd9329",
+                    "flags": 1,
+                    "operationName": "find",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884938569000,
+                    "duration": 10960,
+                    "tags": [
+                        {
+                            "key": "db.instance",
+                            "type": "string",
+                            "value": "test"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-mongo"
+                        },
+                        {
+                            "key": "db.type",
+                            "type": "string",
+                            "value": "mongo"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "client"
+                        },
+                        {
+                            "key": "db.statement",
+                            "type": "string",
+                            "value": "{ \"find\" : \"MongoDBEntity\", \"filter\" : { \"group\" : \"MyGroup\" }, \"$db\" : \"test\" }"
+                        },
+                        {
+                            "key": "peer.hostname",
+                            "type": "string",
+                            "value": "localhost"
+                        },
+                        {
+                            "key": "peer.port",
+                            "type": "int64",
+                            "value": 27017
+                        },
+                        {
+                            "key": "peer.ipv4",
+                            "type": "string",
+                            "value": "127.0.0.1"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "cbefa044b15d9a3d",
+                    "flags": 1,
+                    "operationName": "jms-send",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884938689000,
+                    "duration": 20303,
+                    "tags": [
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-jms"
+                        },
+                        {
+                            "key": "message_bus.destination",
+                            "type": "string",
+                            "value": "queue://MyDestination"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "producer"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "71e432bc96682896",
+                    "flags": 1,
+                    "operationName": "jms-receive",
+                    "references": [
+                        {
+                            "refType": "FOLLOWS_FROM",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "cbefa044b15d9a3d"
+                        }
+                    ],
+                    "startTime": 1573884938712000,
+                    "duration": 1293,
+                    "tags": [
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "consumer"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-jms"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "105c4923eb3f3263",
+                    "flags": 1,
+                    "operationName": "GRAY",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884935515000,
+                    "duration": 3216970,
+                    "tags": [
+                        {
+                            "key": "n-d-service-group",
+                            "type": "string",
+                            "value": "discovery-guide-group"
+                        },
+                        {
+                            "key": "method",
+                            "type": "string",
+                            "value": "invoke"
+                        },
+                        {
+                            "key": "n-d-service-type",
+                            "type": "string",
+                            "value": "service"
+                        },
+                        {
+                            "key": "n-d-service-id",
+                            "type": "string",
+                            "value": "discovery-guide-service-a"
+                        },
+                        {
+                            "key": "mobile",
+                            "type": "string",
+                            "value": ""
+                        },
+                        {
+                            "key": "n-d-service-region",
+                            "type": "string",
+                            "value": "dev"
+                        },
+                        {
+                            "key": "span-id",
+                            "type": "string",
+                            "value": "105c4923eb3f3263"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "gray"
+                        },
+                        {
+                            "key": "n-d-service-address",
+                            "type": "string",
+                            "value": "10.0.75.1:3001"
+                        },
+                        {
+                            "key": "plugin",
+                            "type": "string",
+                            "value": "Nepxion Discovery"
+                        },
+                        {
+                            "key": "trace-id",
+                            "type": "string",
+                            "value": "41b32aadccc46ae9"
+                        },
+                        {
+                            "key": "n-d-service-version",
+                            "type": "string",
+                            "value": "1.0"
+                        },
+                        {
+                            "key": "user",
+                            "type": "string",
+                            "value": ""
+                        },
+                        {
+                            "key": "class",
+                            "type": "string",
+                            "value": "com.nepxion.discovery.guide.service.feign.AFeignImpl"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "1b1c71e03d90d9ec",
+                    "flags": 1,
+                    "operationName": "producer",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        },
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "2443d68b43a88181"
+                        }
+                    ],
+                    "startTime": 1573884938617000,
+                    "duration": 6230,
+                    "tags": [
+                        {
+                            "key": "routingkey",
+                            "type": "string",
+                            "value": "MyDataId"
+                        },
+                        {
+                            "key": "messageid",
+                            "type": "string",
+                            "value": "null"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "rabbitmq"
+                        },
+                        {
+                            "key": "exchange",
+                            "type": "string",
+                            "value": "MyGroup"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "producer"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "2443d68b43a88181",
+                    "flags": 1,
+                    "operationName": "invoke",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "5b9955fdb22b5b83"
+                        }
+                    ],
+                    "startTime": 1573884935442000,
+                    "duration": 3319031,
+                    "tags": [
+                        {
+                            "key": "http.status_code",
+                            "type": "int64",
+                            "value": 200
+                        },
+                        {
+                            "key": "http.url",
+                            "type": "string",
+                            "value": "http://10.0.75.1:3001/invoke/gateway"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-web-servlet"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "server"
+                        },
+                        {
+                            "key": "http.method",
+                            "type": "string",
+                            "value": "GET"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [
+                        {
+                            "timestamp": 1573884935492000,
+                            "fields": [
+                                {
+                                    "key": "event",
+                                    "type": "string",
+                                    "value": "preHandle"
+                                },
+                                {
+                                    "key": "handler",
+                                    "type": "string",
+                                    "value": "public java.lang.String com.nepxion.discovery.guide.service.feign.AFeignImpl.invoke(java.lang.String)"
+                                },
+                                {
+                                    "key": "handler.class_simple_name",
+                                    "type": "string",
+                                    "value": "AFeignImpl"
+                                },
+                                {
+                                    "key": "handler.method_name",
+                                    "type": "string",
+                                    "value": "invoke"
+                                }
+                            ]
+                        },
+                        {
+                            "timestamp": 1573884938752000,
+                            "fields": [
+                                {
+                                    "key": "event",
+                                    "type": "string",
+                                    "value": "afterCompletion"
+                                },
+                                {
+                                    "key": "handler",
+                                    "type": "string",
+                                    "value": "public java.lang.String com.nepxion.discovery.guide.service.feign.AFeignImpl.invoke(java.lang.String)"
+                                }
+                            ]
+                        }
+                    ],
+                    "processID": "p2",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "5b9955fdb22b5b83",
+                    "flags": 1,
+                    "operationName": "/invoke/gateway",
+                    "references": [
+                        {
+                            "refType": "CHILD_OF",
+                            "traceID": "41b32aadccc46ae9",
+                            "spanID": "41b32aadccc46ae9"
+                        }
+                    ],
+                    "startTime": 1573884935159000,
+                    "duration": 3592648,
+                    "tags": [
+                        {
+                            "key": "route.id",
+                            "type": "string",
+                            "value": "DiscoveryClientDecorator_discovery-guide-service-a"
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-spring-cloud-gateway"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "client"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [],
+                    "processID": "p1",
+                    "warnings": null
+                },
+                {
+                    "traceID": "41b32aadccc46ae9",
+                    "spanID": "41b32aadccc46ae9",
+                    "flags": 1,
+                    "operationName": "GET",
+                    "references": [],
+                    "startTime": 1573884934504000,
+                    "duration": 4295948,
+                    "tags": [
+                        {
+                            "key": "http.status_code",
+                            "type": "int64",
+                            "value": 200
+                        },
+                        {
+                            "key": "component",
+                            "type": "string",
+                            "value": "java-spring-webflux"
+                        },
+                        {
+                            "key": "span.kind",
+                            "type": "string",
+                            "value": "server"
+                        },
+                        {
+                            "key": "sampler.type",
+                            "type": "string",
+                            "value": "const"
+                        },
+                        {
+                            "key": "sampler.param",
+                            "type": "bool",
+                            "value": true
+                        },
+                        {
+                            "key": "http.url",
+                            "type": "string",
+                            "value": "http://localhost:5001/discovery-guide-service-a/invoke/gateway"
+                        },
+                        {
+                            "key": "peer.hostname",
+                            "type": "string",
+                            "value": "127.0.0.1"
+                        },
+                        {
+                            "key": "peer.port",
+                            "type": "int64",
+                            "value": 42380
+                        },
+                        {
+                            "key": "http.method",
+                            "type": "string",
+                            "value": "GET"
+                        },
+                        {
+                            "key": "peer.ipv4",
+                            "type": "string",
+                            "value": "127.0.0.1"
+                        },
+                        {
+                            "key": "internal.span.format",
+                            "type": "string",
+                            "value": "jaeger"
+                        }
+                    ],
+                    "logs": [
+                        {
+                            "timestamp": 1573884934882000,
+                            "fields": [
+                                {
+                                    "key": "level",
+                                    "type": "string",
+                                    "value": "INFO"
+                                },
+                                {
+                                    "key": "logger",
+                                    "type": "string",
+                                    "value": "com.netflix.config.ChainedDynamicProperty"
+                                },
+                                {
+                                    "key": "message",
+                                    "type": "string",
+                                    "value": "Flipping property: discovery-guide-service-a.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647"
+                                },
+                                {
+                                    "key": "thread",
+                                    "type": "string",
+                                    "value": "reactor-http-nio-2"
+                                }
+                            ]
+                        },
+                        {
+                            "timestamp": 1573884934993000,
+                            "fields": [
+                                {
+                                    "key": "level",
+                                    "type": "string",
+                                    "value": "INFO"
+                                },
+                                {
+                                    "key": "logger",
+                                    "type": "string",
+                                    "value": "com.netflix.loadbalancer.BaseLoadBalancer"
+                                },
+                                {
+                                    "key": "message",
+                                    "type": "string",
+                                    "value": "Client: discovery-guide-service-a instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=discovery-guide-service-a,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null"
+                                },
+                                {
+                                    "key": "thread",
+                                    "type": "string",
+                                    "value": "reactor-http-nio-2"
+                                }
+                            ]
+                        },
+                        {
+                            "timestamp": 1573884935006000,
+                            "fields": [
+                                {
+                                    "key": "level",
+                                    "type": "string",
+                                    "value": "INFO"
+                                },
+                                {
+                                    "key": "logger",
+                                    "type": "string",
+                                    "value": "com.netflix.loadbalancer.DynamicServerListLoadBalancer"
+                                },
+                                {
+                                    "key": "message",
+                                    "type": "string",
+                                    "value": "Using serverListUpdater PollingServerListUpdater"
+                                },
+                                {
+                                    "key": "thread",
+                                    "type": "string",
+                                    "value": "reactor-http-nio-2"
+                                }
+                            ]
+                        },
+                        {
+                            "timestamp": 1573884935023000,
+                            "fields": [
+                                {
+                                    "key": "level",
+                                    "type": "string",
+                                    "value": "INFO"
+                                },
+                                {
+                                    "key": "logger",
+                                    "type": "string",
+                                    "value": "com.netflix.config.ChainedDynamicProperty"
+                                },
+                                {
+                                    "key": "message",
+                                    "type": "string",
+                                    "value": "Flipping property: discovery-guide-service-a.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647"
+                                },
+                                {
+                                    "key": "thread",
+                                    "type": "string",
+                                    "value": "reactor-http-nio-2"
+                                }
+                            ]
+                        },
+                        {
+                            "timestamp": 1573884935027000,
+                            "fields": [
+                                {
+                                    "key": "level",
+                                    "type": "string",
+                                    "value": "INFO"
+                                },
+                                {
+                                    "key": "logger",
+                                    "type": "string",
+                                    "value": "com.netflix.loadbalancer.DynamicServerListLoadBalancer"
+                                },
+                                {
+                                    "key": "message",
+                                    "type": "string",
+                                    "value": "DynamicServerListLoadBalancer for client discovery-guide-service-a initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=discovery-guide-service-a,current list of Servers=[10.0.75.1:3001],Load balancer stats=Zone stats: {unknown=[Zone:unknown;\tInstance count:1;\tActive connections count: 0;\tCircuit breaker tripped count: 0;\tActive connections per server: 0.0;]\n},Server stats: [[Server:10.0.75.1:3001;\tZone:UNKNOWN;\tTotal Requests:0;\tSuccessive connection failure:0;\tTotal blackout seconds:0;\tLast connection made:Thu Jan 01 08:00:00 CST 1970;\tFirst connection made: Thu Jan 01 08:00:00 CST 1970;\tActive Connections:0;\ttotal failure count in last (1000) msecs:0;\taverage resp time:0.0;\t90 percentile resp time:0.0;\t95 percentile resp time:0.0;\tmin resp time:0.0;\tmax resp time:0.0;\tstddev resp time:0.0]\n]}ServerList:com.nepxion.discovery.plugin.framework.decorator.NacosServerListDecorator@18fae765"
+                                },
+                                {
+                                    "key": "thread",
+                                    "type": "string",
+                                    "value": "reactor-http-nio-2"
+                                }
+                            ]
+                        },
+                        {
+                            "timestamp": 1573884935139000,
+                            "fields": [
+                                {
+                                    "key": "level",
+                                    "type": "string",
+                                    "value": "INFO"
+                                },
+                                {
+                                    "key": "logger",
+                                    "type": "string",
+                                    "value": "com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy"
+                                },
+                                {
+                                    "key": "message",
+                                    "type": "string",
+                                    "value": "负载均衡用户定制触发：mobile=null, serviceId=discovery-guide-service-a, version=1.0, region=dev, address=10.0.75.1:3001"
+                                },
+                                {
+                                    "key": "thread",
+                                    "type": "string",
+                                    "value": "reactor-http-nio-2"
+                                }
+                            ]
+                        },
+                        {
+                            "timestamp": 1573884935148000,
+                            "fields": [
+                                {
+                                    "key": "level",
+                                    "type": "string",
+                                    "value": "INFO"
+                                },
+                                {
+                                    "key": "logger",
+                                    "type": "string",
+                                    "value": "io.jaegertracing.internal.reporters.LoggingReporter"
+                                },
+                                {
+                                    "key": "message",
+                                    "type": "string",
+                                    "value": "Span reported: 41b32aadccc46ae9:25737dfdb149c46b:41b32aadccc46ae9:1 - GRAY"
+                                },
+                                {
+                                    "key": "thread",
+                                    "type": "string",
+                                    "value": "reactor-http-nio-2"
+                                }
+                            ]
+                        },
+                        {
+                            "timestamp": 1573884938752000,
+                            "fields": [
+                                {
+                                    "key": "level",
+                                    "type": "string",
+                                    "value": "INFO"
+                                },
+                                {
+                                    "key": "logger",
+                                    "type": "string",
+                                    "value": "io.jaegertracing.internal.reporters.LoggingReporter"
+                                },
+                                {
+                                    "key": "message",
+                                    "type": "string",
+                                    "value": "Span reported: 41b32aadccc46ae9:5b9955fdb22b5b83:41b32aadccc46ae9:1 - /invoke/gateway"
+                                },
+                                {
+                                    "key": "thread",
+                                    "type": "string",
+                                    "value": "reactor-http-nio-6"
+                                }
+                            ]
+                        }
+                    ],
+                    "processID": "p1",
+                    "warnings": null
+                }
+            ],
+            "processes": {
+                "p1": {
+                    "serviceName": "discovery-guide-gateway",
+                    "tags": [
+                        {
+                            "key": "hostname",
+                            "type": "string",
+                            "value": "Nepxion"
+                        },
+                        {
+                            "key": "ip",
+                            "type": "string",
+                            "value": "172.27.208.1"
+                        },
+                        {
+                            "key": "jaeger.version",
+                            "type": "string",
+                            "value": "Java-1.0.0"
+                        }
+                    ]
+                },
+                "p2": {
+                    "serviceName": "discovery-guide-service-a",
+                    "tags": [
+                        {
+                            "key": "hostname",
+                            "type": "string",
+                            "value": "Nepxion"
+                        },
+                        {
+                            "key": "ip",
+                            "type": "string",
+                            "value": "172.27.208.1"
+                        },
+                        {
+                            "key": "jaeger.version",
+                            "type": "string",
+                            "value": "Java-1.0.0"
+                        }
+                    ]
+                },
+                "p3": {
+                    "serviceName": "discovery-guide-service-b",
+                    "tags": [
+                        {
+                            "key": "hostname",
+                            "type": "string",
+                            "value": "Nepxion"
+                        },
+                        {
+                            "key": "ip",
+                            "type": "string",
+                            "value": "172.27.208.1"
+                        },
+                        {
+                            "key": "jaeger.version",
+                            "type": "string",
+                            "value": "Java-1.0.0"
+                        }
+                    ]
+                }
+            },
+            "warnings": null
+        }
+    ],
+    "total": 0,
+    "limit": 0,
+    "offset": 0,
+    "errors": null
+}
