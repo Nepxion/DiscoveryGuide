@@ -39,6 +39,7 @@
         <micrometer.prometheus.version>1.0.11</micrometer.prometheus.version> -->
 
         <opentracing.spring.jaeger.version>2.0.3</opentracing.spring.jaeger.version>
+        <jaeger.client.version>1.0.0</jaeger.client.version>
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -118,6 +119,18 @@
                 <groupId>io.opentracing.contrib</groupId>
                 <artifactId>opentracing-spring-jaeger-starter</artifactId>
                 <version>${opentracing.spring.jaeger.version}</version>
+                <!-- <exclusions>
+                    <exclusion>
+                        <groupId>io.jaegertracing</groupId>
+                        <artifactId>jaeger-client</artifactId>
+                    </exclusion>
+                </exclusions> -->
+            </dependency>
+
+            <dependency>
+                <groupId>io.jaegertracing</groupId>
+                <artifactId>jaeger-client</artifactId>
+                <version>${jaeger.client.version}</version>
             </dependency>
 
             <dependency>
