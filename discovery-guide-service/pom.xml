@@ -68,6 +68,13 @@
             <artifactId>jaeger-client</artifactId>
         </dependency>
 
+        <!-- 框架支持服务的Opentracing异步调用链，可以不引入 -->
+        <dependency>
+            <groupId>io.opentracing.contrib</groupId>
+            <artifactId>opentracing-concurrent</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+
         <!-- 框架支持服务的Spring Boot Admin监控，可以不引入 -->
         <dependency>
             <groupId>de.codecentric</groupId>
