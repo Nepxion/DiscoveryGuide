@@ -9,6 +9,9 @@ package com.nepxion.discovery.guide.service.feign;
  * @version 1.0
  */
 
+import io.opentracing.contrib.concurrent.TracedRunnable;
+import io.opentracing.util.GlobalTracer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,23 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
         middlewareOperation.operate();
 
         return value;
+    }
+
+    @Override
+    @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
+    public String invokeAsync(@PathVariable(value = "value") String value) {
+        Runnable invokeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                bFeign.invoke(value);
+
+                LOG.info("异步调用...");
+            }
+        };
+        TracedRunnable tracedRunnable = new TracedRunnable(invokeRunnable, GlobalTracer.get());
+        new Thread(tracedRunnable).start();
+
+        return "Invoke Async";
     }
 
     public String handleBlock(String value, BlockException e) {
