@@ -32,6 +32,8 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - 全链路调用链监控（Tracing）包括Header方式、Opentracing方式、日志方式等单个或者组合式的全链路灰度调用链。Opentracing方式不支持Edgware版（Spring Boot 1.x.x），不支持Finchley版（Spring Boot 2.0.x）的Spring Cloud Gateway，除此之外的版本都支持
     - 全链路指标监控（Metrics）包括Prometheus、Grafana、Spring Boot Admin
 - 全链路Header传递
+- 全链路服务侧注解
+- 全链路服务侧API权限
 - 元数据Metadata自动化策略。包括基于服务名前缀自动创建灰度组名和基于Git插件自动创建灰度版本号
 - 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
 - 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
@@ -132,6 +134,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
     - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)
 - [全链路服务侧注解](#全链路服务侧注解)
+- [全链路服务侧API权限](#全链路服务侧API权限)
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
@@ -1622,6 +1625,15 @@ spring.application.git.generator.path=file:git.json
 spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.feign
 ```
 当使用者不希望只局限于RestController类（含有@RestController注解）方式，而要求在任何类中实现上述功能，那么框架提供@ServiceStrategy注解，使用者把它加在类头部即可，可以达到和@RestController注解同样的效果
+
+## 全链路服务侧API权限
+
+服务侧对于RPC方式的调用，可以加入API权限控制，通过在接口或者类名上加@Permission注解，或者在接口或者类的方法名上加@Permission注解，实现API权限控制。如果两者都加，以前者为优先
+- 实现权限自动扫描入库
+- 实现提供显式基于注解的权限验证，参数通过注解传递；实现提供基于Rest请求的权限验证，参数通过Header传递
+- 实现提供入库方法和权限判断方法的扩展，这两者需要自行实现
+
+请参考[权限代码](https://github.com/Nepxion/DiscoveryGuide/blob/master/discovery-guide-service/src/main/java/com/nepxion/discovery/guide/service/permission)
 
 ## Docker容器化和Kubernetes平台支持
 
