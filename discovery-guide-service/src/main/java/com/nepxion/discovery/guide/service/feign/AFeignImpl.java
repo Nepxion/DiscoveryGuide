@@ -23,8 +23,10 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.middleware.MiddlewareOperation;
+import com.nepxion.discovery.guide.service.permission.Permission;
 
 @RestController
+// @Permission(name = "AFeign", label = "AFeign label", description = "AFeign description")
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-a")
 public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     private static final Logger LOG = LoggerFactory.getLogger(AFeignImpl.class);
@@ -37,6 +39,7 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
 
     @Override
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
+    @Permission(name = "AFeign invoke", label = "AFeign invoke label", description = "AFeign invoke description")
     public String invoke(@PathVariable(value = "value") String value) {
         value = doInvoke(value);
         value = bFeign.invoke(value);
