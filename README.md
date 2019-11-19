@@ -27,6 +27,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
+- 全链路环境优先级调用。基于元数据Metadata的environment参数，决定服务提供端被调用的优先级，支持多级优先级调用策略
 - 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
 - 全链路监控。包括全链路调用链监控（Tracing）和全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）
     - 全链路调用链监控（Tracing）包括Header方式、Opentracing方式、日志方式等单个或者组合式的全链路灰度调用链。Opentracing方式不支持Edgware版（Spring Boot 1.x.x），不支持Finchley版（Spring Boot 2.0.x）的Spring Cloud Gateway，除此之外的版本都支持
@@ -102,6 +103,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [注册服务隔离](#注册服务隔离)
     - [消费端服务隔离](#消费端服务隔离)
     - [提供端服务隔离](#提供端服务隔离)
+- [基于元数据的全链路环境优先级调用](#基于元数据的全链路环境优先级调用)
 - [基于Sentinel的全链路服务限流熔断降级权限和灰度融合](#基于Sentinel的全链路服务限流熔断降级权限和灰度融合)
     - [原生Sentinel注解](#原生Sentinel注解)
     - [原生Sentinel规则](#原生Sentinel规则)
@@ -953,6 +955,17 @@ Reject to invoke because of isolation with different service group
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide6-1.jpg)
 如果加上n-d-service-group=discovery-guide-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide6-2.jpg)
+
+## 基于元数据的全链路环境优先级调用
+
+通过在元数据Metadata中配置了environment={大于等于0的整型值}，决定服务提供端被调用的优先级，该值越大则对应的服务实例的调用优先级越高
+支持多级优先级调用策略，例如：同一个服务提供端有三个实例，分别对应environment=0，environment=1，environment=2，负载均衡只会让消费端调用environment=2的提供端的服务实例
+
+在消费端支持如下开关开启该动能，默认是关闭的
+```vb
+# 启动和关闭环境优先级调用。缺失则默认为false
+spring.application.environment.priority.enabled=false
+```
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
