@@ -132,11 +132,12 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - [全链路Header传递](#全链路Header传递)
     - [自定义Feign-Header传递](#自定义Feign-Header传递)
     - [自定义RestTemplate-Header传递](#自定义RestTemplate-Header传递)
+- [全链路服务侧注解](#全链路服务侧注解)
+- [全链路服务侧API权限](#全链路服务侧API权限)
 - [元数据Metadata自动化策略](#元数据Metadata自动化策略)
     - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
     - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)
-- [全链路服务侧注解](#全链路服务侧注解)
-- [全链路服务侧API权限](#全链路服务侧API权限)
+- [元数据Metadata运维平台策略](#元数据Metadata运维平台策略)
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
@@ -1479,6 +1480,24 @@ public RestTemplateStrategyInterceptorAdapter restTemplateStrategyInterceptorAda
 }
 ```
 
+## 全链路服务侧注解
+
+服务侧对于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能，默认映射到RestController类（含有@RestController注解），并配合如下的扫描路径才能工作
+```vb
+# 灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能
+spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.feign
+```
+当使用者不希望只局限于RestController类（含有@RestController注解）方式，而要求在任何类中实现上述功能，那么框架提供@ServiceStrategy注解，使用者把它加在类头部即可，可以达到和@RestController注解同样的效果
+
+## 全链路服务侧API权限
+
+服务侧对于RPC方式的调用，可以加入API权限控制，通过在接口或者类名上加@Permission注解，或者在接口或者类的方法名上加@Permission注解，实现API权限控制。如果两者都加，以前者为优先
+- 实现权限自动扫描入库
+- 实现提供显式基于注解的权限验证，参数通过注解传递；实现提供基于Rest请求的权限验证，参数通过Header传递
+- 实现提供入库方法和权限判断方法的扩展，这两者需要自行实现
+
+请参考[权限代码](https://github.com/Nepxion/DiscoveryGuide/blob/master/discovery-guide-service/src/main/java/com/nepxion/discovery/guide/service/permission)
+
 ## 元数据Metadata自动化策略
 
 ### 基于服务名前缀自动创建灰度组名
@@ -1630,23 +1649,12 @@ git.total.commit.count=765
 spring.application.git.generator.path=file:git.json
 ```
 
-## 全链路服务侧注解
+## 元数据Metadata运维平台策略
 
-服务侧对于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能，默认映射到RestController类（含有@RestController注解），并配合如下的扫描路径才能工作
-```vb
-# 灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能
-spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.feign
-```
-当使用者不希望只局限于RestController类（含有@RestController注解）方式，而要求在任何类中实现上述功能，那么框架提供@ServiceStrategy注解，使用者把它加在类头部即可，可以达到和@RestController注解同样的效果
-
-## 全链路服务侧API权限
-
-服务侧对于RPC方式的调用，可以加入API权限控制，通过在接口或者类名上加@Permission注解，或者在接口或者类的方法名上加@Permission注解，实现API权限控制。如果两者都加，以前者为优先
-- 实现权限自动扫描入库
-- 实现提供显式基于注解的权限验证，参数通过注解传递；实现提供基于Rest请求的权限验证，参数通过Header传递
-- 实现提供入库方法和权限判断方法的扩展，这两者需要自行实现
-
-请参考[权限代码](https://github.com/Nepxion/DiscoveryGuide/blob/master/discovery-guide-service/src/main/java/com/nepxion/discovery/guide/service/permission)
+外部系统（例如：运维发布平台）在远程启动微服务的时候，可以通过参数传递来动态改变元数据或者增加运维特色的参数，最后注册到远程配置中心。有如下两种方式：
+- 通过Program arguments来传递，它的用法是前面加“--”。支持Eureka、Zookeeper和Nacos的增量覆盖，Consul由于使用了全量覆盖的tag方式，不适用改变单个元数据的方式。例如：--spring.cloud.nacos.discovery.metadata.version=1.0
+- 通过VM arguments来传递，它的用法是前面加“-D”。支持上述所有的注册组件，它的限制是变量前面必须要加“metadata.”，推荐使用该方式。例如：-Dmetadata.version=1.0
+- 两种方式尽量避免同时用
 
 ## Docker容器化和Kubernetes平台支持
 
