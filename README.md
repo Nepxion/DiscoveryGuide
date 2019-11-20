@@ -960,6 +960,7 @@ Reject to invoke because of isolation with different service group
 ## 基于元数据的全链路环境优先级调用
 
 通过在元数据Metadata中配置了environment={大于等于0的整型值}，决定服务提供端被调用的优先级，该值越大则对应的服务实例的调用优先级越高
+
 支持多级优先级调用策略，例如：同一个服务提供端有三个实例，分别对应environment=0，environment=1，environment=2，负载均衡只会让消费端调用environment=2的提供端的服务实例
 
 在消费端支持如下开关开启该动能，默认是关闭的
