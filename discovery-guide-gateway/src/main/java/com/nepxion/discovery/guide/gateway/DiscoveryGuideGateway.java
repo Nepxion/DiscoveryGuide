@@ -15,8 +15,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.guide.gateway.impl.MyEnvironmentTransferAdapter;
+import com.nepxion.discovery.guide.gateway.impl.MyEnvironmentRouteAdapter;
 import com.nepxion.discovery.guide.gateway.impl.MyStrategyTracerAdapter;
+import com.nepxion.discovery.plugin.framework.adapter.EnvironmentRouteAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 
@@ -48,9 +49,9 @@ public class DiscoveryGuideGateway {
         return new MyStrategyTracerAdapter();
     }
 
-    // 自定义是否要环境切流
+    // 自定义环境路由
     @Bean
-    public MyEnvironmentTransferAdapter environmentTransferAdapter() {
-        return new MyEnvironmentTransferAdapter();
+    public EnvironmentRouteAdapter environmentRouteAdapter() {
+        return new MyEnvironmentRouteAdapter();
     }
 }
