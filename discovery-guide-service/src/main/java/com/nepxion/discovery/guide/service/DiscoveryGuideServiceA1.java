@@ -16,6 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
+import com.nepxion.discovery.guide.service.impl.MyEnvironmentTransferAdapter;
 import com.nepxion.discovery.guide.service.impl.MyFeignStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyRestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
@@ -78,5 +79,11 @@ public class DiscoveryGuideServiceA1 {
     @Bean
     public StrategyTracerAdapter strategyTracerAdapter() {
         return new MyStrategyTracerAdapter();
+    }
+
+    // 自定义是否要环境切流
+    @Bean
+    public MyEnvironmentTransferAdapter environmentTransferAdapter() {
+        return new MyEnvironmentTransferAdapter();
     }
 }

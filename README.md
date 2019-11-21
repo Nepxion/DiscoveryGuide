@@ -27,6 +27,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
+- 基于Env的全链路环境隔离和切流。包括基于元数据Metadata的env参数进行隔离，当调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量切到一个通用或者备份环境
 - 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
 - 全链路监控。包括全链路调用链监控（Tracing）和全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）
     - 全链路调用链监控（Tracing）包括Header方式、Opentracing方式、日志方式等单个或者组合式的全链路灰度调用链。Opentracing方式不支持Edgware版（Spring Boot 1.x.x），不支持Finchley版（Spring Boot 2.0.x）的Spring Cloud Gateway，除此之外的版本都支持
@@ -103,6 +104,9 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [注册服务隔离](#注册服务隔离)
     - [消费端服务隔离](#消费端服务隔离)
     - [提供端服务隔离](#提供端服务隔离)
+- [基于Env的全链路环境隔离和切流](#基于Env的全链路环境隔离和切流)
+    - [环境隔离](#环境隔离)
+    - [环境切流](#环境切流)
 - [基于Sentinel的全链路服务限流熔断降级权限和灰度融合](#基于Sentinel的全链路服务限流熔断降级权限和灰度融合)
     - [原生Sentinel注解](#原生Sentinel注解)
     - [原生Sentinel规则](#原生Sentinel规则)
@@ -196,14 +200,14 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-guide-service-a/invoke/gateway](http://localhost:5001/discovery-guide-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式：
 ```
-gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] 
--> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][E=env1][G=discovery-guide-group] 
+-> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][E=env1][G=discovery-guide-group]
 ```
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Zuul网关调用示例“，调用地址为[http://localhost:5002/discovery-guide-service-a/invoke/zuul](http://localhost:5002/discovery-guide-service-a/invoke/zuul)，相关的Header值已经预设，供开发者修改。测试通过Zuul网关的调用结果，结果为如下格式：
 ```
-zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] 
--> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
+zuul -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][E=env1][G=discovery-guide-group] 
+-> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][E=env1][G=discovery-guide-group]
 ```
 
 - 上述步骤在下面每次更改规则策略的时候执行，并验证结果和规则策略的期望值是否相同
@@ -604,9 +608,10 @@ public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy 
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerVersion(server);
         String region = pluginAdapter.getServerRegion(server);
+        String environment = pluginAdapter.getServerEnvironment(server);
         String address = server.getHostPort();
 
-        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}, address={}", mobile, serviceId, version, region, address);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}, env={}, address={}", mobile, serviceId, version, region, environment, address);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上
@@ -660,9 +665,10 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerVersion(server);
         String region = pluginAdapter.getServerRegion(server);
+        String environment = pluginAdapter.getServerEnvironment(server);
         String address = server.getHostPort();
 
-        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}, address={}", mobile, serviceId, version, region, address);
+        LOG.info("负载均衡用户定制触发：mobile={}, serviceId={}, version={}, region={}, env={}, address={}", mobile, serviceId, version, region, environment, address);
 
         if (StringUtils.isNotEmpty(mobile)) {
             // 手机号以移动138开头，路由到1.0版本的服务上
@@ -688,9 +694,10 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerVersion(server);
         String region = pluginAdapter.getServerRegion(server);
+        String environment = pluginAdapter.getServerEnvironment(server);
         String address = server.getHostPort();
 
-        LOG.info("负载均衡用户定制触发：attributes={}, serviceId={}, version={}, region={}, address={}", attributes, serviceId, version, region, address);
+        LOG.info("负载均衡用户定制触发：attributes={}, serviceId={}, version={}, region={}, env={}, address={}", attributes, serviceId, version, region, environment, address);
 
         if (attributes.containsKey(ServiceStrategyConstant.PARAMETER_MAP)) {
             Map<String, Object> parameterMap = (Map<String, Object>) attributes.get(ServiceStrategyConstant.PARAMETER_MAP);
@@ -955,6 +962,52 @@ Reject to invoke because of isolation with different service group
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide6-1.jpg)
 如果加上n-d-service-group=discovery-guide-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide6-2.jpg)
+
+## 基于Env的全链路环境隔离和切流
+
+基于元数据Metadata的env参数进行隔离，当调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量切到一个通用或者备份环境
+
+需要在调用端开启如下配置：
+```vb
+# 启动和关闭环境隔离和切流。缺失则默认为false
+spring.application.environment.isolation.enabled=true
+# 流量切到指定的环境下。不允许为保留值default，缺失则默认为common
+# spring.application.environment.transfer=common
+```
+
+### 环境隔离
+
+在网关或者服务端，配置环境元数据，在同一套环境下，env值必须是一样的，这样才能达到在同一个注册中心下，环境隔离的目的
+```vb
+spring.cloud.nacos.discovery.metadata.env=env1
+```
+
+### 环境切流
+
+环境切流相对来说具备一定风险，默认并不开启，也不提供配置参数，它通过切流适配器让使用者扩展实现的方式来开启该功能，如果isTransferred方法返回false，意味着只会环境隔离不会切流
+```java
+// 自定义是否要环境切流
+public class MyEnvironmentTransferAdapter extends DefaultEnvironmentTransferAdapter {
+    // 是否要环境切流
+    @Override
+    public boolean isTransferred() {
+        return true;
+    }
+
+    // 切流到哪个环境中。该方法非必需，缺失即通过spring.application.environment.transfer取值
+    @Override
+    public String getTransferredEnvironment() {
+        return environmentTransfer;
+    }
+}
+```
+在配置类里@Bean方式进行切流适配器创建
+```java
+@Bean
+public MyEnvironmentTransferAdapter environmentTransferAdapter() {
+    return new MyEnvironmentTransferAdapter();
+}
+```
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
@@ -1284,7 +1337,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 
 调用链监控，在本文主要指灰度调用链监控。快速入门操作，请访问操作视频[Nepxion Discovery 灰度发布路由调用链](https://pan.baidu.com/s/1PbksbZKVY7reBrnVb3RS6Q)，注意一定要下载下来看，不要在线看，否则不清晰
 
-灰度调用链主要包括如下11个参数，以n-d-service开头的是必须的，其它是可选的或者按照场景而定。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
+灰度调用链主要包括如下12个参数，以n-d-service开头的是必须的，其它是可选的或者按照场景而定。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
 ```
 1. n-d-service-group - 服务所属组或者应用
 2. n-d-service-type - 服务类型，分为“网关”和“服务”
@@ -1292,11 +1345,12 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 4. n-d-service-address - 服务地址，包括Host和Port
 5. n-d-service-version - 服务版本
 6. n-d-service-region - 服务所属区域
-7. n-d-version - 版本路由值
-8. n-d-region - 区域路由值
-9. n-d-address - 地址路由值
-10. n-d-version-weight - 版本权重路由值
-11. n-d-region-weight - 区域权重路由值
+7. n-d-service-env - 服务所属环境
+8. n-d-version - 版本路由值
+9. n-d-region - 区域路由值
+10. n-d-address - 地址路由值
+11. n-d-version-weight - 版本权重路由值
+12. n-d-region-weight - 区域权重路由值
 ```
 灰度调用链输出分为Header方式、 Opentracing方式、日志MDC方式，三种方式可以并存使用。Opentracing方式支持WebMvc和WebFlux
 
