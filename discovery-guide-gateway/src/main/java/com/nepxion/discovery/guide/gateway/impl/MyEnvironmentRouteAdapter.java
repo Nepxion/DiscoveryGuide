@@ -9,12 +9,12 @@ package com.nepxion.discovery.guide.gateway.impl;
  * @version 1.0
  */
 
-import com.nepxion.discovery.plugin.framework.adapter.DefaultEnvironmentTransferAdapter;
+import com.nepxion.discovery.plugin.framework.adapter.DefaultEnvironmentRouteAdapter;
 
-// 自定义是否要环境切流
-public class MyEnvironmentTransferAdapter extends DefaultEnvironmentTransferAdapter {
+// 自定义环境路由
+public class MyEnvironmentRouteAdapter extends DefaultEnvironmentRouteAdapter {
     @Override
-    public boolean isTransferred() {
+    public boolean isRoutable() {
         return true;
     }
 }
