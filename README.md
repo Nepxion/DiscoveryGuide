@@ -967,14 +967,6 @@ Reject to invoke because of isolation with different service group
 
 基于元数据Metadata的env参数进行隔离，当调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境
 
-需要在调用端开启如下配置：
-```vb
-# 启动和关闭环境隔离和路由。缺失则默认为false
-spring.application.environment.isolation.enabled=true
-# 流量路由到指定的环境下。不允许为保留值default，缺失则默认为common
-# spring.application.environment.route=common
-```
-
 ### 环境隔离
 
 在网关或者服务端，配置环境元数据，在同一套环境下，env值必须是一样的，这样才能达到在同一个注册中心下，环境隔离的目的
@@ -982,31 +974,20 @@ spring.application.environment.isolation.enabled=true
 spring.cloud.nacos.discovery.metadata.env=env1
 ```
 
+需要在调用端开启如下配置：
+```vb
+# 启动和关闭环境隔离，环境隔离指调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。缺失则默认为false
+spring.application.environment.isolation.enabled=true
+```
+
 ### 环境路由
 
-环境路由相对来说具备一定风险，默认并不开启，也不提供配置参数，它通过路由适配器让使用者扩展实现的方式来开启该功能，如果isRoutable方法返回false，意味着只会环境隔离不会路由
-```java
-// 自定义环境路由
-public class MyEnvironmentRouteAdapter extends DefaultEnvironmentRouteAdapter {
-    // 是否要环境路由
-    @Override
-    public boolean isRoutable() {
-        return true;
-    }
-
-    // 路由到哪个环境中。该方法非必需，缺失即通过spring.application.environment.route取值
-    @Override
-    public String getEnvironmentRoute() {
-        return environmentRoute;
-    }
-}
-```
-在配置类里@Bean方式进行路由适配器创建
-```java
-@Bean
-public EnvironmentRouteAdapter environmentRouteAdapter() {
-    return new MyEnvironmentRouteAdapter();
-}
+需要在调用端开启如下配置：
+```vb
+# 启动和关闭环境路由，环境路由指在环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境，例如：元数据Metadata环境配置值为common（该值可配置，但不允许为保留值default）。缺失则默认为false
+spring.application.environment.route.enabled=true
+# 流量路由到指定的环境下。不允许为保留值default，缺失则默认为common
+spring.application.environment.route=common
 ```
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合

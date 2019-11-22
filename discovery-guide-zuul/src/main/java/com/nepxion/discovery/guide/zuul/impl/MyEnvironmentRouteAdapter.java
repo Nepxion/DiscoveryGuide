@@ -14,7 +14,12 @@ import com.nepxion.discovery.plugin.framework.adapter.DefaultEnvironmentRouteAda
 // 自定义环境路由
 public class MyEnvironmentRouteAdapter extends DefaultEnvironmentRouteAdapter {
     @Override
-    public boolean isRoutable() {
+    public boolean isRouteEnabled() {
         return true;
+    }
+
+    @Override
+    public String getEnvironmentRoute() {
+        return "common";
     }
 }
