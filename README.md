@@ -990,6 +990,8 @@ spring.application.environment.route.enabled=true
 spring.application.environment.route=common
 ```
 
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment.jpg)
+
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
 通过集成Sentinel，在服务端实现该功能
