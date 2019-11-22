@@ -16,9 +16,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.guide.zuul.impl.MyEnvironmentRouteAdapter;
 import com.nepxion.discovery.guide.zuul.impl.MyStrategyTracerAdapter;
-import com.nepxion.discovery.plugin.framework.adapter.EnvironmentRouteAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 
@@ -52,8 +50,8 @@ public class DiscoveryGuideZuul {
     }
 
     // 自定义环境路由
-    @Bean
+    /*@Bean
     public EnvironmentRouteAdapter environmentRouteAdapter() {
         return new MyEnvironmentRouteAdapter();
-    }
+    }*/
 }

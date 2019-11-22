@@ -16,12 +16,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.guide.service.impl.MyEnvironmentRouteAdapter;
 import com.nepxion.discovery.guide.service.impl.MyFeignStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyRestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
-import com.nepxion.discovery.plugin.framework.adapter.EnvironmentRouteAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.service.adapter.FeignStrategyInterceptorAdapter;
@@ -83,8 +81,8 @@ public class DiscoveryGuideServiceA1 {
     }
 
     // 自定义环境路由
-    @Bean
+    /*@Bean
     public EnvironmentRouteAdapter environmentRouteAdapter() {
         return new MyEnvironmentRouteAdapter();
-    }
+    }*/
 }
