@@ -13,7 +13,7 @@
     </parent>
 
     <dependencies>
-        <!-- 框架支持控制平台基于配置中心的核心实现，必须引入 -->
+        <!-- 框架支持控制平台基于注册中心的核心实现，必须引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-console-starter-nacos</artifactId>
