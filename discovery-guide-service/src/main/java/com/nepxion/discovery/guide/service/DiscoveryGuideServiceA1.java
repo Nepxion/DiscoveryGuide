@@ -44,6 +44,7 @@ public class DiscoveryGuideServiceA1 {
         new SpringApplicationBuilder(DiscoveryGuideServiceA1.class).run(args);
     }
 
+    // ========== 下面的Bean配置以及impl目录下的类都是高级应用，可以全部删除 ==========
     // 自定义负载均衡的灰度策略
     @Bean
     public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
