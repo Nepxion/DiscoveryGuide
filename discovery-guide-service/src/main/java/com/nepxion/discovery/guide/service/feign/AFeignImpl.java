@@ -9,7 +9,9 @@ package com.nepxion.discovery.guide.service.feign;
  * @version 1.0
  */
 
+import io.opentracing.Span;
 import io.opentracing.contrib.concurrent.TracedRunnable;
+import io.opentracing.tag.Tags;
 import io.opentracing.util.GlobalTracer;
 
 import org.slf4j.Logger;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.google.common.collect.ImmutableMap;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.permission.Permission;
 
@@ -39,6 +42,22 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     public String invoke(@PathVariable(value = "value") String value) {
         value = doInvoke(value);
         value = bFeign.invoke(value);
+
+        Span invokeSpan = GlobalTracer.get().buildSpan("自定义调用埋点").start();
+        invokeSpan.setTag("自定义参数", "这是我自定义的参数");
+        invokeSpan.finish();
+
+        try {
+            Integer.parseInt("abc");
+        } catch (NumberFormatException e) {
+            Span error = GlobalTracer.get().buildSpan("自定义异常埋点").start();
+            error.log(new ImmutableMap.Builder<String, Object>()
+                    .put("自定义参数", "这是我自定义的参数")
+                    .put(DiscoveryConstant.EVENT, Tags.ERROR.getKey())
+                    .put(DiscoveryConstant.ERROR_OBJECT, e)
+                    .build());
+            error.finish();
+        }
 
         LOG.info("调用路径：{}", value);
 
