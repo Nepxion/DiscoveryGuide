@@ -47,16 +47,14 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
         invokeSpan.setTag("自定义参数", "这是我自定义的参数");
         invokeSpan.finish();
 
-        try {
-            Integer.parseInt("abc");
-        } catch (NumberFormatException e) {
-            Span error = GlobalTracer.get().buildSpan("自定义异常埋点").start();
-            error.log(new ImmutableMap.Builder<String, Object>()
+        if (value.contains("gateway")) {
+            Span errorSpan = GlobalTracer.get().buildSpan("自定义异常埋点").start();
+            errorSpan.log(new ImmutableMap.Builder<String, Object>()
                     .put("自定义参数", "这是我自定义的参数")
                     .put(DiscoveryConstant.EVENT, Tags.ERROR.getKey())
-                    .put(DiscoveryConstant.ERROR_OBJECT, e)
+                    .put(DiscoveryConstant.ERROR_OBJECT, new IllegalArgumentException("我认为入参包含'gateway'，是一个错误的参数，那么就做异常埋点处理"))
                     .build());
-            error.finish();
+            errorSpan.finish();
         }
 
         LOG.info("调用路径：{}", value);
