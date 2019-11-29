@@ -160,6 +160,7 @@
                     <include>**/*.xml</include>
                     <include>**/*.json</include>
                     <include>**/*.properties</include>
+                    <include>**/META-INF/**</include>
                 </includes>
             </resource>
         </resources>
