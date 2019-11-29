@@ -6,9 +6,7 @@ import com.alibaba.csp.sentinel.slotchain.ResourceWrapper;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson.JSON;
 import io.opentracing.Span;
-import io.opentracing.Tracer;;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 
 
 /**
@@ -30,7 +28,7 @@ public class OpenTracingProcessorSlotEntryCallback implements ProcessorSlotEntry
     public void onBlocked(BlockException e, Context context, ResourceWrapper resourceWrapper, Object o, int count, Object... objects) {
         Span span = SentinelTracer.getTracer().buildSpan("SENTINEL").start();
         span.setTag("contextName",context.getName());
-        span.setTag("sourceName",resourceWrapper.getName());
+        span.setTag("resourceName",resourceWrapper.getName());
         span.setTag("resourceType",resourceWrapper.getResourceType());
         span.setTag("entryType",resourceWrapper.getEntryType().toString());
         span.setTag("ruleLimitApp",e.getRuleLimitApp());
