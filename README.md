@@ -23,7 +23,7 @@ Nepxion Discovery【探索】，基于Spring Cloud Discovery服务注册发现�
 Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley版和Hoxton版而制作（对于Edgware版，使用者需要自行修改）。使用指南主要涉及的功能包括：
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、机器IP地址和端口的路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本和区域的匹配发布、版本和区域的权重发布
-- 基于多方式的规则和策略推送。包括基于远程配置中心的规则和策略订阅推送（本文以Nacos为例）、基于Actuator Endpoint的规则和策略推送、基于Swagger和Rest的规则和策略推送
+- 基于多方式的规则和策略推送。包括基于远程配置中心的规则和策略订阅推送（本文以Nacos为例）、基于Swagger和Rest的规则和策略推送
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
@@ -98,7 +98,6 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [配置全链路灰度权重和灰度版本组合式规则](#配置全链路灰度权重和灰度版本组合式规则)
 - [基于多方式的规则和策略推送](#基于多方式的规则和策略推送)
     - [基于远程配置中心的规则和策略订阅推送](#基于远程配置中心的规则和策略订阅推送)
-    - [基于Actuator-Endpoint的规则和策略推送](#基于Actuator-Endpoint的规则和策略推送)
     - [基于Swagger和Rest的规则和策略推送](#基于Swagger和Rest的规则和策略推送)	
 - [基于Group的全链路服务隔离](#基于Group的全链路服务隔离)
     - [注册服务隔离](#注册服务隔离)
@@ -904,12 +903,6 @@ Nacos订阅推送界面
 Apollo订阅推送界面
 
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Apollo1.jpg)
-
-### 基于Actuator-Endpoint的规则和策略推送
-
-Spring Boot Admin的Actuator Endpoint推送界面
-
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Admin6.jpg)
 
 ### 基于Swagger和Rest的规则和策略推送
 
