@@ -58,6 +58,13 @@
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 框架支持服务的Sentinel Opentracing调用链，可以不引入 -->
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-sentinel-starter-opentracing</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-jaeger-starter</artifactId>
