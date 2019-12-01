@@ -48,11 +48,15 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
         value = bFeign.invoke(value);
 
         Span invokeSpan = GlobalTracer.get().buildSpan("自定义调用埋点").start();
+        // 如果没有子Span就不需要下面的代码
+        // GlobalTracer.get().activateSpan(invokeSpan);
         invokeSpan.setTag("自定义参数", "这是我自定义的参数");
         invokeSpan.finish();
 
         if (value.contains("gateway")) {
             Span errorSpan = GlobalTracer.get().buildSpan("自定义异常埋点").start();
+            // 如果没有子Span就不需要下面的代码
+            // GlobalTracer.get().activateSpan(errorSpan);
             errorSpan.log(new ImmutableMap.Builder<String, Object>()
                     .put("自定义参数", "这是我自定义的参数")
                     .put(DiscoveryConstant.EVENT, Tags.ERROR.getKey())
