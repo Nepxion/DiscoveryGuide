@@ -27,7 +27,7 @@
 							},
 							{
 								"key": "n-d-version-weight",
-								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=90;1.1=10\"}",
+								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
 								"type": "text",
 								"disabled": true
 							},
@@ -39,7 +39,7 @@
 							},
 							{
 								"key": "n-d-address",
-								"value": "{\"discovery-guide-service-a\":\"127.0.0.1:3001\", \"discovery-guide-service-b\":\"127.0.0.1:4002\"}",
+								"value": "{\"discovery-guide-service-a\":\"3001\", \"discovery-guide-service-b\":\"4002\"}",
 								"type": "text",
 								"disabled": true
 							},
@@ -115,7 +115,7 @@
 							},
 							{
 								"key": "n-d-version-weight",
-								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=90;1.1=10\"}",
+								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
 								"type": "text",
 								"disabled": true
 							},
@@ -127,7 +127,7 @@
 							},
 							{
 								"key": "n-d-address",
-								"value": "{\"discovery-guide-service-a\":\"127.0.0.1:3001\", \"discovery-guide-service-b\":\"127.0.0.1:4002\"}",
+								"value": "{\"discovery-guide-service-a\":\"3001\", \"discovery-guide-service-b\":\"4002\"}",
 								"type": "text",
 								"disabled": true
 							},
