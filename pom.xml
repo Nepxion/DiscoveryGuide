@@ -18,7 +18,7 @@
     </modules>
 
     <properties>
-        <discovery.version>5.5.6</discovery.version>
+        <discovery.version>5.5.7</discovery.version>
 
         <!-- <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.0.RELEASE</spring.cloud.alibaba.version>
