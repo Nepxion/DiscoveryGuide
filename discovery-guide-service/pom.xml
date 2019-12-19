@@ -198,6 +198,7 @@
                 </executions>
                 <configuration>
                     <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat>
                 </configuration>
             </plugin>
         </plugins>
