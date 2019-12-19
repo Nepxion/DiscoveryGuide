@@ -1578,6 +1578,8 @@ spring.application.group.generator.length=15
     <configuration>
         <!-- 必须配置，并指定为true -->
         <generateGitPropertiesFile>true</generateGitPropertiesFile>
+        <!-- 指定日期格式 -->
+        <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat>
     </configuration>
 </plugin>
 ```
@@ -1611,7 +1613,7 @@ spring.application.group.generator.length=15
         <!-- 指定构建过程中，是否打印详细信息。缺失则默认为false -->
         <verbose>false</verbose>
         <!-- 指定日期格式 -->
-        <dateFormat>yyyy-MM-dd HH:mm:ss.SSS</dateFormat>
+        <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat>
     </configuration>
 </plugin>
 ```
@@ -1642,21 +1644,21 @@ spring.application.group.generator.length=15
 
 - 增加配置项
 ```vb
-# 开启和关闭使用Git的git.commit.id或者git.build.version或者更多其它字段来作为服务版本号。缺失则默认为false
+# 开启和关闭使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为false
 spring.application.git.generator.enabled=true
 # 插件git-commit-id-plugin产生git信息文件的输出路径，支持properties和json两种格式，支持classpath:xxx和file:xxx两种路径，这些需要和插件里的配置保持一致。缺失则默认为classpath:git.properties
 spring.application.git.generator.path=classpath:git.properties
 # spring.application.git.generator.path=classpath:git.json
-# 使用Git的git.commit.id或者git.build.version或者更多其它字段来作为服务版本号。缺失则默认为git.commit.id
-spring.application.git.version.key=git.commit.id
-# spring.application.git.version.key=git.build.version
+# 使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为{git.commit.id.abbrev}-{git.commit.time}
+# spring.application.git.version.key={git.commit.id.abbrev}-{git.commit.time}
+# spring.application.git.version.key={git.build.version}-{git.commit.time}
 ```
 
 下面是可供选择的Git字段，比较实际意义的字段为git.commit.id，git.commit.id.abbrev，git.build.version，git.total.commit.count
 ```vb
 git.branch=master
 git.build.host=Nepxion
-git.build.time=2019-10-21T10\:07\:41+0800
+git.build.time=2019-10-21-10\:07\:41
 git.build.user.email=1394997@qq.com
 git.build.user.name=Nepxion
 git.build.version=1.0.0
