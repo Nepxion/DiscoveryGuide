@@ -39,7 +39,7 @@
         <micrometer.prometheus.version>1.0.11</micrometer.prometheus.version> -->
 
         <opentracing.spring.jaeger.version>2.0.3</opentracing.spring.jaeger.version>
-        <jaeger.client.version>1.0.0</jaeger.client.version>
+        <jaeger.client.version>1.1.0</jaeger.client.version>
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
