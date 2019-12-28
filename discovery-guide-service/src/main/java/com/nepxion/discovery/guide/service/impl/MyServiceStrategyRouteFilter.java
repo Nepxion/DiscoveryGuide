@@ -26,6 +26,7 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     @Value("${b.route.version:" + DEFAULT_B_ROUTE_VERSION + "}")
     private String bRouteVersion;
 
+    // 全链路条件命中
     @Override
     public String getRouteVersion() {
         String user = strategyContextHolder.getHeader("user");
@@ -38,4 +39,15 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
 
         return super.getRouteVersion();
     }
+
+    // 全链路随机权重
+    /*@Override
+    public String getRouteVersion() {
+        List<Pair<String, Double>> list = new ArrayList<Pair<String, Double>>();
+        list.add(new ImmutablePair<String, Double>(DEFAULT_A_ROUTE_VERSION, 30D));
+        list.add(new ImmutablePair<String, Double>(DEFAULT_B_ROUTE_VERSION, 70D));
+        MapWeightRandom<String, Double> weightRandom = new MapWeightRandom<String, Double>(list);
+        
+        return weightRandom.random();
+    }*/
 }
