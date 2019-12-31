@@ -44,6 +44,12 @@
 								"disabled": true
 							},
 							{
+								"key": "env",
+								"value": "env1",
+								"type": "text",
+								"disabled": true
+							},
+							{
 								"key": "mobile",
 								"value": "13312345678",
 								"type": "text",
@@ -128,6 +134,12 @@
 							{
 								"key": "n-d-address",
 								"value": "{\"discovery-guide-service-a\":\"3001\", \"discovery-guide-service-b\":\"4002\"}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "env",
+								"value": "env1",
 								"type": "text",
 								"disabled": true
 							},
