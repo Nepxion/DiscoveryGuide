@@ -1001,6 +1001,13 @@ Reject to invoke because of isolation with different service group
 
 基于元数据Metadata的env参数进行隔离，当调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境
 
+支持两种方式的环境隔离，动态调度子环境的能力
+- 网关独立部署
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment1.jpg)
+
+- 网关非独立部署
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment2.jpg)
+
 ### 环境隔离
 
 在网关或者服务端，配置环境元数据，在同一套环境下，env值必须是一样的，这样才能达到在同一个注册中心下，环境隔离的目的
@@ -1016,14 +1023,7 @@ spring.application.environment.isolation.enabled=true
 
 ### 环境路由
 
-支持两种方式的环境隔离，动态调度子环境的能力
-- 网关独立部署
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment1.jpg)
-
-- 网关非独立部署
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment2.jpg)
-
-需要在网关端和服务端都开启如下配置：
+需要在调用端开启如下配置：
 ```vb
 # 启动和关闭环境路由，环境路由指在环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境，例如：元数据Metadata环境配置值为common（该值可配置，但不允许为保留值default）。缺失则默认为false
 spring.application.environment.route.enabled=true
