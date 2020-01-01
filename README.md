@@ -80,7 +80,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [版本权重灰度路由策略](#版本权重灰度路由策略)
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
-        - [机器IP地址和端口路由策略](#机器IP地址和端口路由策略)
+        - [机器IP地址和端口匹配灰度路由策略](#机器IP地址和端口匹配灰度路由策略)
     - [通过其它方式设置灰度路由策略](#通过其它方式设置灰度路由策略)
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
         - [通过业务参数在过滤器中自定义灰度路由策略](#通过业务参数在过滤器中自定义灰度路由策略)
@@ -326,8 +326,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 2. <region-weight>{"discovery-guide-service-a":"dev=85;qa=15", "discovery-guide-service-b":"dev=85;qa=15"}</region-weight>
 ```
 
-#### 机器IP地址和端口路由策略
-增加Zuul的基于机器IP地址和端口路由策略的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
+#### 机器IP地址和端口匹配灰度路由策略
+增加Zuul的基于机器IP地址和端口匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
