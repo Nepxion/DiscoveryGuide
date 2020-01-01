@@ -27,7 +27,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
-- 基于Env的全链路环境隔离和路由。包括基于元数据Metadata的env参数进行隔离，当调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境
+- 基于Env的全链路环境隔离和路由。包括基于元数据Metadata的env参数进行隔离，当调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境。支持网关独立部署和非独立部署两种场景下，动态调度子环境的能力
 - 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
 - 全链路监控。包括全链路调用链监控（Tracing）和全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）
     - 全链路调用链监控（Tracing）包括Header方式、Opentracing方式、日志方式等单个或者组合式的全链路灰度调用链，支持对Sentinel自动埋点。Opentracing方式不支持Edgware版（Spring Boot 1.x.x）
@@ -394,6 +394,11 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 3. n-d-address={"discovery-guide-service-a":"3001", "discovery-guide-service-b":"4002"}
 ```
 
+- 环境隔离下动态环境匹配策略：
+```
+1. n-d-env=env1
+```
+
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-6.jpg)
 
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-7.jpg)
@@ -481,7 +486,7 @@ public String getRouteRegionWeight();
 
 GatewayStrategyRouteFilter示例
 
-在代码里根据不同的Header选择不同的路由路径
+在代码里根据不同的Header选择不同的路由路径，示例提供全链路条件命中和全链路随机权重两种方式
 ```java
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
 // 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
@@ -495,6 +500,7 @@ public class MyGatewayStrategyRouteFilter extends DefaultGatewayStrategyRouteFil
     @Value("${b.route.version:" + DEFAULT_B_ROUTE_VERSION + "}")
     private String bRouteVersion;
 
+    // 全链路条件命中
     @Override
     public String getRouteVersion() {
         String user = strategyContextHolder.getHeader("user");
@@ -507,6 +513,17 @@ public class MyGatewayStrategyRouteFilter extends DefaultGatewayStrategyRouteFil
 
         return super.getRouteVersion();
     }
+
+    // 全链路随机权重
+    /*@Override
+    public String getRouteVersion() {
+        List<Pair<String, Double>> list = new ArrayList<Pair<String, Double>>();
+        list.add(new ImmutablePair<String, Double>(DEFAULT_A_ROUTE_VERSION, 30D));
+        list.add(new ImmutablePair<String, Double>(DEFAULT_B_ROUTE_VERSION, 70D));
+        MapWeightRandom<String, Double> weightRandom = new MapWeightRandom<String, Double>(list);
+        
+        return weightRandom.random();
+    }*/
 }
 ```
 在配置类里@Bean方式进行过滤类创建，覆盖框架内置的过滤类
@@ -519,7 +536,7 @@ public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
 
 ZuulStrategyRouteFilter示例
 
-在代码里根据不同的Header选择不同的路由路径
+在代码里根据不同的Header选择不同的路由路径，示例提供全链路条件命中和全链路随机权重两种方式
 ```java
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
 // 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
@@ -533,6 +550,7 @@ public class MyZuulStrategyRouteFilter extends DefaultZuulStrategyRouteFilter {
     @Value("${b.route.version:" + DEFAULT_B_ROUTE_VERSION + "}")
     private String bRouteVersion;
 
+    // 全链路条件命中
     @Override
     public String getRouteVersion() {
         String user = strategyContextHolder.getHeader("user");
@@ -545,6 +563,17 @@ public class MyZuulStrategyRouteFilter extends DefaultZuulStrategyRouteFilter {
 
         return super.getRouteVersion();
     }
+
+    // 全链路随机权重
+    /*@Override
+    public String getRouteVersion() {
+        List<Pair<String, Double>> list = new ArrayList<Pair<String, Double>>();
+        list.add(new ImmutablePair<String, Double>(DEFAULT_A_ROUTE_VERSION, 30D));
+        list.add(new ImmutablePair<String, Double>(DEFAULT_B_ROUTE_VERSION, 70D));
+        MapWeightRandom<String, Double> weightRandom = new MapWeightRandom<String, Double>(list);
+        
+        return weightRandom.random();
+    }*/
 }
 ```
 在配置类里@Bean方式进行过滤类创建，覆盖框架内置的过滤类
@@ -557,7 +586,7 @@ public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
 
 ServiceStrategyRouteFilter示例
 
-在代码里根据不同的Header选择不同的路由路径
+在代码里根据不同的Header选择不同的路由路径，示例提供全链路条件命中和全链路随机权重两种方式
 ```java
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
 // 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
@@ -571,6 +600,7 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     @Value("${b.route.version:" + DEFAULT_B_ROUTE_VERSION + "}")
     private String bRouteVersion;
 
+    // 全链路条件命中
     @Override
     public String getRouteVersion() {
         String user = strategyContextHolder.getHeader("user");
@@ -583,6 +613,17 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
 
         return super.getRouteVersion();
     }
+
+    // 全链路随机权重
+    /*@Override
+    public String getRouteVersion() {
+        List<Pair<String, Double>> list = new ArrayList<Pair<String, Double>>();
+        list.add(new ImmutablePair<String, Double>(DEFAULT_A_ROUTE_VERSION, 30D));
+        list.add(new ImmutablePair<String, Double>(DEFAULT_B_ROUTE_VERSION, 70D));
+        MapWeightRandom<String, Double> weightRandom = new MapWeightRandom<String, Double>(list);
+        
+        return weightRandom.random();
+    }*/
 }
 ```
 在配置类里@Bean方式进行过滤类创建，覆盖框架内置的过滤类
@@ -594,7 +635,7 @@ public ServiceStrategyRouteFilter serviceStrategyRouteFilter() {
 ```
 
 #### 通过业务参数在策略类中自定义灰度路由策略
-通过策略方式自定义灰度路由策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，同时全链路中网关和服务都必须加该方式
+通过策略方式自定义灰度路由策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，同时全链路中网关和服务都必须加该方式，DefaultDiscoveryEnabledStrategy可以有多个，框架会组合判断
 ```java
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
 public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy {
@@ -636,7 +677,7 @@ public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
     return new MyDiscoveryEnabledStrategy();
 }
 ```
-在网关和服务中支持基于Rest Header传递的自定义灰度路由策略，除此之外，服务还支持基于Rpc方法参数传递的自定义灰度路由策略，它包括接口名、方法名、参数名或参数值等多种形式。下面的示例表示在服务中同时开启基于Rest Header传递和Rpc方法参数传递的自定义组合式灰度路由策略
+在网关和服务中支持基于Rest Header传递的自定义灰度路由策略，除此之外，服务还支持基于Rpc方法参数传递的自定义灰度路由策略，它包括接口名、方法名、参数名或参数值等多种形式。下面的示例表示在服务中同时开启基于Rest Header传递和Rpc方法参数传递的自定义组合式灰度路由策略，DefaultDiscoveryEnabledStrategy可以有多个，框架会组合判断
 ```java
 // 实现了组合策略，版本路由策略+区域路由策略+IP和端口路由策略+自定义策略
 public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
@@ -975,15 +1016,20 @@ spring.application.environment.isolation.enabled=true
 
 ### 环境路由
 
-需要在调用端开启如下配置：
+支持两种方式的环境隔离，动态调度子环境的能力
+- 网关独立部署
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment1.jpg)
+
+- 网关非独立部署
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment2.jpg)
+
+需要在网关端和服务端都开启如下配置：
 ```vb
 # 启动和关闭环境路由，环境路由指在环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境，例如：元数据Metadata环境配置值为common（该值可配置，但不允许为保留值default）。缺失则默认为false
 spring.application.environment.route.enabled=true
 # 流量路由到指定的环境下。不允许为保留值default，缺失则默认为common
 spring.application.environment.route=common
 ```
-
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment.jpg)
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
