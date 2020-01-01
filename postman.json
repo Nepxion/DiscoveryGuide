@@ -20,14 +20,14 @@
 								"disabled": true
 							},
 							{
-								"key": "n-d-region",
-								"value": "qa",
+								"key": "n-d-version-weight",
+								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
 								"type": "text",
 								"disabled": true
 							},
 							{
-								"key": "n-d-version-weight",
-								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
+								"key": "n-d-region",
+								"value": "qa",
 								"type": "text",
 								"disabled": true
 							},
@@ -44,7 +44,7 @@
 								"disabled": true
 							},
 							{
-								"key": "env",
+								"key": "n-d-env",
 								"value": "env1",
 								"type": "text",
 								"disabled": true
@@ -114,14 +114,14 @@
 								"disabled": true
 							},
 							{
-								"key": "n-d-region",
-								"value": "qa",
+								"key": "n-d-version-weight",
+								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
 								"type": "text",
 								"disabled": true
 							},
 							{
-								"key": "n-d-version-weight",
-								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
+								"key": "n-d-region",
+								"value": "qa",
 								"type": "text",
 								"disabled": true
 							},
@@ -138,7 +138,7 @@
 								"disabled": true
 							},
 							{
-								"key": "env",
+								"key": "n-d-env",
 								"value": "env1",
 								"type": "text",
 								"disabled": true
