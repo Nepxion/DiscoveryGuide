@@ -44,8 +44,8 @@ public class MyZuulStrategyRouteFilter extends DefaultZuulStrategyRouteFilter {
     /*@Override
     public String getRouteVersion() {
         List<Pair<String, Double>> list = new ArrayList<Pair<String, Double>>();
-        list.add(new ImmutablePair<String, Double>(DEFAULT_A_ROUTE_VERSION, 30D));
-        list.add(new ImmutablePair<String, Double>(DEFAULT_B_ROUTE_VERSION, 70D));
+        list.add(new ImmutablePair<String, Double>(aRouteVersion, 30D));
+        list.add(new ImmutablePair<String, Double>(bRouteVersion, 70D));
         MapWeightRandom<String, Double> weightRandom = new MapWeightRandom<String, Double>(list);
         
         return weightRandom.random();
