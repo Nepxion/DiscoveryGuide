@@ -85,6 +85,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
         - [通过业务参数在过滤器中自定义灰度路由策略](#通过业务参数在过滤器中自定义灰度路由策略)
         - [通过业务参数在策略类中自定义灰度路由策略](#通过业务参数在策略类中自定义灰度路由策略)
+    - [配置全链路灰度权重和灰度匹配组合式策略](#配置全链路灰度权重和灰度匹配组合式策略)
     - [配置前端灰度和网关灰度路由组合式策略](#配置前端灰度和网关灰度路由组合式策略)
 - [基于订阅方式的全链路灰度发布规则](#基于订阅方式的全链路灰度发布规则)
     - [配置全链路灰度匹配规则](#配置全链路灰度匹配规则)
@@ -95,7 +96,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [局部版本权重灰度规则](#局部版本权重灰度规则)
         - [全局区域权重灰度规则](#全局区域权重灰度规则)
         - [局部区域权重灰度规则](#局部区域权重灰度规则)
-    - [配置全链路灰度权重和灰度版本组合式规则](#配置全链路灰度权重和灰度版本组合式规则)
+    - [配置全链路灰度权重和灰度匹配组合式规则](#配置全链路灰度权重和灰度匹配组合式规则)
 - [基于多方式的规则和策略推送](#基于多方式的规则和策略推送)
     - [基于远程配置中心的规则和策略订阅推送](#基于远程配置中心的规则和策略订阅推送)
     - [基于Swagger和Rest的规则和策略推送](#基于Swagger和Rest的规则和策略推送)	
@@ -766,6 +767,30 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
 spring.application.strategy.rpc.intercept.enabled=true
 ```
 
+### 配置全链路灰度权重和灰度匹配组合式策略
+增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
+- a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
+- a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
+
+该功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy-customization>
+        <weights>
+            <weight id="1" version-id="version-route1=90;version-route2=10"/>
+        </weights>
+
+        <routes>
+            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
+            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
+        </routes>
+    </strategy-customization>
+</rule>
+```
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-9.jpg)
+
 ### 配置前端灰度和网关灰度路由组合式策略
 当前端（例如：APP）和后端微服务同时存在多个版本时，可以执行“前端灰度&网关灰度路由组合式策略”
 
@@ -897,8 +922,8 @@ spring.application.strategy.rpc.intercept.enabled=true
 
 请执行Postman操作，请仔细观察服务被随机权重调用到的概率
 
-### 配置全链路灰度权重和灰度版本组合式规则
-增加组合式的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现功能：
+### 配置全链路灰度权重和灰度匹配组合式规则
+增加组合式的灰度规则，支持版本匹配和区域匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现功能：
 - a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 
