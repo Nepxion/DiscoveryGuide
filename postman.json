@@ -50,6 +50,12 @@
 								"disabled": true
 							},
 							{
+								"key": "app-version",
+								"value": "2.0",
+								"type": "text",
+								"disabled": true
+							},
+							{
 								"key": "mobile",
 								"value": "13312345678",
 								"type": "text",
@@ -140,6 +146,12 @@
 							{
 								"key": "n-d-env",
 								"value": "env1",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "app-version",
+								"value": "1.0",
 								"type": "text",
 								"disabled": true
 							},
