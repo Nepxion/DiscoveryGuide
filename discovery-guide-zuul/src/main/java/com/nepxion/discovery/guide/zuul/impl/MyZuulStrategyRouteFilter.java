@@ -26,7 +26,7 @@ public class MyZuulStrategyRouteFilter extends DefaultZuulStrategyRouteFilter {
     @Value("${b.route.version:" + DEFAULT_B_ROUTE_VERSION + "}")
     private String bRouteVersion;
 
-    // 全链路条件命中
+    // 自定义全链路条件命中
     @Override
     public String getRouteVersion() {
         String user = strategyContextHolder.getHeader("user");
@@ -40,14 +40,14 @@ public class MyZuulStrategyRouteFilter extends DefaultZuulStrategyRouteFilter {
         return super.getRouteVersion();
     }
 
-    // 全链路随机权重
+    // 自定义全链路随机权重
     /*@Override
     public String getRouteVersion() {
-        List<Pair<String, Double>> list = new ArrayList<Pair<String, Double>>();
-        list.add(new ImmutablePair<String, Double>(aRouteVersion, 30D));
-        list.add(new ImmutablePair<String, Double>(bRouteVersion, 70D));
-        MapWeightRandom<String, Double> weightRandom = new MapWeightRandom<String, Double>(list);
-        
+        List<Pair<String, Double>> weightList = new ArrayList<Pair<String, Double>>();
+        weightList.add(new ImmutablePair<String, Double>(aRouteVersion, 30D));
+        weightList.add(new ImmutablePair<String, Double>(bRouteVersion, 70D));
+        MapWeightRandom<String, Double> weightRandom = new MapWeightRandom<String, Double>(weightList);
+
         return weightRandom.random();
     }*/
 }
