@@ -423,7 +423,7 @@ spring.application.strategy.zuul.original.header.ignored=true
 - 内置策略解析映射到过滤器的自定义方式
 下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
 
-1. 支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
+支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
 
 | 符号 |  转义符 | 含义 | 备注 |
 | --- | --- | --- | --- | 
@@ -433,7 +433,7 @@ spring.application.strategy.zuul.original.header.ignored=true
 | > | &gt; | 大于号 |  |
 | ' | &apos; | 单引号 |  |
 
-2. 从Http Header获取到值进行逻辑判断，例如Http Header的Key为a，它的格式表示为#H['a']，H为Header的首字母。假如路由触发的条件为a等于1，b小于等于2，c不等于3，那么表达式可以写为
+从Http Header获取到值进行逻辑判断，例如Http Header的Key为a，它的格式表示为#H['a']，H为Header的首字母。假如路由触发的条件为a等于1，b小于等于2，c不等于3，那么表达式可以写为
 ```
 #H['a'] == '1' &amp;&amp; #H['b'] &lt;= '2' &amp;&amp; #H['c'] != '3'
 ```
