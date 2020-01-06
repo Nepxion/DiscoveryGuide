@@ -454,16 +454,20 @@ spring.application.strategy.zuul.original.header.ignored=true
    <route>中id="version-route2" type="version"的那项，那么路由即为：
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
 
-3. 当外部调用带有的Http Header中的值都不命中，找到上面
-   <strategy>节点中的全局缺省路由，那么路由即为：
+3. 当外部调用带有的Http Header中的值都不命中，那么执行顺序为
+   1）如果配置了权重路由（<weights>节点下）的策略，则执行权重路由
+   2）如果权重路由策略未配置，则执行<strategy>节点中的全局缺省路由，那么路由即为：
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
+   3）如果全局缺省路由未配置，则执行Spring Cloud权重轮询策略
 
-4. 策略解析总共支持5种，可以单独一项使用，也可以多项叠加使用：
+4. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
    1）version 版本路由
    2）region 区域路由
    3）address 机器地址路由
    4）version-weight 版本权重路由
    5）region-weight 区域权重路由
+
+5. 策略支持Spring Matcher的通配符方式
 ```
 
 ```xml
@@ -792,6 +796,17 @@ spring.application.strategy.rpc.intercept.enabled=true
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 
 该功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
+
+```
+1. version-route1链路配比90%的流量，version-route2链路配比10%的流量
+
+2. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
+   1）version 版本路由
+   2）region 区域路由
+   3）address 机器地址路由
+
+3. 策略支持Spring Matcher的通配符方式
+```
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
