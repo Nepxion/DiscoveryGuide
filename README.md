@@ -423,15 +423,30 @@ spring.application.strategy.zuul.original.header.ignored=true
 - 内置策略解析映射到过滤器的自定义方式
 下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
 
+1. 支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
+
+| 符号 |  转义符 | 含义 | 备注 |
+| --- | --- | --- | --- | 
+| & | &amp; | 和符号 | 必须转义 |
+| < | &lt; | 小于号 | 必须转义 |
+| " | &quot; | 双引号 | 必须转义 |
+| > | &gt; | 大于号 |  |
+| ' | &apos; | 单引号 |  |
+
+2. 从Http Header获取到值进行逻辑判断，例如Http Header的Key为a，它的格式表示为#H['a']，H为Header的首字母。假如路由触发的条件为a等于1，b小于等于2，c不等于3，那么表达式可以写为
+```
+#H['a'] == '1' &amp;&amp; #H['b'] &lt;= '2' &amp;&amp; #H['c'] != '3'
+```
+
 增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容见下面XML内容，它所表达的功能逻辑：
 ```
 1. 当外部调用带有的Http Header中的值a=1同时b=2
-   <condition>节点中header="a=1;b=2"对应的version-id="version-route1"，找到下面
+   <condition>节点中header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'"对应的version-id="version-route1"，找到下面
    <route>节点中id="version-route1" type="version"的那项，那么路由即为：
    {"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}
 
 2. 当外部调用带有的Http Header中的值a=1
-   <condition>节点中header="a=1"对应的version-id="version-route2"，找到下面
+   <condition>节点中header="#H['a'] == '1'"对应的version-id="version-route2"，找到下面
    <route>中id="version-route2" type="version"的那项，那么路由即为：
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
 
@@ -458,8 +473,8 @@ spring.application.strategy.zuul.original.header.ignored=true
     <!-- 基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
     <strategy-customization>
         <conditions>
-            <condition id="condition1" header="a=1" version-id="version-route2"/>
-            <condition id="condition2" header="a=1;b=2" version-id="version-route1"/>
+            <condition id="condition1" header="#H['a'] == '1'" version-id="version-route2"/>
+            <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1"/>
         </conditions>
 
         <routes>
@@ -803,8 +818,8 @@ spring.application.strategy.rpc.intercept.enabled=true
 <rule>
     <strategy-customization>
         <conditions>
-            <condition id="condition1" header="app-version=1.0" version-id="version-route1"/>
-            <condition id="condition2" header="app-version=2.0" version-id="version-route2"/>
+            <condition id="condition1" header="#H['app-version'] == '1.0'" version-id="version-route1"/>
+            <condition id="condition2" header="#H['app-version'] == '2.0'" version-id="version-route2"/>
         </conditions>
 
         <routes>
