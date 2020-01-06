@@ -81,12 +81,13 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
         - [IP地址和端口匹配灰度路由策略](#IP地址和端口匹配灰度路由策略)
+    - [配置全链路灰度权重和灰度匹配组合式策略](#配置全链路灰度权重和灰度匹配组合式策略)
+    - [配置全链路灰度条件和灰度匹配组合式策略](#配置全链路灰度条件和灰度匹配组合式策略)
+    - [配置前端灰度和网关灰度路由组合式策略](#配置前端灰度和网关灰度路由组合式策略)
     - [通过其它方式设置灰度路由策略](#通过其它方式设置灰度路由策略)
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
         - [通过业务参数在过滤器中自定义灰度路由策略](#通过业务参数在过滤器中自定义灰度路由策略)
-        - [通过业务参数在策略类中自定义灰度路由策略](#通过业务参数在策略类中自定义灰度路由策略)
-    - [配置全链路灰度权重和灰度匹配组合式策略](#配置全链路灰度权重和灰度匹配组合式策略)
-    - [配置前端灰度和网关灰度路由组合式策略](#配置前端灰度和网关灰度路由组合式策略)
+        - [通过业务参数在策略类中自定义灰度路由策略](#通过业务参数在策略类中自定义灰度路由策略)	
 - [基于订阅方式的全链路灰度发布规则](#基于订阅方式的全链路灰度发布规则)
     - [配置全链路灰度匹配规则](#配置全链路灰度匹配规则)
         - [版本匹配灰度规则](#版本匹配灰度规则)
@@ -358,6 +359,149 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 表示discovery-guide-service-b服务的端口调用范围是3开头的所有端口，或者是4开头的所有端口（末尾必须是1个字符）
 
+### 配置全链路灰度权重和灰度匹配组合式策略
+既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
+
+增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
+- a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
+- a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
+
+该功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
+
+```
+1. version-route1链路配比90%的流量，version-route2链路配比10%的流量
+
+2. 策略总共支持3种，可以单独一项使用，也可以多项叠加使用：
+   1）version 版本路由
+   2）region 区域路由
+   3）address IP地址和端口路由
+
+3. 策略支持Spring Matcher的通配符方式
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy-customization>
+        <weights>
+            <weight id="1" version-id="version-route1=90;version-route2=10"/>
+        </weights>
+
+        <routes>
+            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
+            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
+        </routes>
+    </strategy-customization>
+</rule>
+```
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-9.jpg)
+
+### 配置全链路灰度条件和灰度匹配组合式策略
+
+既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
+
+支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
+
+| 符号 |  转义符 | 含义 | 备注 |
+| --- | --- | --- | --- | 
+| & | &amp; | 和符号 | 必须转义 |
+| < | &lt; | 小于号 | 必须转义 |
+| " | &quot; | 双引号 | 必须转义 |
+| > | &gt; | 大于号 |  |
+| ' | &apos; | 单引号 |  |
+
+从Http Header获取到值进行逻辑判断，例如Http Header的Key为a，它的格式表示为#H['a']，H为Header的首字母。假如路由触发的条件为a等于1，b小于等于2，c不等于3，那么表达式可以写为
+```
+#H['a'] == '1' && #H['b'] <= '2' && #H['c'] != '3'
+```
+特殊符号必须转义，所以表达式必须改成如下
+```
+#H['a'] == '1' &amp;&amp; #H['b'] &lt;= '2' &amp;&amp; #H['c'] != '3'
+```
+
+增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配、版本权重匹配、区域权重匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
+```
+1. 当外部调用带有的Http Header中的值a=1同时b=2
+   <condition>节点中header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'"对应的version-id="version-route1"，找到下面
+   <route>节点中id="version-route1" type="version"的那项，那么路由即为：
+   {"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}
+
+2. 当外部调用带有的Http Header中的值a=1
+   <condition>节点中header="#H['a'] == '1'"对应的version-id="version-route2"，找到下面
+   <route>中id="version-route2" type="version"的那项，那么路由即为：
+   {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
+
+3. 当外部调用带有的Http Header中的值都不命中，那么执行顺序为
+   1）如果配置了权重路由（<weights>节点下）的策略，则执行权重路由
+   2）如果权重路由策略未配置，则执行<strategy>节点中的全局缺省路由，那么路由即为：
+   {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
+   3）如果全局缺省路由未配置，则执行Spring Cloud权重轮询策略
+
+4. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
+   1）version 版本路由
+   2）region 区域路由
+   3）address IP地址和端口路由
+   4）version-weight 版本权重路由
+   5）region-weight 区域权重路由
+
+5. 策略支持Spring Matcher的通配符方式
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <!-- 基于Http Header传递的策略路由，全局缺省路由 -->
+    <strategy>
+        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
+    </strategy>
+
+    <!-- 基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
+    <strategy-customization>
+        <conditions>
+            <condition id="condition1" header="#H['a'] == '1'" version-id="version-route2"/>
+            <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1"/>
+        </conditions>
+
+        <routes>
+            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
+            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}</route>
+        </routes>
+    </strategy-customization>
+</rule>
+```
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-8.jpg)
+
+### 配置前端灰度和网关灰度路由组合式策略
+当前端（例如：APP）和后端微服务同时存在多个版本时，可以执行“前端灰度&网关灰度路由组合式策略”
+
+例如：前端存在1.0和2.0版本，微服务存在1.0和2.0版本，由于存在版本不兼容的情况（前端1.0版本只能调用微服务的1.0版本，前端2.0版本只能调用微服务的2.0版本），那么前端调用网关时候，可以通过Header传递它的版本号给网关，网关根据前端版本号，去路由对应版本的微服务
+
+该场景可以用“通过业务参数在过滤器中自定义灰度路由策略”的方案来解决，如下：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy-customization>
+        <conditions>
+            <condition id="condition1" header="#H['app-version'] == '1.0'" version-id="version-route1"/>
+            <condition id="condition2" header="#H['app-version'] == '2.0'" version-id="version-route2"/>
+        </conditions>
+
+        <routes>
+            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
+            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
+        </routes>
+    </strategy-customization>
+</rule>
+```
+
+上述配置，模拟出全链路中，两条独立不受干扰的调用路径：
+
+```
+1. APP v1.0 -> 网关 -> A服务 v1.0 -> B服务 v1.0
+2. APP v1.1 -> 网关 -> A服务 v1.1 -> B服务 v1.1
+```
+
 ### 通过其它方式设置灰度路由策略
 除了上面通过配置中心发布灰度规路由则外，还有如下三种方式，这三种方式既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
 
@@ -419,83 +563,7 @@ spring.application.strategy.zuul.original.header.ignored=true
 
 #### 通过业务参数在过滤器中自定义灰度路由策略
 通过过滤器传递Http Header的方式传递全链路灰度路由策略
-
-- 内置策略解析映射到过滤器的自定义方式
-下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
-
-支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
-
-| 符号 |  转义符 | 含义 | 备注 |
-| --- | --- | --- | --- | 
-| & | &amp; | 和符号 | 必须转义 |
-| < | &lt; | 小于号 | 必须转义 |
-| " | &quot; | 双引号 | 必须转义 |
-| > | &gt; | 大于号 |  |
-| ' | &apos; | 单引号 |  |
-
-从Http Header获取到值进行逻辑判断，例如Http Header的Key为a，它的格式表示为#H['a']，H为Header的首字母。假如路由触发的条件为a等于1，b小于等于2，c不等于3，那么表达式可以写为
-```
-#H['a'] == '1' && #H['b'] <= '2' && #H['c'] != '3'
-```
-特殊符号必须转义，所以表达式必须改成如下
-```
-#H['a'] == '1' &amp;&amp; #H['b'] &lt;= '2' &amp;&amp; #H['c'] != '3'
-```
-
-增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，增加Spring Cloud Gateway的解析策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容见下面XML内容，它所表达的功能逻辑：
-```
-1. 当外部调用带有的Http Header中的值a=1同时b=2
-   <condition>节点中header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'"对应的version-id="version-route1"，找到下面
-   <route>节点中id="version-route1" type="version"的那项，那么路由即为：
-   {"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}
-
-2. 当外部调用带有的Http Header中的值a=1
-   <condition>节点中header="#H['a'] == '1'"对应的version-id="version-route2"，找到下面
-   <route>中id="version-route2" type="version"的那项，那么路由即为：
-   {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
-
-3. 当外部调用带有的Http Header中的值都不命中，那么执行顺序为
-   1）如果配置了权重路由（<weights>节点下）的策略，则执行权重路由
-   2）如果权重路由策略未配置，则执行<strategy>节点中的全局缺省路由，那么路由即为：
-   {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
-   3）如果全局缺省路由未配置，则执行Spring Cloud权重轮询策略
-
-4. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
-   1）version 版本路由
-   2）region 区域路由
-   3）address IP地址路由
-   4）version-weight 版本权重路由
-   5）region-weight 区域权重路由
-
-5. 策略支持Spring Matcher的通配符方式
-```
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<rule>
-    <!-- 基于Http Header传递的策略路由，全局缺省路由 -->
-    <strategy>
-        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
-    </strategy>
-
-    <!-- 基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
-    <strategy-customization>
-        <conditions>
-            <condition id="condition1" header="#H['a'] == '1'" version-id="version-route2"/>
-            <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1"/>
-        </conditions>
-
-        <routes>
-            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
-            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}</route>
-        </routes>
-    </strategy-customization>
-</rule>
-```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-8.jpg)
-
-- 用户覆盖过滤器的自定义方式
-通过覆盖过滤器方式自定义灰度路由策略。下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务就不需要加，当不存在的网关的时候，服务上就可以考虑。继承GatewayStrategyRouteFilter、ZuulStrategyRouteFilter或者ServiceStrategyRouteFilter，覆盖掉如下方法中的一个或者多个，通过@Bean方式覆盖框架内置的过滤类
+下面代码既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务就不需要加，当不存在的网关的时候，服务上就可以考虑。继承GatewayStrategyRouteFilter、ZuulStrategyRouteFilter或者ServiceStrategyRouteFilter，覆盖掉如下方法中的一个或者多个，通过@Bean方式覆盖框架内置的过滤类
 ```java
 public String getRouteVersion();
 
@@ -788,72 +856,6 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
 ```vb
 # 启动和关闭路由策略的时候，对RPC方式的调用拦截。缺失则默认为false
 spring.application.strategy.rpc.intercept.enabled=true
-```
-
-### 配置全链路灰度权重和灰度匹配组合式策略
-增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
-- a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
-- a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
-
-该功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
-
-```
-1. version-route1链路配比90%的流量，version-route2链路配比10%的流量
-
-2. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
-   1）version 版本路由
-   2）region 区域路由
-   3）address IP地址路由
-
-3. 策略支持Spring Matcher的通配符方式
-```
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<rule>
-    <strategy-customization>
-        <weights>
-            <weight id="1" version-id="version-route1=90;version-route2=10"/>
-        </weights>
-
-        <routes>
-            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
-            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
-        </routes>
-    </strategy-customization>
-</rule>
-```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-9.jpg)
-
-### 配置前端灰度和网关灰度路由组合式策略
-当前端（例如：APP）和后端微服务同时存在多个版本时，可以执行“前端灰度&网关灰度路由组合式策略”
-
-例如：前端存在1.0和2.0版本，微服务存在1.0和2.0版本，由于存在版本不兼容的情况（前端1.0版本只能调用微服务的1.0版本，前端2.0版本只能调用微服务的2.0版本），那么前端调用网关时候，可以通过Header传递它的版本号给网关，网关根据前端版本号，去路由对应版本的微服务
-
-该场景可以用“通过业务参数在过滤器中自定义灰度路由策略”的方案来解决，如下：
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<rule>
-    <strategy-customization>
-        <conditions>
-            <condition id="condition1" header="#H['app-version'] == '1.0'" version-id="version-route1"/>
-            <condition id="condition2" header="#H['app-version'] == '2.0'" version-id="version-route2"/>
-        </conditions>
-
-        <routes>
-            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
-            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
-        </routes>
-    </strategy-customization>
-</rule>
-```
-
-上述配置，模拟出全链路中，两条独立不受干扰的调用路径：
-
-```
-1. APP v1.0 -> 网关 -> A服务 v1.0 -> B服务 v1.0
-2. APP v1.1 -> 网关 -> A服务 v1.1 -> B服务 v1.1
 ```
 
 ## 基于订阅方式的全链路灰度发布规则
