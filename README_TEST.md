@@ -470,4 +470,4 @@ A service 1.1 version weight=60.1667%
 
 [![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/Discovery)
 
-[![Stargazers over time](https://starchart.cc/Nepxion/Discovery.svg)](https://starchart.cc/Nepxion/DiscoveryGuide)
+[![Stargazers over time](https://starchart.cc/Nepxion/DiscoveryGuide.svg)](https://starchart.cc/Nepxion/DiscoveryGuide)
