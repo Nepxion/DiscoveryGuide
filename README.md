@@ -21,14 +21,14 @@ Nepxion Discovery【探索】，基于Spring Cloud Discovery服务注册发现�
 - 支持和兼容Spring Cloud Edgware版、Finchley版、Greenwich版和Hoxton版
 
 Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley版和Hoxton版而制作（对于Edgware版，使用者需要自行修改）。使用指南主要涉及的功能包括：
-- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、机器IP地址和端口的路由
+- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、IP地址和端口的路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本和区域的匹配发布、版本和区域的权重发布
 - 基于多方式的规则和策略推送。包括基于远程配置中心的规则和策略订阅推送（本文以Nacos为例）、基于Swagger和Rest的规则和策略推送
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
     - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
 - 基于Env的全链路环境隔离和路由。包括基于元数据Metadata的env参数进行隔离，当调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境。支持网关独立部署和非独立部署两种场景下，动态调度子环境的能力
-- 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于机器地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
+- 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于IP地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
 - 全链路监控。包括全链路调用链监控（Tracing）和全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）
     - 全链路调用链监控（Tracing）包括Header方式、Opentracing方式、日志方式等单个或者组合式的全链路灰度调用链，支持对Sentinel自动埋点。Opentracing方式不支持Edgware版（Spring Boot 1.x.x）
     - 全链路指标监控（Metrics）包括Prometheus、Grafana、Spring Boot Admin
@@ -80,7 +80,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [版本权重灰度路由策略](#版本权重灰度路由策略)
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
-        - [机器IP地址和端口匹配灰度路由策略](#机器IP地址和端口匹配灰度路由策略)
+        - [IP地址和端口匹配灰度路由策略](#IP地址和端口匹配灰度路由策略)
     - [通过其它方式设置灰度路由策略](#通过其它方式设置灰度路由策略)
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
         - [通过业务参数在过滤器中自定义灰度路由策略](#通过业务参数在过滤器中自定义灰度路由策略)
@@ -120,7 +120,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [基于灰度组的防护机制](#基于灰度组的防护机制)
         - [基于灰度版本的防护机制](#基于灰度版本的防护机制)
         - [基于灰度区域的防护机制](#基于灰度区域的防护机制)
-        - [基于机器地址和端口的防护机制](#基于机器地址和端口的防护机制)
+        - [基于IP地址和端口的防护机制](#基于IP地址和端口的防护机制)
         - [自定义业务参数的组合式防护机制](#自定义业务参数的组合式防护机制)
 - [基于Hystrix的全链路服务限流熔断和灰度融合](#基于Hystrix的全链路服务限流熔断和灰度融合)
 - [全链路监控](#全链路监控)
@@ -327,8 +327,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 2. <region-weight>{"discovery-guide-service-a":"dev=85;qa=15", "discovery-guide-service-b":"dev=85;qa=15"}</region-weight>
 ```
 
-#### 机器IP地址和端口匹配灰度路由策略
-增加Zuul的基于机器IP地址和端口匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
+#### IP地址和端口匹配灰度路由策略
+增加Zuul的基于IP地址和端口匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -388,7 +388,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 2. n-d-region-weight={"discovery-guide-service-a":"dev=99;qa=1", "discovery-guide-service-b":"dev=99;qa=1"}
 ```
 
-- 机器IP地址和端口匹配策略，Header格式如下任选一个：
+- IP地址和端口匹配策略，Header格式如下任选一个：
 ```
 1. n-d-address={"discovery-guide-service-a":"127.0.0.1:3001", "discovery-guide-service-b":"127.0.0.1:4002"}
 2. n-d-address={"discovery-guide-service-a":"127.0.0.1", "discovery-guide-service-b":"127.0.0.1"}
@@ -454,16 +454,20 @@ spring.application.strategy.zuul.original.header.ignored=true
    <route>中id="version-route2" type="version"的那项，那么路由即为：
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
 
-3. 当外部调用带有的Http Header中的值都不命中，找到上面
-   <strategy>节点中的全局缺省路由，那么路由即为：
+3. 当外部调用带有的Http Header中的值都不命中，那么执行顺序为
+   1）如果配置了权重路由（<weights>节点下）的策略，则执行权重路由
+   2）如果权重路由策略未配置，则执行<strategy>节点中的全局缺省路由，那么路由即为：
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
+   3）如果全局缺省路由未配置，则执行Spring Cloud权重轮询策略
 
-4. 策略解析总共支持5种，可以单独一项使用，也可以多项叠加使用：
+4. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
    1）version 版本路由
    2）region 区域路由
-   3）address 机器地址路由
+   3）address IP地址路由
    4）version-weight 版本权重路由
    5）region-weight 区域权重路由
+
+5. 策略支持Spring Matcher的通配符方式
 ```
 
 ```xml
@@ -792,6 +796,17 @@ spring.application.strategy.rpc.intercept.enabled=true
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 
 该功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
+
+```
+1. version-route1链路配比90%的流量，version-route2链路配比10%的流量
+
+2. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
+   1）version 版本路由
+   2）region 区域路由
+   3）address IP地址路由
+
+3. 策略支持Spring Matcher的通配符方式
+```
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1309,9 +1324,9 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-regi
 ]
 ```
 
-#### 基于机器地址和端口的防护机制
+#### 基于IP地址和端口的防护机制
 
-修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域值，可实现基于机器地址和端口的防护机制
+修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域值，可实现基于IP地址和端口的防护机制
 
 配置项
 ```vb
