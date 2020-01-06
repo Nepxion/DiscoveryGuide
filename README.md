@@ -21,7 +21,7 @@ Nepxion Discovery【探索】，基于Spring Cloud Discovery服务注册发现�
 - 支持和兼容Spring Cloud Edgware版、Finchley版、Greenwich版和Hoxton版
 
 Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley版和Hoxton版而制作（对于Edgware版，使用者需要自行修改）。使用指南主要涉及的功能包括：
-- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、机器IP地址和端口的路由
+- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、IP地址和端口的路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本和区域的匹配发布、版本和区域的权重发布
 - 基于多方式的规则和策略推送。包括基于远程配置中心的规则和策略订阅推送（本文以Nacos为例）、基于Swagger和Rest的规则和策略推送
 - 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
@@ -80,7 +80,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [版本权重灰度路由策略](#版本权重灰度路由策略)
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
-        - [机器IP地址和端口匹配灰度路由策略](#机器IP地址和端口匹配灰度路由策略)
+        - [IP地址和端口匹配灰度路由策略](#IP地址和端口匹配灰度路由策略)
     - [通过其它方式设置灰度路由策略](#通过其它方式设置灰度路由策略)
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
         - [通过业务参数在过滤器中自定义灰度路由策略](#通过业务参数在过滤器中自定义灰度路由策略)
@@ -327,8 +327,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 2. <region-weight>{"discovery-guide-service-a":"dev=85;qa=15", "discovery-guide-service-b":"dev=85;qa=15"}</region-weight>
 ```
 
-#### 机器IP地址和端口匹配灰度路由策略
-增加Zuul的基于机器IP地址和端口匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
+#### IP地址和端口匹配灰度路由策略
+增加Zuul的基于IP地址和端口匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -388,7 +388,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 2. n-d-region-weight={"discovery-guide-service-a":"dev=99;qa=1", "discovery-guide-service-b":"dev=99;qa=1"}
 ```
 
-- 机器IP地址和端口匹配策略，Header格式如下任选一个：
+- IP地址和端口匹配策略，Header格式如下任选一个：
 ```
 1. n-d-address={"discovery-guide-service-a":"127.0.0.1:3001", "discovery-guide-service-b":"127.0.0.1:4002"}
 2. n-d-address={"discovery-guide-service-a":"127.0.0.1", "discovery-guide-service-b":"127.0.0.1"}
