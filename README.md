@@ -450,12 +450,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
-    <!-- 基于Http Header传递的策略路由，全局缺省路由 -->
     <strategy>
         <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
     </strategy>
 
-    <!-- 基于Http Header传递的策略路由，客户定制化控制，跟业务参数绑定。如果不命中，则执行上面的全局缺省路由 -->
     <strategy-customization>
         <conditions>
             <condition id="condition1" header="#H['a'] == '1'" version-id="version-route2"/>
