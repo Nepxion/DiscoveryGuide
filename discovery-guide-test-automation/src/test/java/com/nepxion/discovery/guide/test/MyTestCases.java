@@ -299,8 +299,8 @@ public class MyTestCases {
         Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-condition.xml", resetPath = "gray-default.xml")
-    public void testStrategyCustomizationConditionGray1(String group, String serviceId, String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationBlueGreen1(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
@@ -326,8 +326,8 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-condition.xml", resetPath = "gray-default.xml")
-    public void testStrategyCustomizationConditionGray2(String group, String serviceId, String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationBlueGreen2(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
 
@@ -359,8 +359,8 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-condition.xml", resetPath = "gray-default.xml")
-    public void testStrategyCustomizationConditionGray3(String group, String serviceId, String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationBlueGreen3(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
         headers.add("b", "2");
@@ -391,6 +391,259 @@ public class MyTestCases {
 
             Assert.assertEquals(aMatched && bMatched, true);
         }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-gray-1.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationGray1(String group, String serviceId, String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("a", "1");
+
+        LOG.info("Header : {}", headers);
+
+        int aV0Count = 0;
+        int aV1Count = 0;
+        int bV0Count = 0;
+        int bV1Count = 0;
+
+        int v0Weight = 95;
+        int v1Weight = 5;
+
+        LOG.info("Sample count={}", sampleCount);
+        LOG.info("Weight result offset desired={}%", resultOffset);
+        LOG.info("All services desired : 1.0 version weight={}%, 1.1 version weight={}%", v0Weight, v1Weight);
+        LOG.info("Route desired : A Service 1.0 version -> B Service 1.0 version, A Service 1.1 version -> B Service 1.1 version");
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < sampleCount; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            boolean aV0Matched = false;
+            boolean bV0Matched = false;
+            boolean aV1Matched = false;
+            boolean bV1Matched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aV0Count++;
+                        aV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        aV1Count++;
+                        aV1Matched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bV0Count++;
+                        bV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        bV1Count++;
+                        bV1Matched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+        }
+
+        DecimalFormat format = new DecimalFormat("0.0000");
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / sampleCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / sampleCount));
+        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / sampleCount));
+        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / sampleCount));
+
+        LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
+        LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
+        LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
+        LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
+
+        Assert.assertEquals(aV0Reslut > v0Weight - resultOffset && aV0Reslut < v0Weight + resultOffset, true);
+        Assert.assertEquals(aV1Reslut > v1Weight - resultOffset && aV1Reslut < v1Weight + resultOffset, true);
+        Assert.assertEquals(bV0Reslut > v0Weight - resultOffset && bV0Reslut < v0Weight + resultOffset, true);
+        Assert.assertEquals(bV1Reslut > v1Weight - resultOffset && bV1Reslut < v1Weight + resultOffset, true);
+
+        Assert.assertEquals(String.valueOf(aV0Reslut), String.valueOf(bV0Reslut));
+        Assert.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-gray-2.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationGray2(String group, String serviceId, String testUrl) {
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-gray-2.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationGray3(String group, String serviceId, String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("a", "1");
+
+        LOG.info("Header : {}", headers);
+
+        int aV0Count = 0;
+        int aV1Count = 0;
+        int bV0Count = 0;
+        int bV1Count = 0;
+
+        int v0Weight = 10;
+        int v1Weight = 90;
+
+        LOG.info("Sample count={}", sampleCount);
+        LOG.info("Weight result offset desired={}%", resultOffset);
+        LOG.info("All services desired : 1.0 version weight={}%, 1.1 version weight={}%", v0Weight, v1Weight);
+        LOG.info("Route desired : A Service 1.0 version -> B Service 1.0 version, A Service 1.1 version -> B Service 1.1 version");
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < sampleCount; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            boolean aV0Matched = false;
+            boolean bV0Matched = false;
+            boolean aV1Matched = false;
+            boolean bV1Matched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aV0Count++;
+                        aV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        aV1Count++;
+                        aV1Matched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bV0Count++;
+                        bV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        bV1Count++;
+                        bV1Matched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+        }
+
+        DecimalFormat format = new DecimalFormat("0.0000");
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / sampleCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / sampleCount));
+        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / sampleCount));
+        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / sampleCount));
+
+        LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
+        LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
+        LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
+        LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
+
+        Assert.assertEquals(aV0Reslut > v0Weight - resultOffset && aV0Reslut < v0Weight + resultOffset, true);
+        Assert.assertEquals(aV1Reslut > v1Weight - resultOffset && aV1Reslut < v1Weight + resultOffset, true);
+        Assert.assertEquals(bV0Reslut > v0Weight - resultOffset && bV0Reslut < v0Weight + resultOffset, true);
+        Assert.assertEquals(bV1Reslut > v1Weight - resultOffset && bV1Reslut < v1Weight + resultOffset, true);
+
+        Assert.assertEquals(String.valueOf(aV0Reslut), String.valueOf(bV0Reslut));
+        Assert.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-gray-2.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationGray4(String group, String serviceId, String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("a", "1");
+        headers.add("b", "2");
+
+        LOG.info("Header : {}", headers);
+
+        int aV0Count = 0;
+        int aV1Count = 0;
+        int bV0Count = 0;
+        int bV1Count = 0;
+
+        int v0Weight = 85;
+        int v1Weight = 15;
+
+        LOG.info("Sample count={}", sampleCount);
+        LOG.info("Weight result offset desired={}%", resultOffset);
+        LOG.info("All services desired : 1.0 version weight={}%, 1.1 version weight={}%", v0Weight, v1Weight);
+        LOG.info("Route desired : A Service 1.0 version -> B Service 1.0 version, A Service 1.1 version -> B Service 1.1 version");
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < sampleCount; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            boolean aV0Matched = false;
+            boolean bV0Matched = false;
+            boolean aV1Matched = false;
+            boolean bV1Matched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aV0Count++;
+                        aV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        aV1Count++;
+                        aV1Matched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bV0Count++;
+                        bV0Matched = true;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        bV1Count++;
+                        bV1Matched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+        }
+
+        DecimalFormat format = new DecimalFormat("0.0000");
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / sampleCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / sampleCount));
+        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / sampleCount));
+        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / sampleCount));
+
+        LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
+        LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
+        LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
+        LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
+
+        Assert.assertEquals(aV0Reslut > v0Weight - resultOffset && aV0Reslut < v0Weight + resultOffset, true);
+        Assert.assertEquals(aV1Reslut > v1Weight - resultOffset && aV1Reslut < v1Weight + resultOffset, true);
+        Assert.assertEquals(bV0Reslut > v0Weight - resultOffset && bV0Reslut < v0Weight + resultOffset, true);
+        Assert.assertEquals(bV1Reslut > v1Weight - resultOffset && bV1Reslut < v1Weight + resultOffset, true);
+
+        Assert.assertEquals(String.valueOf(aV0Reslut), String.valueOf(bV0Reslut));
+        Assert.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-version.xml", resetPath = "gray-default.xml")
