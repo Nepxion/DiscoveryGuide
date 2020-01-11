@@ -161,26 +161,26 @@ public class MyTest {
     }
 
     @Test
-    public void testStrategyCustomizationGray1() throws Exception {
+    public void testStrategyCustomizationConditionGray1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            myTestCases.testStrategyCustomizationGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            myTestCases.testStrategyCustomizationGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+            myTestCases.testStrategyCustomizationConditionGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testStrategyCustomizationConditionGray1(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationGray2() throws Exception {
+    public void testStrategyCustomizationConditionGray2() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            myTestCases.testStrategyCustomizationGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            myTestCases.testStrategyCustomizationGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+            myTestCases.testStrategyCustomizationConditionGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testStrategyCustomizationConditionGray2(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationGray3() throws Exception {
+    public void testStrategyCustomizationConditionGray3() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            myTestCases.testStrategyCustomizationGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            myTestCases.testStrategyCustomizationGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+            myTestCases.testStrategyCustomizationConditionGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testStrategyCustomizationConditionGray3(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
