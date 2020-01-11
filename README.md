@@ -81,8 +81,8 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
         - [IP地址和端口匹配灰度路由策略](#IP地址和端口匹配灰度路由策略)
-    - [配置全链路灰度权重和灰度匹配组合式策略](#配置全链路灰度权重和灰度匹配组合式策略)
-    - [配置全链路灰度条件和灰度匹配组合式策略](#配置全链路灰度条件和灰度匹配组合式策略)
+    - [配置全链路灰度条件权重和灰度匹配组合式策略](#配置全链路灰度条件权重和灰度匹配组合式策略)
+    - [配置全链路灰度条件命中和灰度匹配组合式策略](#配置全链路灰度条件命中和灰度匹配组合式策略)
     - [配置前端灰度和网关灰度路由组合式策略](#配置前端灰度和网关灰度路由组合式策略)
     - [通过其它方式设置灰度路由策略](#通过其它方式设置灰度路由策略)
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
@@ -359,46 +359,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 表示discovery-guide-service-b服务的端口调用范围是3开头的所有端口，或者是4开头的所有端口（末尾必须是1个字符）
 
-### 配置全链路灰度权重和灰度匹配组合式策略
-既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
-
-增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
-- a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
-- a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
-
-该功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
-
-```
-1. version-route1链路配比90%的流量，version-route2链路配比10%的流量
-
-2. 策略总共支持3种，可以单独一项使用，也可以多项叠加使用：
-   1）version 版本路由
-   2）region 区域路由
-   3）address IP地址和端口路由
-
-3. 策略支持Spring Matcher的通配符方式
-```
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<rule>
-    <strategy-customization>
-        <weights>
-            <weight id="1" version-id="version-route1=90;version-route2=10"/>
-        </weights>
-
-        <routes>
-            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
-            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
-        </routes>
-    </strategy-customization>
-</rule>
-```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-9.jpg)
-
-### 配置全链路灰度条件和灰度匹配组合式策略
-
-既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
+### 配置全链路灰度条件命中和灰度匹配组合式策略
+属于全链路蓝绿部署的范畴。既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
 
 支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
 
@@ -432,10 +394,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
 
 3. 当外部调用带有的Http Header中的值都不命中，那么执行顺序为
-   1）如果配置了权重路由（<weights>节点下）的策略，则执行权重路由
+   1）如果配置了权重路由（<condition-gray>节点下）的策略，则执行权重路由
    2）如果权重路由策略未配置，则执行<strategy>节点中的全局缺省路由，那么路由即为：
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
-   3）如果全局缺省路由未配置，则执行Spring Cloud权重轮询策略
+   3）如果全局缺省路由未配置，则执行Spring Cloud Ribbon轮询策略
 
 4. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
    1）version 版本路由
@@ -444,7 +406,11 @@ d* - 表示调用范围为所有服务的d开头的所有区域
    4）version-weight 版本权重路由
    5）region-weight 区域权重路由
 
-5. 策略支持Spring Matcher的通配符方式
+5. 策略支持Spring Spel的条件表达式方式
+
+6. 策略支持Spring Matcher的通配符方式
+
+7. Header节点不允许缺失
 ```
 
 ```xml
@@ -455,10 +421,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 
     <strategy-customization>
-        <conditions>
+        <condition-blue-green>
             <condition id="condition1" header="#H['a'] == '1'" version-id="version-route2"/>
             <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1"/>
-        </conditions>
+        </condition-blue-green>
 
         <routes>
             <route id="version-route1" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
@@ -468,6 +434,55 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 </rule>
 ```
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-8.jpg)
+
+### 配置全链路灰度条件权重和灰度匹配组合式策略
+属于全链路灰度发布的范畴。既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
+
+增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
+- a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
+- a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
+
+该功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
+
+```
+1. version-route1链路配比90%的流量，version-route2链路配比10%的流量
+
+2. 策略总共支持3种，可以单独一项使用，也可以多项叠加使用：
+   1）version 版本路由
+   2）region 区域路由
+   3）address IP地址和端口路由
+
+3. 策略支持Spring Spel的条件表达式方式，用法跟上面一致
+
+4. 策略支持Spring Matcher的通配符方式
+
+5. Header节点允许缺失，当含Header和未含Header的配置并存时，以未含Header的配置为优先
+
+6. 条件表达式的用法
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
+    </strategy>
+
+    <strategy-customization>
+        <condition-gray>
+            <condition id="condition1" header="#H['a'] == '1'" version-id="version-route1=10;version-route2=90"/>
+            <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1=85;version-route2=15"/>
+            <condition id="condition3" version-id="version-route1=95;version-route2=5"/>
+        </condition-gray>
+
+        <routes>
+            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
+            <route id="version-route2" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
+        </routes>
+    </strategy-customization>
+</rule>
+```
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-9.jpg)
 
 ### 配置前端灰度和网关灰度路由组合式策略
 当前端（例如：APP）和后端微服务同时存在多个版本时，可以执行“前端灰度&网关灰度路由组合式策略”
@@ -480,10 +495,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
     <strategy-customization>
-        <conditions>
+        <condition-blue-green>
             <condition id="condition1" header="#H['app-version'] == '1.0'" version-id="version-route1"/>
             <condition id="condition2" header="#H['app-version'] == '2.0'" version-id="version-route2"/>
-        </conditions>
+        </condition-blue-green>
 
         <routes>
             <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
@@ -1070,6 +1085,8 @@ Reject to invoke because of isolation with different service group
 ### 环境隔离
 
 在网关或者服务端，配置环境元数据，在同一套环境下，env值必须是一样的，这样才能达到在同一个注册中心下，环境隔离的目的
+- 当网关配置了env元数据，网关和服务同处于一套环境下，会自动执行隔离
+- 当网关未配置env元数据，网关管辖多个子环境，那么可以通过外部传入n-d-env的Header方式，让网关去调度子环境。如果外部未传入n-d-env的Header，网关则执行Spring Cloud Ribbon轮询策略
 ```vb
 spring.cloud.nacos.discovery.metadata.env=env1
 ```
