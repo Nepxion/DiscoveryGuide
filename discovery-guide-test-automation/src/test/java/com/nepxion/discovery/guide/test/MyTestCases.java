@@ -299,8 +299,8 @@ public class MyTestCases {
         Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization.xml", resetPath = "gray-default.xml")
-    public void testStrategyCustomizationGray1(String group, String serviceId, String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-condition.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationConditionGray1(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
@@ -326,8 +326,8 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization.xml", resetPath = "gray-default.xml")
-    public void testStrategyCustomizationGray2(String group, String serviceId, String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-condition.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationConditionGray2(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
 
@@ -359,8 +359,8 @@ public class MyTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization.xml", resetPath = "gray-default.xml")
-    public void testStrategyCustomizationGray3(String group, String serviceId, String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-condition.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationConditionGray3(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
         headers.add("b", "2");
