@@ -339,7 +339,7 @@ public class MyTestCases {
 
 ### 测试报告
 
-- 路由策略测试报告
+- 路由策略测试报告样例
 ```
 ---------- Run automation testcase :: testNoGray() ----------
 Result1 : gateway -> discovery-guide-service-a[192.168.0.107:3001][V=1.0][R=dev][G=discovery-guide-group] -> discovery-guide-service-b[192.168.0.107:4001][V=1.0][R=qa][G=discovery-guide-group]
@@ -388,7 +388,7 @@ Result : B service qa region weight=13.8%
 * Passed
 ```
 
-- 路由规则测试报告
+- 路由规则测试报告样例
 ```
 ---------- Run automation testcase :: testStrategyCustomizationGray() ----------
 Header : [a:"1", b:"2"]
