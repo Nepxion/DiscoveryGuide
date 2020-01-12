@@ -411,6 +411,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 6. 策略支持Spring Spel的条件表达式方式
 
 7. 策略支持Spring Matcher的通配符方式
+
+8. 支持并行实施。通过namespace（可以自定义）的Http Header进行发布隔离
 ```
 
 ```xml
@@ -460,9 +462,9 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 4. 策略支持Spring Spel的条件表达式方式，用法跟上面一致
 
-5. 策略支持Spring Matcher的通配符方式
+5. 策略支持Spring Matcher的通配符方式，用法跟上面一致
 
-6. 条件表达式的用法
+6. 支持并行实施。通过namespace（可以自定义）的Http Header进行发布隔离
 ```
 
 ```xml
