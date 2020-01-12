@@ -394,7 +394,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
 
 3. 当外部调用带有的Http Header中的值都不命中，那么执行顺序为
-   1）如果配置了权重路由（<condition-gray>节点下）的策略，则执行权重路由
+   1）如果配置了权重路由（<conditions type="gray">节点下）的策略，则执行权重路由
    2）如果权重路由策略未配置，则执行<strategy>节点中的全局缺省路由，那么路由即为：
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
    3）如果全局缺省路由未配置，则执行Spring Cloud Ribbon轮询策略
@@ -421,10 +421,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 
     <strategy-customization>
-        <condition-blue-green>
+        <conditions type="blue-green">
             <condition id="condition1" header="#H['a'] == '1'" version-id="version-route2"/>
             <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1"/>
-        </condition-blue-green>
+        </conditions>
 
         <routes>
             <route id="version-route1" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
@@ -469,11 +469,11 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 
     <strategy-customization>
-        <condition-gray>
+        <conditions type="gray">
             <condition id="condition1" header="#H['a'] == '1'" version-id="version-route1=10;version-route2=90"/>
             <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1=85;version-route2=15"/>
             <condition id="condition3" version-id="version-route1=95;version-route2=5"/>
-        </condition-gray>
+        </conditions>
 
         <routes>
             <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
@@ -495,10 +495,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
     <strategy-customization>
-        <condition-blue-green>
+        <conditions type="blue-green">
             <condition id="condition1" header="#H['app-version'] == '1.0'" version-id="version-route1"/>
             <condition id="condition2" header="#H['app-version'] == '2.0'" version-id="version-route2"/>
-        </condition-blue-green>
+        </conditions>
 
         <routes>
             <route id="version-route1" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</route>
