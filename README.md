@@ -398,29 +398,33 @@ d* - 表示调用范围为所有服务的d开头的所有区域
    2）如果权重路由策略未配置，则执行<strategy>节点中的全局缺省路由，那么路由即为：
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
    3）如果全局缺省路由未配置，则执行Spring Cloud Ribbon轮询策略
+   
+4. 必须带有Header
 
-4. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
+5. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
    1）version 版本路由
    2）region 区域路由
    3）address IP地址和端口路由
    4）version-weight 版本权重路由
    5）region-weight 区域权重路由
 
-5. 策略支持Spring Spel的条件表达式方式
+6. 策略支持Spring Spel的条件表达式方式
 
-6. 策略支持Spring Matcher的通配符方式
-
-7. Header节点不允许缺失
+7. 策略支持Spring Matcher的通配符方式
 ```
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
+    <!-- 基于Http Header传递的策略路由，全局缺省路由（第三优先级） -->
     <strategy>
         <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
     </strategy>
-
+    
+    <!-- 基于Http Header传递的定制化策略路由，支持蓝绿部署和灰度发布两种模式。如果都不命中，则执行上面的全局缺省路由 -->
     <strategy-customization>
+        <!-- 全链路蓝绿部署：条件命中的匹配方式（第一优先级），支持版本匹配、区域匹配、IP地址和端口匹配、版本权重匹配、区域权重匹配 -->
+        <!-- Header节点不允许缺失 -->
         <conditions type="blue-green">
             <condition id="condition1" header="#H['a'] == '1'" version-id="version-route2"/>
             <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1"/>
@@ -452,11 +456,11 @@ d* - 表示调用范围为所有服务的d开头的所有区域
    2）region 区域路由
    3）address IP地址和端口路由
 
-3. 策略支持Spring Spel的条件表达式方式，用法跟上面一致
+3. 当带有Header的时候，根据Header的表达式来选择相应的全链路权重策略；如果不带Header，执行默认无条件的全链路权重策略
 
-4. 策略支持Spring Matcher的通配符方式
+4. 策略支持Spring Spel的条件表达式方式，用法跟上面一致
 
-5. Header节点允许缺失，当含Header和未含Header的配置并存时，以未含Header的配置为优先
+5. 策略支持Spring Matcher的通配符方式
 
 6. 条件表达式的用法
 ```
@@ -464,12 +468,16 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
+    <!-- 基于Http Header传递的策略路由，全局缺省路由（第三优先级） -->
     <strategy>
         <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}</version>
     </strategy>
 
+    <!-- 基于Http Header传递的定制化策略路由，支持蓝绿部署和灰度发布两种模式。如果都不命中，则执行上面的全局缺省路由 -->
     <strategy-customization>
-        <conditions type="gray">
+        <!-- 全链路灰度发布：条件命中的随机权重（第二优先级），支持版本匹配、区域匹配、IP地址和端口匹配 -->
+        <!-- Header节点允许缺失，当含Header和未含Header的配置并存时，以未含Header的配置为优先 -->
+        <conditions type=“gray">
             <condition id="condition1" header="#H['a'] == '1'" version-id="version-route1=10;version-route2=90"/>
             <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1=85;version-route2=15"/>
             <condition id="condition3" version-id="version-route1=95;version-route2=5"/>
