@@ -364,22 +364,12 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
 
-| 符号 |  转义符 | 含义 | 备注 |
-| --- | --- | --- | --- | 
-| & | &amp; | 和符号 | 必须转义 |
-| < | &lt; | 小于号 | 必须转义 |
-| " | &quot; | 双引号 | 必须转义 |
-| > | &gt; | 大于号 |  |
-| ' | &apos; | 单引号 |  |
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/EscapeCharacter1.jpg)
 
 从Http Header获取到值进行逻辑判断，例如Http Header的Key为a，它的格式表示为#H['a']，H为Header的首字母。假如路由触发的条件为a等于1，b小于等于2，c不等于3，那么表达式可以写为
-```
-#H['a'] == '1' && #H['b'] <= '2' && #H['c'] != '3'
-```
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/EscapeCharacter2.jpg)
 特殊符号必须转义，所以表达式必须改成如下
-```
-#H['a'] == '1' &amp;&amp; #H['b'] &lt;= '2' &amp;&amp; #H['c'] != '3'
-```
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/EscapeCharacter3.jpg)
 
 增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配、版本权重匹配、区域权重匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
 ```
