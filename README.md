@@ -364,13 +364,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
 
-| 符号 |  转义符 | 含义 | 备注 |
-| --- | --- | --- | --- | 
-| & | &amp; | 和符号 | 必须转义 |
-| < | &lt; | 小于号 | 必须转义 |
-| " | &quot; | 双引号 | 必须转义 |
-| > | &gt; | 大于号 |  |
-| ' | &apos; | 单引号 |  |
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/EscapeCharacter.jpg)
 
 从Http Header获取到值进行逻辑判断，例如Http Header的Key为a，它的格式表示为#H['a']，H为Header的首字母。假如路由触发的条件为a等于1，b小于等于2，c不等于3，那么表达式可以写为
 ```
