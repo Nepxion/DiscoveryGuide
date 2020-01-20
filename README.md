@@ -431,6 +431,8 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-8.jpg)
 
+内置基于Swagger的Rest接口，可以校验策略的条件表达式、校验策略的全链路路由
+
 ### 配置全链路灰度条件权重和灰度匹配组合式策略
 属于全链路灰度发布的范畴。既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
 
@@ -1752,7 +1754,7 @@ spring.application.group.generator.length=15
 
 更多的配置方式，参考[https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md](https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md)
 
-需要增加下面的配置，保证git相关文件被打包进去
+可能需要增加下面的配置，保证git相关文件被打包进去
 ```xml
 <resources>
     <resource>
@@ -1825,6 +1827,8 @@ git.total.commit.count=765
 # 输出到工程根目录下的json格式文件
 spring.application.git.generator.path=file:git.json
 ```
+
+内置基于Swagger的Rest接口，可以供外部查询当前服务的Git信息
 
 ## 元数据Metadata运维平台策略
 
