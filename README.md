@@ -1679,14 +1679,16 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 
 ### 基于服务名前缀自动创建灰度组名
 
-通过指定长度截断服务名的前缀来自动创建灰度组名，这样就可以避免使用者手工维护灰度组名。当两者都启用的时候，截断方式的组名优先级要高于手工配置的组名
+通过指定长度截断或者标志截断服务名的前缀来自动创建灰度组名，这样就可以避免使用者手工维护灰度组名。当两者都启用的时候，截断方式的组名优先级要高于手工配置的组名
 
 - 增加配置项
 ```vb
 # 开启和关闭使用服务名前缀来作为服务组名。缺失则默认为false
-spring.application.group.generator.enabled=true
-# 服务名前缀的长度，必须大于0
+spring.application.group.generator.enabled=false
+# 服务名前缀的截断长度，必须大于0
 spring.application.group.generator.length=15
+# 服务名前缀的截断标志。当截断长度配置了，则取截断长度方式，否则取截断标志方式
+spring.application.group.generator.character=-
 ```
 
 ### 基于Git插件自动创建灰度版本号
