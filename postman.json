@@ -109,6 +109,222 @@
 					"response": []
 				},
 				{
+					"name": "Gateway网关全链路侦测示例",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "n-d-version",
+								"type": "text",
+								"value": "{\"discovery-guide-service-a\":\"1.1\", \"discovery-guide-service-b\":\"1.1\"}"
+							},
+							{
+								"key": "n-d-version-weight",
+								"type": "text",
+								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
+								"disabled": true
+							},
+							{
+								"key": "n-d-region",
+								"type": "text",
+								"value": "qa",
+								"disabled": true
+							},
+							{
+								"key": "n-d-region-weight",
+								"type": "text",
+								"value": "dev=99;qa=1",
+								"disabled": true
+							},
+							{
+								"key": "n-d-address",
+								"type": "text",
+								"value": "{\"discovery-guide-service-a\":\"3001\", \"discovery-guide-service-b\":\"4002\"}",
+								"disabled": true
+							},
+							{
+								"key": "n-d-env",
+								"type": "text",
+								"value": "env1",
+								"disabled": true
+							},
+							{
+								"key": "app-version",
+								"type": "text",
+								"value": "2.0",
+								"disabled": true
+							},
+							{
+								"key": "mobile",
+								"type": "text",
+								"value": "13312345678",
+								"disabled": true
+							},
+							{
+								"key": "user",
+								"type": "text",
+								"value": "zhangsan",
+								"disabled": true
+							},
+							{
+								"key": "trace-id",
+								"type": "text",
+								"value": "c0zs78kcze5z",
+								"disabled": true
+							},
+							{
+								"key": "span-id",
+								"type": "text",
+								"value": "1589",
+								"disabled": true
+							},
+							{
+								"key": "a",
+								"type": "text",
+								"value": "1",
+								"disabled": true
+							},
+							{
+								"key": "b",
+								"type": "text",
+								"value": "2",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"serviceIdList\":[\"discovery-guide-service-b\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5001/discovery-guide-service-a/inspector/inspect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"discovery-guide-service-a",
+								"inspector",
+								"inspect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zuul网关全链路侦测示例",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "n-d-version",
+								"type": "text",
+								"value": "{\"discovery-guide-service-a\":\"1.1\", \"discovery-guide-service-b\":\"1.1\"}"
+							},
+							{
+								"key": "n-d-version-weight",
+								"type": "text",
+								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
+								"disabled": true
+							},
+							{
+								"key": "n-d-region",
+								"type": "text",
+								"value": "qa",
+								"disabled": true
+							},
+							{
+								"key": "n-d-region-weight",
+								"type": "text",
+								"value": "dev=99;qa=1",
+								"disabled": true
+							},
+							{
+								"key": "n-d-address",
+								"type": "text",
+								"value": "{\"discovery-guide-service-a\":\"3001\", \"discovery-guide-service-b\":\"4002\"}",
+								"disabled": true
+							},
+							{
+								"key": "n-d-env",
+								"type": "text",
+								"value": "env1",
+								"disabled": true
+							},
+							{
+								"key": "app-version",
+								"type": "text",
+								"value": "2.0",
+								"disabled": true
+							},
+							{
+								"key": "mobile",
+								"type": "text",
+								"value": "13312345678",
+								"disabled": true
+							},
+							{
+								"key": "user",
+								"type": "text",
+								"value": "zhangsan",
+								"disabled": true
+							},
+							{
+								"key": "trace-id",
+								"type": "text",
+								"value": "c0zs78kcze5z",
+								"disabled": true
+							},
+							{
+								"key": "span-id",
+								"type": "text",
+								"value": "1589",
+								"disabled": true
+							},
+							{
+								"key": "a",
+								"type": "text",
+								"value": "1",
+								"disabled": true
+							},
+							{
+								"key": "b",
+								"type": "text",
+								"value": "2",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"serviceIdList\":[\"discovery-guide-service-b\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5002/discovery-guide-service-a/inspector/inspect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"discovery-guide-service-a",
+								"inspector",
+								"inspect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Zuul网关调用示例",
 					"request": {
 						"method": "GET",
