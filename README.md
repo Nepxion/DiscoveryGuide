@@ -140,6 +140,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
     - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)
 - [元数据Metadata运维平台策略](#元数据Metadata运维平台策略)
+- [内置配置文件](#内置配置文件)
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [Star走势图](#Star走势图)
 
@@ -368,6 +369,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/EscapeCharacter2.jpg)
 特殊符号必须转义，所以表达式必须改成如下
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/EscapeCharacter3.jpg)
+
+Spel表达式需要注意的地方：
+- 任何值都大于null。当某个Header未传值，但又指定了该Header大于的表达式，那么正则结果是true。例如，表达式为#H['a'] > '2'，但a作为Header未传递进来，即为null，判断结果为true
+- null满足不等于。当某个Header未传值，但又指定了该Header大于的表达式，那么正则结果是true。例如，表达式为#H['a'] != '2'，但a作为Header未传递进来，即为null，判断结果为true
 
 增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配、版本权重匹配、区域权重匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
 ```
@@ -1790,6 +1795,10 @@ spring.application.git.generator.path=file:git.json
 - 通过Program arguments来传递，它的用法是前面加“--”。支持Eureka、Zookeeper和Nacos的增量覆盖，Consul由于使用了全量覆盖的tag方式，不适用改变单个元数据的方式。例如：--spring.cloud.nacos.discovery.metadata.version=1.0
 - 通过VM arguments来传递，它的用法是前面加“-D”。支持上述所有的注册组件，它的限制是变量前面必须要加“metadata.”，推荐使用该方式。例如：-Dmetadata.version=1.0
 - 两种方式尽量避免同时用
+
+## 内置配置文件
+
+框架提供内置配置文件spring-application-default.properties。如果使用者希望对框架做封装，并提供相应的默认配置，可以在src/main/resources目录下放置spring-application-default.properties。注意：该文件在整个服务目录和包中只能出现一次
 
 ## Docker容器化和Kubernetes平台支持
 
