@@ -1715,7 +1715,8 @@ spring.application.group.generator.character=-
         <!-- 必须配置，并指定为true -->
         <generateGitPropertiesFile>true</generateGitPropertiesFile>
         <!-- 指定日期格式 -->
-        <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat>
+        <dateFormat>yyyyMMdd</dateFormat>
+        <!-- <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat> -->
     </configuration>
 </plugin>
 ```
@@ -1748,8 +1749,8 @@ spring.application.group.generator.character=-
         <skipPoms>false</skipPoms>
         <!-- 指定构建过程中，是否打印详细信息。缺失则默认为false -->
         <verbose>false</verbose>
-        <!-- 指定日期格式 -->
-        <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat>
+        <dateFormat>yyyyMMdd</dateFormat>
+        <!-- <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat> -->
     </configuration>
 </plugin>
 ```
