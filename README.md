@@ -134,8 +134,6 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [Grafana监控方式](#Grafana监控方式)
         - [Spring-Boot-Admin监控方式](#Spring-Boot-Admin监控方式)
 - [全链路Header传递](#全链路Header传递)
-    - [自定义Feign-Header传递](#自定义Feign-Header传递)
-    - [自定义RestTemplate-Header传递](#自定义RestTemplate-Header传递)
 - [全链路服务侧注解](#全链路服务侧注解)
 - [全链路服务侧API权限](#全链路服务侧API权限)
 - [元数据Metadata自动化策略](#元数据Metadata自动化策略)
@@ -1608,53 +1606,6 @@ spring.application.strategy.rest.intercept.debug.enabled=true
 spring.application.strategy.context.request.headers=trace-id;span-id
 # 灰度路由策略的时候，对REST方式调用拦截的时候（支持Feign或者RestTemplate调用），希望把来自外部自定义的Header参数（用于业务系统子定义Header，例如：mobile）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
 spring.application.strategy.business.request.headers=user;mobile
-```
-
-原生的Feign Header传递可以使用RequestInterceptor拦截器实现，原生的RestTemplate Header传递可以使用ClientHttpRequestInterceptor拦截器实现
-
-本框架也使用这些原生的拦截器用作Header在灰度功能上的传递，为了避免使用者再去多创建一层拦截器，框架抽象出两个拦截适配器，用法和原生的两个拦截器一致，可以帮助使用者实现自定义Header的传递
-
-### 自定义Feign-Header传递
-
-实现FeignStrategyInterceptorAdapter.java，在apply方法里加入自定义的Header传递
-```java
-// 自定义Feign拦截器中的Header传递
-public class MyFeignStrategyInterceptorAdapter extends DefaultFeignStrategyInterceptorAdapter {
-    @Override
-    public void apply(RequestTemplate requestTemplate) {
-        requestTemplate.header("n-d-my-id", "123");
-    }
-}
-```
-在配置类里@Bean方式进行拦截适配器创建
-```java
-@Bean
-public FeignStrategyInterceptorAdapter feignStrategyInterceptorAdapter() {
-    return new MyFeignStrategyInterceptorAdapter();
-}
-```
-
-### 自定义RestTemplate-Header传递
-
-实现RestTemplateStrategyInterceptorAdapter.java，在intercept方法里加入自定义的Header传递
-```java
-// 自定义RestTemplate拦截器中的Header传递
-public class MyRestTemplateStrategyInterceptorAdapter extends DefaultRestTemplateStrategyInterceptorAdapter {
-    @Override
-    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-        HttpHeaders headers = request.getHeaders();
-        headers.add("n-d-my-id", "456");
-
-        return execution.execute(request, body);
-    }
-}
-```
-在配置类里@Bean方式进行拦截适配器创建
-```java
-@Bean
-public RestTemplateStrategyInterceptorAdapter restTemplateStrategyInterceptorAdapter() {
-    return new MyRestTemplateStrategyInterceptorAdapter();
-}
 ```
 
 ## 全链路服务侧注解
