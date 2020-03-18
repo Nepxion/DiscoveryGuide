@@ -16,14 +16,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.guide.service.impl.MyFeignStrategyInterceptorAdapter;
-import com.nepxion.discovery.guide.service.impl.MyRestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
-import com.nepxion.discovery.plugin.strategy.service.adapter.FeignStrategyInterceptorAdapter;
-import com.nepxion.discovery.plugin.strategy.service.adapter.RestTemplateStrategyInterceptorAdapter;
 import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.ServiceSentinelRequestOriginAdapter;
 
 @SpringBootApplication
@@ -56,18 +52,6 @@ public class DiscoveryGuideServiceA1 {
     public ServiceStrategyRouteFilter serviceStrategyRouteFilter() {
         return new MyServiceStrategyRouteFilter();
     }*/
-
-    // 自定义Feign拦截器中的Header传递
-    @Bean
-    public FeignStrategyInterceptorAdapter feignStrategyInterceptorAdapter() {
-        return new MyFeignStrategyInterceptorAdapter();
-    }
-
-    // 自定义RestTemplate拦截器中的Header传递
-    @Bean
-    public RestTemplateStrategyInterceptorAdapter restTemplateStrategyInterceptorAdapter() {
-        return new MyRestTemplateStrategyInterceptorAdapter();
-    }
 
     // 自定义组合式熔断
     @Bean
