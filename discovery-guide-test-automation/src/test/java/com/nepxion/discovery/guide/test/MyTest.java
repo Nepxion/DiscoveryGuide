@@ -36,6 +36,9 @@ public class MyTest {
     @Value("${gateway.test.url}")
     private String gatewayTestUrl;
 
+    @Value("${gateway.inspect.url}")
+    private String gatewayInspectUrl;
+
     @Value("${zuul.group}")
     private String zuulGroup;
 
@@ -44,6 +47,9 @@ public class MyTest {
 
     @Value("${zuul.test.url}")
     private String zuulTestUrl;
+
+    @Value("${zuul.inspect.url}")
+    private String zuulInspectUrl;
 
     @Value("${gray.weight.testcases.enabled:true}")
     private Boolean weightTestcasesEnabled;
@@ -181,6 +187,54 @@ public class MyTest {
         for (int i = 0; i < loopTimes; i++) {
             myTestCases.testStrategyCustomizationBlueGreen3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             myTestCases.testStrategyCustomizationBlueGreen3(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testStrategyCustomizationBlueGreenHeader1() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testStrategyCustomizationBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testStrategyCustomizationBlueGreenHeader1(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testStrategyCustomizationBlueGreenHeader2() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testStrategyCustomizationBlueGreenHeader2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testStrategyCustomizationBlueGreenHeader2(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testStrategyCustomizationBlueGreenHeader3() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testStrategyCustomizationBlueGreenHeader3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            myTestCases.testStrategyCustomizationBlueGreenHeader3(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testInspectStrategyCustomizationBlueGreenHeader1() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testInspectStrategyCustomizationBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
+            myTestCases.testInspectStrategyCustomizationBlueGreenHeader1(zuulGroup, zuulServiceId, zuulInspectUrl);
+        }
+    }
+
+    @Test
+    public void testInspectStrategyCustomizationBlueGreenHeader2() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testInspectStrategyCustomizationBlueGreenHeader2(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
+            myTestCases.testInspectStrategyCustomizationBlueGreenHeader2(zuulGroup, zuulServiceId, zuulInspectUrl);
+        }
+    }
+
+    @Test
+    public void testInspectStrategyCustomizationBlueGreenHeader3() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            myTestCases.testInspectStrategyCustomizationBlueGreenHeader3(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
+            myTestCases.testInspectStrategyCustomizationBlueGreenHeader3(zuulGroup, zuulServiceId, zuulInspectUrl);
         }
     }
 
