@@ -134,6 +134,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
         - [Grafana监控方式](#Grafana监控方式)
         - [Spring-Boot-Admin监控方式](#Spring-Boot-Admin监控方式)
 - [全链路Header传递](#全链路Header传递)
+- [全链路侦测](#全链路侦测)
 - [全链路服务侧注解](#全链路服务侧注解)
 - [全链路服务侧API权限](#全链路服务侧API权限)
 - [元数据Metadata自动化策略](#元数据Metadata自动化策略)
@@ -392,7 +393,10 @@ Spel表达式需要注意的地方：
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
    3）如果全局缺省路由未配置，则执行Spring Cloud Ribbon轮询策略
    
-4. 必须带有Header
+4. 必须带有Header。假如不愿意从网关外部传入Header，那么可以通过策略中配置条件表达式中的Header来决策蓝绿和灰度，可以代替外部传入Header，参考如下配置：
+   <headers>
+       <header key="a" value="1"/>
+   </headers>
 
 5. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
    1）version 版本路由
@@ -429,6 +433,10 @@ Spel表达式需要注意的地方：
             <route id="version-route1" type="version">{"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}</route>
             <route id="version-route2" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}</route>
         </routes>
+
+        <headers>
+            <header key="a" value="1"/>
+        </headers>
     </strategy-customization>
 </rule>
 ```
@@ -1611,6 +1619,15 @@ spring.application.strategy.rest.intercept.debug.enabled=true
 spring.application.strategy.context.request.headers=trace-id;span-id
 # 灰度路由策略的时候，对REST方式调用拦截的时候（支持Feign或者RestTemplate调用），希望把来自外部自定义的Header参数（用于业务系统子定义Header，例如：mobile）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
 spring.application.strategy.business.request.headers=user;mobile
+```
+
+## 全链路侦测
+
+通过内置基于LoadBalanced RestTemplate方式的/inspector/inspect接口方法，实现全链路侦测，可以查看全链路中调用的各个服务的版本、区域、子环境、IP地址等是否符合预期，是否满足灰度条件，该接口可以集成到使用者的界面中，就可以规避通过Postman工具或者调用链系统去判断，有利于节省人工成本。使用方式
+```
+1. 执行Post请求
+2. URL为http://网关IP和Port/第一个服务的服务名/inspector/inspect
+3. Post内容为{"serviceIdList":["第二个服务的服务名", "第三个服务的服务名", ....]}的Json串
 ```
 
 ## 全链路服务侧注解
