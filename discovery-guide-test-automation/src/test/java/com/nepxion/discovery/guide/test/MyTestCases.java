@@ -11,6 +11,7 @@ package com.nepxion.discovery.guide.test;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
+import com.nepxion.discovery.common.entity.InspectorEntity;
 import com.nepxion.discovery.plugin.test.annotation.DTest;
 import com.nepxion.discovery.plugin.test.annotation.DTestConfig;
 
@@ -384,6 +386,177 @@ public class MyTestCases {
                 }
                 if (value.contains("discovery-guide-service-b")) {
                     if (value.contains("[V=1.1]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green-header-1.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationBlueGreenHeader1(String group, String serviceId, String testUrl) {
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.1]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green-header-2.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationBlueGreenHeader2(String group, String serviceId, String testUrl) {
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.1]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.1]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green-header-3.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationBlueGreenHeader3(String group, String serviceId, String testUrl) {
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green-header-1.xml", resetPath = "gray-default.xml")
+    public void testInspectStrategyCustomizationBlueGreenHeader1(String group, String serviceId, String testUrl) {
+        InspectorEntity inspectorEntity = new InspectorEntity();
+        inspectorEntity.setServiceIdList(Arrays.asList("discovery-guide-service-b"));
+        for (int i = 0; i < 4; i++) {
+            InspectorEntity resultInspectorEntity = testRestTemplate.postForEntity(testUrl, inspectorEntity, InspectorEntity.class).getBody();
+            String result = resultInspectorEntity.getResult();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.1]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green-header-2.xml", resetPath = "gray-default.xml")
+    public void testInspectStrategyCustomizationBlueGreenHeader2(String group, String serviceId, String testUrl) {
+        InspectorEntity inspectorEntity = new InspectorEntity();
+        inspectorEntity.setServiceIdList(Arrays.asList("discovery-guide-service-b"));
+        for (int i = 0; i < 4; i++) {
+            InspectorEntity resultInspectorEntity = testRestTemplate.postForEntity(testUrl, inspectorEntity, InspectorEntity.class).getBody();
+            String result = resultInspectorEntity.getResult();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.1]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.1]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green-header-3.xml", resetPath = "gray-default.xml")
+    public void testInspectStrategyCustomizationBlueGreenHeader3(String group, String serviceId, String testUrl) {
+        InspectorEntity inspectorEntity = new InspectorEntity();
+        inspectorEntity.setServiceIdList(Arrays.asList("discovery-guide-service-b"));
+        for (int i = 0; i < 4; i++) {
+            InspectorEntity resultInspectorEntity = testRestTemplate.postForEntity(testUrl, inspectorEntity, InspectorEntity.class).getBody();
+            String result = resultInspectorEntity.getResult();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.0]")) {
                         bMatched = true;
                     }
                 }
