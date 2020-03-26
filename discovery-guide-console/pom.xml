@@ -13,7 +13,6 @@
     </parent>
 
     <dependencies>
-        <!-- 框架支持控制平台基于注册中心的核心实现，必须引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-console-starter-nacos</artifactId>
@@ -21,7 +20,6 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 框架支持控制平台实现配置中心的灰度配置和策略推送，可以不引入。强烈建议引入 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
