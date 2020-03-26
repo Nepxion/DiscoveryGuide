@@ -16,8 +16,8 @@
         </routes>
 
         <headers>
-            <header key="a" value="11"/>
-            <header key="b" value="21"/>            
+            <header key="a" value="1"/>
+            <header key="b" value="2"/>
         </headers>
     </strategy-customization>
 </rule>
