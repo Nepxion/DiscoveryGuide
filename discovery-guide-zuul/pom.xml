@@ -37,10 +37,10 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 框架支持网关的Opentracing调用链，可以不引入。必须和Jaeger包配套引入 -->
+        <!-- 框架支持的Opentracing调用链，可以不引入。必须和下面的包配套引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-zuul-opentracing</artifactId>
+            <artifactId>discovery-plugin-strategy-starter-opentracing</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
