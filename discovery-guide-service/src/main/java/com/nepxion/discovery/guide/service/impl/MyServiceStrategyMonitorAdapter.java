@@ -18,7 +18,7 @@ import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMonitorAdapter;
 import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMonitorInterceptor;
 
-// 自定义服务端接口方法的入参输出到调用链Span上
+// 自定义类方法上入参和出参输出到调用链
 // parameterMap格式：
 // key为入参名
 // value为入参值
