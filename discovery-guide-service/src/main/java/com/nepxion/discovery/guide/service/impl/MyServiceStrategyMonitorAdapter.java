@@ -27,7 +27,7 @@ public class MyServiceStrategyMonitorAdapter implements ServiceStrategyMonitorAd
     public Map<String, String> getCustomizationMap(ServiceStrategyMonitorInterceptor interceptor, MethodInvocation invocation, Map<String, Object> parameterMap, Object returnValue) {
         return new ImmutableMap.Builder<String, String>()
                 .put(DiscoveryConstant.PARAMETER, parameterMap.toString())
-                .put(DiscoveryConstant.RETURN, returnValue.toString())
+                .put(DiscoveryConstant.RETURN, returnValue != null ? returnValue.toString() : null)
                 .build();
     }
 }
