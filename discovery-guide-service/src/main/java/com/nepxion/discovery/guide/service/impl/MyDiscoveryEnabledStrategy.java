@@ -16,9 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.framework.adapter.PluginAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
-import com.nepxion.discovery.plugin.strategy.service.constant.ServiceStrategyConstant;
 import com.nepxion.discovery.plugin.strategy.service.context.ServiceStrategyContextHolder;
 import com.netflix.loadbalancer.Server;
 
@@ -82,8 +82,8 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
 
         LOG.info("负载均衡用户定制触发：attributes={}, serviceId={}, version={}, region={}, env={}, address={}", attributes, serviceId, version, region, environment, address);
 
-        if (attributes.containsKey(ServiceStrategyConstant.PARAMETER_MAP)) {
-            Map<String, Object> parameterMap = (Map<String, Object>) attributes.get(ServiceStrategyConstant.PARAMETER_MAP);
+        if (attributes.containsKey(DiscoveryConstant.PARAMETER_MAP)) {
+            Map<String, Object> parameterMap = (Map<String, Object>) attributes.get(DiscoveryConstant.PARAMETER_MAP);
             String value = parameterMap.get("value").toString();
             if (StringUtils.isNotEmpty(value)) {
                 // 输入值包含dev，路由到dev区域的服务上
