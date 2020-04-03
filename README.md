@@ -15,7 +15,7 @@ Nepxion Discovery【探索】，基于Spring Cloud Discovery服务注册发现�
 - 支持阿里巴巴Nacos、Eureka、Consul和Zookeeper四个服务注册发现中心
 - 支持阿里巴巴Nacos、携程Apollo和Redis三个远程配置中心
 - 支持阿里巴巴Sentinel和Hystrix两个熔断隔离限流降级中间件
-- 支持Uber Jaeger和Twitter Zipkin等遵循Opentracing规范的调用链中间件
+- 支持Uber Jaeger、Twitter Zipkin、Skywalking等符合OpenTracing和OpenTelemetry调用链中间件
 - 支持Prometheus、Grafana和Spring Boot Admin监控中间件
 - 支持Spring Cloud Gateway、Zuul网关和微服务三大模块的灰度发布和路由等一系列功能
 - 支持和兼容Spring Cloud Edgware版、Finchley版、Greenwich版和Hoxton版
@@ -29,8 +29,8 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
     - 消费端隔离：黑/白名单的IP地址的消费端隔离
 - 基于Env的全链路环境隔离和路由。包括基于元数据Metadata的env参数进行隔离，当调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境。支持网关独立部署和非独立部署两种场景下，动态调度子环境的能力
 - 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于IP地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
-- 全链路监控。包括全链路调用链监控（Tracing）和全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）
-    - 全链路调用链监控（Tracing）包括Header方式、Opentracing方式、日志方式等单个或者组合式的全链路灰度调用链，支持对Sentinel自动埋点。Opentracing方式不支持Edgware版（Spring Boot 1.x.x）
+- 全链路监控。包括全链路调用链监控（Tracing）、全链路日志（Logging）、全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）
+    - 全链路调用链监控（Tracing）包括Header方式、调用链方式、日志方式等单个或者组合式的全链路灰度调用链，支持对Sentinel自动埋点。调用链方式不支持Edgware版（Spring Boot 1.x.x）
     - 全链路指标监控（Metrics）包括Prometheus、Grafana、Spring Boot Admin
 - 全链路Header传递
 - 全链路服务侧注解
@@ -48,7 +48,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 
 [**Spring Cloud Alibaba**] 阿里巴巴中间件部门开发的Spring Cloud增强套件，致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过Spring Cloud编程模型轻松使用这些组件来开发分布式应用服务。依托Spring Cloud Alibaba，只需要添加一些注解和少量配置，就可以将Spring Cloud应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统
 
-[**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，Opentracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了Opentracing规范
+[**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范
 
 本框架成为阿里巴巴中间件Nacos和Spring Cloud Alibaba项目的相关开源
 <img src="https://github.com/HaojunRen/Docs/raw/master/discovery-doc/AwardNacos1.jpg" alt="Nacos" width="50%"><img src="https://github.com/HaojunRen/Docs/raw/master/discovery-doc/AwardSCA1.jpg" alt="Spring Cloud Alibaba" width="50%">
@@ -128,7 +128,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - [全链路监控](#全链路监控)
     - [全链路调用链监控-Tracing](#全链路调用链监控-Tracing)
         - [Header输出方式](#Header输出方式)
-        - [Opentracing输出方式](#Opentracing输出方式)
+        - [调用链输出方式](#调用链输出方式)
         - [日志输出方式](#日志输出方式)
     - [全链路指标监控-Metrics](#全链路指标监控-Metrics)
         - [Prometheus监控方式](#Prometheus监控方式)
@@ -159,7 +159,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 | 6.0.0 | master | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status1.png) | Hoxton<br>Greenwich<br>Finchley | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE |
 | ~~5.6.0~~ | ~~5.x.x~~ | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status2.png) | Greenwich | 2.1.x.RELEASE | 2.1.x.RELEASE |
 | ~~4.15.0~~ | ~~4.x.x~~ | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status2.png) | Finchley | 2.0.x.RELEASE | 2.0.x.RELEASE |
-| 3.15.0 | 3.x.x | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status1.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
+| 3.16.0 | master-3.x.x | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status1.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
 | ~~2.0.x~~ | ~~2.x.x~~ | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status3.png) | Dalston | 1.x.x.RELEASE | N/A |
 | ~~1.0.x~~ | ~~1.x.x~~ | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status3.png) | Camden | 1.x.x.RELEASE | N/A |
 
@@ -880,8 +880,8 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
 
         LOG.info("负载均衡用户定制触发：attributes={}, serviceId={}, version={}, region={}, env={}, address={}", attributes, serviceId, version, region, environment, address);
 
-        if (attributes.containsKey(ServiceStrategyConstant.PARAMETER_MAP)) {
-            Map<String, Object> parameterMap = (Map<String, Object>) attributes.get(ServiceStrategyConstant.PARAMETER_MAP);
+        if (attributes.containsKey(DiscoveryConstant.PARAMETER_MAP)) {
+            Map<String, Object> parameterMap = (Map<String, Object>) attributes.get(DiscoveryConstant.PARAMETER_MAP);
             String value = parameterMap.get("value").toString();
             if (StringUtils.isNotEmpty(value)) {
                 // 输入值包含dev，路由到dev区域的服务上
@@ -1157,7 +1157,7 @@ spring.application.environment.route=common
 
 支持如下开关开启该动能，默认是关闭的
 ```vb
-# 启动和关闭Sentinel限流降级熔断权限等功能。缺失则默认为false
+# 启动和关闭Sentinel限流降级熔断权限等原生功能的数据来源扩展和调用链埋点输出。缺失则默认为false
 spring.application.strategy.sentinel.enabled=true
 ```
 
@@ -1397,6 +1397,12 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-addr
 ]
 ```
 
+支持如下开关开启该动能，默认是关闭的
+```vb
+# 启动和关闭Sentinel LimitApp限流等功能。缺失则默认为false
+spring.application.strategy.service.sentinel.limit.app.enabled=true
+```
+
 #### 自定义业务参数的组合式防护机制
 
 通过适配类实现自定义业务参数的组合式防护机制
@@ -1486,7 +1492,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 11. n-d-version-weight - 版本权重路由值
 12. n-d-region-weight - 区域权重路由值
 ```
-灰度调用链输出分为Header方式、 Opentracing方式、日志MDC方式，三种方式可以并存使用。Opentracing方式支持WebMvc和WebFlux
+灰度调用链输出分为Header方式、调用链方式、日志MDC方式，三种方式可以并存使用。调用链方式支持WebMvc和WebFlux
 
 #### Header输出方式
 
@@ -1494,9 +1500,9 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 - Zuul网关端自行会传输Header值（参考Discovery源码中的AbstractZuulStrategyRouteFilter.java）
 - 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
 
-#### Opentracing输出方式
+#### 调用链输出方式
 
-Opentracing输出方式以Uber Jaeger为例来说明
+调用链输出方式以OpenUber Jaeger为例来说明
 
 1. 从[网盘文档](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)获取，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
 2. 执行Postman调用后，访问[http://localhost:16686](http://localhost:16686)查看灰度调用链
@@ -1524,15 +1530,15 @@ Opentracing输出方式以Uber Jaeger为例来说明
 1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的GRAY Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
 2. 如果关闭，灰度信息输出到原生的Span节点中，意味着在界面显示中，灰度信息会和原生Span节点的调用信息、协议信息等混在一起，缺点是信息庞杂混合，优点是Span节点数不会增长
 ```vb
-# 启动和关闭调用链的灰度信息在Opentracing中以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中。缺失则默认为true
-spring.application.strategy.trace.opentracing.separate.span.enabled=true
+# 启动和关闭调用链的灰度信息以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中（Skywalking不支持原生模式）。缺失则默认为true
+spring.application.strategy.tracer.separate.span.enabled=true
 ```
 
 自定义调用链上下文参数的创建（该类不是必须的），继承DefaultStrategyTracerAdapter
 ```java
 // 自定义调用链上下文参数的创建
-// 对于getTraceId和getSpanId方法，在Opentracing等调用链中间件引入的情况下，由调用链中间件决定，在这里定义不会起作用；在Opentracing等调用链中间件未引入的情况下，在这里定义才有效，下面代码中表示从Http Header中获取，并全链路传递
-// 对于getCustomizationMap方法，表示输出到调用链中的定制化业务参数，可以同时输出到日志和Opentracing等调用链中间件，下面代码中表示从Http Header中获取，并全链路传递
+// 对于getTraceId和getSpanId方法，在OpenTracing等调用链中间件引入的情况下，由调用链中间件决定，在这里定义不会起作用；在OpenTracing等调用链中间件未引入的情况下，在这里定义才有效，下面代码中表示从Http Header中获取，并全链路传递
+// 对于getCustomizationMap方法，表示输出到调用链中的定制化业务参数，可以同时输出到日志和OpenTracing等调用链中间件，下面代码中表示从Http Header中获取，并全链路传递
 public class MyStrategyTracerAdapter extends DefaultStrategyTracerAdapter {
     @Override
     public String getTraceId() {
@@ -1552,7 +1558,6 @@ public class MyStrategyTracerAdapter extends DefaultStrategyTracerAdapter {
                 .build();
     }
 }
-
 ```
 在配置类里@Bean方式进行调用链类创建，覆盖框架内置的调用链类
 ```java
@@ -1562,33 +1567,65 @@ public StrategyTracerAdapter strategyTracerAdapter() {
 }
 ```
 
+自定义类方法上入参和出参输出到调用链（该类不是必须的），继承ServiceStrategyMonitorAdapter
+```java
+// 自定义类方法上入参和出参输出到调用链
+// parameterMap格式：
+// key为入参名
+// value为入参值
+public class MyServiceStrategyMonitorAdapter implements ServiceStrategyMonitorAdapter {
+    @Override
+    public Map<String, String> getCustomizationMap(ServiceStrategyMonitorInterceptor interceptor, MethodInvocation invocation, Map<String, Object> parameterMap, Object returnValue) {
+        return new ImmutableMap.Builder<String, String>()
+                .put(DiscoveryConstant.PARAMETER, parameterMap.toString())
+                .put(DiscoveryConstant.RETURN, returnValue != null ? returnValue.toString() : null)
+                .build();
+    }
+}
+```
+在配置类里@Bean方式进行创建
+```java
+@Bean
+public ServiceStrategyMonitorAdapter serviceStrategyMonitorAdapter() {
+    return new MyServiceStrategyMonitorAdapter();
+}
+```
+
 对于调用链功能的开启和关闭，需要通过如下开关做控制：
 ```vb
-# 启动和关闭调用链。缺失则默认为false
-spring.application.strategy.trace.enabled=true
-# 启动和关闭调用链的日志输出。缺失则默认为false
-spring.application.strategy.trace.logger.enabled=true
-# 调用链的日志输出中，是否显示MDC前面的Key。缺失则默认为true
-spring.application.strategy.trace.logger.mdc.key.shown=true
-# 启动和关闭调用链的Opentracing输出，支持F版或更高版本的配置，其它版本不需要该行配置。缺失则默认为false
-spring.application.strategy.trace.opentracing.enabled=true
-# 启动和关闭调用链的灰度信息在Opentracing中以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中。缺失则默认为true
-spring.application.strategy.trace.opentracing.separate.span.enabled=true
-# 启动和关闭调用链的灰度规则策略信息在Opentracing中的输出。缺失则默认为false
-# spring.application.strategy.trace.opentracing.rule.output.enabled=false
-# 启动和关闭调用链的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
-spring.application.strategy.trace.debug.enabled=true
+# 启动和关闭监控，一旦关闭，调用链和日志输出都将关闭。缺失则默认为false
+spring.application.strategy.monitor.enabled=true
+# 启动和关闭日志输出。缺失则默认为false
+spring.application.strategy.logger.enabled=true
+# 日志输出中，是否显示MDC前面的Key。缺失则默认为true
+# spring.application.strategy.logger.mdc.key.shown=true
+# 启动和关闭Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
+spring.application.strategy.logger.debug.enabled=true
+# 启动和关闭调用链的灰度信息以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中（Skywalking不支持原生模式）。缺失则默认为true
+# spring.application.strategy.tracer.separate.span.enabled=true
+# 启动和关闭调用链的灰度规则策略信息输出。缺失则默认为true
+# spring.application.strategy.tracer.rule.output.enabled=true
+# 启动和关闭类方法上入参和出参输出到调用链。缺失则默认为false
+# spring.application.strategy.tracer.method.context.output.enabled=false
 ```
 
-另外，对Sentinel自动埋点，有如下两个参数默认处于关闭状态，但因为Sentinel原生并非Spring技术来实现的，所以开关只能通过System.setProperty或者通过启动参数进行设置
+对于灰度Span输出在调用链界面上的显示，提供如下配置
 ```vb
-# 启动和关闭调用链的Sentinel规则信息在Opentracing中的输出。缺失则默认为false
-spring.application.strategy.trace.opentracing.sentinel.rule.output.enabled=true
-# 启动和关闭调用链的Sentinel参数信息在Opentracing中的输出，参数中有敏感信息，就不应该输出到调用链中。缺失则默认为false
-spring.application.strategy.trace.opentracing.sentinel.args.output.enabled=true
+# 显示在调用链界面上灰度Span的名称，建议改成具有公司特色的框架产品名称。缺失则默认为NEPXION
+# spring.application.strategy.tracer.span.value=NEPXION
+# 显示在调用链界面上灰度Span Tag的插件名称，建议改成具有公司特色的框架产品的描述。缺失则默认为Nepxion Discovery
+# spring.application.strategy.tracer.span.tag.plugin.value=Nepxion Discovery
 ```
 
-注意，Opentracing对Finchley版的Spring Cloud Gateway的reactor-core包存在版本兼容性问题，如果使用者希望Finchley版的Spring Cloud Gateway上使用Opentracing，需要做如下改造
+对Sentinel自动埋点，有如下两个参数默认处于关闭状态，但因为原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去
+```vb
+# 启动和关闭Sentinel调用链上规则在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为true
+# spring.application.strategy.tracer.sentinel.rule.output.enabled=true
+# 启动和关闭Sentinel调用链上方法入参在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为false
+# spring.application.strategy.tracer.sentinel.args.output.enabled=false
+```
+
+注意，OpenTracing对Finchley版的Spring Cloud Gateway的reactor-core包存在版本兼容性问题，如果使用者希望Finchley版的Spring Cloud Gateway上使用OpenTracing，需要做如下改造
 ```java
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -1608,10 +1645,11 @@ spring.application.strategy.trace.opentracing.sentinel.args.output.enabled=true
     <version>3.2.3.RELEASE</version>
 </dependency>
 ```
+上述方式也适用于其它引入了低版本reactor-core包版本兼容性的场景
 
 #### 日志输出方式
 
-可以单独输出，也可以结合Opentracing一起组合输出，使用方式跟Opentracing方式类似 
+可以单独输出，也可以结合调用链一起组合输出，使用方式跟调用链方式类似 
 
 参考在IDE控制台打印的结果
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Tracer.jpg)
