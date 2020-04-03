@@ -1791,6 +1791,28 @@ spring.application.group.generator.character=-
 
 更多的配置方式，参考[https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md](https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md)
 
+可能需要增加下面的配置，保证git相关文件被打包进去
+```xml
+<resources>
+    <resource>
+        <directory>src/main/java</directory>
+        <includes>
+            <include>**/*.xml</include>
+            <include>**/*.json</include>
+            <include>**/*.properties</include>
+        </includes>
+    </resource>
+    <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+            <include>**/*.xml</include>
+            <include>**/*.json</include>
+            <include>**/*.properties</include>
+        </includes>
+    </resource>
+</resources>
+```
+
 - 增加配置项
 ```vb
 # 开启和关闭使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为false
