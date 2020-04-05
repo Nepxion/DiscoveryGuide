@@ -16,6 +16,7 @@ Nepxion Discovery【探索】，基于Spring Cloud Discovery服务注册发现�
 - 支持阿里巴巴Nacos、携程Apollo和Redis三个远程配置中心
 - 支持阿里巴巴Sentinel和Hystrix两个熔断隔离限流降级中间件
 - 支持Uber Jaeger、Twitter Zipkin、Skywalking等符合OpenTracing和OpenTelemetry调用链中间件
+- 支持Java Agent 解决异步跨线程ThreadLocal上下文传递
 - 支持Prometheus、Grafana和Spring Boot Admin监控中间件
 - 支持Spring Cloud Gateway、Zuul网关和微服务三大模块的灰度发布和路由等一系列功能
 - 支持和兼容Spring Cloud Edgware版、Finchley版、Greenwich版和Hoxton版
@@ -138,7 +139,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - [全链路侦测](#全链路侦测)
 - [全链路服务侧注解](#全链路服务侧注解)
 - [全链路服务侧API权限](#全链路服务侧API权限)
-- [Agent异步线程传递](#Agent异步线程传递)
+- [异步跨线程Agent](#异步跨线程Agent)
 - [元数据Metadata自动化策略](#元数据Metadata自动化策略)
     - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
     - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)
@@ -1454,7 +1455,7 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 
 ## 基于Hystrix的全链路服务限流熔断和灰度融合
 
-通过引入Hystrix组件实现服务限流熔断的功能，在执行灰度发布和路由时候，线程池隔离模式下进行调用会丢失上下文，那么需要下述步骤避免该情况。下面步骤同时适用于网关端和服务端
+通过引入Hystrix组件实现服务限流熔断的功能。灰度路由Header和调用链Span在Hystrix线程池隔离模式（信号量模式不需要引入）下传递时，通过线程上下文切换会存在丢失Header的问题，通过下述步骤解决，同时适用于网关端和服务端
 
 - Pom引入
 ```xml
@@ -1471,6 +1472,8 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 # 开启服务端实现Hystrix线程隔离模式做服务隔离时，必须把spring.application.strategy.hystrix.threadlocal.supported设置为true，同时要引入discovery-plugin-strategy-starter-hystrix包，否则线程切换时会发生ThreadLocal上下文对象丢失。缺失则默认为false
 spring.application.strategy.hystrix.threadlocal.supported=true
 ```
+
+该方案也可以被异步跨线程Agent代替
 
 ## 全链路监控
 
@@ -1711,6 +1714,12 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 - 实现提供入库方法和权限判断方法的扩展，这两者需要自行实现
 
 请参考[权限代码](https://github.com/Nepxion/DiscoveryGuide/blob/master/discovery-guide-service/src/main/java/com/nepxion/discovery/guide/service/permission)
+
+## 异步跨线程Agent
+
+灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程池异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过下述步骤解决，同时适用于网关端和服务端
+
+方案实现中…
 
 ## 元数据Metadata自动化策略
 
