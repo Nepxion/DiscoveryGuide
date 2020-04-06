@@ -29,8 +29,8 @@ public class PermissionConfiguration {
             throw new PermissionException(ServiceStrategyConstant.SPRING_APPLICATION_STRATEGY_SCAN_PACKAGES + "'s value can't be empty");
         }
 
-        if (ServiceStrategyConstant.EXCLUSION_SCAN_PACKAGES.contains(scanPackages)) {
-            throw new PermissionException("It can't scan packages for '" + ServiceStrategyConstant.EXCLUSION_SCAN_PACKAGES + "', please check '" + ServiceStrategyConstant.SPRING_APPLICATION_STRATEGY_SCAN_PACKAGES + "'");
+        if (scanPackages.contains(ServiceStrategyConstant.ENDPOINT_SCAN_PACKAGES)) {
+            throw new PermissionException("It can't scan packages for '" + ServiceStrategyConstant.ENDPOINT_SCAN_PACKAGES + "', please check '" + ServiceStrategyConstant.SPRING_APPLICATION_STRATEGY_SCAN_PACKAGES + "'");
         }
 
         return new PermissionAutoScanProxy(scanPackages);
