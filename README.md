@@ -1556,10 +1556,11 @@ public class MyStrategyTracerAdapter extends DefaultStrategyTracerAdapter {
 
     @Override
     public Map<String, String> getCustomizationMap() {
-        return new ImmutableMap.Builder<String, String>()
-                .put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY)
-                .put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY)
-                .build();
+        Map<String, String> customizationMap = new HashMap<String, String>();
+        customizationMap.put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
+        customizationMap.put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
+
+        return customizationMap;
     }
 }
 ```
@@ -1580,10 +1581,11 @@ public StrategyTracerAdapter strategyTracerAdapter() {
 public class MyServiceStrategyMonitorAdapter implements ServiceStrategyMonitorAdapter {
     @Override
     public Map<String, String> getCustomizationMap(ServiceStrategyMonitorInterceptor interceptor, MethodInvocation invocation, Map<String, Object> parameterMap, Object returnValue) {
-        return new ImmutableMap.Builder<String, String>()
-                .put(DiscoveryConstant.PARAMETER, parameterMap.toString())
-                .put(DiscoveryConstant.RETURN, returnValue != null ? returnValue.toString() : null)
-                .build();
+        Map<String, String> customizationMap = new HashMap<String, String>();
+        customizationMap.put(DiscoveryConstant.PARAMETER, parameterMap.toString());
+        customizationMap.put(DiscoveryConstant.RETURN, returnValue != null ? returnValue.toString() : null);
+
+        return customizationMap;
     }
 }
 ```
