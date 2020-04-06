@@ -14,6 +14,9 @@ import io.opentracing.contrib.concurrent.TracedRunnable;
 import io.opentracing.tag.Tags;
 import io.opentracing.util.GlobalTracer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.google.common.collect.ImmutableMap;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.permission.Permission;
 
@@ -53,11 +55,11 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
             Span errorSpan = GlobalTracer.get().buildSpan("自定义异常埋点").start();
             // 如果没有子Span就不需要下面的代码
             // GlobalTracer.get().activateSpan(errorSpan);
-            errorSpan.log(new ImmutableMap.Builder<String, Object>()
-                    .put("自定义参数", "这是我自定义的参数")
-                    .put(DiscoveryConstant.EVENT, Tags.ERROR.getKey())
-                    .put(DiscoveryConstant.ERROR_OBJECT, new IllegalArgumentException("我认为入参包含'gateway'或'zuul'，是一个错误的参数，那么就做异常埋点处理"))
-                    .build());
+            Map<String, Object> customizationMap = new HashMap<String, Object>();
+            customizationMap.put("自定义参数", "这是我自定义的参数");
+            customizationMap.put(DiscoveryConstant.EVENT, Tags.ERROR.getKey());
+            customizationMap.put(DiscoveryConstant.ERROR_OBJECT, new IllegalArgumentException("我认为入参包含'gateway'或'zuul'，是一个错误的参数，那么就做异常埋点处理"));
+            errorSpan.log(customizationMap);
             errorSpan.finish();
         }
 

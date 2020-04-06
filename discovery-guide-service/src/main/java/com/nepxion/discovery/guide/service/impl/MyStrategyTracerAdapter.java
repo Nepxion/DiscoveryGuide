@@ -9,11 +9,11 @@ package com.nepxion.discovery.guide.service.impl;
  * @version 1.0
  */
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.common.collect.ImmutableMap;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.adapter.DefaultStrategyTracerAdapter;
 
@@ -33,9 +33,10 @@ public class MyStrategyTracerAdapter extends DefaultStrategyTracerAdapter {
 
     @Override
     public Map<String, String> getCustomizationMap() {
-        return new ImmutableMap.Builder<String, String>()
-                .put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY)
-                .put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY)
-                .build();
+        Map<String, String> customizationMap = new HashMap<String, String>();
+        customizationMap.put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
+        customizationMap.put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
+
+        return customizationMap;
     }
 }
