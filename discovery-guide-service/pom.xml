@@ -156,13 +156,6 @@
             <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
 
-        <!-- 在Hoxton上2.0.5存在不兼容性问题，需要升级到3.0.0 -->
-        <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-spring-rabbitmq-starter</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
         <!-- ActiveMQ集成 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
