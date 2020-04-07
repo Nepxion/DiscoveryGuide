@@ -1692,11 +1692,11 @@ spring.application.strategy.business.request.headers=user;mobile
 
 ## 全链路侦测
 
-通过内置基于LoadBalanced RestTemplate方式的/inspector/inspect接口方法，实现全链路侦测，可以查看全链路中调用的各个服务的版本、区域、子环境、IP地址等是否符合预期，是否满足灰度条件，该接口可以集成到使用者的界面中，就可以规避通过Postman工具或者调用链系统去判断，有利于节省人工成本。使用方式
+通过内置基于LoadBalanced RestTemplate方式的/inspector/inspect接口方法，实现全链路侦测，可以查看全链路中调用的各个服务的版本、区域、子环境、IP地址等是否符合预期，是否满足灰度条件，该接口可以集成到使用者的界面中，就可以规避通过Postman工具或者调用链系统去判断，有利于节省人工成本。使用方式：
 ```
 1. 执行Post请求
-2. URL为http://网关IP和Port/第一个服务的服务名/inspector/inspect
-3. Post内容为{"serviceIdList":["第二个服务的服务名", "第三个服务的服务名", ....]}的Json串
+2. 请求的路径：http://[网关URL]/[服务名1]/inspector/inspect
+3. 请求的内容：{"serviceIdList":["服务名2", "服务名3", ....]}。服务名不分前后次序
 ```
 
 ## 全链路服务侧注解
