@@ -18,11 +18,11 @@
     </modules>
 
     <properties>
-        <discovery.version>6.0.0-SNAPSHOT</discovery.version>
+        <discovery.version>6.0.0</discovery.version>
 
         <!-- Spring Cloud Hoxton兼容性版本配置 -->
         <spring.cloud.version>Hoxton.SR3</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.2.0.RELEASE</spring.cloud.alibaba.version>
+        <spring.cloud.alibaba.version>2.2.1.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.2.5.RELEASE</spring.boot.version>
         <spring.boot.admin.version>2.2.2</spring.boot.admin.version>
         <jaeger.client.version>1.2.0</jaeger.client.version>
