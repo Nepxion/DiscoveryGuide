@@ -1597,6 +1597,19 @@ public ServiceStrategyMonitorAdapter serviceStrategyMonitorAdapter() {
 }
 ```
 
+业务方法上获取TraceId和SpanId（不适用于“输出入参出参到Span上”启动的场景）
+```java
+public class MyClass {
+    @Autowired
+    private StrategyMonitorContext strategyMonitorContext;
+
+    public void doXXX() {
+        String traceId = strategyMonitorContext.getTraceId();
+        String spanId = strategyMonitorContext.getSpanId();
+        ...
+    }
+}
+
 对于调用链功能的开启和关闭，需要通过如下开关做控制：
 ```vb
 # 启动和关闭监控，一旦关闭，调用链和日志输出都将关闭。缺失则默认为false
@@ -1613,6 +1626,8 @@ spring.application.strategy.tracer.enabled=true
 # spring.application.strategy.tracer.separate.span.enabled=true
 # 启动和关闭调用链的灰度规则策略信息输出。缺失则默认为true
 # spring.application.strategy.tracer.rule.output.enabled=true
+# 启动和关闭调用链的异常信息是否以详细格式输出。缺失则默认为false
+spring.application.strategy.tracer.exception.detail.output.enabled=true
 # 启动和关闭类方法上入参和出参输出到调用链。缺失则默认为false
 # spring.application.strategy.tracer.method.context.output.enabled=false
 ```
