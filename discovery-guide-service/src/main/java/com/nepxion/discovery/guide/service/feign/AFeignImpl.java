@@ -29,6 +29,7 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.middleware.MiddlewareOperation;
 import com.nepxion.discovery.guide.service.permission.Permission;
+import com.nepxion.discovery.plugin.strategy.monitor.StrategyMonitorContext;
 
 @RestController
 // @Permission(name = "AFeign", label = "AFeign label", description = "AFeign description")
@@ -40,6 +41,9 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     private BFeign bFeign;
 
     @Autowired
+    private StrategyMonitorContext strategyMonitorContext;
+
+    @Autowired
     private MiddlewareOperation middlewareOperation;
 
     @Override
@@ -48,6 +52,8 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
     public String invoke(@PathVariable(value = "value") String value) {
         value = doInvoke(value);
         value = bFeign.invoke(value);
+
+        LOG.info("获取TraceId={}, SpanId={}", strategyMonitorContext.getTraceId(), strategyMonitorContext.getSpanId());
 
         Span invokeSpan = GlobalTracer.get().buildSpan("自定义调用埋点").start();
         // 如果没有子Span就不需要下面的代码
