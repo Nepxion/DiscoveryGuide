@@ -1530,6 +1530,10 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/JaegerPremium2.jpg)
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/JaegerPremium3.jpg)
 
+附录 Skywalking
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Skywalking1.jpg)
+![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Skywalking2.jpg)
+
 请注意如下配置，将决定终端界面的显示
 1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的GRAY Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
 2. 如果关闭，灰度信息输出到原生的Span节点中，意味着在界面显示中，灰度信息会和原生Span节点的调用信息、协议信息等混在一起，缺点是信息庞杂混合，优点是Span节点数不会增长
@@ -1597,7 +1601,7 @@ public ServiceStrategyMonitorAdapter serviceStrategyMonitorAdapter() {
 }
 ```
 
-业务方法上获取TraceId和SpanId（不适用于“输出入参出参到Span上”启动的场景）
+业务方法上获取TraceId和SpanId
 ```java
 public class MyClass {
     @Autowired
