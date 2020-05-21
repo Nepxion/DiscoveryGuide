@@ -1510,7 +1510,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 
 1. 从[网盘文档](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)获取，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
 2. 执行Postman调用后，访问[http://localhost:16686](http://localhost:16686)查看灰度调用链
-3. 灰度调用链支持WebMvc和WebFlux两种方式，以GRAY字样的标记来标识
+3. 灰度调用链支持WebMvc和WebFlux两种方式，以NEPXION字样的标记来标识
 4. 支持对Sentinel自动埋点
 
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger1.jpg)
@@ -1535,7 +1535,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 ![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Skywalking2.jpg)
 
 请注意如下配置，将决定终端界面的显示
-1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的GRAY Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
+1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的NEPXION Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
 2. 如果关闭，灰度信息输出到原生的Span节点中，意味着在界面显示中，灰度信息会和原生Span节点的调用信息、协议信息等混在一起，缺点是信息庞杂混合，优点是Span节点数不会增长
 ```vb
 # 启动和关闭调用链的灰度信息以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中（Skywalking不支持原生模式）。缺失则默认为true
