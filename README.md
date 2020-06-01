@@ -919,7 +919,7 @@ spring.application.strategy.rpc.intercept.enabled=true
 
 通过全链路传递Header实现灰度路由，会存在一定的困难，框架提供另外一种很简单的方式来规避Header传递，但能达到Header传递一样的效果。以版本匹配为例：
 
-增加版本匹配的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务走1.0版本，b服务走1.1版本：
+增加版本匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务走1.0版本，b服务走1.1版本：
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
