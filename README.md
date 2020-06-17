@@ -141,6 +141,8 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - [全链路服务侧注解](#全链路服务侧注解)
 - [全链路服务侧API权限](#全链路服务侧API权限)
 - [异步跨线程Agent](#异步跨线程Agent)
+    - [引入和启动](#引入和启动)
+    - [自定义扩展](#自定义扩展)
 - [元数据Metadata自动化策略](#元数据Metadata自动化策略)
     - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
     - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)
@@ -1760,9 +1762,27 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 
 ## 异步跨线程Agent
 
-灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程池异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过下述步骤解决，同时适用于网关端和服务端
+灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程池或者单个线程异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过下述步骤解决，同时适用于网关端和服务端。该方案可以替代Hystrix线程池隔离模式下的解决方案，也适用于其它有相同使用场景的基础框架和业务场景，例如：Dubbo
 
-方案实现中…
+### 引入和启动
+
+- 克隆 https://github.com/Nepxion/Discovery master分支，执行mvn clean install
+- 上面Maven命令会产生discovery-agent目录，通过如下-javaagent启动
+```xml
+-javaagent:/discovery-agent/discovery-plugin-strategy-starter-agent-{discovery.version}.jar -Dthread.scan.packages=com.abc.xyz
+```
+- discovery-agent/plugin目录默认包含nepxion-discovery自带的实现方案，业务系统可以自定义plugin，解决业务自己定义的上下文跨线程传递
+- thread.scan.packages为Runnable，Callable所在的扫描目录，该目录下的Runnable，Callable对象都会被装饰。该目录最好精细和准确，这样可以减少被装饰的对象数，提高性能，目录如果有多个，用“;”分隔
+- 可选参数，通过-D方式设置进去
+```xml
+# 启动和关闭路由策略的时候，对REST方式在异步调用场景下在服务端的Request请求的装饰，当主线程先于子线程执行完的时候，Request会被Destory，导致Header仍旧拿不到，开启装饰，就可以确保拿到。缺失则默认为false
+spring.application.strategy.rest.request.decorator.enabled=false
+``
+
+### 自定义扩展
+- discovery-agent/discovery-plugin-strategy-starter-agent-{discovery.version}.jar为javaagent，jvm启动时进行加载。plugin目录为放置需要在线程切换时进行ThreadLocal传递的插件
+- 根据规范开发一个插件，插件提供了钩子函数，在某个类被加载的时候，可以注册一个事件到线程上下文切换事件当中，实现业务自定义ThreadLocal的跨线程传递。参考：discovery-plugin-strategy-starter-agent-plugin模块的com.nepxion.discovery.plugin.strategy.starter.agent.plugin.service下的实现方式
+- 插件开完完后，放入到plugin目录下即可
 
 ## 元数据Metadata自动化策略
 
