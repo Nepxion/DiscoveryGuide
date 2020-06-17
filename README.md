@@ -1769,7 +1769,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 - 克隆 https://github.com/Nepxion/Discovery master分支，执行mvn clean install
 - 上面Maven命令会产生discovery-agent目录，通过如下-javaagent启动
 ```xml
--javaagent:/discovery-agent/discovery-plugin-strategy-starter-agent-{discovery.version}.jar -Dthread.scan.packages=com.abc.xyz
+-javaagent:/discovery-agent/discovery-plugin-strategy-starter-agent-{discovery.version}.jar -Dthread.scan.packages=com.abc.xyz -Dspring.application.strategy.rest.request.decorator.enabled=true
 ```
 - discovery-agent/plugin目录默认包含nepxion-discovery自带的实现方案，业务系统可以自定义plugin，解决业务自己定义的上下文跨线程传递
 - thread.scan.packages为Runnable，Callable所在的扫描目录，该目录下的Runnable，Callable对象都会被装饰。该目录最好精细和准确，这样可以减少被装饰的对象数，提高性能，目录如果有多个，用“;”分隔
@@ -1777,7 +1777,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 ```xml
 # 启动和关闭路由策略的时候，对REST方式在异步调用场景下在服务端的Request请求的装饰，当主线程先于子线程执行完的时候，Request会被Destory，导致Header仍旧拿不到，开启装饰，就可以确保拿到。缺失则默认为false
 spring.application.strategy.rest.request.decorator.enabled=false
-``
+```
 
 ### 自定义扩展
 - discovery-agent/discovery-plugin-strategy-starter-agent-{discovery.version}.jar为javaagent，jvm启动时进行加载。plugin目录为放置需要在线程切换时进行ThreadLocal传递的插件
