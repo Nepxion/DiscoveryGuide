@@ -1766,7 +1766,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 
 ### 引入和启动
 
-- 克隆 https://github.com/Nepxion/Discovery master分支，执行mvn clean install
+- 克隆 [https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery) master分支，执行mvn clean install
 - 上面Maven命令会产生discovery-agent目录，通过如下-javaagent启动（如没必要，第二个-D参数不需要加上）
 ```xml
 -javaagent:/discovery-agent/discovery-plugin-strategy-starter-agent-{discovery.version}.jar -Dthread.scan.packages=com.abc.xyz -Dspring.application.strategy.rest.request.decorator.enabled=true
