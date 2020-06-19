@@ -141,8 +141,9 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 - [全链路服务侧注解](#全链路服务侧注解)
 - [全链路服务侧API权限](#全链路服务侧API权限)
 - [异步跨线程Agent](#异步跨线程Agent)
-    - [引入和启动](#引入和启动)
-    - [自定义扩展](#自定义扩展)
+    - [插件编译](#插件编译)
+    - [插件启动](#插件启动)
+    - [插件扩展](#插件扩展)
 - [元数据Metadata自动化策略](#元数据Metadata自动化策略)
     - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
     - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)
@@ -1777,12 +1778,14 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 - 参数解释
     - /discovery-agent：Agent所在的目录，需要对应到实际的目录上
     - thread.scan.packages：Runnable，Callable对象所在的扫描目录，该目录下的Runnable，Callable对象都会被装饰。该目录最好精细和准确，这样可以减少被装饰的对象数，提高性能，目录如果有多个，用“;”分隔
+    - thread.request.decorator.enabled：异步调用场景下在服务端的Request请求的装饰，当主线程先于子线程执行完的时候，Request会被Destory，导致Header仍旧拿不到，开启装饰，就可以确保拿到。默认为关闭，根据实践经验，大多数场景下，需要开启这个开关	
+
 ```xml
+扫描目录thread.scan.packages说明
 1. @Async场景下的扫描目录为org.springframework.aop.interceptor
 2. Hystrix线程池隔离场景下的扫描目录为com.netflix.hystrix
 3. 线程、线程池的扫描目录为自定义Runnable，Callable对象所在类的目录
-```
-    - thread.request.decorator.enabled：异步调用场景下在服务端的Request请求的装饰，当主线程先于子线程执行完的时候，Request会被Destory，导致Header仍旧拿不到，开启装饰，就可以确保拿到。默认为关闭，根据实践经验，大多数场景下，需要开启这个开关
+``
 
 ### 插件扩展
 - 根据规范开发一个插件，插件提供了钩子函数，在某个类被加载的时候，可以注册一个事件到线程上下文切换事件当中，实现业务自定义ThreadLocal的跨线程传递。参考：discovery-plugin-strategy-starter-agent-plugin模块的com.nepxion.discovery.plugin.strategy.starter.agent.plugin.service下的实现方式
