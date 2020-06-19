@@ -1762,27 +1762,31 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 
 ## 异步跨线程Agent
 
-灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程池或者单个线程异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过下述步骤解决，同时适用于网关端和服务端。该方案可以替代Hystrix线程池隔离模式下的解决方案，也适用于其它有相同使用场景的基础框架和业务场景，例如：Dubbo
+灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程、线程池、@Async注解等异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过下述步骤解决，同时适用于网关端和服务端。该方案可以替代Hystrix线程池隔离模式下的解决方案，也适用于其它有相同使用场景的基础框架和业务场景，例如：Dubbo
 
-### 引入和启动
+### 插件编译
 
-- 克隆 [https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery) master分支，执行mvn clean install
-- 上面Maven命令会产生discovery-agent目录，通过如下-javaagent启动（如没必要，第二个-D参数不需要加上）
+- 编译[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)的master分支，执行mvn clean install
+- 产生discovery-agent目录，discovery-plugin-strategy-starter-agent-{discovery.version}.jar为Agent引导启动程序，JVM启动时进行加载；discovery-agent/plugin目录包含discovery-plugin-strategy-starter-agent-plugin-{discovery.version}.jar为nepxion-discovery自带的实现方案，业务系统可以自定义plugin，解决业务自己定义的上下文跨线程传递
+
+### 插件启动
+- 通过如下-javaagent启动，注意:
 ```xml
--javaagent:/discovery-agent/discovery-plugin-strategy-starter-agent-{discovery.version}.jar -Dthread.scan.packages=com.abc.xyz -Dspring.application.strategy.rest.request.decorator.enabled=true
+-javaagent:/discovery-agent/discovery-plugin-strategy-starter-agent-{discovery.version}.jar -Dthread.scan.packages=com.abc;com.xyz -Dthread.request.decorator.enabled=true
 ```
-- discovery-agent/plugin目录默认包含nepxion-discovery自带的实现方案，业务系统可以自定义plugin，解决业务自己定义的上下文跨线程传递
-- thread.scan.packages为Runnable，Callable所在的扫描目录，该目录下的Runnable，Callable对象都会被装饰。该目录最好精细和准确，这样可以减少被装饰的对象数，提高性能，目录如果有多个，用“;”分隔
-- 可选参数，通过-D方式设置进去
+- 参数解释
+    - /discovery-agent：Agent所在的目录，需要对应到实际的目录上
+    - thread.scan.packages：Runnable，Callable对象所在的扫描目录，该目录下的Runnable，Callable对象都会被装饰。该目录最好精细和准确，这样可以减少被装饰的对象数，提高性能，目录如果有多个，用“;”分隔
 ```xml
-# 启动和关闭路由策略的时候，对REST方式在异步调用场景下在服务端的Request请求的装饰，当主线程先于子线程执行完的时候，Request会被Destory，导致Header仍旧拿不到，开启装饰，就可以确保拿到。缺失则默认为false
-spring.application.strategy.rest.request.decorator.enabled=false
+1. @Async场景下的扫描目录为org.springframework.aop.interceptor
+2. Hystrix线程池隔离场景下的扫描目录为com.netflix.hystrix
+3. 线程、线程池的扫描目录为自定义Runnable，Callable对象所在类的目录
 ```
+    - thread.request.decorator.enabled：异步调用场景下在服务端的Request请求的装饰，当主线程先于子线程执行完的时候，Request会被Destory，导致Header仍旧拿不到，开启装饰，就可以确保拿到。默认为关闭，根据实践经验，大多数场景下，需要开启这个开关
 
-### 自定义扩展
-- discovery-agent/discovery-plugin-strategy-starter-agent-{discovery.version}.jar为javaagent，jvm启动时进行加载。plugin目录为放置需要在线程切换时进行ThreadLocal传递的插件
+### 插件扩展
 - 根据规范开发一个插件，插件提供了钩子函数，在某个类被加载的时候，可以注册一个事件到线程上下文切换事件当中，实现业务自定义ThreadLocal的跨线程传递。参考：discovery-plugin-strategy-starter-agent-plugin模块的com.nepxion.discovery.plugin.strategy.starter.agent.plugin.service下的实现方式
-- 插件开完完后，放入到plugin目录下即可
+- plugin目录为放置需要在线程切换时进行ThreadLocal传递的自定义插件。业务自定义插件开发完后，放入到plugin目录下即可
 
 ## 元数据Metadata自动化策略
 
