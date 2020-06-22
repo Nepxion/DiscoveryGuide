@@ -230,14 +230,14 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-guide-service-a/invoke/gateway](http://localhost:5001/discovery-guide-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式：
 ```
-gateway -> [ID=discovery-guide-service-a][H=192.168.0.107:3001][V=1.0][R=dev][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49570.77.15870951148480000] 
--> [ID=discovery-guide-service-b][H=192.168.0.107:4001][V=1.0][R=qa][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49571.85.15870951189970000]
+gateway -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=dev][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49570.77.15870951148480000] 
+-> [ID=discovery-guide-service-b][P=Nacos][H=192.168.0.107:4001][V=1.0][R=qa][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49571.85.15870951189970000]
 ```
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Zuul网关调用示例“，调用地址为[http://localhost:5002/discovery-guide-service-a/invoke/zuul](http://localhost:5002/discovery-guide-service-a/invoke/zuul)，相关的Header值已经预设，供开发者修改。测试通过Zuul网关的调用结果，结果为如下格式：
 ```
-zuul -> [ID=discovery-guide-service-a][H=192.168.0.107:3001][V=1.0][R=dev][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49570.77.15870951148480000] 
--> [ID=discovery-guide-service-b][H=192.168.0.107:4001][V=1.0][R=qa][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49571.85.15870951189970000]
+zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=dev][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49570.77.15870951148480000] 
+-> [ID=discovery-guide-service-b][P=Nacos][H=192.168.0.107:4001][V=1.0][R=qa][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49571.85.15870951189970000]
 ```
 
 - 上述步骤在下面每次更改规则策略的时候执行，并验证结果和规则策略的期望值是否相同
