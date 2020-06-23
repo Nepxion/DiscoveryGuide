@@ -78,21 +78,4 @@ public class DiscoveryGuideServiceA1 {
     public EnvironmentRouteAdapter environmentRouteAdapter() {
         return new MyEnvironmentRouteAdapter();
     }*/
-
-    // 防止多个网关上并行实时灰度发布产生混乱，对处于非灰度发布状态的服务，调用它的时候，只取它的老的稳定版本的实例
-    /*@Bean
-    public StrategyVersionFilterAdapter strategyVersionFilterAdapter() {
-        return new DefaultStrategyVersionFilterAdapter(); 
-    }
-
-    // 防止多个网关上并行实时灰度发布产生混乱，对处于非灰度发布状态的服务，调用它的时候，只取它的给定的区域的实例
-    @Bean
-    public StrategyRegionFilterAdapter strategyRegionFilterAdapter() {
-        return new StrategyRegionFilterAdapter() {
-            @Override
-            public List<String> filter(List<String> regionList) {
-                return Arrays.asList("dev");
-            }
-        };
-    }*/
 }
