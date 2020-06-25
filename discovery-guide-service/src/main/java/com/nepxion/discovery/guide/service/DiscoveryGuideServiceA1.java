@@ -9,11 +9,14 @@ package com.nepxion.discovery.guide.service;
  * @version 1.0
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
@@ -21,6 +24,7 @@ import com.nepxion.discovery.guide.service.impl.MyServiceStrategyMonitorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
+import com.nepxion.discovery.plugin.strategy.service.aop.RestTemplateStrategyInterceptor;
 import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMonitorAdapter;
 import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.ServiceSentinelRequestOriginAdapter;
 
@@ -78,4 +82,15 @@ public class DiscoveryGuideServiceA1 {
     public EnvironmentRouteAdapter environmentRouteAdapter() {
         return new MyEnvironmentRouteAdapter();
     }*/
+
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate(@Autowired(required = false) RestTemplateStrategyInterceptor restTemplateStrategyInterceptor) {
+        RestTemplate restTemplate = new RestTemplate();
+        if (restTemplateStrategyInterceptor != null) {
+            restTemplate.getInterceptors().add(restTemplateStrategyInterceptor);
+        }
+
+        return restTemplate;
+    }
 }
