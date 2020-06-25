@@ -1,11 +1,11 @@
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Cover.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Cover.jpg)
 
 # Nepxion Discovery 框架指南
 [![Total lines](https://tokei.rs/b1/github/Nepxion/DiscoveryGuide?category=lines)](https://tokei.rs/b1/github/Nepxion/Discovery?category=lines)  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?label=license)](https://github.com/Nepxion/Discovery/blob/master/LICENSE)  [![Maven Central](https://img.shields.io/maven-central/v/com.nepxion/discovery.svg?label=maven%20central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.nepxion%22%20AND%20discovery)  [![Javadocs](http://www.javadoc.io/badge/com.nepxion/discovery-plugin-framework.svg)](http://www.javadoc.io/doc/com.nepxion/discovery-plugin-framework)  [![Build Status](https://travis-ci.org/Nepxion/Discovery.svg?branch=master)](https://travis-ci.org/Nepxion/Discovery)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8e39a24e1be740c58b83fb81763ba317)](https://www.codacy.com/project/HaojunRen/Discovery/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Nepxion/Discovery&amp;utm_campaign=Badge_Grade_Dashboard)
 
 每一个访问路过的朋友，如果您觉得这个开源框架不错，请顺手在页面右上角帮它[**Star**]一下
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Star2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Star2.jpg)
 
 如果本文档由于Github网速原因无法完整阅读，请访问
 - [Nepxion Discovery【探索】微服务企业级解决方案(PDF版)](http://nepxion.gitee.io/docs/link-doc/discovery-solution-pdf.html)
@@ -52,7 +52,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 [**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范
 
 本框架成为阿里巴巴中间件Nacos和Spring Cloud Alibaba项目的相关开源
-<img src="https://github.com/HaojunRen/Docs/raw/master/discovery-doc/AwardNacos1.jpg" alt="Nacos" width="50%"><img src="https://github.com/HaojunRen/Docs/raw/master/discovery-doc/AwardSCA1.jpg" alt="Spring Cloud Alibaba" width="50%">
+<img src="http://nepxion.gitee.io/docs/discovery-doc/AwardNacos1.jpg" alt="Nacos" width="50%"><img src="http://nepxion.gitee.io/docs/discovery-doc/AwardSCA1.jpg" alt="Spring Cloud Alibaba" width="50%">
 
 示例以Nacos为服务注册中心和配置中心（使用者可自行换成其它服务注册中心和配置中心），集成Spring Cloud Alibaba，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能
 
@@ -156,21 +156,21 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 ## 请联系我
 微信、公众号和文档
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/zxing-doc/微信-1.jpg)![Alt text](https://github.com/HaojunRen/Docs/raw/master/zxing-doc/公众号-1.jpg)![Alt text](https://github.com/HaojunRen/Docs/raw/master/zxing-doc/文档-1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/zxing-doc/微信-1.jpg)![Alt text](http://nepxion.gitee.io/docs/zxing-doc/公众号-1.jpg)![Alt text](http://nepxion.gitee.io/docs/zxing-doc/文档-1.jpg)
 
 ## 相关版本
 支持如下版本：
 
 | 框架版本 | 框架分支 | 框架状态 | Spring Cloud版本 | Spring Boot版本 | Spring Cloud Alibaba版本 |
 | --- | --- | --- | --- | --- | --- |
-| 6.0.3 | master | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status1.png) | Hoxton<br>Greenwich<br>Finchley | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE |
-| ~~5.6.0~~ | ~~5.x.x~~ | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status2.png) | Greenwich | 2.1.x.RELEASE | 2.1.x.RELEASE |
-| ~~4.15.0~~ | ~~4.x.x~~ | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status2.png) | Finchley | 2.0.x.RELEASE | 2.0.x.RELEASE |
-| 3.16.3 | master-3.x.x | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status1.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
-| ~~2.0.x~~ | ~~2.x.x~~ | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status3.png) | Dalston | 1.x.x.RELEASE | N/A |
-| ~~1.0.x~~ | ~~1.x.x~~ | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status3.png) | Camden | 1.x.x.RELEASE | N/A |
+| 6.0.3 | master | ![](http://nepxion.gitee.io/docs/discovery-doc/Status1.png) | Hoxton<br>Greenwich<br>Finchley | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE |
+| ~~5.6.0~~ | ~~5.x.x~~ | ![](http://nepxion.gitee.io/docs/discovery-doc/Status2.png) | Greenwich | 2.1.x.RELEASE | 2.1.x.RELEASE |
+| ~~4.15.0~~ | ~~4.x.x~~ | ![](http://nepxion.gitee.io/docs/discovery-doc/Status2.png) | Finchley | 2.0.x.RELEASE | 2.0.x.RELEASE |
+| 3.16.3 | master-3.x.x | ![](http://nepxion.gitee.io/docs/discovery-doc/Status1.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
+| ~~2.0.x~~ | ~~2.x.x~~ | ![](http://nepxion.gitee.io/docs/discovery-doc/Status3.png) | Dalston | 1.x.x.RELEASE | N/A |
+| ~~1.0.x~~ | ~~1.x.x~~ | ![](http://nepxion.gitee.io/docs/discovery-doc/Status3.png) | Camden | 1.x.x.RELEASE | N/A |
 
-![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status1.png) 表示迭代中 | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status2.png) 表示不维护，但可用 | ![](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Status3.png) 表示不维护，不可用，已废弃
+![](http://nepxion.gitee.io/docs/discovery-doc/Status1.png) 表示迭代中 | ![](http://nepxion.gitee.io/docs/discovery-doc/Status2.png) 表示不维护，但可用 | ![](http://nepxion.gitee.io/docs/discovery-doc/Status3.png) 表示不维护，不可用，已废弃
 
 注意：
 - 6.x.x版本（同时适用于Finchley、Greenwich和Hoxton以及未来的更高版本），将继续维护
@@ -194,13 +194,13 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 ## 相关图示
 
 ### 部署架构拓扑图
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/BasicTopology.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/BasicTopology.jpg)
 
 ### 服务治理架构图
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Govern.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Govern.jpg)
 
 ### 灰度方式区别图
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Difference.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Difference.jpg)
 
 ## 环境搭建
 - 下载代码
@@ -251,15 +251,15 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 
 #### 多版本灰度路由架构图
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/RouteVersion.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/RouteVersion.jpg)
 
 #### 多区域灰度路由架构图
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/RouteRegion.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/RouteRegion.jpg)
 
 #### 多IP和端口灰度路由架构图
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/RouteAddress.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/RouteAddress.jpg)
 
 ### 配置网关灰度路由策略
 在Nacos配置中心，增加网关灰度路由策略
@@ -274,7 +274,7 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
     </strategy>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-1.jpg)
 
 每个服务调用的版本都可以自行指定，见下面第二条。当所有服务都选同一版本的时候，可以简化成下面第一条
 ```
@@ -303,7 +303,7 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
     </strategy>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-2.jpg)
 
 每个服务调用的版本权重都可以自行指定，见下面第二条。当所有服务都选相同版本权重的时候，可以简化成下面第一条
 ```
@@ -321,7 +321,7 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
     </strategy>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-3.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-3.jpg)
 
 每个服务调用的区域都可以自行指定，见下面第二条。当所有服务都选同一区域的时候，可以简化成下面第一条
 ```
@@ -350,7 +350,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-4.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-4.jpg)
 
 每个服务调用的区域权重都可以自行指定，见下面第二条。当所有服务都选相同区域权重的时候，可以简化成下面第一条
 ```
@@ -370,7 +370,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
     </strategy>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-5.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-5.jpg)
 
 每个服务调用的端口都可以自行指定，见下面第二条。当所有服务都选同一端口的时候，可以简化成下面第一条（单机版不适用于该策略）
 ```
@@ -394,12 +394,12 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/EscapeCharacter1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/EscapeCharacter1.jpg)
 
 从Http Header获取到值进行逻辑判断，例如Http Header的Key为a，它的格式表示为#H['a']，H为Header的首字母。假如路由触发的条件为a等于1，b小于等于2，c不等于3，那么表达式可以写为
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/EscapeCharacter2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/EscapeCharacter2.jpg)
 特殊符号必须转义，所以表达式必须改成如下
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/EscapeCharacter3.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/EscapeCharacter3.jpg)
 
 Spel表达式需要注意的地方：
 - 任何值都大于null。当某个Header未传值，但又指定了该Header大于的表达式，那么正则结果是true。例如，表达式为#H['a'] > '2'，但a作为Header未传递进来，即为null，判断结果为true
@@ -470,7 +470,7 @@ Spel表达式需要注意的地方：
     </strategy-customization>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-8.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-8.jpg)
 
 内置基于Swagger的Rest接口，可以校验策略的条件表达式、校验策略的全链路路由
 
@@ -525,7 +525,7 @@ Spel表达式需要注意的地方：
     </strategy-customization>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-9.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-9.jpg)
 
 ### 配置前端灰度和网关灰度路由组合式策略
 当前端（例如：APP）和后端微服务同时存在多个版本时，可以执行“前端灰度&网关灰度路由组合式策略”
@@ -600,9 +600,9 @@ Spel表达式需要注意的地方：
 1. n-d-env=env1
 ```
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-6.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-6.jpg)
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-7.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-7.jpg)
 
 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。需要通过如下开关做控制：
 ```vb
@@ -932,7 +932,7 @@ spring.application.strategy.rpc.intercept.enabled=true
     </strategy>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide2-10.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-10.jpg)
 
 ### 并行灰度路由下的版本优选策略
 
@@ -965,7 +965,7 @@ spring.application.strategy.version.filter.enabled=true
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide3-1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide3-1.jpg)
 
 #### 区域匹配灰度规则
 增加区域匹配的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现dev区域的a服务只能访问dev区域的b服务，qa区域的a服务只能访问qa区域的b服务：
@@ -980,7 +980,7 @@ spring.application.strategy.version.filter.enabled=true
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide3-2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide3-2.jpg)
 
 ### 配置全链路灰度权重规则
 
@@ -996,7 +996,7 @@ spring.application.strategy.version.filter.enabled=true
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide4-1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide4-1.jpg)
 
 #### 局部版本权重灰度规则
 增加局部版本权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
@@ -1011,7 +1011,7 @@ spring.application.strategy.version.filter.enabled=true
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide4-2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide4-2.jpg)
 
 #### 全局区域权重灰度规则
 增加全局区域权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
@@ -1025,7 +1025,7 @@ spring.application.strategy.version.filter.enabled=true
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide4-3.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide4-3.jpg)
 
 #### 局部区域权重灰度规则
 增加局部区域权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务dev区域提供90%的流量，qa区域提供10%的流量；b服务dev区域提供20%的流量，qa区域提供80%的流量：
@@ -1040,7 +1040,7 @@ spring.application.strategy.version.filter.enabled=true
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide4-4.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide4-4.jpg)
 
 注意：局部权重优先级高于全局权重，版本权重优先级高于区域权重
 
@@ -1069,18 +1069,18 @@ spring.application.strategy.version.filter.enabled=true
     </discovery>
 </rule>
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide5-1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-1.jpg)
 
 图形化界面验证
 - 下载[源码主页](https://github.com/Nepxion/Discovery)的工程，并导入IDE
 - 启动源码工程下的discovery-springcloud-example-console/ConsoleApplication
 - 启动源码工程下的discovery-console-desktop/ConsoleLauncher
 - 通过admin/admin登录，点击“显示服务拓扑”按钮，将呈现如下界面
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide5-2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-2.jpg)
 - 在加入上述规则前，选中网关节点，右键点击“执行灰度路由”，在弹出路由界面中，依次加入“discovery-guide-service-a”和“discovery-guide-service-b”，点击“执行路由”按钮，将呈现如下界面
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide5-3.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-3.jpg)
 - 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide5-4.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-4.jpg)
 
 ## 基于多方式的规则和策略推送
 
@@ -1088,21 +1088,21 @@ spring.application.strategy.version.filter.enabled=true
 
 Nacos订阅推送界面
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Nacos2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Nacos2.jpg)
 
 Apollo订阅推送界面
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Apollo1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Apollo1.jpg)
 
 ### 基于Swagger和Rest的规则和策略推送
 
 服务侧单个推送界面
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Swagger1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Swagger1.jpg)
 
 控制平台批量推送界面
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Swagger2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Swagger2.jpg)
 
 ## 基于Group的全链路服务隔离
 
@@ -1142,9 +1142,9 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 ```
 Reject to invoke because of isolation with different service group
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide6-1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide6-1.jpg)
 如果加上n-d-service-group=discovery-guide-group的Header，那么两者保持Group相同，则调用通过。这是解决异构系统调用微服务被隔离的一种手段
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide6-2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide6-2.jpg)
 
 ## 基于Env的全链路环境隔离和路由
 
@@ -1152,10 +1152,10 @@ Reject to invoke because of isolation with different service group
 
 支持两种方式的环境隔离，动态调度子环境的能力
 - 网关独立部署
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/IsolationEnvironment1.jpg)
 
 - 网关非独立部署
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/IsolationEnvironment2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/IsolationEnvironment2.jpg)
 
 ### 环境隔离
 
@@ -1234,8 +1234,8 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 原生Sentinel规则的用法，请参照Sentinel官方文档
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Sentinel3.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Sentinel4.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Sentinel3.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Sentinel4.jpg)
 
 #### 流控规则
 
@@ -1257,7 +1257,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide7-1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-1.jpg)
 
 #### 降级规则
 
@@ -1274,7 +1274,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide7-2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-2.jpg)
 
 #### 授权规则
 
@@ -1288,7 +1288,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide7-3.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-3.jpg)
 
 #### 系统规则
 
@@ -1306,7 +1306,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide7-4.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-4.jpg)
 
 #### 热点参数流控规则
 
@@ -1328,7 +1328,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
     }
 ]
 ```
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide7-5.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-5.jpg)
 
 ### 基于灰度路由和Sentinel-LimitApp扩展的防护机制
 
@@ -1480,15 +1480,15 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 
 - 当传递的Http Header中user=zhangsan，当全链路调用中，API网关负载均衡discovery-guide-service-a服务到1.0版本后再去调用discovery-guide-service-b服务，最终调用成功
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide7-6.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-6.jpg)
 
 - 当传递的Http Header中user=lisi，不满足条件，最终调用在discovery-guide-service-b服务端被拒绝掉
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide7-7.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-7.jpg)
 
 - 当传递的Http Header中user=zhangsan，满足条件之一，当全链路调用中，API网关负载均衡discovery-guide-service-a服务到1.1版本后再去调用discovery-guide-service-b服务，不满足version=1.0的条件，最终调用在discovery-guide-service-b服务端被拒绝掉
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/DiscoveryGuide7-8.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-8.jpg)
 
 ## 基于Hystrix的全链路服务限流熔断和灰度融合
 
@@ -1550,26 +1550,26 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 3. 灰度调用链支持WebMvc和WebFlux两种方式，以NEPXION字样的标记来标识
 4. 支持对Sentinel自动埋点
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger1.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger2.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger3.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger4.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger5.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Jaeger1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Jaeger2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Jaeger3.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Jaeger4.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Jaeger5.jpg)
 
 集成Sentinel + 灰度全链路监控
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Jaeger6.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Jaeger6.jpg)
 
 集成主流中间件 + 灰度全链路监控
 
 代码请从[指南示例高级版](https://github.com/Nepxion/DiscoveryGuide)获取，分支为premium。运行出下图强大效果的前提，需要事先搭建Nacos、Jaeger、ActiveMQ、MongoDB、RabbitMQ、Redis、RocketMQ以及MySQL数据库等环境
 使用者如果不想搭建环境，想直接观看效果，可以直接把[离线数据](https://github.com/Nepxion/DiscoveryGuide/raw/master/tracing.json)导入到Jaeger界面（JSON File栏，拖进去即可），观看到下图效果
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/JaegerPremium1.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/JaegerPremium2.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/JaegerPremium3.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/JaegerPremium1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/JaegerPremium2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/JaegerPremium3.jpg)
 
 附录 Skywalking
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Skywalking1.jpg)
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Skywalking2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Skywalking1.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Skywalking2.jpg)
 
 请注意如下配置，将决定终端界面的显示
 1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的NEPXION Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
@@ -1717,21 +1717,21 @@ spring.application.strategy.tracer.exception.detail.output.enabled=true
 可以单独输出，也可以结合调用链一起组合输出，使用方式跟调用链方式类似 
 
 参考在IDE控制台打印的结果
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Tracer.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Tracer.jpg)
 
 ### 全链路指标监控-Metrics
 
 #### Prometheus监控方式
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Prometheus.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Prometheus.jpg)
 
 #### Grafana监控方式
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Grafana.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Grafana.jpg)
 
 #### Spring-Boot-Admin监控方式
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Admin7.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Admin7.jpg)
 
 ## 全链路Header传递
 
@@ -2031,7 +2031,7 @@ spring.application.git.generator.path=file:git.json
     - 一键运行install-docker-admin.bat或者.sh，把监控平台全自动部署且运行起来	
 - 上述步骤为演示步骤，和DevOps平台结合在一起，更为完美
 
-![Alt text](https://github.com/HaojunRen/Docs/raw/master/discovery-doc/Docker.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Docker.jpg)
 
 ### Kubernetes平台支持
 
