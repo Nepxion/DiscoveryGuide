@@ -32,5 +32,4 @@ public class DiscoveryGuideServiceA1 {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
 }
