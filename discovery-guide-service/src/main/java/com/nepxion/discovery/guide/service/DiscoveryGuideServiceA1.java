@@ -9,7 +9,6 @@ package com.nepxion.discovery.guide.service;
  * @version 1.0
  */
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -17,8 +16,6 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
-
-import com.nepxion.discovery.plugin.strategy.service.aop.RestTemplateStrategyInterceptor;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -32,12 +29,8 @@ public class DiscoveryGuideServiceA1 {
 
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate(@Autowired(required = false) RestTemplateStrategyInterceptor restTemplateStrategyInterceptor) {
-        RestTemplate restTemplate = new RestTemplate();
-        if (restTemplateStrategyInterceptor != null) {
-            restTemplate.getInterceptors().add(restTemplateStrategyInterceptor);
-        }
-
-        return restTemplate;
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
+
 }
