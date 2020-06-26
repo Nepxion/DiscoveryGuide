@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rule>
-    <strategy>
-        <region-weight>dev=85;qa=15</region-weight>
-    </strategy>
-</rule>

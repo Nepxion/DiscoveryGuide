@@ -13,158 +13,22 @@
     </parent>
 
     <dependencies>
-        <!-- 基于注册中心的核心实现，必须引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-starter-nacos</artifactId>
-            <!-- <artifactId>discovery-plugin-starter-consul</artifactId> -->
-            <!-- <artifactId>discovery-plugin-starter-eureka</artifactId> -->
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 基于配置中心的灰度配置和策略订阅，可以不引入。强烈建议引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
-            <!-- <artifactId>discovery-plugin-config-center-starter-apollo</artifactId> -->
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 网关的策略扩展包，可以不引入。强烈建议引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
             <version>${discovery.version}</version>
         </dependency>
-
-        <!-- ********** 不同的调用链中间件不能共存 ********** -->
-        <!-- ********** Jaeger调用链相关包引入开始 ********** -->
-        <!-- Jaeger调用链，可以不引入。必须和下面的包配套引入 -->
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-opentracing</artifactId>
-            <version>${discovery.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.jaegertracing</groupId>
-            <artifactId>jaeger-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-spring-cloud-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-spring-jaeger-starter</artifactId>
-        </dependency>
-        <!-- ********** Jaeger调用链相关包引入结束 ********** -->
-
-        <!-- ********** Skywalking调用链相关包引入开始 ********** -->
-        <!-- Skywalking调用链，可以不引入。必须和下面的包配套引入 -->
-        <!-- <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-skywalking</artifactId>
-            <version>${discovery.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.skywalking</groupId>
-            <artifactId>apm-toolkit-opentracing</artifactId>
-        </dependency> -->
-        <!-- ********** Skywalking调用链相关包引入开始 ********** -->
-
-        <!-- Spring Boot Admin监控，可以不引入 -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
-
-        <!-- Prometheus监控，可以不引入 -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
     </dependencies>
-
-    <build>
-        <finalName>${project.artifactId}-${project.version}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <executable>true</executable>
-                    <mainClass>${MainClass}</mainClass>
-                    <!-- <mainClass>com.nepxion.discovery.guide.gateway.DiscoveryGuideGateway</mainClass> -->
-                    <layout>JAR</layout>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                        <configuration>
-                            <attach>false</attach>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <configuration>
-                    <imageName>${ImageName}</imageName>
-                    <baseImage>openjdk:8-jre-alpine</baseImage>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-                    <exposes>
-                        <expose>${ExposePort}</expose>
-                    </exposes>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                    <dateFormat>yyyyMMdd</dateFormat>
-                    <!-- <dateFormat>yyyy-MM-dd-HH:mm:ss</dateFormat> -->
-                </configuration>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.json</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.json</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
 </project>
