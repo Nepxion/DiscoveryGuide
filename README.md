@@ -5,6 +5,9 @@
 - [Nepxion Discovery【探索】微服务企业级解决方案(PDF版)](http://nepxion.gitee.io/docs/link-doc/discovery-solution-pdf.html)
 - [Nepxion Discovery【探索】指南篇(PDF版)](http://nepxion.gitee.io/docs/link-doc/discovery-guide-pdf.html) 或 [Nepxion Discovery【探索】指南篇(HTML版)](http://nepxion.gitee.io/docs/link-doc/discovery-guide.html)
 
+如果本代码由于Github网速原因无法快速阅读，请访问
+- [Gitee同步镜像](https://gitee.com/Nepxion/DiscoveryGuide)
+
 完整代码指南，如下
 - 对于入门级玩家，请参考[指南示例极简版](https://github.com/Nepxion/DiscoveryGuide/tree/simple)获取，分支为simple。涉及到灰度发布和路由的基本功能
 - 对于熟练级玩家，请参考[指南示例精进版](https://github.com/Nepxion/DiscoveryGuide/tree/master)获取，分支为master。涉及到本文档里的所有功能
