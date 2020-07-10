@@ -514,7 +514,7 @@ Spel表达式需要注意的地方：
     <strategy-customization>
         <!-- 全链路灰度发布：条件命中的随机权重（第二优先级），支持版本匹配、区域匹配、IP地址和端口匹配 -->
         <!-- Header节点允许缺失，当含Header和未含Header的配置并存时，以未含Header的配置为优先 -->
-        <conditions type=“gray">
+        <conditions type="gray">
             <condition id="condition1" header="#H['a'] == '1'" version-id="version-route1=10;version-route2=90"/>
             <condition id="condition2" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1=85;version-route2=15"/>
             <condition id="condition3" version-id="version-route1=95;version-route2=5"/>
