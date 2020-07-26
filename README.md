@@ -9,7 +9,7 @@
 - [Gitee同步镜像](https://gitee.com/Nepxion/DiscoveryGuide)
 - [Github原镜像](https://github.com/Nepxion/DiscoveryGuide)
 
-完整代码指南，如下
+完整指南示例和文档，请访问
 - 对于入门级玩家，请参考[指南示例极简版](https://github.com/Nepxion/DiscoveryGuide/tree/simple)获取，分支为simple。涉及到灰度发布和路由的基本功能
 - 对于熟练级玩家，请参考[指南示例精进版](https://github.com/Nepxion/DiscoveryGuide/tree/master)获取，分支为master。涉及到本文档里的所有功能
 - 对于骨灰级玩家，请参考[指南示例高级版](https://github.com/Nepxion/DiscoveryGuide/tree/premium)获取，分支为premium。除了本文档里的所有功能之外，涉及到高级调用链ActiveMQ、MongoDB、RabbitMQ、Redis、RocketMQ以及MySQL等和灰度调用链的整合
