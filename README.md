@@ -610,7 +610,7 @@ Spel表达式需要注意的地方：
 ![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-7.jpg)
 
 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。需要通过如下开关做控制：
-```vb
+```
 # 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
 spring.application.strategy.gateway.header.priority=false
 # 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
@@ -914,7 +914,7 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
 }
 ```
 需要通过如下开关开启该功能
-```vb
+```
 # 启动和关闭路由策略的时候，对RPC方式的调用拦截。缺失则默认为false
 spring.application.strategy.rpc.intercept.enabled=true
 ```
@@ -945,7 +945,7 @@ spring.application.strategy.rpc.intercept.enabled=true
 优选的方式，对版本号进行排序，取第一个版本号，所以此方案的前置条件是必须版本号是规律的有次序，例如，以时间戳的方式
 
 需要通过如下开关开启该功能
-```vb
+```
 # 启动和关闭调用对端服务，是否执行调用它的时候只取它的老的稳定版本的实例的策略。缺失则默认为false
 spring.application.strategy.version.filter.enabled=true
 ```
@@ -1115,19 +1115,19 @@ Apollo订阅推送界面
 
 ### 注册服务隔离
 基于Group黑/白名单的策略，即当前的服务所在的Group，不在Group的黑名单或者在白名单里，才允许被注册。只需要在网关或者服务端，开启如下配置即可：
-```vb
+```
 # 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
 spring.application.strategy.register.isolation.enabled=true
 ```
 黑/白名单通过如下方式配置
-```vb
+```
 spring.application.strategy.register.isolation.group.blacklist=
 spring.application.strategy.register.isolation.group.whitelist=
 ```
 
 ### 消费端服务隔离
 基于Group是否相同的策略，即消费端拿到的提供端列表，两者的Group必须相同。只需要在网关或者服务端，开启如下配置即可：
-```vb
+```
 # 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.consumer.isolation.enabled=true
 ```
@@ -1135,7 +1135,7 @@ spring.application.strategy.consumer.isolation.enabled=true
 
 ### 提供端服务隔离
 基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-service-group值进行匹配。只需要在服务端（不适用网关），开启如下配置即可：
-```vb
+```
 # 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.provider.isolation.enabled=true
 
@@ -1167,12 +1167,12 @@ Reject to invoke because of isolation with different service group
 在网关或者服务端，配置环境元数据，在同一套环境下，env值必须是一样的，这样才能达到在同一个注册中心下，环境隔离的目的
 - 当网关配置了env元数据，网关和服务同处于一套环境下，会自动执行隔离
 - 当网关未配置env元数据，网关管辖多个子环境，那么可以通过外部传入n-d-env的Header方式，让网关去调度子环境。如果外部未传入n-d-env的Header，网关则执行Spring Cloud Ribbon轮询策略
-```vb
+```
 spring.cloud.nacos.discovery.metadata.env=env1
 ```
 
 需要在调用端开启如下配置：
-```vb
+```
 # 启动和关闭环境隔离，环境隔离指调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。缺失则默认为false
 spring.application.environment.isolation.enabled=true
 ```
@@ -1180,7 +1180,7 @@ spring.application.environment.isolation.enabled=true
 ### 环境路由
 
 需要在调用端开启如下配置：
-```vb
+```
 # 启动和关闭环境路由，环境路由指在环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境，例如：元数据Metadata环境配置值为common（该值可配置，但不允许为保留值default）。缺失则默认为false
 spring.application.environment.route.enabled=true
 # 流量路由到指定的环境下。不允许为保留值default，缺失则默认为common
@@ -1200,7 +1200,7 @@ spring.application.environment.route=common
 支持远程配置中心和本地规则文件的读取逻辑，即优先读取远程配置，如果不存在或者规则错误，则读取本地规则文件。动态实现远程配置中心对于规则的热刷新
 
 支持如下开关开启该动能，默认是关闭的
-```vb
+```
 # 启动和关闭Sentinel限流降级熔断权限等原生功能的数据来源扩展和调用链埋点输出。缺失则默认为false
 spring.application.strategy.sentinel.enabled=true
 ```
@@ -1346,7 +1346,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 修改配置项Sentinel Request Origin Key为服务名的Header名称，修改授权规则中limitApp为对应的服务名，可实现基于服务名的防护机制
 
 配置项，该配置项默认为n-d-service-id，可以不配置
-```vb
+```
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
 ```
 
@@ -1366,7 +1366,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
 修改配置项Sentinel Request Origin Key为灰度组的Header名称，修改授权规则中limitApp为对应的组名，可实现基于组名的防护机制
 
 配置项
-```vb
+```
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-group
 ```
 
@@ -1386,7 +1386,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-grou
 修改配置项Sentinel Request Origin Key为灰度版本的Header名称，修改授权规则中limitApp为对应的版本，可实现基于版本的防护机制
 
 配置项
-```vb
+```
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-version
 ```
 
@@ -1406,7 +1406,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-vers
 修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域，可实现基于区域的防护机制
 
 配置项
-```vb
+```
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-region
 ```
 
@@ -1426,7 +1426,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-regi
 修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域值，可实现基于IP地址和端口的防护机制
 
 配置项
-```vb
+```
 spring.application.strategy.service.sentinel.request.origin.key=n-d-service-address
 ```
 
@@ -1442,7 +1442,7 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-addr
 ```
 
 支持如下开关开启该动能，默认是关闭的
-```vb
+```
 # 启动和关闭Sentinel LimitApp限流等功能。缺失则默认为false
 spring.application.strategy.service.sentinel.limit.app.enabled=true
 ```
@@ -1510,7 +1510,7 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 ```
 
 - 配置开启
-```vb
+```
 # 开启服务端实现Hystrix线程隔离模式做服务隔离时，必须把spring.application.strategy.hystrix.threadlocal.supported设置为true，同时要引入discovery-plugin-strategy-starter-hystrix包，否则线程切换时会发生ThreadLocal上下文对象丢失。缺失则默认为false
 spring.application.strategy.hystrix.threadlocal.supported=true
 ```
@@ -1579,7 +1579,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 请注意如下配置，将决定终端界面的显示
 1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的NEPXION Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
 2. 如果关闭，灰度信息输出到原生的Span节点中，意味着在界面显示中，灰度信息会和原生Span节点的调用信息、协议信息等混在一起，缺点是信息庞杂混合，优点是Span节点数不会增长
-```vb
+```
 # 启动和关闭调用链的灰度信息以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中（Skywalking不支持原生模式）。缺失则默认为true
 spring.application.strategy.tracer.separate.span.enabled=true
 ```
@@ -1658,7 +1658,7 @@ public class MyClass {
 ```
 
 对于调用链功能的开启和关闭，需要通过如下开关做控制：
-```vb
+```
 # 启动和关闭监控，一旦关闭，调用链和日志输出都将关闭。缺失则默认为false
 spring.application.strategy.monitor.enabled=true
 # 启动和关闭日志输出。缺失则默认为false
@@ -1680,7 +1680,7 @@ spring.application.strategy.tracer.exception.detail.output.enabled=true
 ```
 
 对于灰度Span输出在调用链界面上的显示，提供如下配置
-```vb
+```
 # 显示在调用链界面上灰度Span的名称，建议改成具有公司特色的框架产品名称。缺失则默认为NEPXION
 # spring.application.strategy.tracer.span.value=NEPXION
 # 显示在调用链界面上灰度Span Tag的插件名称，建议改成具有公司特色的框架产品的描述。缺失则默认为Nepxion Discovery
@@ -1688,7 +1688,7 @@ spring.application.strategy.tracer.exception.detail.output.enabled=true
 ```
 
 对Sentinel自动埋点，有如下两个参数默认处于关闭状态，但因为原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去
-```vb
+```
 # 启动和关闭Sentinel调用链上规则在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为true
 # spring.application.strategy.tracer.sentinel.rule.output.enabled=true
 # 启动和关闭Sentinel调用链上方法入参在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为false
@@ -1741,7 +1741,7 @@ spring.application.strategy.tracer.exception.detail.output.enabled=true
 ## 全链路Header传递
 
 框架会默认把相关的Header，进行全链路传递，可以通过如下配置进行。除此之外，凡是以“n-d-”开头的任何Header，框架都会默认全链路传递
-```vb
+```
 # 启动和关闭路由策略的时候，对REST方式的调用拦截。缺失则默认为true
 spring.application.strategy.rest.intercept.enabled=true
 # 启动和关闭Header传递的Debug日志打印，注意每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
@@ -1764,7 +1764,7 @@ spring.application.strategy.business.request.headers=user;mobile
 ## 全链路服务侧注解
 
 服务侧对于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能，默认映射到RestController类（含有@RestController注解），并配合如下的扫描路径才能工作
-```vb
+```
 # 灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能
 spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.feign
 ```
@@ -1816,7 +1816,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 通过指定长度截断或者标志截断服务名的前缀来自动创建灰度组名，这样就可以避免使用者手工维护灰度组名。当两者都启用的时候，截断方式的组名优先级要高于手工配置的组名
 
 - 增加配置项
-```vb
+```
 # 开启和关闭使用服务名前缀来作为服务组名。缺失则默认为false
 spring.application.group.generator.enabled=false
 # 服务名前缀的截断长度，必须大于0
@@ -1914,7 +1914,7 @@ spring.application.group.generator.character=-
 ```
 
 - 增加配置项
-```vb
+```
 # 开启和关闭使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为false
 spring.application.git.generator.enabled=true
 # 插件git-commit-id-plugin产生git信息文件的输出路径，支持properties和json两种格式，支持classpath:xxx和file:xxx两种路径，这些需要和插件里的配置保持一致。缺失则默认为classpath:git.properties
@@ -1926,7 +1926,7 @@ spring.application.git.generator.path=classpath:git.properties
 ```
 
 下面是可供选择的Git字段，比较实际意义的字段为git.commit.id，git.commit.id.abbrev，git.build.version，git.total.commit.count
-```vb
+```
 git.branch=master
 git.build.host=Nepxion
 git.build.time=2019-10-21-10\:07\:41
@@ -1953,14 +1953,14 @@ git.total.commit.count=765
 ```
 
 注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如：
-```vb
+```
 # 输出到工程根目录下
 <generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename>
 # 输出成json格式
 <format>json</format>
 ```
 下面配置项必须上面两个配置项的操作逻辑相同
-```vb
+```
 # 输出到工程根目录下的json格式文件
 spring.application.git.generator.path=file:git.json
 ```
