@@ -6,7 +6,7 @@
 ![](http://nepxion.gitee.io/docs/icon-doc/navigator.png) Nepxion Discovery【探索】指南篇，**务必先阅读**，请访问
 - 对于入门级玩家，参考[指南示例极简版](https://github.com/Nepxion/DiscoveryGuide/tree/simple)获取，分支为simple。涉及到指南篇里的灰度发布和路由的基本功能
 - 对于熟练级玩家，参考[指南示例精进版](https://github.com/Nepxion/DiscoveryGuide/tree/master)获取，分支为master。除上述《极简版》功能外，涉及到指南篇里的绝大多数高级功能
-- 对于骨灰级玩家，参考[指南示例高级版](https://github.com/Nepxion/DiscoveryGuide/tree/premium)获取，分支为premium。除上述《精进版》功能外，涉及到指南篇里的高级调用链ActiveMQ、MongoDB、RabbitMQ、Redis、RocketMQ以及MySQL等和灰度调用链的整合
+- 对于骨灰级玩家，参考[指南示例高级版](https://github.com/Nepxion/DiscoveryGuide/tree/premium)获取，分支为premium。除上述《精进版》功能外，涉及到指南篇里的ActiveMQ、MongoDB、RabbitMQ、Redis、RocketMQ、MySQL等高级调用链和灰度调用链的整合
 
 ![](http://nepxion.gitee.io/docs/icon-doc/navigator.png) 如果本文档由于Github网速原因无法完整阅读，请访问
 - [Nepxion Discovery【探索】微服务企业级解决方案(PDF版)](http://nepxion.gitee.io/docs/link-doc/discovery-solution-pdf.html)
@@ -57,9 +57,10 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 [**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范
 
 本框架成为阿里巴巴中间件Nacos和Spring Cloud Alibaba项目的相关开源
+
 <img src="http://nepxion.gitee.io/docs/discovery-doc/AwardNacos1.jpg" alt="Nacos" width="50%"><img src="http://nepxion.gitee.io/docs/discovery-doc/AwardSCA1.jpg" alt="Spring Cloud Alibaba" width="50%">
 
-示例以Nacos为服务注册中心和配置中心（使用者可自行换成其它服务注册中心和配置中心），集成Spring Cloud Alibaba，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能
+![](http://nepxion.gitee.io/docs/icon-doc/tip.png) 示例以Nacos为服务注册中心和配置中心（使用者可自行换成其它服务注册中心和配置中心），集成Spring Cloud Alibaba，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能
 
 如果使用者需要更强大的功能，请参考[源码主页](https://github.com/Nepxion/Discovery)。规则策略很多，请使用者选择最适合自己业务场景的方式
 
@@ -168,16 +169,16 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 
 | 框架版本 | 框架分支 | 框架状态 | Spring Cloud版本 | Spring Boot版本 | Spring Cloud Alibaba版本 |
 | --- | --- | --- | --- | --- | --- |
-| 6.0.6 | master | ![](http://nepxion.gitee.io/docs/icon-doc/status1.png) | Hoxton<br>Greenwich<br>Finchley | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE |
-| ~~5.6.0~~ | ~~5.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/status2.png) | Greenwich | 2.1.x.RELEASE | 2.1.x.RELEASE |
-| ~~4.15.0~~ | ~~4.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/status2.png) | Finchley | 2.0.x.RELEASE | 2.0.x.RELEASE |
-| 3.16.6 | master-3.x.x | ![](http://nepxion.gitee.io/docs/icon-doc/status1.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
-| ~~2.0.x~~ | ~~2.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/status3.png) | Dalston | 1.x.x.RELEASE | N/A |
-| ~~1.0.x~~ | ~~1.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/status3.png) | Camden | 1.x.x.RELEASE | N/A |
+| 6.0.6 | master | ![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) | Hoxton<br>Greenwich<br>Finchley | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE |
+| ~~5.6.0~~ | ~~5.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Greenwich | 2.1.x.RELEASE | 2.1.x.RELEASE |
+| ~~4.15.0~~ | ~~4.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Finchley | 2.0.x.RELEASE | 2.0.x.RELEASE |
+| 3.16.6 | master-3.x.x | ![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
+| ~~2.0.x~~ | ~~2.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Dalston | 1.x.x.RELEASE | N/A |
+| ~~1.0.x~~ | ~~1.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Camden | 1.x.x.RELEASE | N/A |
 
-![](http://nepxion.gitee.io/docs/icon-doc/status1.png) 表示迭代中 | ![](http://nepxion.gitee.io/docs/icon-doc/status2.png) 表示不维护，但可用 | ![](http://nepxion.gitee.io/docs/icon-doc/status3.png) 表示不维护，不可用，已废弃
+![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) 表示稳定版，维护中 | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) 表示过期版，不维护
 
-注意：
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：
 - 6.x.x版本（同时适用于Finchley、Greenwich和Hoxton以及未来的更高版本），将继续维护
 - 5.x.x版本（适用于Greenwich）不再维护，并入到6.x.x版本，不建议使用
 - 4.x.x版本（适用于Finchley）不再维护，并入到6.x.x版本，不建议使用
@@ -250,7 +251,7 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 
 ## 基于Header传递方式的灰度路由策略
 
-本章节通过网关为触发点来介绍灰度路由策略功能，使用者也可以不通过网关，直接以微服务为触发点进行实施
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) 本章节通过网关为触发点来介绍灰度路由策略功能，使用者也可以不通过网关，直接以微服务为触发点进行实施
 
 ### 灰度路由架构图
 
@@ -406,7 +407,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 特殊符号必须转义，所以表达式必须改成如下
 ![Alt text](http://nepxion.gitee.io/docs/discovery-doc/EscapeCharacter3.jpg)
 
-Spel表达式需要注意的地方：
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) Spel表达式需要注意的地方：
 - 任何值都大于null。当某个Header未传值，但又指定了该Header大于的表达式，那么正则结果是true。例如，表达式为#H['a'] > '2'，但a作为Header未传递进来，即为null，判断结果为false
 - null满足不等于。当某个Header未传值，但又指定了该Header不等于的表达式，那么正则结果是true。例如，表达式为#H['a'] != '2'，但a作为Header未传递进来，即为null，判断结果为true
 
@@ -446,6 +447,8 @@ Spel表达式需要注意的地方：
 
 8. 支持并行实施。通过namespace（可以自定义）的Http Header进行发布隔离
 ```
+
+具体示例内容如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -504,6 +507,8 @@ Spel表达式需要注意的地方：
 
 6. 支持并行实施。通过namespace（可以自定义）的Http Header进行发布隔离
 ```
+
+具体示例内容如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -567,7 +572,9 @@ Spel表达式需要注意的地方：
 除了上面通过配置中心发布灰度规路由则外，还有如下三种方式，这三种方式既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务
 
 #### 通过前端传入灰度路由策略
-通过前端（Postman）方式传入灰度路由策略，来代替配置中心方式，传递全链路路由策略。注意：当配置中心和界面都配置后，以界面传入优先
+通过前端（Postman）方式传入灰度路由策略，来代替配置中心方式，传递全链路路由策略
+
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：当配置中心和界面都配置后，以界面传入优先
 
 - 版本匹配策略，Header格式如下任选一个：
 ```
@@ -953,7 +960,8 @@ spring.application.strategy.version.filter.enabled=true
 ## 基于订阅方式的全链路灰度发布规则
 
 在Nacos配置中心，增加全链路灰度发布规则
-注意：该功能和网关灰度路由和灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的策略
+
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：该功能和网关灰度路由和灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的策略
 
 ### 配置全链路灰度匹配规则
 
@@ -1047,7 +1055,7 @@ spring.application.strategy.version.filter.enabled=true
 ```
 ![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide4-4.jpg)
 
-注意：局部权重优先级高于全局权重，版本权重优先级高于区域权重
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：局部权重优先级高于全局权重，版本权重优先级高于区域权重
 
 请执行Postman操作，请仔细观察服务被随机权重调用到的概率
 
@@ -1576,7 +1584,7 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 ![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Skywalking1.jpg)
 ![Alt text](http://nepxion.gitee.io/docs/discovery-doc/Skywalking2.jpg)
 
-请注意如下配置，将决定终端界面的显示
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 请注意如下配置，将决定终端界面的显示
 1. 如果开启，灰度信息输出到独立的Span节点中，意味着在界面显示中，灰度信息通过独立的NEPXION Span节点来显示。优点是信息简洁明了，缺点是Span节点会增长一倍
 2. 如果关闭，灰度信息输出到原生的Span节点中，意味着在界面显示中，灰度信息会和原生Span节点的调用信息、协议信息等混在一起，缺点是信息庞杂混合，优点是Span节点数不会增长
 ```
@@ -1695,8 +1703,8 @@ spring.application.strategy.tracer.exception.detail.output.enabled=true
 # spring.application.strategy.tracer.sentinel.args.output.enabled=false
 ```
 
-注意，OpenTracing对Finchley版的Spring Cloud Gateway的reactor-core包存在版本兼容性问题，如果使用者希望Finchley版的Spring Cloud Gateway上使用OpenTracing，需要做如下改造
-```java
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：OpenTracing对Finchley版的Spring Cloud Gateway的reactor-core包存在版本兼容性问题，如果使用者希望Finchley版的Spring Cloud Gateway上使用OpenTracing，需要做如下改造
+```xml
 <dependency>
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
@@ -1952,7 +1960,7 @@ git.tags=
 git.total.commit.count=765
 ```
 
-注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如：
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如：
 ```
 # 输出到工程根目录下
 <generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename>
@@ -1976,7 +1984,9 @@ spring.application.git.generator.path=file:git.json
 
 ## 内置配置文件
 
-框架提供内置配置文件spring-application-default.properties。如果使用者希望对框架做封装，并提供相应的默认配置，可以在src/main/resources目录下放置spring-application-default.properties。注意：该文件在整个服务目录和包中只能出现一次
+框架提供内置配置文件spring-application-default.properties。如果使用者希望对框架做封装，并提供相应的默认配置，可以在src/main/resources目录下放置spring-application-default.properties
+
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：该文件在整个服务目录和包中只能出现一次
 
 ## Docker容器化和Kubernetes平台支持
 
