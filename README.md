@@ -57,6 +57,7 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 [**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范
 
 本框架成为阿里巴巴中间件Nacos和Spring Cloud Alibaba项目的相关开源
+
 <img src="http://nepxion.gitee.io/docs/discovery-doc/AwardNacos1.jpg" alt="Nacos" width="50%"><img src="http://nepxion.gitee.io/docs/discovery-doc/AwardSCA1.jpg" alt="Spring Cloud Alibaba" width="50%">
 
 示例以Nacos为服务注册中心和配置中心（使用者可自行换成其它服务注册中心和配置中心），集成Spring Cloud Alibaba，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能
@@ -168,14 +169,14 @@ Nepxion Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Fi
 
 | 框架版本 | 框架分支 | 框架状态 | Spring Cloud版本 | Spring Boot版本 | Spring Cloud Alibaba版本 |
 | --- | --- | --- | --- | --- | --- |
-| 6.0.6 | master | ![](http://nepxion.gitee.io/docs/icon-doc/status1.png) | Hoxton<br>Greenwich<br>Finchley | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE |
-| ~~5.6.0~~ | ~~5.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/status2.png) | Greenwich | 2.1.x.RELEASE | 2.1.x.RELEASE |
-| ~~4.15.0~~ | ~~4.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/status2.png) | Finchley | 2.0.x.RELEASE | 2.0.x.RELEASE |
-| 3.16.6 | master-3.x.x | ![](http://nepxion.gitee.io/docs/icon-doc/status1.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
-| ~~2.0.x~~ | ~~2.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/status3.png) | Dalston | 1.x.x.RELEASE | N/A |
-| ~~1.0.x~~ | ~~1.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/status3.png) | Camden | 1.x.x.RELEASE | N/A |
+| 6.0.6 | master | ![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) | Hoxton<br>Greenwich<br>Finchley | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE |
+| ~~5.6.0~~ | ~~5.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Greenwich | 2.1.x.RELEASE | 2.1.x.RELEASE |
+| ~~4.15.0~~ | ~~4.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Finchley | 2.0.x.RELEASE | 2.0.x.RELEASE |
+| 3.16.6 | master-3.x.x | ![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
+| ~~2.0.x~~ | ~~2.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Dalston | 1.x.x.RELEASE | N/A |
+| ~~1.0.x~~ | ~~1.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Camden | 1.x.x.RELEASE | N/A |
 
-![](http://nepxion.gitee.io/docs/icon-doc/status1.png) 表示迭代中 | ![](http://nepxion.gitee.io/docs/icon-doc/status2.png) 表示不维护，但可用 | ![](http://nepxion.gitee.io/docs/icon-doc/status3.png) 表示不维护，不可用，已废弃
+![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) 表示稳定版，维护中 | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) 表示过期版，不维护
 
 注意：
 - 6.x.x版本（同时适用于Finchley、Greenwich和Hoxton以及未来的更高版本），将继续维护
@@ -250,7 +251,7 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 
 ## 基于Header传递方式的灰度路由策略
 
-本章节通过网关为触发点来介绍灰度路由策略功能，使用者也可以不通过网关，直接以微服务为触发点进行实施
+![](http://nepxion.gitee.io/docs/icon-doc/tip.png) 本章节通过网关为触发点来介绍灰度路由策略功能，使用者也可以不通过网关，直接以微服务为触发点进行实施
 
 ### 灰度路由架构图
 
@@ -447,6 +448,8 @@ Spel表达式需要注意的地方：
 8. 支持并行实施。通过namespace（可以自定义）的Http Header进行发布隔离
 ```
 
+具体示例内容如下：
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -504,6 +507,8 @@ Spel表达式需要注意的地方：
 
 6. 支持并行实施。通过namespace（可以自定义）的Http Header进行发布隔离
 ```
+
+具体示例内容如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1696,7 +1701,7 @@ spring.application.strategy.tracer.exception.detail.output.enabled=true
 ```
 
 注意，OpenTracing对Finchley版的Spring Cloud Gateway的reactor-core包存在版本兼容性问题，如果使用者希望Finchley版的Spring Cloud Gateway上使用OpenTracing，需要做如下改造
-```java
+```xml
 <dependency>
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
