@@ -47,6 +47,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-sentinel-starter-opentracing</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>io.jaegertracing</groupId>
             <artifactId>jaeger-client</artifactId>
         </dependency>
