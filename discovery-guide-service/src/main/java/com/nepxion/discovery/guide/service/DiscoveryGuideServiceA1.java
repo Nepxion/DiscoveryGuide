@@ -75,12 +75,6 @@ public class DiscoveryGuideServiceA1 {
         return new MyStrategyTracerAdapter();
     }
 
-    // 自定义环境路由
-    /*@Bean
-    public EnvironmentRouteAdapter environmentRouteAdapter() {
-        return new MyEnvironmentRouteAdapter();
-    }*/
-
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
