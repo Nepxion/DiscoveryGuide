@@ -49,10 +49,4 @@ public class DiscoveryGuideZuul {
     public StrategyTracerAdapter strategyTracerAdapter() {
         return new MyStrategyTracerAdapter();
     }
-
-    // 自定义环境路由
-    /*@Bean
-    public EnvironmentRouteAdapter environmentRouteAdapter() {
-        return new MyEnvironmentRouteAdapter();
-    }*/
 }
