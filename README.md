@@ -171,10 +171,10 @@ Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley�
 
 | 框架版本 | 框架分支 | 框架状态 | Spring Cloud版本 | Spring Boot版本 | Spring Cloud Alibaba版本 |
 | --- | --- | --- | --- | --- | --- |
-| 6.0.6 | master | ![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) | Hoxton<br>Greenwich<br>Finchley | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE |
+| 6.0.7 | master | ![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) | Hoxton<br>Greenwich<br>Finchley | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE |
 | ~~5.6.0~~ | ~~5.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Greenwich | 2.1.x.RELEASE | 2.1.x.RELEASE |
 | ~~4.15.0~~ | ~~4.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Finchley | 2.0.x.RELEASE | 2.0.x.RELEASE |
-| 3.16.6 | 3.x.x | ![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
+| 3.16.7 | 3.x.x | ![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) | Edgware | 1.5.x.RELEASE | 1.5.x.RELEASE |
 | ~~2.0.x~~ | ~~2.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Dalston | 1.x.x.RELEASE | 1.5.x.RELEASE |
 | ~~1.0.x~~ | ~~1.x.x~~ | ![](http://nepxion.gitee.io/docs/icon-doc/delete_24.png) | Camden | 1.x.x.RELEASE | 1.5.x.RELEASE |
 
@@ -1163,39 +1163,30 @@ Reject to invoke because of isolation with different service group
 
 ## 基于Env的全链路环境隔离和路由
 
-基于元数据Metadata的env参数进行隔离，当调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境
+基于服务实例的元数据Metadata的env参数和全链路传递的环境Header值进行比对实现隔离，当从网关传递来的环境Header（n-d-env）值和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境
 
-支持两种方式的环境隔离，动态调度子环境的能力
-- 网关独立部署
-![Alt text](http://nepxion.gitee.io/docs/discovery-doc/IsolationEnvironment1.jpg)
-
-- 网关非独立部署
-![Alt text](http://nepxion.gitee.io/docs/discovery-doc/IsolationEnvironment2.jpg)
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/IsolationEnvironment.jpg)
 
 ### 环境隔离
 
 在网关或者服务端，配置环境元数据，在同一套环境下，env值必须是一样的，这样才能达到在同一个注册中心下，环境隔离的目的
-- 当网关配置了env元数据，网关和服务同处于一套环境下，会自动执行隔离
-- 当网关未配置env元数据，网关管辖多个子环境，那么可以通过外部传入n-d-env的Header方式，让网关去调度子环境。如果外部未传入n-d-env的Header，网关则执行Spring Cloud Ribbon轮询策略
 ```
 spring.cloud.nacos.discovery.metadata.env=env1
 ```
 
-需要在调用端开启如下配置：
-```
-# 启动和关闭环境隔离，环境隔离指调用端实例和提供端实例的元数据Metadata环境配置值相等才能调用。缺失则默认为false
-spring.application.environment.isolation.enabled=true
-```
-
 ### 环境路由
 
-需要在调用端开启如下配置：
+在环境隔离执行的时候，如果无法找到对应的环境，则会路由到一个通用或者备份环境，默认为env为common的环境，可以通过如下参数进行更改
 ```
-# 启动和关闭环境路由，环境路由指在环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境，例如：元数据Metadata环境配置值为common（该值可配置，但不允许为保留值default）。缺失则默认为false
-spring.application.environment.route.enabled=true
 # 流量路由到指定的环境下。不允许为保留值default，缺失则默认为common
 spring.application.environment.route=common
 ```
+
+整个隔离和路由的逻辑如下：
+- 如果存在子环境，优先寻址子环境的服务实例
+- 如果不存在子环境，则寻址Common环境的服务实例
+- 如果Common环境也不存在，则调用失败
+- 如果没有传递环境Header（n-d-env）值，则执行Spring Cloud Ribbon轮询策略
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
