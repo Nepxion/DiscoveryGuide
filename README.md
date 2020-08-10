@@ -1184,7 +1184,7 @@ spring.application.environment.route=common
 
 整个隔离和路由的逻辑如下：
 - 如果存在子环境，优先寻址子环境的服务实例
-- 如果不存在子环境，则寻址Common环境的服务实例
+- 如果不存在子环境，则寻址Common环境的服务实例（未设置元数据Metadata的env参数的服务实例也归为Common环境）
 - 如果Common环境也不存在，则调用失败
 - 如果没有传递环境Header（n-d-env）值，则执行Spring Cloud Ribbon轮询策略
 
