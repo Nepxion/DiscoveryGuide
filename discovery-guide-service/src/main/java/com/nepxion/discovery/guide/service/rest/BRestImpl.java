@@ -18,15 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.guide.service.core.CoreImpl;
 
 @RestController
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-b")
-public class BRestImpl extends AbstractRestImpl {
+public class BRestImpl extends CoreImpl {
     private static final Logger LOG = LoggerFactory.getLogger(BRestImpl.class);
 
     @RequestMapping(path = "/rest/{value}", method = RequestMethod.GET)
     public String rest(@PathVariable(value = "value") String value) {
-        value = doRest(value);
+        value = getPluginInfo(value);
 
         LOG.info("调用路径：{}", value);
 

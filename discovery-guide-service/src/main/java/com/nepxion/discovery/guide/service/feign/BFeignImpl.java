@@ -16,15 +16,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.guide.service.core.CoreImpl;
 
 @RestController
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-b")
-public class BFeignImpl extends AbstractFeignImpl implements BFeign {
+public class BFeignImpl extends CoreImpl implements BFeign {
     private static final Logger LOG = LoggerFactory.getLogger(BFeignImpl.class);
 
     @Override
     public String invoke(@PathVariable(value = "value") String value) {
-        value = doInvoke(value);
+        value = getPluginInfo(value);
 
         LOG.info("调用路径：{}", value);
 

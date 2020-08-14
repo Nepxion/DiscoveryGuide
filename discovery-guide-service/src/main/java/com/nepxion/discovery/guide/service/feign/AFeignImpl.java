@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.guide.service.core.CoreImpl;
 
 @RestController
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-a")
-public class AFeignImpl extends AbstractFeignImpl implements AFeign {
+public class AFeignImpl extends CoreImpl implements AFeign {
     private static final Logger LOG = LoggerFactory.getLogger(AFeignImpl.class);
 
     @Autowired
@@ -28,7 +29,7 @@ public class AFeignImpl extends AbstractFeignImpl implements AFeign {
 
     @Override
     public String invoke(@PathVariable(value = "value") String value) {
-        value = doInvoke(value);
+        value = getPluginInfo(value);
         value = bFeign.invoke(value);
 
         LOG.info("调用路径：{}", value);
