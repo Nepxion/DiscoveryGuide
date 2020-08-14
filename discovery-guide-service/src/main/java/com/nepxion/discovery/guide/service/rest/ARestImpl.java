@@ -20,10 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.guide.service.core.CoreImpl;
 
 @RestController
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-a")
-public class ARestImpl extends AbstractRestImpl {
+public class ARestImpl extends CoreImpl {
     private static final Logger LOG = LoggerFactory.getLogger(ARestImpl.class);
 
     @Autowired
@@ -31,7 +32,7 @@ public class ARestImpl extends AbstractRestImpl {
 
     @RequestMapping(path = "/rest/{value}", method = RequestMethod.GET)
     public String rest(@PathVariable(value = "value") String value) {
-        value = doRest(value);
+        value = getPluginInfo(value);
         value = restTemplate.getForEntity("http://discovery-guide-service-b/rest/" + value, String.class).getBody();
 
         LOG.info("调用路径：{}", value);
