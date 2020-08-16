@@ -164,7 +164,7 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 
 #### 测试入口程序
 
-结合Spring Boot Junit，TestApplication.class为测试框架内置应用启动程序，MyTestConfiguration用于初始化所有测试用例类。在测试方法上面加入JUnit的@Test注解
+结合Spring Boot Junit，TestApplication.class为测试框架内置应用启动程序，DiscoveryGuideTestConfiguration用于初始化所有测试用例类。在测试方法上面加入JUnit的@Test注解
 
 ```java
 @RunWith(SpringRunner.class)
