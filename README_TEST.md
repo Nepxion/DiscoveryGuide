@@ -164,14 +164,14 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 
 #### 测试入口程序
 
-结合Spring Boot Junit，TestApplication.class为测试框架内置应用启动程序，MyTestConfiguration用于初始化所有测试用例类。在测试方法上面加入JUnit的@Test注解
+结合Spring Boot Junit，TestApplication.class为测试框架内置应用启动程序，DiscoveryGuideTestConfiguration用于初始化所有测试用例类。在测试方法上面加入JUnit的@Test注解
 
 ```java
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { TestApplication.class, MyTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MyTest {
+@SpringBootTest(classes = { TestApplication.class, DiscoveryGuideTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class DiscoveryGuideTest {
     @Autowired
-    private MyTestCases myTestCases;
+    private DiscoveryGuideTestCases discoveryGuideTestCases;
 
     private static long startTime;
 
@@ -187,24 +187,24 @@ public class MyTest {
 
     @Test
     public void testNoGray() throws Exception {
-        myTestCases.testNoGray(gatewayTestUrl);
-        myTestCases.testNoGray(zuulTestUrl);
+        discoveryGuideTestCases.testNoGray(gatewayTestUrl);
+        discoveryGuideTestCases.testNoGray(zuulTestUrl);
     }
 
     @Test
     public void testVersionStrategyGray() throws Exception {
-        myTestCases.testVersionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-        myTestCases.testVersionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+        discoveryGuideTestCases.testVersionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+        discoveryGuideTestCases.testVersionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
     }
 }
 ```
 
 ```java
 @Configuration
-public class MyTestConfiguration {
+public class DiscoveryGuideTestConfiguration {
     @Bean
-    public MyTestCases myTestCases() {
-        return new MyTestCases();
+    public DiscoveryGuideTestCases discoveryGuideTestCases() {
+        return new DiscoveryGuideTestCases();
     }
 }
 ```
@@ -226,7 +226,7 @@ public @interface DTest {
 代码如下：
 
 ```java
-public class MyTestCases {
+public class DiscoveryGuideTestCases {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
@@ -284,7 +284,7 @@ public @interface DTestConfig {
 代码如下：
 
 ```java
-public class MyTestCases {
+public class DiscoveryGuideTestCases {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
@@ -333,7 +333,7 @@ public class MyTestCases {
 - 执行测试用例后，把修改过的内容（resetPath = "sentinel-default.xml"）复原，再推送一次到远程配置中心
 
 ```java
-public class MyTestCases {
+public class DiscoveryGuideTestCases {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
