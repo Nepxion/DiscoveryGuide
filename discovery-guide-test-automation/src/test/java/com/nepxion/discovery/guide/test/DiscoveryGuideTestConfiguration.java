@@ -13,9 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MyTestConfiguration {
+public class DiscoveryGuideTestConfiguration {
     @Bean
-    public MyTestCases myTestCases() {
-        return new MyTestCases();
+    public DiscoveryGuideTestCases discoveryGuideTestCases() {
+        return new DiscoveryGuideTestCases();
     }
 }

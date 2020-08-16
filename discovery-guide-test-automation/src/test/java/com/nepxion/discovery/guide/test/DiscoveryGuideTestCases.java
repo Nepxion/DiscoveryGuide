@@ -29,8 +29,8 @@ import com.nepxion.discovery.common.entity.InspectorEntity;
 import com.nepxion.discovery.plugin.test.annotation.DTest;
 import com.nepxion.discovery.plugin.test.annotation.DTestConfig;
 
-public class MyTestCases {
-    private static final Logger LOG = LoggerFactory.getLogger(MyTestCases.class);
+public class DiscoveryGuideTestCases {
+    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGuideTestCases.class);
 
     @Autowired
     private TestRestTemplate testRestTemplate;
