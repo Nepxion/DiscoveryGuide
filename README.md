@@ -223,16 +223,16 @@ Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley�
 ## 启动服务 
 - 在IDE中，启动四个应用服务和两个网关服务，控制平台服务和监控平台服务可选，如下： 
 
-| 类名 | 微服务 | 服务端口 | 版本 | 区域 |
-| --- | --- | --- | --- | --- |
-| DiscoveryGuideServiceA1.java | A1 | 3001 | 1.0 | dev |
-| DiscoveryGuideServiceA2.java | A2 | 3002 | 1.1 | qa |
-| DiscoveryGuideServiceB1.java | B1 | 4001 | 1.0 | qa |
-| DiscoveryGuideServiceB2.java | B2 | 4002 | 1.1 | dev |
-| DiscoveryGuideGateway.java | Gateway | 5001 | 1.0 | 无 |
-| DiscoveryGuideZuul.java | Zuul | 5002 | 1.0 | 无 |
-| DiscoveryGuideConsole.java | Console | 6001 | 1.0 | 无 |
-| DiscoveryGuideAdmin.java | Admin | 6002 | 1.0 | 无 |
+| 类名 | 微服务 | 服务端口 | 版本 | 区域 | 子环境 |
+| --- | --- | --- | --- | --- | -- | 
+| DiscoveryGuideServiceA1.java | A1 | 3001 | 1.0 | dev | env1 |
+| DiscoveryGuideServiceA2.java | A2 | 3002 | 1.1 | qa | common |
+| DiscoveryGuideServiceB1.java | B1 | 4001 | 1.0 | qa | env1 |
+| DiscoveryGuideServiceB2.java | B2 | 4002 | 1.1 | dev | common | 
+| DiscoveryGuideGateway.java | Gateway | 5001 | 1.0 | 无 | 无 |
+| DiscoveryGuideZuul.java | Zuul | 5002 | 1.0 | 无 | 无 |
+| DiscoveryGuideConsole.java | Console | 6001 | 1.0 | 无 | 无 |
+| DiscoveryGuideAdmin.java | Admin | 6002 | 1.0 | 无 | 无 |
 
 ## 环境验证
 - 导入Postman的测试脚本，[脚本地址](https://github.com/Nepxion/DiscoveryGuide/raw/master/postman.json)
