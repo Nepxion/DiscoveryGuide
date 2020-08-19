@@ -18,6 +18,7 @@
 - [Gitee同步镜像](https://gitee.com/Nepxion/DiscoveryGuide)
 - [Github原镜像](https://github.com/Nepxion/DiscoveryGuide)
 
+## 简介
 Discovery【探索】框架架构，基于Spring Cloud Discovery服务注册发现、Ribbon负载均衡、Feign和RestTemplate调用等组件全方位增强的企业级微服务开源解决方案，更贴近企业级需求，更具有企业级的插件引入、开箱即用特征
 - 支持阿里巴巴Nacos、Eureka、Consul和Zookeeper四个服务注册发现中心
 - 支持阿里巴巴Nacos、携程Apollo和Redis三个远程配置中心
@@ -67,6 +68,7 @@ Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley�
 如果使用者需要更强大的功能，请参考[源码主页](https://github.com/Nepxion/Discovery)。规则策略很多，请使用者选择最适合自己业务场景的方式
 
 ## 目录
+- [简介](#简介)
 - [请联系我](#请联系我)
 - [相关版本](#相关版本)
 - [相关链接](#相关链接)
