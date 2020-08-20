@@ -1,4 +1,4 @@
-echo 'on'
+echo -e '\033[32m'
 echo '============================================================='
 echo '$                                                           $'
 echo '$                     Nepxion Discovery                     $'
@@ -9,11 +9,8 @@ echo '$  Nepxion Studio All Right Reserved                        $'
 echo '$  Copyright (C) 2017-2050                                  $'
 echo '$                                                           $'
 echo '============================================================='
-echo '.'
-echo 'off'
 
-title=Nepxion Discovery Guide [Console]
-color=0a
+echo -n $'\e'"]0;Nepxion Discovery Guide [Console]"$'\a'
 
 PROJECT_NAME=discovery-guide-console
 
@@ -49,3 +46,16 @@ mvn package docker:build -DskipTests -DImageName=${IMAGE_NAME} -DExposePort=${CO
 
 # 安装和启动Docker容器，并自动执行端口映射
 docker run --env middleware.host=${MIDDLEWARE_HOST} ${RUN_MODE} -e TZ="Asia/Shanghai" -p ${MACHINE_PORT}:${CONTAINER_PORT} -h ${IMAGE_NAME} --name ${IMAGE_NAME} ${IMAGE_NAME}:latest
+
+function pause(){
+  echo 'Press any key to continue...'
+  read -n 1 -p "$*" str_inp
+  if [ -z "$str_inp" ];then
+    str_inp=1
+  fi
+    if [ $str_inp != '' ];then
+      echo -ne '\b \n'
+    fi
+}
+
+pause
