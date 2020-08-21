@@ -424,7 +424,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 # 4. n-d-version-weight
 # 5. n-d-region-weight
 # 6. n-d-env (不属于灰度蓝绿范畴的Header，只要外部传入就会全程传递)
-# spring.application.strategy.core.header.transmission.enabled=true
+spring.application.strategy.core.header.transmission.enabled=true
 ```
 
 ### 配置全链路灰度条件命中和灰度匹配组合式策略
