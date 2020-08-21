@@ -21,7 +21,7 @@ MAIN_CLASS=com.nepxion.discovery.guide.service.DiscoveryGuideServiceB1
 MACHINE_PORT=4001
 CONTAINER_PORT=4001
 MIDDLEWARE_HOST=10.0.75.1
-RUN_MODE=-i -t
+RUN_MODE='-i -t'
 # RUN_MODE=-d
 
 if [ ! -d ${PROJECT_NAME}/target];then
