@@ -17,11 +17,11 @@ PROJECT_NAME=discovery-guide-zuul
 DOCKER_HOST=tcp://localhost:2375
 # DOCKER_CERT_PATH=/User/Neptune/.docker/machine/certs
 IMAGE_NAME=guide-zuul
-MAIN_CLASS=com.nepxion.discovery.guide.zuul.DiscoveryGuideZuul
+MAIN_CLASS='com.nepxion.discovery.guide.zuul.DiscoveryGuideZuul'
 MACHINE_PORT=5002
 CONTAINER_PORT=5002
 MIDDLEWARE_HOST=10.0.75.1
-RUN_MODE=-i -t
+RUN_MODE='-i -t'
 # RUN_MODE=-d
 
 if [ ! -d ${PROJECT_NAME}/target];then

@@ -17,11 +17,11 @@ PROJECT_NAME=discovery-guide-admin
 DOCKER_HOST=tcp://localhost:2375
 # DOCKER_CERT_PATH=/User/Neptune/.docker/machine/certs
 IMAGE_NAME=guide-admin
-MAIN_CLASS=com.nepxion.discovery.guide.admin.DiscoveryGuideAdmin
+MAIN_CLASS='com.nepxion.discovery.guide.admin.DiscoveryGuideAdmin'
 MACHINE_PORT=6002
 CONTAINER_PORT=6002
 MIDDLEWARE_HOST=10.0.75.1
-RUN_MODE=-i -t
+RUN_MODE='-i -t'
 # RUN_MODE=-d
 
 if [ ! -d ${PROJECT_NAME}/target];then
