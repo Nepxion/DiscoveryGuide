@@ -93,6 +93,7 @@ Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley�
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
         - [IP地址和端口匹配灰度路由策略](#IP地址和端口匹配灰度路由策略)
+        - [全局订阅式的灰度路由策略](#全局订阅式的灰度路由策略)
     - [配置全链路灰度条件命中和灰度匹配组合式策略](#配置全链路灰度条件命中和灰度匹配组合式策略)
     - [配置全链路灰度条件权重和灰度匹配组合式策略](#配置全链路灰度条件权重和灰度匹配组合式策略)
     - [配置前端灰度和网关灰度路由组合式策略](#配置前端灰度和网关灰度路由组合式策略)
@@ -100,8 +101,8 @@ Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley�
         - [通过前端传入灰度路由策略](#通过前端传入灰度路由策略)
         - [通过业务参数在过滤器中自定义灰度路由策略](#通过业务参数在过滤器中自定义灰度路由策略)
         - [通过业务参数在策略类中自定义灰度路由策略](#通过业务参数在策略类中自定义灰度路由策略)
+    - [并行灰度路由下的版本优选策略](#并行灰度路由下的版本优选策略)
     - [基于异步场景的全链路灰度路由策略](#基于异步场景的全链路灰度路由策略)
-    - [并行灰度路由下的版本优选策略](#并行灰度路由下的版本优选策略)	
 - [基于订阅方式的全链路灰度发布规则](#基于订阅方式的全链路灰度发布规则)
     - [配置全链路灰度匹配规则](#配置全链路灰度匹配规则)
         - [版本匹配灰度规则](#版本匹配灰度规则)
@@ -398,6 +399,33 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 "discovery-guide-service-b":"3*;400?"
 ```
 表示discovery-guide-service-b服务的端口调用范围是3开头的所有端口，或者是4开头的所有端口（末尾必须是1个字符）
+
+#### 全局订阅式的灰度路由策略
+
+通过全链路传递Header实现灰度路由，会存在一定的困难，框架提供另外一种很简单的方式来规避Header传递，但能达到Header传递一样的效果。以版本匹配为例：
+
+增加版本匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务走1.0版本，b服务走1.1版本：
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}</version>
+    </strategy>
+</rule>
+```
+![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-10.jpg)
+
+如果采用上述方式，可以考虑开启下面的开关
+```
+# 启动和关闭核心策略Header传递，缺失则默认为true。当全局订阅启动时，可以关闭核心策略Header传递，这样可以节省传递数据的大小，一定程度上可以提升性能。核心策略Header，包含如下
+# 1. n-d-version
+# 2. n-d-region
+# 3. n-d-address
+# 4. n-d-version-weight
+# 5. n-d-region-weight
+# 6. n-d-env (不属于灰度蓝绿范畴的Header，只要外部传入就会全程传递)
+# spring.application.strategy.core.header.transmission.enabled=true
+```
 
 ### 配置全链路灰度条件命中和灰度匹配组合式策略
 属于全链路蓝绿部署的范畴。既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
@@ -930,26 +958,6 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
 spring.application.strategy.rpc.intercept.enabled=true
 ```
 
-### 基于异步场景的全链路灰度路由策略
-
-当若干个服务之间调用，存在异步场景，如下：
-- 调用时候，启用了Hystrix线程池隔离机制
-- 线程池里的线程触发调用
-- 新创建单个线程触发调用
-
-通过全链路传递Header实现灰度路由，会存在一定的困难，框架提供另外一种很简单的方式来规避Header传递，但能达到Header传递一样的效果。以版本匹配为例：
-
-增加版本匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务走1.0版本，b服务走1.1版本：
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<rule>
-    <strategy>
-        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}</version>
-    </strategy>
-</rule>
-```
-![Alt text](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-10.jpg)
-
 ### 并行灰度路由下的版本优选策略
 
 防止多个网关上并行实时灰度路由产生混乱，对处于非灰度状态的服务，调用它的时候，只取它的老的稳定版本的实例；灰度状态的服务，还是根据传递的Header版本号进行匹配
@@ -960,6 +968,17 @@ spring.application.strategy.rpc.intercept.enabled=true
 # 启动和关闭调用对端服务，是否执行调用它的时候只取它的老的稳定版本的实例的策略。缺失则默认为false
 spring.application.strategy.version.filter.enabled=true
 ```
+
+### 基于异步场景的全链路灰度路由策略
+
+当若干个服务之间调用，存在异步场景，如下：
+- 调用时候，启用了Hystrix线程池隔离机制
+- 线程池里的线程触发调用
+- 新创建单个线程触发调用
+
+参考Hystrix线程池隔离模式下的解决方案
+
+参考异步跨线程Agent的解决方案
 
 ## 基于订阅方式的全链路灰度发布规则
 
