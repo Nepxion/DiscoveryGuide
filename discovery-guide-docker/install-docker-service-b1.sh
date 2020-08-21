@@ -24,8 +24,8 @@ MIDDLEWARE_HOST=10.0.75.1
 RUN_MODE='-i -t'
 # RUN_MODE=-d
 
-if [ ! -d ${PROJECT_NAME}/target];then
-rmdir /s/q ${PROJECT_NAME}/target
+if [ ! -d ${PROJECT_NAME}/target ];then
+  rmdir /s/q ${PROJECT_NAME}/target
 fi
 
 # 执行相关模块的Maven Install
