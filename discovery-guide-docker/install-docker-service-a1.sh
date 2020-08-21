@@ -45,6 +45,7 @@ cd ${PROJECT_NAME}
 mvn package docker:build -DskipTests -DImageName=${IMAGE_NAME} -DExposePort=${CONTAINER_PORT}
 
 # 安装和启动Docker容器，并自动执行端口映射
+# Windows下运行需要改成“winpty docker run”
 docker run --env middleware.host=${MIDDLEWARE_HOST} ${RUN_MODE} -e TZ="Asia/Shanghai" -p ${MACHINE_PORT}:${CONTAINER_PORT} -h ${IMAGE_NAME} --name ${IMAGE_NAME} ${IMAGE_NAME}:latest
 
 function pause(){
