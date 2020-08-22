@@ -67,11 +67,6 @@
         </dependency>
 
         <dependency>
-            <groupId>io.jaegertracing</groupId>
-            <artifactId>jaeger-client</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-cloud-starter</artifactId>
         </dependency>
@@ -84,7 +79,6 @@
         <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-concurrent</artifactId>
-            <version>0.4.0</version>
         </dependency>
         <!-- ********** Jaeger调用链相关包引入结束 ********** -->
 
