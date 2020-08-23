@@ -461,7 +461,8 @@ spring.application.strategy.core.header.transmission.enabled=true
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
    3）如果全局缺省路由未配置，则执行Spring Cloud Ribbon轮询策略
    
-4. 必须带有Header。假如不愿意从网关外部传入Header，那么支持策略下内置Header来决策蓝绿和灰度，可以代替外部传入Header（Spring Cloud Gateway在Finchley版不支持该方式），参考如下配置：
+4. 必须带有Header。假如不愿意从网关外部传入Header，那么支持策略下内置Header来决策蓝绿和灰度，可以代替外部传入Header，参考如下配置：
+   注意：Spring Cloud Gateway在Finchley版不支持该方式
    <headers>
        <header key="a" value="1"/>
    </headers>
