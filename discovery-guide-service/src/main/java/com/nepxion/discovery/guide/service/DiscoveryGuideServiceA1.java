@@ -21,6 +21,7 @@ import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceStrategyMonitorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
+import com.nepxion.discovery.guide.service.impl.MySubscriber;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMonitorAdapter;
@@ -73,6 +74,11 @@ public class DiscoveryGuideServiceA1 {
     @Bean
     public StrategyTracerAdapter strategyTracerAdapter() {
         return new MyStrategyTracerAdapter();
+    }
+
+    @Bean
+    public MySubscriber mySubscriber() {
+        return new MySubscriber();
     }
 
     @Bean
