@@ -20,6 +20,8 @@
     <properties>
         <discovery.version>6.0.7</discovery.version>
 
+        <!-- <nacos.client.version>1.3.2</nacos.client.version> -->
+
         <!-- Spring Cloud Hoxton compatible versions -->
         <spring.cloud.version>Hoxton.SR7</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.1.RELEASE</spring.cloud.alibaba.version>
@@ -54,6 +56,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- You can replace some jars which in Nepxion Discovery with additional dependency on the top -->
+            <!-- <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos.client.version}</version>
+            </dependency> -->
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
