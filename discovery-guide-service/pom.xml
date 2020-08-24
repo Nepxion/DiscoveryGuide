@@ -69,16 +69,19 @@
         <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-cloud-starter</artifactId>
+            <version>${opentracing.spring.cloud.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-jaeger-starter</artifactId>
+            <version>${opentracing.spring.jaeger.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-concurrent</artifactId>
+            <version>${opentracing.concurrent.version}</version>
         </dependency>
         <!-- ********** Jaeger调用链相关包引入结束 ********** -->
 
