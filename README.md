@@ -1935,35 +1935,35 @@ spring.application.strategy.monitor.enabled=true
 # 启动和关闭日志输出。缺失则默认为false
 spring.application.strategy.logger.enabled=true
 # 日志输出中，是否显示MDC前面的Key。缺失则默认为true
-# spring.application.strategy.logger.mdc.key.shown=true
+spring.application.strategy.logger.mdc.key.shown=true
 # 启动和关闭Debug日志打印，注意：每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
 spring.application.strategy.logger.debug.enabled=true
 # 启动和关闭调用链输出。缺失则默认为false
 spring.application.strategy.tracer.enabled=true
 # 启动和关闭调用链的灰度信息以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中（Skywalking不支持原生模式）。缺失则默认为true
-# spring.application.strategy.tracer.separate.span.enabled=true
+spring.application.strategy.tracer.separate.span.enabled=true
 # 启动和关闭调用链的灰度规则策略信息输出。缺失则默认为true
-# spring.application.strategy.tracer.rule.output.enabled=true
+spring.application.strategy.tracer.rule.output.enabled=true
 # 启动和关闭调用链的异常信息是否以详细格式输出。缺失则默认为false
 spring.application.strategy.tracer.exception.detail.output.enabled=true
 # 启动和关闭类方法上入参和出参输出到调用链。缺失则默认为false
-# spring.application.strategy.tracer.method.context.output.enabled=false
+spring.application.strategy.tracer.method.context.output.enabled=true
 ```
 
 对于灰度Span输出在调用链界面上的显示，提供如下配置
 ```
 # 显示在调用链界面上灰度Span的名称，建议改成具有公司特色的框架产品名称。缺失则默认为NEPXION
-# spring.application.strategy.tracer.span.value=NEPXION
+spring.application.strategy.tracer.span.value=NEPXION
 # 显示在调用链界面上灰度Span Tag的插件名称，建议改成具有公司特色的框架产品的描述。缺失则默认为Nepxion Discovery
-# spring.application.strategy.tracer.span.tag.plugin.value=Nepxion Discovery
+spring.application.strategy.tracer.span.tag.plugin.value=Nepxion Discovery
 ```
 
 对Sentinel自动埋点，有如下两个参数默认处于关闭状态，但因为原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去
 ```
 # 启动和关闭Sentinel调用链上规则在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为true
-# spring.application.strategy.tracer.sentinel.rule.output.enabled=true
+spring.application.strategy.tracer.sentinel.rule.output.enabled=true
 # 启动和关闭Sentinel调用链上方法入参在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为false
-# spring.application.strategy.tracer.sentinel.args.output.enabled=false
+spring.application.strategy.tracer.sentinel.args.output.enabled=true
 ```
 
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：OpenTracing对Finchley版的Spring Cloud Gateway的reactor-core包存在版本兼容性问题，如果使用者希望Finchley版的Spring Cloud Gateway上使用OpenTracing，需要做如下改造
@@ -2089,7 +2089,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 - 增加配置项
 ```
 # 开启和关闭使用服务名前缀来作为服务组名。缺失则默认为false
-spring.application.group.generator.enabled=false
+spring.application.group.generator.enabled=true
 # 服务名前缀的截断长度，必须大于0
 spring.application.group.generator.length=15
 # 服务名前缀的截断标志。当截断长度配置了，则取截断长度方式，否则取截断标志方式
@@ -2192,7 +2192,7 @@ spring.application.git.generator.enabled=true
 spring.application.git.generator.path=classpath:git.properties
 # spring.application.git.generator.path=classpath:git.json
 # 使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为{git.commit.time}-{git.total.commit.count}
-# spring.application.git.version.key={git.commit.id.abbrev}-{git.commit.time}
+spring.application.git.version.key={git.commit.id.abbrev}-{git.commit.time}
 # spring.application.git.version.key={git.build.version}-{git.commit.time}
 ```
 
