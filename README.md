@@ -448,9 +448,11 @@ curl -X PUT 'http://ip:port/eureka/apps/{appId}/{instanceId}/metadata?version=st
 ```
 
 - Consul Open API变更元数据
+
 自行研究
 
 - Zookeeper Open API变更元数据
+
 自行研究
 
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 需要注意的是，该方案利用第三方注册中心的Open API达到控制目的，具有一定的延迟性，不如本框架那样具有灰度发布实时生效的特征
