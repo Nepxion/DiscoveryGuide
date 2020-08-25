@@ -93,6 +93,7 @@ Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley�
         - [区域匹配灰度路由策略](#区域匹配灰度路由策略)
         - [区域权重灰度路由策略](#区域权重灰度路由策略)
         - [IP地址和端口匹配灰度路由策略](#IP地址和端口匹配灰度路由策略)
+        - [动态变更元数据的灰度路由策略](#动态变更元数据的灰度路由策略)
         - [全局订阅式的灰度路由策略](#全局订阅式的灰度路由策略)
     - [配置全链路灰度条件命中和灰度匹配组合式策略](#配置全链路灰度条件命中和灰度匹配组合式策略)
     - [配置全链路灰度条件权重和灰度匹配组合式策略](#配置全链路灰度条件权重和灰度匹配组合式策略)
@@ -399,6 +400,60 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 "discovery-guide-service-b":"3*;400?"
 ```
 表示discovery-guide-service-b服务的端口调用范围是3开头的所有端口，或者是4开头的所有端口（末尾必须是1个字符）
+
+#### 动态变更元数据的灰度路由策略
+
+利用注册中心的Open API接口动态变更服务实例的元数据，达到稳定版本和灰度版本流量控制的目的。以Nacos的版本匹配为例：
+老的稳定版本的服务实例配置元数据
+```
+spring.cloud.nacos.discovery.metadata.version=stable
+```
+新的灰度版本的服务实例配置元数据
+```
+spring.cloud.nacos.discovery.metadata.version=gray
+```
+参考如下配置，第一种方式表示所有的服务流量走灰度版本，第二种方式表示a服务流量走灰度版本，b服务流量走稳定版本
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <version>gray</version>
+    </strategy>
+</rule>
+```
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <version>{"discovery-guide-service-a":"gray", "discovery-guide-service-b":"stable"}</version>
+    </strategy>
+</rule>
+```
+也可以通过如下的Header传递
+```
+n-d-version=gray
+n-d-version={"discovery-guide-service-a":"gray", "discovery-guide-service-b":"stable"}
+```
+
+新上线的服务实例版本为gray，等灰度成功后，通过注册中心的Open API接口变更服务版本为stable
+
+- Nacos Open API变更元数据
+```
+curl -X PUT 'http://ip:port/nacos/v1/ns/service?serviceName={appId}&metadata=version%3stable'
+```
+
+- Eureka Open API变更元数据
+```
+curl -X PUT 'http://ip:port/eureka/apps/{appId}/{instanceId}/metadata?version=stable'
+```
+
+- Consul Open API变更元数据
+自行研究
+
+- Zookeeper Open API变更元数据
+自行研究
+
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 需要注意的是，该方案利用第三方注册中心的Open API达到控制目的，具有一定的延迟性，不如本框架那样具有灰度发布实时生效的特征
 
 #### 全局订阅式的灰度路由策略
 
