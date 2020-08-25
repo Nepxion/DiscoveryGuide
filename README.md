@@ -19,7 +19,7 @@
 - [Github原镜像](https://github.com/Nepxion/DiscoveryGuide)
 
 ## 简介
-Discovery【探索】框架架构，基于Spring Cloud Discovery服务注册发现、Ribbon负载均衡、Feign和RestTemplate调用等组件全方位增强的企业级微服务开源解决方案，更贴近企业级需求，更具有企业级的插件引入、开箱即用特征
+Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册发现、Ribbon负载均衡、Feign和RestTemplate调用等组件全方位增强的企业级微服务开源解决方案，更贴近企业级需求，更具有企业级的插件引入、开箱即用特征
 - 支持阿里巴巴Nacos、Eureka、Consul和Zookeeper四个服务注册发现中心
 - 支持阿里巴巴Nacos、携程Apollo和Redis三个远程配置中心
 - 支持阿里巴巴Sentinel和Hystrix两个熔断限流降级权限中间件
@@ -29,16 +29,28 @@ Discovery【探索】框架架构，基于Spring Cloud Discovery服务注册发�
 - 支持Spring Cloud Gateway、Zuul网关和微服务三大模块的灰度发布和路由等一系列功能
 - 支持和兼容Spring Cloud Edgware版、Finchley版、Greenwich版和Hoxton版
 
-Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley版和Hoxton版而制作（对于Edgware版，使用者需要自行修改）。使用指南主要涉及的功能包括：
-- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中。路由方式主要包括版本和区域的匹配路由、版本和区域的权重路由、IP地址和端口的路由
-- 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括版本和区域的匹配发布、版本和区域的权重发布
-- 基于多方式的规则和策略推送。包括基于远程配置中心的规则和策略订阅推送（本文以Nacos为例）、基于Swagger和Rest的规则和策略推送
-- 基于Group的全链路服务隔离。包括注册隔离、消费端隔离和提供端服务隔离，示例仅提供基于Group隔离。除此之外，不在本文介绍内的，还包括：
-    - 注册隔离：黑/白名单的IP地址的注册隔离、最大注册数限制的注册隔离
-    - 消费端隔离：黑/白名单的IP地址的消费端隔离
-- 基于Env的全链路环境隔离和路由。包括基于服务实例的元数据Metadata的env参数和全链路传递的环境Header值进行比对实现隔离，当从网关传递来的环境Header（n-d-env）值和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境
-- 全链路服务限流熔断降级权限。集成阿里巴巴Sentinel，有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于IP地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
-- 全链路监控。包括全链路调用链监控（Tracing）、全链路日志（Logging）、全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）。框架支持OpenTracing、Uber Jaeger、Apache Skywalking
+Discovery【探索】微服务框架，功能主要包括
+- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中，可以在网关过滤器、前端界面、负载均衡策略类三个地方实现路由功能。路由方式主要包括
+    - 切换路由。包括版本匹配路由、区域匹配路由、IP地址和端口匹配路由
+    - 平滑路由。包括版本权重路由、区域权重路由
+- 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括
+    - 切换发布。包括版本匹配发布，区域匹配发布
+    - 平滑发布。包括版本权重发布、区域权重发布
+- 基于灰度发布和灰度路由的多种组合式规则和策略。主要包括
+    - 全链路灰度条件命中和灰度匹配组合式策略
+    - 全链路灰度条件权重和灰度匹配组合式策略
+    - 前端灰度和网关灰度路由组合式策略
+- 基于多方式的规则和策略推送。主要包括
+    - 基于远程配置中心的规则和策略订阅推送
+    - 基于Swagger的规则和策略订阅推送
+    - 基于Rest的规则和策略推送
+- 基于组（Group）和黑/白名单的全链路服务隔离和准入。主要包括
+    - 服务注册准入。包括基于组（Group）和IP地址的黑/白名单注册准入，基于最大注册数限制的注册准入
+    - 消费端服务隔离。包括基于组（Group）的负载均衡的隔离，基于IP地址的黑/白名单隔离
+    - 提供端服务隔离。包括基于组（Group）的Header传值策略的隔离
+- 基于Env的全链路环境隔离和路由。基于服务实例的元数据Metadata的env参数和全链路传递的环境Header值进行比对实现隔离，当从网关传递来的环境Header（n-d-env）值和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境
+- 基于Sentinel的全链路服务限流熔断降级权限。有机整合灰度路由，扩展LimitApp的机制，通过动态的Http Header方式实现组合式防护机制，包括基于服务名、基于灰度组、基于灰度版本、基于灰度区域、基于IP地址和端口等防护机制，支持自定义任意的业务参数组合实现该功能。支持原生的流控规则、降级规则、授权规则、系统规则、热点参数流控规则。除此之外，也集成Hystrix限流熔断组件
+- 全链路监控。包括全链路调用链监控（Tracing）、全链路日志监控（Logging）、全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）。框架支持符合OpenTracing规范的Uber Jaeger、Apache Skywalking
     - 全链路调用链监控（Tracing）包括Header方式、调用链方式、日志方式等单个或者组合式的全链路灰度调用链，支持对Sentinel自动埋点。调用链方式不支持Edgware版（Spring Boot 1.x.x）
     - 全链路指标监控（Metrics）包括Prometheus、Grafana、Spring Boot Admin
 - 全链路Header传递
@@ -46,26 +58,124 @@ Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley�
 - 全链路服务侧API权限
 - 元数据Metadata自动化策略。包括基于服务名前缀自动创建灰度组名和基于Git插件自动创建灰度版本号
 - 元数据Metadata运维平台策略
-- 同城双活多机房切换支持。它包含在“基于Header传递的全链路灰度路由”里
-- 数据库灰度发布。内置简单的数据库灰度发布策略，它不在本文的介绍范围内
-- 灰度路由和发布的自动化测试
+- 同城双活多机房切换。基于区域匹配发布或者路由的同城双活多机房切换
+- 数据库灰度发布。基于多数据源的数据库灰度发布，内置简单的数据库灰度发布策略
+- 自定义和编程实现扩展
+    - 用户自定义和编程禁止注册、禁止被发现、禁止被负载均衡的策略
+    - 用户自定义和编程灰度路由策略
+    - 用户自定义和编程负载均衡策略类
+    - 用户自定义参数化灰度发布
+- 灰度路由和发布的自动化测试。基于Spring Boot/Spring Cloud自动化测试，包括普通调用测试、灰度调用测试和扩展调用测试（可扩展出阿里巴巴Sentinel、FF4j功能开关等自动化测试）
 - Docker容器化和Kubernetes平台的无缝支持部署
 
-[**Nacos**] 阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
+Discovery【探索】微服务框架，涉及到的主要中间件包括
+- [**Nacos**] 阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
+- [**Sentinel**] 阿里巴巴中间件部门开发的新一代以流量为切入点，从流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性的分布式系统的流量防卫兵。它承接了阿里巴巴近10年的双十一大促流量的核心场景，例如秒杀（即突发流量控制在系统容量可以承受的范围）、消息削峰填谷、集群流量控制、实时熔断下游不可用应用等
+- [**Spring Cloud Alibaba**] 阿里巴巴中间件部门开发的Spring Cloud增强套件，致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过Spring Cloud编程模型轻松使用这些组件来开发分布式应用服务。依托Spring Cloud Alibaba，只需要添加一些注解和少量配置，就可以将Spring Cloud应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统
+- [**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范
 
-[**Sentinel**] 阿里巴巴中间件部门开发的新一代以流量为切入点，从流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性的分布式系统的流量防卫兵。它承接了阿里巴巴近10年的双十一大促流量的核心场景，例如秒杀（即突发流量控制在系统容量可以承受的范围）、消息削峰填谷、集群流量控制、实时熔断下游不可用应用等
-
-[**Spring Cloud Alibaba**] 阿里巴巴中间件部门开发的Spring Cloud增强套件，致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过Spring Cloud编程模型轻松使用这些组件来开发分布式应用服务。依托Spring Cloud Alibaba，只需要添加一些注解和少量配置，就可以将Spring Cloud应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统
-
-[**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范
-
-本框架成为阿里巴巴中间件Nacos和Spring Cloud Alibaba项目的相关开源
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) 鸣谢
+- 感谢阿里巴巴中间件Nacos、Sentinel和Spring Cloud Alibaba团队，尤其是Nacos负责人@彦林、@于怀，Sentinel负责人@宿何、@子衿，Spring Cloud Alibaba负责人@小马哥、@洛夜、@亦盏的技术支持
+- 感谢携程Apollo团队，尤其是@宋顺，特意开发OpenApi包和技术支持
+- 感谢代码贡献者，包括@zifeihan，@Ax1an，@WeihuaWang，@张顺，@Esun，@liumapp，@terranhu，@JikaiSun，@HaoHuang，@FanYang，@Ankeway，@liquanjin等
+- 感谢为本框架进行测试验证和问题分析定位的同学，包括@张龙，@CongweiXu，@fan，@阿神，@慕紫，@郝俊仁，@Windon，@杨成，@李鹏，@任学会，@郭小伟等
+- 感谢为本框架提出宝贵意见和建议的同学
+- 感谢阿里巴巴中间件Nacos和Spring Cloud Alibaba团队，纳本框架为相关开源项目
 
 <img src="http://nepxion.gitee.io/docs/discovery-doc/AwardNacos1.jpg" alt="Nacos" width="50%"><img src="http://nepxion.gitee.io/docs/discovery-doc/AwardSCA1.jpg" alt="Spring Cloud Alibaba" width="50%">
 
-![](http://nepxion.gitee.io/docs/icon-doc/information.png) 示例以Nacos为服务注册中心和配置中心（使用者可自行换成其它服务注册中心和配置中心），集成Spring Cloud Alibaba，通过Gateway和Zuul调用两个版本或者区域的服务，模拟网关灰度路由和服务灰度权重的功能
+- 感谢使用本框架的公司和企业。不完全统计，目前社区开源项目已经被如下公司使用或者调研
 
-如果使用者需要更强大的功能，请参考[源码主页](https://github.com/Nepxion/Discovery)。规则策略很多，请使用者选择最适合自己业务场景的方式
+<table>
+  <tbody>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/payh.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/payzt.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zsyh.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/msyh.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/pfyhxyk.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/tpybx.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/tpbx.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zabx.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zb.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zgyd.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/hd.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/bgy.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/hz.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/qwkg.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zm.png"></td>
+    </tr>
+    <tr align="center">
+       <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/dfhk.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/sfkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/wkfy.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/rxkf.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/hexfjr.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/xmly.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/wjkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/dhrj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/js.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/yjh.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zhxy.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/rdkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/tqkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/hjkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/yzf.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/bjkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/qzkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/jwkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zcwlkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/smgc.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/qk365.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/daxxkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/mkxq.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/sbc.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/hrwlkj.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/ywny.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/bqjr.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/crkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/yex.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/xg.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zjxl.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/mlkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/bsd.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/tgdl.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/xd.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/fykj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/xhjy.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/xywkj.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zyts.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/wx.png"></td>
+    </tr>
+    <tr align="center">
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/zgrs.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/ylyh.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/sqhy.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/rtdl.png"></td>
+      <td><img style="max-height:70%;max-width:70%;" src="http://nepxion.gitee.io/docs/logo-doc/cjgy.png"></td>
+    </tr>
+  </tbody>
+</table>
+
+为提供更好的专业级服务，请更多已经使用本框架的公司和企业联系我，或者再Github Issues上登记
 
 ## 目录
 - [简介](#简介)
@@ -84,9 +194,9 @@ Discovery【探索】框架指南，基于Spring Cloud Greenwich版、Finchley�
 - [环境验证](#环境验证)
 - [基于Header传递方式的灰度路由策略](#基于Header传递方式的灰度路由策略)
     - [灰度路由架构图](#灰度路由架构图)
-        - [多版本灰度路由架构图](#多版本灰度路由架构图)
-        - [多区域灰度路由架构图](#多区域灰度路由架构图)
-        - [多IP和端口灰度路由架构图](#多IP和端口灰度路由架构图)
+        - [版本灰度路由架构图](#版本灰度路由架构图)
+        - [区域灰度路由架构图](#区域灰度路由架构图)
+        - [IP地址和端口灰度路由架构图](#IP地址和端口灰度路由架构图)
     - [配置网关灰度路由策略](#配置网关灰度路由策略)
         - [版本匹配灰度路由策略](#版本匹配灰度路由策略)
         - [版本权重灰度路由策略](#版本权重灰度路由策略)
@@ -261,15 +371,15 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 
 ### 灰度路由架构图
 
-#### 多版本灰度路由架构图
+#### 版本灰度路由架构图
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/RouteVersion.jpg)
 
-#### 多区域灰度路由架构图
+#### 区域灰度路由架构图
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/RouteRegion.jpg)
 
-#### 多IP和端口灰度路由架构图
+#### IP地址和端口灰度路由架构图
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/RouteAddress.jpg)
 
