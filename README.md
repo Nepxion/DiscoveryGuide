@@ -1964,11 +1964,14 @@ spring.application.environment.route=common
 - 如果没有传递环境Header（n-d-env）值，则执行Spring Cloud Ribbon轮询策略
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
+
 集成Sentinel熔断隔离限流降级平台
 ![](http://nepxion.gitee.io/docs/discovery-doc/Sentinel3.jpg)
 ![](http://nepxion.gitee.io/docs/discovery-doc/Sentinel4.jpg)
 
 通过集成Sentinel，在服务端实现该功能
+
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) 下面方式也可以通过Spring Cloud Alibaba Sentinel功能来实现
 
 封装NacosDataSource和ApolloDataSource，支持Nacos和Apollo两个远程配置中心，零代码实现Sentinel功能。更多的远程配置中心，请参照Sentinel官方的DataSource并自行集成
 ```
