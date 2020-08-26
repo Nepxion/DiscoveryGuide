@@ -252,6 +252,9 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
         - [全局区域权重灰度规则](#全局区域权重灰度规则)
         - [局部区域权重灰度规则](#局部区域权重灰度规则)
     - [配置全链路灰度权重和灰度匹配组合式规则](#配置全链路灰度权重和灰度匹配组合式规则)
+- [基于多格式的规则策略定义](#基于多格式的规则策略定义)
+    - [规则策略定义](#规则策略定义)
+    - [规则策略示例](#规则策略示例)
 - [基于多方式的规则和策略推送](#基于多方式的规则和策略推送)
     - [基于远程配置中心的规则和策略订阅推送](#基于远程配置中心的规则和策略订阅推送)
     - [基于Swagger和Rest的规则和策略推送](#基于Swagger和Rest的规则和策略推送)	
@@ -1564,6 +1567,238 @@ spring.application.strategy.version.filter.enabled=true
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-3.jpg)
 - 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-4.jpg)
+
+## 基于多格式的规则策略定义
+
+## 规则策略定义
+规则是基于XML或者Json为配置方式，存储于本地文件或者远程配置中心，可以通过远程配置中心修改的方式达到规则动态化。其核心代码参考discovery-plugin-framework以及它的扩展、discovery-plugin-config-center以及它的扩展和discovery-plugin-admin-center等
+
+### 规则策略示例
+XML示例如下，Json示例见源码discovery-springcloud-example-service工程下的rule.json
+
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：服务名大小写规则
+- 在配置文件（application.properties、application.yaml等）里，定义服务名（spring.application.name）不区分大小写
+- 在规则文件（XML、Json）里，引用的服务名必须小写
+- 在Nacos、Apollo、Redis等远程配置中心的Key，包含的服务名必须小写
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <!-- 如果不想开启相关功能，只需要把相关节点删除即可，例如不想要黑名单功能，把blacklist节点删除 -->
+    <register>
+        <!-- 服务注册的黑/白名单注册过滤，只在服务启动的时候生效。白名单表示只允许指定IP地址前缀注册，黑名单表示不允许指定IP地址前缀注册。每个服务只能同时开启要么白名单，要么黑名单 -->
+        <!-- filter-type，可选值blacklist/whitelist，表示白名单或者黑名单 -->
+        <!-- service-name，表示服务名 -->
+        <!-- filter-value，表示黑/白名单的IP地址列表。IP地址一般用前缀来表示，如果多个用“;”分隔，不允许出现空格 -->
+        <!-- 表示下面所有服务，不允许10.10和11.11为前缀的IP地址注册（全局过滤） -->
+        <blacklist filter-value="10.10;11.11">
+            <!-- 表示下面服务，不允许172.16和10.10和11.11为前缀的IP地址注册 -->
+            <service service-name="discovery-springcloud-example-a" filter-value="172.16"/>
+        </blacklist>
+
+        <!-- <whitelist filter-value="">
+            <service service-name="" filter-value=""/>
+        </whitelist>  -->
+
+        <!-- 服务注册的数目限制注册过滤，只在服务启动的时候生效。当某个服务的实例注册达到指定数目时候，更多的实例将无法注册 -->
+        <!-- service-name，表示服务名 -->
+        <!-- filter-value，表示最大实例注册数 -->
+        <!-- 表示下面所有服务，最大实例注册数为10000（全局配置） -->
+        <count filter-value="10000">
+            <!-- 表示下面服务，最大实例注册数为5000，全局配置值10000将不起作用，以局部配置值为准 -->
+            <service service-name="discovery-springcloud-example-a" filter-value="5000"/>
+        </count>
+    </register>
+
+    <discovery>
+        <!-- 服务发现的黑/白名单发现过滤，使用方式跟“服务注册的黑/白名单过滤”一致 -->
+        <!-- 表示下面所有服务，不允许10.10和11.11为前缀的IP地址被发现（全局过滤） -->
+        <blacklist filter-value="10.10;11.11">
+            <!-- 表示下面服务，不允许172.16和10.10和11.11为前缀的IP地址被发现 -->
+            <service service-name="discovery-springcloud-example-b" filter-value="172.16"/>
+        </blacklist>
+
+        <!-- 服务发现的多版本灰度匹配控制 -->
+        <!-- service-name，表示服务名 -->
+        <!-- version-value，表示可供访问的版本，如果多个用“;”分隔，不允许出现空格 -->
+        <!-- 版本策略介绍 -->
+        <!-- 1. 标准配置，举例如下 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-version-value="1.0" provider-version-value="1.0;1.1"/> 表示消费端1.0版本，允许访问提供端1.0和1.1版本 -->
+        <!-- 2. 版本值不配置，举例如下 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" provider-version-value="1.0;1.1"/> 表示消费端任何版本，允许访问提供端1.0和1.1版本 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-version-value="1.0"/> 表示消费端1.0版本，允许访问提供端任何版本 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b"/> 表示消费端任何版本，允许访问提供端任何版本 -->
+        <!-- 3. 版本值空字符串，举例如下 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-version-value="" provider-version-value="1.0;1.1"/> 表示消费端任何版本，允许访问提供端1.0和1.1版本 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-version-value="1.0" provider-version-value=""/> 表示消费端1.0版本，允许访问提供端任何版本 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-version-value="" provider-version-value=""/> 表示消费端任何版本，允许访问提供端任何版本 -->
+        <!-- 4. 版本对应关系未定义，默认消费端任何版本，允许访问提供端任何版本 -->
+        <!-- 特殊情况处理，在使用上需要极力避免该情况发生 -->
+        <!-- 1. 消费端的application.properties未定义版本号，则该消费端可以访问提供端任何版本 -->
+        <!-- 2. 提供端的application.properties未定义版本号，当消费端在xml里不做任何版本配置，才可以访问该提供端 -->
+        <version>
+            <!-- 表示网关g的1.0，允许访问提供端服务a的1.0版本 -->
+            <service consumer-service-name="discovery-springcloud-example-gateway" provider-service-name="discovery-springcloud-example-a" consumer-version-value="1.0" provider-version-value="1.0"/>
+            <!-- 表示网关g的1.1，允许访问提供端服务a的1.1版本 -->
+            <service consumer-service-name="discovery-springcloud-example-gateway" provider-service-name="discovery-springcloud-example-a" consumer-version-value="1.1" provider-version-value="1.1"/>
+            <!-- 表示网关z的1.0，允许访问提供端服务a的1.0版本 -->
+            <service consumer-service-name="discovery-springcloud-example-zuul" provider-service-name="discovery-springcloud-example-a" consumer-version-value="1.0" provider-version-value="1.0"/>
+            <!-- 表示网关z的1.1，允许访问提供端服务a的1.1版本 -->
+            <service consumer-service-name="discovery-springcloud-example-zuul" provider-service-name="discovery-springcloud-example-a" consumer-version-value="1.1" provider-version-value="1.1"/>
+            <!-- 表示消费端服务a的1.0，允许访问提供端服务b的1.0版本 -->
+            <service consumer-service-name="discovery-springcloud-example-a" provider-service-name="discovery-springcloud-example-b" consumer-version-value="1.0" provider-version-value="1.0"/>
+            <!-- 表示消费端服务a的1.1，允许访问提供端服务b的1.1版本 -->
+            <service consumer-service-name="discovery-springcloud-example-a" provider-service-name="discovery-springcloud-example-b" consumer-version-value="1.1" provider-version-value="1.1"/>
+            <!-- 表示消费端服务b的1.0，允许访问提供端服务c的1.0和1.1版本 -->
+            <service consumer-service-name="discovery-springcloud-example-b" provider-service-name="discovery-springcloud-example-c" consumer-version-value="1.0" provider-version-value="1.0;1.1"/>
+            <!-- 表示消费端服务b的1.1，允许访问提供端服务c的1.2版本 -->
+            <service consumer-service-name="discovery-springcloud-example-b" provider-service-name="discovery-springcloud-example-c" consumer-version-value="1.1" provider-version-value="1.2"/>
+        </version>
+
+        <!-- 服务发现的多区域灰度匹配控制 -->
+        <!-- service-name，表示服务名 -->
+        <!-- region-value，表示可供访问的区域，如果多个用“;”分隔，不允许出现空格 -->
+        <!-- 区域策略介绍 -->
+        <!-- 1. 标准配置，举例如下 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-region-value="dev" provider-region-value="dev"/> 表示dev区域的消费端，允许访问dev区域的提供端 -->
+        <!-- 2. 区域值不配置，举例如下 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" provider-region-value="dev;qa"/> 表示任何区域的消费端，允许访问dev区域和qa区域的提供端 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-region-value="dev"/> 表示dev区域的消费端，允许访问任何区域的提供端 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b"/> 表示任何区域的消费端，允许访问任何区域的提供端 -->
+        <!-- 3. 区域值空字符串，举例如下 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-region-value="" provider-region-value="dev;qa"/> 表示任何区域的消费端，允许访问dev区域和qa区域的提供端 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-region-value="dev" provider-region-value=""/> 表示dev区域的消费端，允许访问任何区域的提供端 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" consumer-region-value="" provider-region-value=""/> 表示任何区域的消费端，允许访问任何区域的提供端 -->
+        <!-- 4. 区域对应关系未定义，默认表示任何区域的消费端，允许访问任何区域的提供端 -->
+        <!-- 特殊情况处理，在使用上需要极力避免该情况发生 -->
+        <!-- 1. 消费端的application.properties未定义区域值，则该消费端可以访问任何区域的提供端 -->
+        <!-- 2. 提供端的application.properties未定义区域值，当消费端在xml里不做任何区域配置，才可以访问该提供端 -->
+        <region>
+            <!-- 表示dev区域的消费端服务a，允许访问dev区域的提供端服务b -->
+            <service consumer-service-name="discovery-springcloud-example-a" provider-service-name="discovery-springcloud-example-b" consumer-region-value="dev" provider-region-value="dev"/>
+            <!-- 表示qa区域的消费端服务a，允许访问qa区域的提供端服务b -->
+            <service consumer-service-name="discovery-springcloud-example-a" provider-service-name="discovery-springcloud-example-b" consumer-region-value="qa" provider-region-value="qa"/>
+            <!-- 表示dev区域的消费端服务b，允许访问dev区域的提供端服务c -->
+            <service consumer-service-name="discovery-springcloud-example-b" provider-service-name="discovery-springcloud-example-c" consumer-region-value="dev" provider-region-value="dev"/>
+            <!-- 表示qa区域的消费端服务b，允许访问qa区域的提供端服务c -->
+            <service consumer-service-name="discovery-springcloud-example-b" provider-service-name="discovery-springcloud-example-c" consumer-region-value="qa" provider-region-value="qa"/>
+        </region>
+
+        <!-- 服务发现的多版本或者多区域的灰度权重控制 -->
+        <!-- service-name，表示服务名 -->
+        <!-- weight-value，表示版本对应的权重值，格式为"版本/区域值=权重值"，如果多个用“;”分隔，不允许出现空格 -->
+        <!-- 版本权重策略介绍 -->
+        <!-- 1. 标准配置，举例如下 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" provider-weight-value="1.0=90;1.1=10"/> 表示消费端访问提供端的时候，提供端的1.0版本提供90%的权重流量，1.1版本提供10%的权重流量 -->
+        <!--    <service provider-service-name="b" provider-weight-value="1.0=90;1.1=10"/> 表示所有消费端访问提供端的时候，提供端的1.0版本提供90%的权重流量，1.1版本提供10%的权重流量 -->
+        <!-- 2. 局部配置，即指定consumer-service-name，专门为该消费端配置权重。全局配置，即不指定consumer-service-name，为所有消费端配置相同情形的权重。当局部配置和全局配置同时存在的时候，以局部配置优先 -->
+        <!-- 3. 尽量为线上所有版本都赋予权重值 -->
+        <!-- 全局版本权重策略介绍 -->
+        <!-- 1. 标准配置，举例如下 -->
+        <!--    <version provider-weight-value="1.0=85;1.1=15"/> 表示版本为1.0的服务提供85%的权重流量，版本为1.1的服务提供15%的权重流量 -->
+        <!-- 2. 全局版本权重可以切换整条调用链的权重配比 -->
+        <!-- 3. 尽量为线上所有版本都赋予权重值   -->
+
+        <!-- 区域权重策略介绍 -->
+        <!-- 1. 标准配置，举例如下 -->
+        <!--    <service consumer-service-name="a" provider-service-name="b" provider-weight-value="dev=85;qa=15"/> 表示消费端访问提供端的时候，区域为dev的服务提供85%的权重流量，区域为qa的服务提供15%的权重流量 -->
+        <!--    <service provider-service-name="b" provider-weight-value="dev=85;qa=15"/> 表示所有消费端访问提供端的时候，区域为dev的服务提供85%的权重流量，区域为qa的服务提供15%的权重流量 -->
+        <!-- 2. 局部配置，即指定consumer-service-name，专门为该消费端配置权重。全局配置，即不指定consumer-service-name，为所有消费端配置相同情形的权重。当局部配置和全局配置同时存在的时候，以局部配置优先 -->
+        <!-- 3. 尽量为线上所有版本都赋予权重值 -->
+        <!-- 全局区域权重策略介绍 -->
+        <!-- 1. 标准配置，举例如下 -->
+        <!--    <region provider-weight-value="dev=85;qa=15"/> 表示区域为dev的服务提供85%的权重流量，区域为qa的服务提供15%的权重流量 -->
+        <!-- 2. 全局区域权重可以切换整条调用链的权重配比 -->
+        <!-- 3. 尽量为线上所有区域都赋予权重值 -->
+        <weight>
+            <!-- 权重流量配置有如下六种方式，优先级分别是由高到底，即先从第一种方式取权重流量值，取不到则到第二种方式取值，以此类推，最后仍取不到则忽略。使用者按照实际情况，选择一种即可 -->
+            <!-- 表示消费端服务b访问提供端服务c的时候，提供端服务c的1.0版本提供90%的权重流量，1.1版本提供10%的权重流量 -->
+            <service consumer-service-name="discovery-springcloud-example-b" provider-service-name="discovery-springcloud-example-c" provider-weight-value="1.0=90;1.1=10" type="version"/>
+            <!-- 表示所有消费端服务访问提供端服务c的时候，提供端服务c的1.0版本提供90%的权重流量，1.1版本提供10%的权重流量 -->
+            <service provider-service-name="discovery-springcloud-example-c" provider-weight-value="1.0=90;1.1=10" type="version"/>
+            <!-- 表示所有版本为1.0的服务提供90%的权重流量，版本为1.1的服务提供10%的权重流量 -->
+            <version provider-weight-value="1.0=90;1.1=10"/>
+
+            <!-- 表示消费端服务b访问提供端服务c的时候，提供端服务c的dev区域提供85%的权重流量，qa区域提供15%的权重流量 -->
+            <service consumer-service-name="discovery-springcloud-example-b" provider-service-name="discovery-springcloud-example-c" provider-weight-value="dev=85;qa=15" type="region"/>
+            <!-- 表示所有消费端服务访问提供端服务c的时候，提供端服务c的dev区域提供85%的权重流量，qa区域提供15%的权重流量 -->
+            <service provider-service-name="discovery-springcloud-example-c" provider-weight-value="dev=85;qa=15" type="region"/>
+            <!-- 表示所有区域为dev的服务提供85%的权重流量，区域为qa的服务提供15%的权重流量 -->
+            <region provider-weight-value="dev=85;qa=15"/>
+        </weight>
+    </discovery>
+
+    <!-- 基于Http Header传递的策略路由，全局缺省路由（第三优先级） -->
+    <strategy>
+        <!-- 版本路由 -->
+        <version>{"discovery-springcloud-example-a":"1.0", "discovery-springcloud-example-b":"1.0", "discovery-springcloud-example-c":"1.0;1.2"}</version>
+        <!-- <version>1.0</version> -->
+        <!-- 区域路由 -->
+        <region>{"discovery-springcloud-example-a":"qa;dev", "discovery-springcloud-example-b":"dev", "discovery-springcloud-example-c":"qa"}</region>
+        <!-- <region>dev</region> -->
+        <!-- IP和端口路由 -->
+        <address>{"discovery-springcloud-example-a":"192.168.43.101:1100", "discovery-springcloud-example-b":"192.168.43.101:1201", "discovery-springcloud-example-c":"192.168.43.101:1300"}</address>
+        <!-- 权重流量配置有如下四种方式，优先级分别是由高到底，即先从第一种方式取权重流量值，取不到则到第二种方式取值，以此类推，最后仍取不到则忽略。使用者按照实际情况，选择一种即可 -->
+        <!-- 版本权重路由 -->
+        <version-weight>{"discovery-springcloud-example-a":"1.0=90;1.1=10", "discovery-springcloud-example-b":"1.0=90;1.1=10", "discovery-springcloud-example-c":"1.0=90;1.1=10"}</version-weight>
+        <!-- <version-weight>1.0=90;1.1=10</version-weight> -->
+        <!-- 区域权重路由 -->
+        <region-weight>{"discovery-springcloud-example-a":"dev=85;qa=15", "discovery-springcloud-example-b":"dev=85;qa=15", "discovery-springcloud-example-c":"dev=85;qa=15"}</region-weight>
+        <!-- <region-weight>dev=85;qa=15</region-weight> -->
+    </strategy>
+
+    <!-- 基于Http Header传递的定制化策略路由，支持蓝绿部署和灰度发布两种模式。如果都不命中，则执行上面的全局缺省路由 -->
+    <strategy-customization>
+        <!-- Spel表达式在XML中的转义符：-->
+        <!-- 和符号 & 转义为 &amp; 必须转义 -->
+        <!-- 小于号 < 转义为 &lt; 必须转义 -->
+        <!-- 双引号 " 转义为 &quot; 必须转义 -->
+        <!-- 大于号 > 转义为 &gt; -->
+        <!-- 单引号 ' 转义为 &apos; -->
+
+        <!-- 全链路蓝绿部署：条件命中的匹配方式（第一优先级），支持版本匹配、区域匹配、IP地址和端口匹配、版本权重匹配、区域权重匹配 -->
+        <!-- Header节点不允许缺失 -->
+        <conditions type="blue-green">
+            <condition id="1" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="a-1" region-id="b-1" address-id="c-1" version-weight-id="d-1" region-weight-id="e-1"/>
+            <condition id="2" header="#H['c'] == '3'" version-id="a-2" region-id="b-2" address-id="c-2" version-weight-id="d-2" region-weight-id="e-2"/>
+        </conditions>
+
+        <!-- 全链路灰度发布：条件命中的随机权重（第二优先级），支持版本匹配、区域匹配、IP地址和端口匹配 -->
+        <!-- Header节点允许缺失，当含Header和未含Header的配置并存时，以未含Header的配置为优先 -->
+        <conditions type="gray">
+            <condition id="1" header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="a-1=10;a-2=90" region-id="b-1=20;b-2=80" address-id="c-1=30;c-2=70"/>
+            <condition id="2" header="#H['c'] == '3'" version-id="a-1=90;a-2=10" region-id="b-1=80;b-2=20" address-id="c-1=70;c-2=30"/>
+            <condition id="3" version-id="a-1=5;a-2=95" region-id="b-1=5;b-2=95" address-id="c-1=5;c-2=95"/>
+        </conditions>
+
+        <routes>
+            <route id="a-1" type="version">{"discovery-springcloud-example-a":"1.0", "discovery-springcloud-example-b":"1.0", "discovery-springcloud-example-c":"1.0;1.2"}</route>
+            <route id="a-2" type="version">{"discovery-springcloud-example-a":"1.1", "discovery-springcloud-example-b":"1.1", "discovery-springcloud-example-c":"1.2"}</route>
+            <route id="b-1" type="region">{"discovery-springcloud-example-a":"qa;dev", "discovery-springcloud-example-b":"dev", "discovery-springcloud-example-c":"qa"}</route>
+            <route id="b-2" type="region">{"discovery-springcloud-example-a":"qa", "discovery-springcloud-example-b":"qa", "discovery-springcloud-example-c":"qa"}</route>
+            <route id="c-1" type="address">{"discovery-springcloud-example-a":"192.168.43.101:1100", "discovery-springcloud-example-b":"192.168.43.101:1201", "discovery-springcloud-example-c":"192.168.43.101:1300"}</route>
+            <route id="c-2" type="address">{"discovery-springcloud-example-a":"192.168.43.101:1101", "discovery-springcloud-example-b":"192.168.43.101:1201", "discovery-springcloud-example-c":"192.168.43.101:1301"}</route>
+            <route id="d-1" type="version-weight">{"discovery-springcloud-example-a":"1.0=90;1.1=10", "discovery-springcloud-example-b":"1.0=90;1.1=10", "discovery-springcloud-example-c":"1.0=90;1.1=10"}</route>
+            <route id="d-2" type="version-weight">{"discovery-springcloud-example-a":"1.0=10;1.1=90", "discovery-springcloud-example-b":"1.0=10;1.1=90", "discovery-springcloud-example-c":"1.0=10;1.1=90"}</route>
+            <route id="e-1" type="region-weight">{"discovery-springcloud-example-a":"dev=85;qa=15", "discovery-springcloud-example-b":"dev=85;qa=15", "discovery-springcloud-example-c":"dev=85;qa=15"}</route>
+            <route id="e-2" type="region-weight">{"discovery-springcloud-example-a":"dev=15;qa=85", "discovery-springcloud-example-b":"dev=15;qa=85", "discovery-springcloud-example-c":"dev=15;qa=85"}</route>
+        </routes>
+
+        <!-- 策略中配置条件表达式中的Header来决策蓝绿和灰度，可以代替外部传入Header -->
+        <headers>
+            <header key="a" value="1"/>
+        </headers>
+    </strategy-customization>
+
+    <!-- 参数控制，由远程推送参数的改变，实现一些特色化的灰度发布，例如，基于数据库的灰度发布 -->
+    <parameter>
+        <!-- 服务a和c分别有两个库的配置，分别是测试数据库（database的value为qa）和生产数据库（database的value为prod） -->
+        <!-- 上线后，一开始数据库指向测试数据库，对应value为qa，然后灰度发布的时候，改对应value为prod，即实现数据库的灰度发布 -->
+        <service service-name="discovery-springcloud-example-a" key="database" value="qa"/>
+        <service service-name="discovery-springcloud-example-c" key="database" value="prod"/>
+    </parameter>
+</rule>
+```
 
 ## 基于多方式的规则和策略推送
 
