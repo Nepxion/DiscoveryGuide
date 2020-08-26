@@ -314,6 +314,8 @@ Discovery【探索】微服务框架，易用性上特性包括
     - [测试环境](#测试环境)
     - [测试介绍](#测试介绍)
     - [测试步骤](#测试步骤)
+- [附录](#附录)
+    - [中间件服务器下载地址](#中间件服务器下载地址)	
 - [Star走势图](#Star走势图)
 
 ## 请联系我
@@ -3325,6 +3327,45 @@ zuul.semaphore.max-semaphores=5000
 | Spring Cloud Gateway为起始的调用链 | 本框架 | 5000 | 20000 | 27800左右 | CPU占用率42.3% |
 | Zuul 1.x为起始的调用链 | 原生框架 | 5000 | 20000 | 24050左右 | CPU占用率56% |
 | Zuul 1.x为起始的调用链 | 本框架 | 5000 | 20000 | 23500左右 | CPU占用率56.5% |
+
+## 附录
+
+### 中间件服务器下载地址
+- Consul
+    - Consul服务器版本不限制，推荐用最新版本，从[https://releases.hashicorp.com/consul/](https://releases.hashicorp.com/consul/)获取
+    - 功能界面主页，[http://localhost:8500](http://localhost:8500)
+- Zookeeper
+    - Spring Cloud F版或以上，必须采用Zookeeper服务器的3.5.x服务器版本（或者更高），从[http://zookeeper.apache.org/releases.html#download](http://zookeeper.apache.org/releases.html#download)获取
+    - Spring Cloud E版，Zookeeper服务器版本不限制
+- Eureka
+    - 跟Spring Cloud版本保持一致，自行搭建服务器
+    - 功能界面主页，[http://localhost:9528](http://localhost:9528)
+- Apollo
+    - Apollo服务器版本，推荐用最新版本，从[https://github.com/ctripcorp/apollo/releases](https://github.com/ctripcorp/apollo/releases)获取
+    - 功能界面主页，[http://localhost:8088](http://localhost:8088)
+- Nacos
+    - Nacos服务器版本，推荐用最新版本，从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取
+    - 功能界面主页，[http://localhost:8848/nacos/index.html](http://localhost:8848/nacos/index.html)
+- Redis
+    - Redis服务器版本，推荐用最新版本，从[https://redis.io/](https://redis.io/)获取
+- Sentinel
+    - Sentinel服务器版本，推荐用最新版本，从[https://github.com/alibaba/Sentinel/releases](https://github.com/alibaba/Sentinel/releases)获取
+    - 功能界面主页，[http://localhost:8075/#/dashboard](http://localhost:8075/#/dashboard)
+- Prometheus
+    - Prometheus服务器版本，推荐用最新版本，从[https://github.com/prometheus/prometheus/releases](https://github.com/prometheus/prometheus/releases)获取
+    - 功能界面主页，[http://localhost:9090](http://localhost:9090)
+- Grafana
+    - Grafana服务器版本，推荐用最新版本，从[https://grafana.com/grafana/download?platform=windows](https://grafana.com/grafana/download?platform=windows)获取
+    - 功能界面主页，[http://localhost:3000](http://localhost:3000)
+- Jaeger
+    - Jaeger服务器版本，推荐用最新版本，从[https://github.com/jaegertracing/jaeger/releases](https://github.com/jaegertracing/jaeger/releases)获取
+    - 功能界面主页，[http://localhost:16686](http://localhost:16686)
+- Zipkin
+    - Zipkin服务器版本，推荐用最新版本，从[https://search.maven.org/remote_content?g=io.zipkin&a=zipkin-server&v=LATEST&c=exec](https://search.maven.org/remote_content?g=io.zipkin&a=zipkin-server&v=LATEST&c=exec)获取
+    - 功能界面主页，[http://localhost:9411/zipkin](http://localhost:9411/zipkin)
+- Spring Boot Admin
+    - 跟Spring Boot版本保持一致，自行搭建服务器。从[https://github.com/codecentric/spring-boot-admin](https://github.com/codecentric/spring-boot-admin)获取
+    - 功能界面主页，[http://localhost:6002](http://localhost:6002)
 
 ## Star走势图
 
