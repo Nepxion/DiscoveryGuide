@@ -32,6 +32,8 @@
 
 ## 简介
 Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册发现、Ribbon负载均衡、Feign和RestTemplate调用等组件全方位增强的企业级微服务开源解决方案，更贴近企业级需求，更具有企业级的插件引入、开箱即用特征
+
+① 框架支持的基本功能，如下
 - 支持阿里巴巴Nacos、Eureka、Consul和Zookeeper四个服务注册发现中心
 - 支持阿里巴巴Nacos、携程Apollo和Redis三个远程配置中心
 - 支持阿里巴巴Sentinel和Hystrix两个熔断限流降级权限中间件
@@ -41,7 +43,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 支持Spring Cloud Gateway、Zuul网关和微服务三大模块的灰度发布和路由等一系列功能
 - 支持和兼容Spring Cloud Edgware版、Finchley版、Greenwich版和Hoxton版
 
-Discovery【探索】微服务框架，功能主要包括
+② 框架支持的应用功能，如下
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中，可以在网关过滤器、前端界面、负载均衡策略类三个地方实现路由功能。路由方式主要包括
     - 切换路由。包括版本匹配路由、区域匹配路由、IP地址和端口匹配路由
     - 平滑路由。包括版本权重路由、区域权重路由
@@ -79,13 +81,13 @@ Discovery【探索】微服务框架，功能主要包括
 - 灰度路由和发布的自动化测试。基于Spring Boot/Spring Cloud自动化测试，包括普通调用测试、灰度调用测试和扩展调用测试（可扩展出阿里巴巴Sentinel、FF4j功能开关等自动化测试）
 - Docker容器化和Kubernetes平台的无缝支持部署
 
-Discovery【探索】微服务框架，涉及到的主要中间件包括
+③ 框架支持的重要中间件，如下
 - [**Nacos**] 阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
 - [**Sentinel**] 阿里巴巴中间件部门开发的新一代以流量为切入点，从流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性的分布式系统的流量防卫兵。它承接了阿里巴巴近10年的双十一大促流量的核心场景，例如秒杀（即突发流量控制在系统容量可以承受的范围）、消息削峰填谷、集群流量控制、实时熔断下游不可用应用等
 - [**Spring Cloud Alibaba**] 阿里巴巴中间件部门开发的Spring Cloud增强套件，致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过Spring Cloud编程模型轻松使用这些组件来开发分布式应用服务。依托Spring Cloud Alibaba，只需要添加一些注解和少量配置，就可以将Spring Cloud应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统
 - [**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范
 
-Discovery【探索】微服务框架，易用性上特性包括
+④ 框架支持易用性表现，如下
 - 现有的Spring Cloud微服务很方便引入该中间件，代码零侵入
 - 兼容现有的Spring Cloud主流四个版本
 - 使用方便。只需如下步骤
@@ -97,8 +99,10 @@ Discovery【探索】微服务框架，易用性上特性包括
         - 通过远程配置中心推送规则。参考[基于Apollo界面的灰度发布](#基于Apollo界面的灰度发布)和[基于Nacos界面的灰度发布](#基于Nacos界面的灰度发布)
         - 通过控制平台界面推送规则。参考[基于Rest方式的灰度发布](#基于Rest方式的灰度发布)
         - 通过客户端工具（例如Postman）推送。[基于图形化桌面程序的灰度发布](#基于图形化桌面程序的灰度发布)和[基于图形化Web程序的灰度发布](#基于图形化Web程序的灰度发布)
+- 丰富的功能开关，并采用“约定大于配置”的方式
 
-![](http://nepxion.gitee.io/docs/icon-doc/information.png) 鸣谢
+## 鸣谢
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) 鸣谢，如下
 - 感谢阿里巴巴中间件Nacos、Sentinel和Spring Cloud Alibaba团队，尤其是Nacos负责人@彦林、@于怀，Sentinel负责人@宿何、@子衿，Spring Cloud Alibaba负责人@小马哥、@洛夜、@亦盏的技术支持
 - 感谢携程Apollo团队，尤其是@宋顺，特意开发OpenApi包和技术支持
 - 感谢代码贡献者，包括@zifeihan，@Ax1an，@WeihuaWang，@张顺，@Esun，@liumapp，@terranhu，@JikaiSun，@HaoHuang，@FanYang，@Ankeway，@liquanjin等
@@ -203,6 +207,7 @@ Discovery【探索】微服务框架，易用性上特性包括
 
 ## 目录
 - [简介](#简介)
+- [鸣谢](#鸣谢)
 - [请联系我](#请联系我)
 - [相关版本](#相关版本)
 - [相关链接](#相关链接)
