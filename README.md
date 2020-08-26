@@ -641,6 +641,8 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 ```
 
 ### 环境验证
+① 通过Postman工具验证
+
 - 导入Postman的测试脚本，[脚本地址](https://github.com/Nepxion/DiscoveryGuide/raw/master/postman.json)
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-guide-service-a/invoke/gateway](http://localhost:5001/discovery-guide-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式
@@ -656,6 +658,20 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 ```
 
 - 上述步骤在下面每次更改规则策略的时候执行，并验证结果和规则策略的期望值是否相同
+
+② 通过图形化界面验证
+
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 该方式有点古老，并不再维护，请斟酌使用
+
+- 下载[源码主页](https://github.com/Nepxion/Discovery)的工程，并导入IDE
+- 启动源码工程下的discovery-springcloud-example-console/ConsoleApplication
+- 启动源码工程下的discovery-console-desktop/ConsoleLauncher
+- 通过admin/admin登录，点击“显示服务拓扑”按钮，将呈现如下界面
+![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-2.jpg)
+- 在加入上述规则前，选中网关节点，右键点击“执行灰度路由”，在弹出路由界面中，依次加入“discovery-guide-service-a”和“discovery-guide-service-b”，点击“执行路由”按钮，将呈现如下界面
+![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-3.jpg)
+- 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
+![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-4.jpg)
 
 ## 基于Header传递方式的灰度路由策略
 ![](http://nepxion.gitee.io/docs/icon-doc/information.png) 本章节通过网关为触发点来介绍灰度路由策略功能，使用者也可以不通过网关，直接以微服务为触发点进行实施
@@ -1558,17 +1574,6 @@ spring.application.strategy.version.filter.enabled=true
 </rule>
 ```
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-1.jpg)
-
-图形化界面验证
-- 下载[源码主页](https://github.com/Nepxion/Discovery)的工程，并导入IDE
-- 启动源码工程下的discovery-springcloud-example-console/ConsoleApplication
-- 启动源码工程下的discovery-console-desktop/ConsoleLauncher
-- 通过admin/admin登录，点击“显示服务拓扑”按钮，将呈现如下界面
-![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-2.jpg)
-- 在加入上述规则前，选中网关节点，右键点击“执行灰度路由”，在弹出路由界面中，依次加入“discovery-guide-service-a”和“discovery-guide-service-b”，点击“执行路由”按钮，将呈现如下界面
-![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-3.jpg)
-- 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
-![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-4.jpg)
 
 ## 基于多格式的规则策略定义
 
