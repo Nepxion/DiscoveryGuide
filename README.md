@@ -311,7 +311,6 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
 ![](http://nepxion.gitee.io/docs/zxing-doc/微信-1.jpg)![](http://nepxion.gitee.io/docs/zxing-doc/公众号-1.jpg)![](http://nepxion.gitee.io/docs/zxing-doc/文档-1.jpg)
 
 ## 相关版本
-支持如下版本：
 
 | 框架版本 | 框架分支 | 框架状态 | Spring Cloud版本 | Spring Boot版本 | Spring Cloud Alibaba版本 |
 | --- | --- | --- | --- | --- | --- |
@@ -431,7 +430,7 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
     - Linux环境下，运行bin目录下的startup.sh
 
 ## 启动服务 
-- 在IDE中，启动四个应用服务和两个网关服务，控制平台服务和监控平台服务可选，如下： 
+- 在IDE中，启动四个应用服务和两个网关服务，控制平台服务和监控平台服务可选，如下
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 | 子环境 |
 | --- | --- | --- | --- | --- | -- | 
@@ -444,7 +443,7 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
 | DiscoveryGuideConsole.java | Console | 6001 | 1.0 | 无 | 无 |
 | DiscoveryGuideAdmin.java | Admin | 6002 | 1.0 | 无 | 无 |
 
-全链路路径， 如下：
+全链路路径， 如下
 ```
 API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 ```
@@ -452,13 +451,13 @@ API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 ## 环境验证
 - 导入Postman的测试脚本，[脚本地址](https://github.com/Nepxion/DiscoveryGuide/raw/master/postman.json)
 
-- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-guide-service-a/invoke/gateway](http://localhost:5001/discovery-guide-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式：
+- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-guide-service-a/invoke/gateway](http://localhost:5001/discovery-guide-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式
 ```
 gateway -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=dev][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49570.77.15870951148480000] 
 -> [ID=discovery-guide-service-b][P=Nacos][H=192.168.0.107:4001][V=1.0][R=qa][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49571.85.15870951189970000]
 ```
 
-- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Zuul网关调用示例“，调用地址为[http://localhost:5002/discovery-guide-service-a/invoke/zuul](http://localhost:5002/discovery-guide-service-a/invoke/zuul)，相关的Header值已经预设，供开发者修改。测试通过Zuul网关的调用结果，结果为如下格式：
+- 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Zuul网关调用示例“，调用地址为[http://localhost:5002/discovery-guide-service-a/invoke/zuul](http://localhost:5002/discovery-guide-service-a/invoke/zuul)，相关的Header值已经预设，供开发者修改。测试通过Zuul网关的调用结果，结果为如下格式
 ```
 zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=dev][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49570.77.15870951148480000] 
 -> [ID=discovery-guide-service-b][P=Nacos][H=192.168.0.107:4001][V=1.0][R=qa][E=env1][G=discovery-guide-group][TID=48682.7508.15870951148324081][SID=49571.85.15870951189970000]
@@ -488,7 +487,7 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 在Nacos配置中心，增加网关灰度路由策略
 
 #### 版本匹配灰度路由策略
-增加Spring Cloud Gateway的基于版本匹配路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务：
+增加Spring Cloud Gateway的基于版本匹配路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用都走版本为1.0的服务
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -517,7 +516,7 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 表示discovery-guide-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
 
 #### 版本权重灰度路由策略
-增加Spring Cloud Gateway的基于版本权重路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%：
+增加Spring Cloud Gateway的基于版本权重路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -535,7 +534,7 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 ```
 
 #### 区域匹配灰度路由策略
-增加Zuul的基于区域匹配路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用都走区域为dev的服务：
+增加Zuul的基于区域匹配路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用都走区域为dev的服务
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -564,7 +563,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 表示discovery-guide-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
 
 #### 区域权重灰度路由策略
-增加Zuul的基于区域权重路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%：
+增加Zuul的基于区域权重路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -582,7 +581,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 ```
 
 #### IP地址和端口匹配灰度路由策略
-增加Zuul的基于IP地址和端口匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务：
+增加Zuul的基于IP地址和端口匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用走指定IP地址和端口，或者指定IP地址，或者指定端口（下面策略以端口为例）的服务
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -614,7 +613,7 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 
 #### 动态变更元数据的灰度路由策略
 
-利用注册中心的Open API接口动态变更服务实例的元数据，达到稳定版本和灰度版本流量控制的目的。以Nacos的版本匹配为例：
+利用注册中心的Open API接口动态变更服务实例的元数据，达到稳定版本和灰度版本流量控制的目的。以Nacos的版本匹配为例
 老的稳定版本的服务实例配置元数据
 ```
 spring.cloud.nacos.discovery.metadata.version=stable
@@ -670,9 +669,9 @@ curl -X PUT 'http://ip:port/eureka/apps/{appId}/{instanceId}/metadata?version=st
 
 #### 全局订阅式的灰度路由策略
 
-通过全链路传递Header实现灰度路由，会存在一定的困难，框架提供另外一种很简单的方式来规避Header传递，但能达到Header传递一样的效果。以版本匹配为例：
+通过全链路传递Header实现灰度路由，会存在一定的困难，框架提供另外一种很简单的方式来规避Header传递，但能达到Header传递一样的效果。以版本匹配为例
 
-增加版本匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务走1.0版本，b服务走1.1版本：
+增加版本匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务走1.0版本，b服务走1.1版本
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -707,35 +706,35 @@ spring.application.strategy.core.header.transmission.enabled=true
 特殊符号必须转义，所以表达式必须改成如下
 ![](http://nepxion.gitee.io/docs/discovery-doc/EscapeCharacter3.jpg)
 
-![](http://nepxion.gitee.io/docs/icon-doc/warning.png) Spel表达式需要注意的地方：
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) Spel表达式需要注意的地方
 - 任何值都大于null。当某个Header未传值，但又指定了该Header大于的表达式，那么正则结果是true。例如，表达式为#H['a'] > '2'，但a作为Header未传递进来，即为null，判断结果为false
 - null满足不等于。当某个Header未传值，但又指定了该Header不等于的表达式，那么正则结果是true。例如，表达式为#H['a'] != '2'，但a作为Header未传递进来，即为null，判断结果为true
 
-增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配、版本权重匹配、区域权重匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
+增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配、版本权重匹配、区域权重匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-gateway，或者，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能
 ```
 1. 当外部调用带有的Http Header中的值a=1同时b=2
    <condition>节点中header="#H['a'] == '1' &amp;&amp; #H['b'] == '2'"对应的version-id="version-route1"，找到下面
-   <route>节点中id="version-route1" type="version"的那项，那么路由即为：
+   <route>节点中id="version-route1" type="version"的那项，那么路由即为
    {"discovery-guide-service-a":"1.1", "discovery-guide-service-b":"1.1"}
 
 2. 当外部调用带有的Http Header中的值a=1
    <condition>节点中header="#H['a'] == '1'"对应的version-id="version-route2"，找到下面
-   <route>中id="version-route2" type="version"的那项，那么路由即为：
+   <route>中id="version-route2" type="version"的那项，那么路由即为
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
 
 3. 当外部调用带有的Http Header中的值都不命中，那么执行顺序为
    1）如果配置了权重路由（<conditions type="gray">节点下）的策略，则执行权重路由
-   2）如果权重路由策略未配置，则执行<strategy>节点中的全局缺省路由，那么路由即为：
+   2）如果权重路由策略未配置，则执行<strategy>节点中的全局缺省路由，那么路由即为
    {"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
    3）如果全局缺省路由未配置，则执行Spring Cloud Ribbon轮询策略
    
-4. 必须带有Header。假如不愿意从网关外部传入Header，那么支持策略下内置Header来决策蓝绿和灰度，可以代替外部传入Header，参考如下配置：
+4. 必须带有Header。假如不愿意从网关外部传入Header，那么支持策略下内置Header来决策蓝绿和灰度，可以代替外部传入Header，参考如下配置
    注意：Spring Cloud Gateway在Finchley版不支持该方式
    <headers>
        <header key="a" value="1"/>
    </headers>
 
-5. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用：
+5. 策略总共支持5种，可以单独一项使用，也可以多项叠加使用
    1）version 版本路由
    2）region 区域路由
    3）address IP地址和端口路由
@@ -749,7 +748,7 @@ spring.application.strategy.core.header.transmission.enabled=true
 8. 支持并行实施。通过namespace（可以自定义）的Http Header进行发布隔离
 ```
 
-具体示例内容如下：
+具体示例内容如下
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -786,7 +785,7 @@ spring.application.strategy.core.header.transmission.enabled=true
 ### 配置全链路灰度条件权重和灰度匹配组合式策略
 属于全链路灰度发布的范畴。既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
 
-增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能：
+增加组合式的灰度策略，支持版本匹配、区域匹配、IP地址和端口匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现功能
 - a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 
@@ -795,7 +794,7 @@ spring.application.strategy.core.header.transmission.enabled=true
 ```
 1. version-route1链路配比10%的流量，version-route2链路配比90%的流量
 
-2. 策略总共支持3种，可以单独一项使用，也可以多项叠加使用：
+2. 策略总共支持3种，可以单独一项使用，也可以多项叠加使用
    1）version 版本路由
    2）region 区域路由
    3）address IP地址和端口路由
@@ -809,7 +808,7 @@ spring.application.strategy.core.header.transmission.enabled=true
 6. 支持并行实施。通过namespace（可以自定义）的Http Header进行发布隔离
 ```
 
-具体示例内容如下：
+具体示例内容如下
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -843,7 +842,7 @@ spring.application.strategy.core.header.transmission.enabled=true
 
 例如：前端存在1.0和2.0版本，微服务存在1.0和2.0版本，由于存在版本不兼容的情况（前端1.0版本只能调用微服务的1.0版本，前端2.0版本只能调用微服务的2.0版本），那么前端调用网关时候，可以通过Header传递它的版本号给网关，网关根据前端版本号，去路由对应版本的微服务
 
-该场景可以用“通过业务参数在过滤器中自定义灰度路由策略”的方案来解决，如下：
+该场景可以用“通过业务参数在过滤器中自定义灰度路由策略”的方案来解决，如下
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -862,7 +861,7 @@ spring.application.strategy.core.header.transmission.enabled=true
 </rule>
 ```
 
-上述配置，模拟出全链路中，两条独立不受干扰的调用路径：
+上述配置，模拟出全链路中，两条独立不受干扰的调用路径
 
 ```
 1. APP v1.0 -> 网关 -> A服务 v1.0 -> B服务 v1.0
@@ -877,38 +876,38 @@ spring.application.strategy.core.header.transmission.enabled=true
 
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：当配置中心和界面都配置后，以界面传入优先
 
-- 版本匹配策略，Header格式如下任选一个：
+- 版本匹配策略，Header格式如下任选一个
 ```
 1. n-d-version=1.0
 2. n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
 ```
 
-- 版本权重策略，Header格式如下任选一个：
+- 版本权重策略，Header格式如下任选一个
 ```
 1. n-d-version-weight=1.0=90;1.1=10
 2. n-d-version-weight={"discovery-guide-service-a":"1.0=90;1.1=10", "discovery-guide-service-b":"1.0=90;1.1=10"}
 ```
 
-- 区域匹配策略，Header格式如下任选一个：
+- 区域匹配策略，Header格式如下任选一个
 ```
 1. n-d-region=qa
 2. n-d-region={"discovery-guide-service-a":"qa", "discovery-guide-service-b":"qa"}
 ```
 
-- 区域权重策略，Header格式如下任选一个：
+- 区域权重策略，Header格式如下任选一个
 ```
 1. n-d-region-weight=dev=99;qa=1
 2. n-d-region-weight={"discovery-guide-service-a":"dev=99;qa=1", "discovery-guide-service-b":"dev=99;qa=1"}
 ```
 
-- IP地址和端口匹配策略，Header格式如下任选一个：
+- IP地址和端口匹配策略，Header格式如下任选一个
 ```
 1. n-d-address={"discovery-guide-service-a":"127.0.0.1:3001", "discovery-guide-service-b":"127.0.0.1:4002"}
 2. n-d-address={"discovery-guide-service-a":"127.0.0.1", "discovery-guide-service-b":"127.0.0.1"}
 3. n-d-address={"discovery-guide-service-a":"3001", "discovery-guide-service-b":"4002"}
 ```
 
-- 环境隔离下动态环境匹配策略：
+- 环境隔离下动态环境匹配策略
 ```
 1. n-d-env=env1
 ```
@@ -917,7 +916,7 @@ spring.application.strategy.core.header.transmission.enabled=true
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-7.jpg)
 
-当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。需要通过如下开关做控制：
+当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。需要通过如下开关做控制
 ```
 # 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
 spring.application.strategy.gateway.header.priority=false
@@ -1240,7 +1239,7 @@ spring.application.strategy.version.filter.enabled=true
 
 ### 基于异步场景的全链路灰度路由策略
 
-当若干个服务之间调用，存在异步场景，如下：
+当若干个服务之间调用，存在异步场景，如下
 - 调用时候，启用了Hystrix线程池隔离机制
 - 线程池里的线程触发调用
 - 新创建单个线程触发调用
@@ -1258,7 +1257,7 @@ spring.application.strategy.version.filter.enabled=true
 ### 配置全链路灰度匹配规则
 
 #### 版本匹配灰度规则
-增加版本匹配的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本：
+增加版本匹配的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本只能访问b服务1.0版本，a服务1.1版本只能访问b服务1.1版本
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -1273,7 +1272,7 @@ spring.application.strategy.version.filter.enabled=true
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide3-1.jpg)
 
 #### 区域匹配灰度规则
-增加区域匹配的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现dev区域的a服务只能访问dev区域的b服务，qa区域的a服务只能访问qa区域的b服务：
+增加区域匹配的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现dev区域的a服务只能访问dev区域的b服务，qa区域的a服务只能访问qa区域的b服务
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -1290,7 +1289,7 @@ spring.application.strategy.version.filter.enabled=true
 ### 配置全链路灰度权重规则
 
 #### 全局版本权重灰度规则
-增加全局版本权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现版本为1.0的服务提供90%的流量，版本为1.1的服务提供10%的流量：
+增加全局版本权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现版本为1.0的服务提供90%的流量，版本为1.1的服务提供10%的流量
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -1304,7 +1303,7 @@ spring.application.strategy.version.filter.enabled=true
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide4-1.jpg)
 
 #### 局部版本权重灰度规则
-增加局部版本权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量：
+增加局部版本权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务1.0版本提供90%的流量，1.1版本提供10%的流量；b服务1.0版本提供20%的流量，1.1版本提供80%的流量
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -1319,7 +1318,7 @@ spring.application.strategy.version.filter.enabled=true
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide4-2.jpg)
 
 #### 全局区域权重灰度规则
-增加全局区域权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量：
+增加全局区域权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现区域为dev的服务提供90%的流量，区域为qa的服务提供10%的流量
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -1333,7 +1332,7 @@ spring.application.strategy.version.filter.enabled=true
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide4-3.jpg)
 
 #### 局部区域权重灰度规则
-增加局部区域权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务dev区域提供90%的流量，qa区域提供10%的流量；b服务dev区域提供20%的流量，qa区域提供80%的流量：
+增加局部区域权重的灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务dev区域提供90%的流量，qa区域提供10%的流量；b服务dev区域提供20%的流量，qa区域提供80%的流量
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -1352,7 +1351,7 @@ spring.application.strategy.version.filter.enabled=true
 请执行Postman操作，请仔细观察服务被随机权重调用到的概率
 
 ### 配置全链路灰度权重和灰度匹配组合式规则
-增加组合式的灰度规则，支持版本匹配和区域匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现功能：
+增加组合式的灰度规则，支持版本匹配和区域匹配。以版本匹配为例，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现功能
 - a服务1.0版本向网关提供90%的流量，1.1版本向网关提供10%的流量
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 
@@ -1414,7 +1413,7 @@ Apollo订阅推送界面
 元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能调用
 
 ### 注册服务隔离
-基于Group黑/白名单的策略，即当前的服务所在的Group，不在Group的黑名单或者在白名单里，才允许被注册。只需要在网关或者服务端，开启如下配置即可：
+基于Group黑/白名单的策略，即当前的服务所在的Group，不在Group的黑名单或者在白名单里，才允许被注册。只需要在网关或者服务端，开启如下配置即可
 ```
 # 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
 spring.application.strategy.register.isolation.enabled=true
@@ -1426,7 +1425,7 @@ spring.application.strategy.register.isolation.group.whitelist=
 ```
 
 ### 消费端服务隔离
-基于Group是否相同的策略，即消费端拿到的提供端列表，两者的Group必须相同。只需要在网关或者服务端，开启如下配置即可：
+基于Group是否相同的策略，即消费端拿到的提供端列表，两者的Group必须相同。只需要在网关或者服务端，开启如下配置即可
 ```
 # 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.consumer.isolation.enabled=true
@@ -1434,7 +1433,7 @@ spring.application.strategy.consumer.isolation.enabled=true
 通过修改discovery-guide-service-b的Group名为其它名称，执行Postman调用，将发现从discovery-guide-service-a无法拿到discovery-guide-service-b的任何实例。意味着在discovery-guide-service-a消费端进行了隔离
 
 ### 提供端服务隔离
-基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-service-group值进行匹配。只需要在服务端（不适用网关），开启如下配置即可：
+基于Group是否相同的策略，即服务端被消费端调用，两者的Group必须相同，否则拒绝调用，异构系统可以通过Header方式传递n-d-service-group值进行匹配。只需要在服务端（不适用网关），开启如下配置即可
 ```
 # 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
 spring.application.strategy.provider.isolation.enabled=true
@@ -1472,7 +1471,7 @@ spring.cloud.nacos.discovery.metadata.env=env1
 spring.application.environment.route=common
 ```
 
-整个隔离和路由的逻辑如下：
+整个隔离和路由的逻辑如下
 - 如果存在子环境，优先寻址子环境的服务实例
 - 如果不存在子环境，则寻址Common环境的服务实例（未设置元数据Metadata的env参数的服务实例也归为Common环境）
 - 如果Common环境也不存在，则调用失败
@@ -1535,7 +1534,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 #### 流控规则
 
-增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-flow，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-flow，规则内容如下
 ```
 [
     {
@@ -1557,7 +1556,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 #### 降级规则
 
-增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-degrade，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-degrade，规则内容如下
 ```
 [
     {
@@ -1574,7 +1573,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 #### 授权规则
 
-增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下
 ```
 [
     {
@@ -1588,7 +1587,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 #### 系统规则
 
-增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-system，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-system，规则内容如下
 ```
 [
     {
@@ -1606,7 +1605,7 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 
 #### 热点参数流控规则
 
-增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-param-flow，规则内容如下：
+增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-param-flow，规则内容如下
 ```
 [
     {
@@ -1948,7 +1947,7 @@ public class MyClass {
 }
 ```
 
-对于调用链功能的开启和关闭，需要通过如下开关做控制：
+对于调用链功能的开启和关闭，需要通过如下开关做控制
 ```
 # 启动和关闭监控，一旦关闭，调用链和日志输出都将关闭。缺失则默认为false
 spring.application.strategy.monitor.enabled=true
@@ -2045,7 +2044,7 @@ spring.application.strategy.business.request.headers=user;mobile
 
 ## 全链路侦测
 
-通过内置基于LoadBalanced RestTemplate方式的/inspector/inspect接口方法，实现全链路侦测，可以查看全链路中调用的各个服务的版本、区域、子环境、IP地址等是否符合预期，是否满足灰度条件，该接口可以集成到使用者的界面中，就可以规避通过Postman工具或者调用链系统去判断，有利于节省人工成本。使用方式：
+通过内置基于LoadBalanced RestTemplate方式的/inspector/inspect接口方法，实现全链路侦测，可以查看全链路中调用的各个服务的版本、区域、子环境、IP地址等是否符合预期，是否满足灰度条件，该接口可以集成到使用者的界面中，就可以规避通过Postman工具或者调用链系统去判断，有利于节省人工成本。使用方式
 ```
 1. 执行Post请求
 2. 请求的路径：http://[网关URL]/[服务名1]/inspector/inspect
@@ -2075,7 +2074,7 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程、线程池、@Async注解等异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过下述步骤解决，同时适用于网关端和服务端。该方案可以替代Hystrix线程池隔离模式下的解决方案，也适用于其它有相同使用场景的基础框架和业务场景，例如：Dubbo
 
 ### 插件获取
-插件获取方式有两种方式：
+插件获取方式有两种方式
 - 通过[https://github.com/Nepxion/Discovery/releases](https://github.com/Nepxion/Discovery/releases)下载最新版本的Discovery Agent
 - 编译[https://github.com/Nepxion/Discovery](https://github.com/Nepxion/Discovery)的master分支，执行mvn clean install,产生discovery-agent目录
 
@@ -2243,7 +2242,7 @@ git.tags=
 git.total.commit.count=765
 ```
 
-![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如：
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：一般情况下，上述两个地方的配置都同时保持默认即可。对于一些特色化的用法，两个地方的配置项用法必须保持一致，例如
 ```
 # 输出到工程根目录下
 <generateGitPropertiesFilename>${project.basedir}/git.json</generateGitPropertiesFilename>
@@ -2260,7 +2259,7 @@ spring.application.git.generator.path=file:git.json
 
 ## 元数据Metadata运维平台策略
 
-外部系统（例如：运维发布平台）在远程启动微服务的时候，可以通过参数传递来动态改变元数据或者增加运维特色的参数，最后注册到远程配置中心。有如下两种方式：
+外部系统（例如：运维发布平台）在远程启动微服务的时候，可以通过参数传递来动态改变元数据或者增加运维特色的参数，最后注册到远程配置中心。有如下两种方式
 - 通过Program arguments来传递，它的用法是前面加“--”。支持Eureka、Zookeeper和Nacos的增量覆盖，Consul由于使用了全量覆盖的tag方式，不适用改变单个元数据的方式。例如：--spring.cloud.nacos.discovery.metadata.version=1.0
 - 通过VM arguments来传递，它的用法是前面加“-D”。支持上述所有的注册组件，它的限制是变量前面必须要加“metadata.”，推荐使用该方式。例如：-Dmetadata.version=1.0
 - 两种方式尽量避免同时用
@@ -2418,7 +2417,7 @@ gray.weight.testcase.result.offset=5
 
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：对于带有注解@DTestConfig的测试用例，要用到Spring的Spel语法格式（即group = "#group", serviceId = "#serviceId"），需要引入Java8的带"-parameters"编译方式，见上面的<compilerArgs>参数设置
 
-在IDE环境里需要设置"-parameters"的Compiler Argument：
+在IDE环境里需要设置"-parameters"的Compiler Argument
 - Eclipse加"-parameters"参数：https://www.concretepage.com/java/jdk-8/java-8-reflection-access-to-parameter-names-of-method-and-constructor-with-maven-gradle-and-eclipse-using-parameters-compiler-argument
 - Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
 
@@ -2471,7 +2470,7 @@ public class DiscoveryGuideTestConfiguration {
 
 #### 普通调用测试
 
-在测试方法上面增加注解@DTest，通过断言Assert来判断测试结果。注解@DTest内容如下：
+在测试方法上面增加注解@DTest，通过断言Assert来判断测试结果。注解@DTest内容如下
 
 ```java
 @Target({ ElementType.METHOD, ElementType.TYPE })
@@ -2483,7 +2482,7 @@ public @interface DTest {
 }
 ```
 
-代码如下：
+代码如下
 
 ```java
 public class DiscoveryGuideTestCases {
@@ -2512,7 +2511,7 @@ public class DiscoveryGuideTestCases {
 
 #### 灰度调用测试
 
-在测试方法上面增加注解@DTestConfig，通过断言Assert来判断测试结果。注解DTestConfig注解内容如下：
+在测试方法上面增加注解@DTestConfig，通过断言Assert来判断测试结果。注解DTestConfig注解内容如下
 
 ```java
 @Target({ ElementType.METHOD, ElementType.TYPE })
@@ -2541,7 +2540,7 @@ public @interface DTestConfig {
 }
 ```
 
-代码如下：
+代码如下
 
 ```java
 public class DiscoveryGuideTestCases {
@@ -2566,7 +2565,7 @@ public class DiscoveryGuideTestCases {
 }
 ```
 
-灰度配置文件gray-strategy-version-1.xml的内容如下：
+灰度配置文件gray-strategy-version-1.xml的内容如下
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -2576,7 +2575,7 @@ public class DiscoveryGuideTestCases {
 </rule>
 ```
 
-灰度配置文件gray-default.xml的内容如下：
+灰度配置文件gray-default.xml的内容如下
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -2586,7 +2585,7 @@ public class DiscoveryGuideTestCases {
 
 #### 扩展调用测试
 
-除了支持灰度自动化测试外，使用者可扩展出以远程配置中心内容做变更的自动化测试。以阿里巴巴的Sentinel为例子，测试实现方式如下：
+除了支持灰度自动化测试外，使用者可扩展出以远程配置中心内容做变更的自动化测试。以阿里巴巴的Sentinel为例子，测试实现方式如下
 - 远程配置中心约定，Apollo上Key的格式为{group}-{serviceId}-sentinel，Nacos上Group为代码中的{group}，Data ID为{serviceId}-{suffix}，即{serviceId}-sentinel
 - 执行测试用例前，把执行限流降级熔断等逻辑的内容（executePath = "sentinel-test.xml"）推送到远程配置中心
 - 执行测试用例，通过断言Assert来判断测试结果
@@ -2715,6 +2714,21 @@ A service 1.1 version weight=60.1667%
 - 准备一台机器部署网关（Spring Cloud或者Zuul）
 - 准备一台机器部署压测工具
 
+| 服务 | 配置 | 数目 |
+| --- | --- | --- |
+| Spring Cloud Gateway | 16C 32G | 1 |
+| Zuul 1.x | 16C 32G | 1 |
+| Service | 4C 8G | 2 |
+
+- 优化方式
+    - Spring Cloud Gateway，不需要优化
+    - Zuul 1.x，优化如下
+```
+zuul.host.max-per-route-connections=1000
+zuul.host.max-total-connections=1000
+zuul.semaphore.max-semaphores=5000
+```
+
 ### 测试介绍
 - 使用wrk脚本进行性能测试，wrk脚本示例，请参考[压测脚本](https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test-automation/post.lua)，下面的测试命令行可以不必带脚本参数
 - 使用wrk详细说明参考[https://github.com/wg/wrk](https://github.com/wg/wrk)
@@ -2734,6 +2748,15 @@ A service 1.1 version weight=60.1667%
         --timeout     超时时间
 ```
 - 等待结果，Requests/sec 表示每秒处理的请求数
+
+基于WRK极限压测，报告如下
+
+| 服务 | 性质 | 线程数 | 连接数 | 每秒最大请求数 | 资源耗费 |
+| --- | --- | --- | --- | --- | --- |
+| Spring Cloud Gateway为起始的调用链 | 原生框架 | 5000 | 20000 | 28100左右 | CPU占用率42% |
+| Spring Cloud Gateway为起始的调用链 | 本框架 | 5000 | 20000 | 27800左右 | CPU占用率42.3% |
+| Zuul 1.x为起始的调用链 | 原生框架 | 5000 | 20000 | 24050左右 | CPU占用率56% |
+| Zuul 1.x为起始的调用链 | 本框架 | 5000 | 20000 | 23500左右 | CPU占用率56.5% |
 
 ## Star走势图
 
