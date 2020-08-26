@@ -89,7 +89,7 @@ Discovery【探索】微服务框架，易用性上特性包括
 - 现有的Spring Cloud微服务很方便引入该中间件，代码零侵入
 - 兼容现有的Spring Cloud主流四个版本
 - 使用方便。只需如下步骤
-    - 引入相关依赖到pom.xml。参考[依赖兼容](#依赖兼容)
+    - 引入相关依赖到pom.xml。参考[依赖引入](#依赖引入)
     - 操作配置文件。参考[配置文件](#配置文件)
         - 在元数据MetaData中，为微服务定义一个所属组名（group）或者应用名（application）或者通过服务名前缀来自动产生服务组名，定义一个版本号（version）或者通过Git插件方式自动产生版本号，定义一个所属区域名（region），定义一个所属环境（env）。参考[基础属性配置](#基础属性配置)
         - 根据项目实际情况，开启和关闭相关功能项或者属性值，达到最佳配置。参考[功能开关配置](#功能开关配置)
@@ -209,9 +209,12 @@ Discovery【探索】微服务框架，易用性上特性包括
     - [源码主页](#源码主页)
     - [指南主页](#指南主页)
     - [文档主页](#文档主页)
+- [现有痛点](#现有痛点)
+- [名词解释](#名词解释)
 - [工程架构](#工程架构)
     - [架构核心](#架构核心)
     - [工程清单](#工程清单)
+    - [依赖引入](#依赖引入)	
 - [准备工作](#准备工作)	
     - [环境搭建](#环境搭建)
     - [启动服务](#启动服务)
@@ -351,8 +354,30 @@ Discovery【探索】微服务框架，易用性上特性包括
 
 [Polaris指南主页](https://github.com/Nepxion/PolarisGuide)
 
+## 现有痛点
+现有的Spring Cloud微服务架构的痛点
+- 如果你是运维负责人，是否会经常发现，你掌管的测试环境中的服务注册中心，被一些不负责的开发人员把他本地开发环境注册上来，造成测试人员测试失败。你希望可以把本地开发环境注册给屏蔽掉，不让注册
+- 如果你是运维负责人，生产环境的某个微服务集群下的某个实例，暂时出了问题，但又不希望它下线。你希望可以把该实例给屏蔽掉，暂时不让它被调用
+- 如果你是业务负责人，鉴于业务服务的快速迭代性，微服务集群下的实例发布不同的版本。你希望根据版本管理策略进行路由，提供给下游微服务区别调用，例如访问控制快速基于版本的不同而切换，例如在不同的版本之间进行流量调拨
+- 如果你是业务负责人，希望灰度发布功能可以基于业务场景特色定制，例如根据用户手机号进行不同服务器的路由
+- 如果你是DBA负责人，希望灰度发布功能可以基于数据库切换上
+- 如果你是测试负责人，希望对微服务做A/B测试
+
 ### 文档主页
 [文档主页](https://gitee.com/Nepxion/Docs/tree/master/web-doc)
+
+## 名词解释
+- E版、F版、G版、H版，即Spring Cloud的Edgware、Finchley、Greenwich、Hoxton的首字母，以此类推
+- 切换灰度（也叫刚性灰度）和平滑灰度（也叫柔性灰度），切换灰度即在灰度的时候，没有过渡过程，流量直接从旧版本切换到新版本；平滑灰度即在灰度的时候，有个过渡过程，可以根据实际情况，先给新版本分配低额流量，给旧版本分配高额流量，对新版本进行监测，如果没有问题，就继续把旧版的流量切换到新版本上
+- 规则定义和策略定义，规则定义即通过XML或者Json定义既有格式的规则；策略定义即通过Http Header的策略方式传递路由信息
+- 本地版本，即初始化读取本地配置文件获取的版本，也可以是第一次读取远程配置中心获取的版本。本地版本和初始版本是同一个概念
+- 动态版本，即灰度发布时的版本。动态版本和灰度版本是同一个概念
+- 本地规则，即初始化读取本地配置文件获取的规则，也可以是第一次读取远程配置中心获取的规则。本地规则和初始规则是同一个概念
+- 动态规则，即灰度发布时的规则。动态规则和灰度规则是同一个概念
+- 事件总线，即基于Google Guava的EventBus构建的组件。通过事件总线可以推送动态版本和动态规则的更新和删除
+- 远程配置中心，即可以存储规则配置XML格式的配置中心，可以包括不限于Nacos，Redis，Apollo
+- 配置（Config）和规则（Rule），在本系统中属于同一个概念，例如更新配置，即更新规则；例如远程配置中心存储的配置，即规则XML
+- 服务端口和管理端口，即服务端口指在配置文件的server.port值，管理端口指management.port（E版）值或者management.server.port（F版或以上）值
 
 ## 工程架构
 
@@ -407,6 +432,151 @@ Discovery【探索】微服务框架，易用性上特性包括
 | <img src="http://nepxion.gitee.io/docs/icon-doc/direction_west.png"> discovery-springcloud-example-service | 用于灰度发布的微服务示例 |
 | <img src="http://nepxion.gitee.io/docs/icon-doc/direction_west.png"> discovery-springcloud-example-zuul | 用于灰度发布的Zuul示例 |
 | <img src="http://nepxion.gitee.io/docs/icon-doc/direction_west.png"> discovery-springcloud-example-gateway | 用于灰度发布的Spring Cloud Gateway示例 |
+
+### 依赖引入
+下面标注[必须引入]是一定要引入的包，标注[选择引入]是可以选择一个引入，或者不引入
+
+核心插件引入，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端，包括核心灰度发布功能，管理中心，配置中心等
+```xml
+[必须引入] 四个服务注册发现的中间件的增强插件，请任选一个引入
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-starter-eureka</artifactId>
+    <artifactId>discovery-plugin-starter-consul</artifactId>
+    <artifactId>discovery-plugin-starter-zookeeper</artifactId>
+    <artifactId>discovery-plugin-starter-nacos</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+
+[选择引入] 三个远程配置中心的中间件的扩展插件，如需要，请任选一个引入，或者也可以引入您自己的扩展
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-config-center-starter-apollo</artifactId>
+    <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
+    <artifactId>discovery-plugin-config-center-starter-redis</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+策略功能引入，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端，包括内置版本路由、区域路由、自定义和编程灰度路由
+```xml
+微服务端引入
+[选择引入] 路由策略，如需要，请引入
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-service</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+
+网关Zuul端引入
+[选择引入] 路由策略，如需要，请引入
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+
+网关Spring Cloud Gateway端引入
+[选择引入] 路由策略，如需要，请引入
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+[选择引入] 路由策略时候，Hystrix线程池隔离模式下必须引入该插件。灰度路由Header和调用链Span在Hystrix线程池隔离模式（信号量模式不需要引入）下传递时，通过线程上下文切换会存在丢失Header的问题，通过该插件解决，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-hystrix</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+控制平台引入
+```xml
+[选择引入] 三个远程配置中心的中间件的扩展插件，如需要，请任选一个引入，或者也可以引入您自己的扩展
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-console-starter-apollo</artifactId>
+    <artifactId>discovery-console-starter-nacos</artifactId>
+    <artifactId>discovery-console-starter-redis</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+如果只想要灰度路由策略功能，而不想要灰度发布功能
+- 灰度路由策略是可以不需要接入远程配置中心的，所以建议去除远程配置中心包的引入
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-config-center-starter-xxx</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+- 灰度路由策略是不会对服务注册发现等逻辑产生影响，可以把下面两项配置改为false
+```
+# 开启和关闭服务注册层面的控制。一旦关闭，服务注册的黑/白名单过滤功能将失效，最大注册数的限制过滤功能将失效。缺失则默认为true
+spring.application.register.control.enabled=false
+# 开启和关闭服务发现层面的控制。一旦关闭，服务多版本调用的控制功能将失效，动态屏蔽指定IP地址的服务实例被发现的功能将失效。缺失则默认为true
+spring.application.discovery.control.enabled=false
+```
+
+服务端Sentinel防护插件的引入
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-service-sentinel</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+
+[选择引入] Sentinel数据源，如需要，请任选一个引入，或者也可以引入您自己的扩展
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-sentinel-starter-nacos</artifactId>
+    <artifactId>discovery-plugin-strategy-sentinel-starter-apollo</artifactId>
+    <artifactId>discovery-plugin-strategy-sentinel-starter-local</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+调用链功能引入，包含三大调用链，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
+
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：该模块支持F版或更高版本，且不能同时引入
+```xml
+微服务端引入
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-sentinel-starter-opentracing</artifactId>
+    <artifactId>discovery-plugin-strategy-sentinel-starter-skywalking</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+异步跨线程Agent的引入，灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程、线程池、@Async注解等异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过该插件解决，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-agent</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-agent-plugin</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+自动化测试插件的引入
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-test-starter</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
 
 ### 架构核心
 
