@@ -194,24 +194,11 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
     - [文档主页](#文档主页)
 - [工程架构](#工程架构)
     - [架构核心](#架构核心)
-        - [部署拓扑图](#部署拓扑图)
-        - [灰度方式区别图](#灰度方式区别图)
-        - [服务治理架构图](#服务治理架构图)
-        - [全局架构图](#全局架构图)
-        - [模块结构图](#模块结构图)
     - [工程清单](#工程清单)
-- [相关图示](#相关图示)
-    - [部署架构拓扑图](#部署架构拓扑图)
-    - [服务治理架构图](#服务治理架构图)
-    - [灰度方式区别图](#灰度方式区别图)
 - [环境搭建](#环境搭建)
 - [启动服务](#启动服务)
 - [环境验证](#环境验证)
 - [基于Header传递方式的灰度路由策略](#基于Header传递方式的灰度路由策略)
-    - [灰度路由架构图](#灰度路由架构图)
-        - [版本灰度路由架构图](#版本灰度路由架构图)
-        - [区域灰度路由架构图](#区域灰度路由架构图)
-        - [IP地址和端口灰度路由架构图](#IP地址和端口灰度路由架构图)
     - [配置网关灰度路由策略](#配置网关灰度路由策略)
         - [版本匹配灰度路由策略](#版本匹配灰度路由策略)
         - [版本权重灰度路由策略](#版本权重灰度路由策略)
@@ -405,20 +392,19 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
 
 ### 架构核心
 
-### 部署拓扑图
-![](http://nepxion.gitee.io/docs/discovery-doc/BasicTopology.jpg)
+- 灰度方式区别图
 
-### 灰度方式区别图
 ![](http://nepxion.gitee.io/docs/discovery-doc/Difference.jpg)
 
-#### 服务治理架构图
+- 服务治理架构图
+
 ![](http://nepxion.gitee.io/docs/discovery-doc/Govern.jpg)
 
-#### 全局架构图
+- 全局架构图
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Architecture.jpg)
 
-#### 模块结构图
+- 模块结构图
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Module.jpg)
 
@@ -451,6 +437,9 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
 API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 ```
 
+- 部署拓扑图
+![](http://nepxion.gitee.io/docs/discovery-doc/BasicTopology.jpg)
+
 ## 环境验证
 - 导入Postman的测试脚本，[脚本地址](https://github.com/Nepxion/DiscoveryGuide/raw/master/postman.json)
 
@@ -471,20 +460,6 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 ## 基于Header传递方式的灰度路由策略
 
 ![](http://nepxion.gitee.io/docs/icon-doc/information.png) 本章节通过网关为触发点来介绍灰度路由策略功能，使用者也可以不通过网关，直接以微服务为触发点进行实施
-
-### 灰度路由架构图
-
-#### 版本灰度路由架构图
-
-![](http://nepxion.gitee.io/docs/discovery-doc/RouteVersion.jpg)
-
-#### 区域灰度路由架构图
-
-![](http://nepxion.gitee.io/docs/discovery-doc/RouteRegion.jpg)
-
-#### IP地址和端口灰度路由架构图
-
-![](http://nepxion.gitee.io/docs/discovery-doc/RouteAddress.jpg)
 
 ### 配置网关灰度路由策略
 在Nacos配置中心，增加网关灰度路由策略
@@ -517,6 +492,10 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 "discovery-guide-service-b":"1.*;1.2.?"
 ```
 表示discovery-guide-service-b服务的版本调用范围是1开头的所有版本，或者是1.2开头的所有版本（末尾必须是1个字符）
+
+版本灰度路由架构图
+
+![](http://nepxion.gitee.io/docs/discovery-doc/RouteVersion.jpg)
 
 #### 版本权重灰度路由策略
 增加Spring Cloud Gateway的基于版本权重路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下，实现从Spring Cloud Gateway发起的调用1.0版本流量调用为90%，1.1流量调用为10%
@@ -564,6 +543,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 "discovery-guide-service-b":"d*;q?"
 ```
 表示discovery-guide-service-b服务的区域调用范围是d开头的所有区域，或者是q开头的所有区域（末尾必须是1个字符）
+
+区域灰度路由架构图
+
+![](http://nepxion.gitee.io/docs/discovery-doc/RouteRegion.jpg)
 
 #### 区域权重灰度路由策略
 增加Zuul的基于区域权重路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下，实现从Zuul发起的调用dev区域流量调用为85%，qa区域流量调用为15%
@@ -613,6 +596,10 @@ d* - 表示调用范围为所有服务的d开头的所有区域
 "discovery-guide-service-b":"3*;400?"
 ```
 表示discovery-guide-service-b服务的端口调用范围是3开头的所有端口，或者是4开头的所有端口（末尾必须是1个字符）
+
+IP地址和端口灰度路由架构图
+
+![](http://nepxion.gitee.io/docs/discovery-doc/RouteAddress.jpg)
 
 #### 动态变更元数据的灰度路由策略
 
