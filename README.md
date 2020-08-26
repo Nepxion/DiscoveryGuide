@@ -2333,6 +2333,10 @@ spring.application.git.generator.path=file:git.json
 
 ## 自动化测试
 
+自动化测试，基于Spring Boot/Spring Cloud的自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：支持阿里巴巴的Sentinel，FF4j的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把服务注册发现中心、远程配置中心、负载均衡、灰度发布、熔断降级限流、功能开关、Feign或者RestTemplate调用等中间件或者组件，一条龙组合起来进行自动化测试
+
+自动化测试代码参考[指南示例自动化测试](https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test-automation)
+
 ### 架构设计
 
 通过Matrix Aop框架，实现TestAutoScanProxy和TestInterceptor拦截测试用例，实现配置内容的自动化推送
@@ -2377,8 +2381,6 @@ gray.weight.testcase.result.offset=5
 ```
 
 ### 测试用例
-
-自动化测试代码参考[指南示例自动化测试](https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test-automation)
 
 - 自动化测试场景以API网关是测试的触发点，全链路如下：
 
@@ -2717,6 +2719,8 @@ A service 1.1 version weight=60.1667%
 ```
 
 ## 压力测试
+
+压力测试，基于wrk的异步压力测试框架，能用很少的线程压测出很大的并发量，使用简单方便
 
 ### 测试环境
 - 准备两台机器部署Spring Cloud应用
