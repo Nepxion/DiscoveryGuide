@@ -260,7 +260,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     - [基于远程配置中心的规则和策略订阅推送](#基于远程配置中心的规则和策略订阅推送)
     - [基于Swagger和Rest的规则和策略推送](#基于Swagger和Rest的规则和策略推送)
     - [基于图形化界面的规则和策略推送](#基于图形化界面的规则和策略推送)
-- [基于Group的全链路服务隔离](#基于Group的全链路服务隔离)
+- [基于组和黑/白名单的全链路服务隔离和准入](#基于组和黑/白名单的全链路服务隔离和准入)
     - [注册服务隔离](#注册服务隔离)
     - [消费端服务隔离](#消费端服务隔离)
     - [提供端服务隔离](#提供端服务隔离)
@@ -1811,13 +1811,7 @@ XML最全的示例如下，Json示例见源码discovery-springcloud-example-serv
 ## 基于多方式的规则和策略推送
 
 ### 基于远程配置中心的规则和策略订阅推送
-① Nacos订阅推送界面
-
-![](http://nepxion.gitee.io/docs/discovery-doc/Nacos2.jpg)
-- 参考Nacos官方文档[https://github.com/alibaba/nacos](https://github.com/alibaba/nacos)相关文档，搭建Nacos环境，以及熟悉相关的基本操作
-- 添加配置步骤跟Apollo配置界面中的“在页面中添加配置”操作项相似
-
-② Apollo订阅推送界面
+① Apollo订阅推送界面
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Apollo1.jpg)
 - 参考Apollo官方文档[https://github.com/ctripcorp/apollo](https://github.com/ctripcorp/apollo)相关文档，搭建Apollo环境，以及熟悉相关的基本操作
@@ -1833,6 +1827,12 @@ XML最全的示例如下，Json示例见源码discovery-springcloud-example-serv
     - 局部配置方式建议使用Apollo的私有（private）配置方式，全局配置方式必须采用Apollo的共享（public）配置方式
     - 如果业务配置和灰度配置在同一个namespace里且namespace只有一个，灰度配置可以通过apollo.bootstrap.namespaces或者apollo.plugin.namespace来指定（如果namespace为application则都不需要配置）
     - 如果业务配置和灰度配置不在同一个namespace里或者业务配置横跨几个namespace，灰度配置必须通过apollo.plugin.namespace来指定唯一的namespace
+
+② Nacos订阅推送界面
+
+![](http://nepxion.gitee.io/docs/discovery-doc/Nacos2.jpg)
+- 参考Nacos官方文档[https://github.com/alibaba/nacos](https://github.com/alibaba/nacos)相关文档，搭建Nacos环境，以及熟悉相关的基本操作
+- 添加配置步骤跟Apollo配置界面中的“在页面中添加配置”操作项相似
 
 ③ Redis订阅推送界面
 
@@ -1851,6 +1851,10 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 下面两种方式有点古老，并不再维护，请斟酌使用
 
 ① 基于图形化桌面程序的灰度发布
+
+![](http://nepxion.gitee.io/docs/discovery-doc/Console1.jpg)
+![](http://nepxion.gitee.io/docs/discovery-doc/Console2.jpg)
+
 - 桌面程序对Windows和Mac操作系统都支持，但在Mac操作系统中界面显示有点瑕疵，但不影响功能使用
 - Clone [https://github.com/Nepxion/Discovery.git](https://github.com/Nepxion/Discovery.git)获取源码
 - 通过IDE启动
@@ -1897,8 +1901,16 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ② 基于图形化Web程序的灰度发布
 - 参考[图形化Web](https://github.com/Nepxion/DiscoveryUI)
 - 操作过程跟“基于图形化桌面程序的灰度发布”类似
+![](http://nepxion.gitee.io/docs/discovery-doc/Console14.jpg)
 
-## 基于Group的全链路服务隔离
+
+- 基于组（Group）和黑/白名单的全链路服务隔离和准入。主要包括
+    - 服务注册准入。包括基于组（Group）和IP地址的黑/白名单注册准入，基于最大注册数限制的注册准入
+    - 消费端服务隔离。包括基于组（Group）的负载均衡的隔离，基于IP地址的黑/白名单隔离
+    - 提供端服务隔离。包括基于组（Group）的Header传值策略的隔离
+
+
+## 基于组和黑/白名单的全链路服务隔离和准入
 元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能调用
 
 ### 注册服务隔离
