@@ -1491,6 +1491,10 @@ spring.application.environment.route=common
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
 
+集成Sentinel熔断隔离限流降级平台
+![](http://nepxion.gitee.io/docs/discovery-doc/Sentinel3.jpg)
+![](http://nepxion.gitee.io/docs/discovery-doc/Sentinel4.jpg)
+
 通过集成Sentinel，在服务端实现该功能
 
 封装NacosDataSource和ApolloDataSource，支持Nacos和Apollo两个远程配置中心，零代码实现Sentinel功能。更多的远程配置中心，请参照Sentinel官方的DataSource并自行集成
@@ -1540,9 +1544,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ### 原生Sentinel规则
 
 原生Sentinel规则的用法，请参照Sentinel官方文档
-
-![](http://nepxion.gitee.io/docs/discovery-doc/Sentinel3.jpg)
-![](http://nepxion.gitee.io/docs/discovery-doc/Sentinel4.jpg)
 
 #### 流控规则
 
@@ -2038,6 +2039,7 @@ spring.application.strategy.tracer.sentinel.args.output.enabled=true
 
 #### Spring-Boot-Admin监控方式
 
+![](http://nepxion.gitee.io/docs/discovery-doc/Admin1.jpg)
 ![](http://nepxion.gitee.io/docs/discovery-doc/Admin7.jpg)
 
 ## 全链路Header传递
