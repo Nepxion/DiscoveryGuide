@@ -2367,7 +2367,7 @@ spring.application.group.generator.character=-
 
 更多的配置方式，参考[https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md](https://github.com/git-commit-id/maven-git-commit-id-plugin/blob/master/maven/docs/using-the-plugin.md)
 
-可能需要增加下面的配置，保证git相关文件被打包进去
+可能需要增加下面的配置，保证Git相关文件被打包进去
 ```xml
 <resources>
     <resource>
@@ -2921,7 +2921,7 @@ spring.application.git.generator.path=classpath:git.properties
 
 ### 配置文件
 
-```vb
+```
 # 自动化测试框架内置配置
 # 测试用例类的扫描路径
 spring.application.test.scan.packages=com.nepxion.discovery.guide.test
