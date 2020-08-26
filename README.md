@@ -360,6 +360,9 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 
 [Polaris指南主页](https://github.com/Nepxion/PolarisGuide)
 
+### 文档主页
+[文档主页](https://gitee.com/Nepxion/Docs/tree/master/web-doc)
+
 ## 现有痛点
 现有的Spring Cloud微服务架构的痛点
 - 如果你是运维负责人，是否会经常发现，你掌管的测试环境中的服务注册中心，被一些不负责的开发人员把他本地开发环境注册上来，造成测试人员测试失败。你希望可以把本地开发环境注册给屏蔽掉，不让注册
@@ -368,9 +371,6 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 如果你是业务负责人，希望灰度发布功能可以基于业务场景特色定制，例如根据用户手机号进行不同服务器的路由
 - 如果你是DBA负责人，希望灰度发布功能可以基于数据库切换上
 - 如果你是测试负责人，希望对微服务做A/B测试
-
-### 文档主页
-[文档主页](https://gitee.com/Nepxion/Docs/tree/master/web-doc)
 
 ## 名词解释
 - E版、F版、G版、H版，即Spring Cloud的Edgware、Finchley、Greenwich、Hoxton的首字母，以此类推
