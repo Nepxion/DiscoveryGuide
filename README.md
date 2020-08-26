@@ -286,7 +286,10 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
     - [基于服务名前缀自动创建灰度组名](#基于服务名前缀自动创建灰度组名)
     - [基于Git插件自动创建灰度版本号](#基于Git插件自动创建灰度版本号)
 - [元数据Metadata运维平台策略](#元数据Metadata运维平台策略)
-- [内置配置文件](#内置配置文件)
+- [配置文件](#配置文件)
+    - [基础属性配置](#基础属性配置)
+    - [功能开关配置](#功能开关配置)
+    - [内置文件配置](#内置文件配置)
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
 - [自动化测试](#自动化测试)
     - [架构设计](#架构设计)
@@ -2264,9 +2267,393 @@ spring.application.git.generator.path=file:git.json
 - 通过VM arguments来传递，它的用法是前面加“-D”。支持上述所有的注册组件，它的限制是变量前面必须要加“metadata.”，推荐使用该方式。例如：-Dmetadata.version=1.0
 - 两种方式尽量避免同时用
 
-## 内置配置文件
+## 配置文件
+### 基础属性配置
+不同的服务注册发现组件对应的不同的配置值，请仔细阅读
+```
+# Eureka config for discovery
+eureka.instance.metadataMap.group=xxx-service-group
+eureka.instance.metadataMap.version=1.0
+eureka.instance.metadataMap.region=dev
+eureka.instance.metadataMap.env=env1
 
-框架提供内置配置文件spring-application-default.properties。如果使用者希望对框架做封装，并提供相应的默认配置，可以在src/main/resources目录下放置spring-application-default.properties
+# Consul config for discovery
+# 参考https://springcloud.cc/spring-cloud-consul.html - 元数据和Consul标签
+spring.cloud.consul.discovery.tags=group=xxx-service-group,version=1.0,region=dev,env=env1
+
+# Zookeeper config for discovery
+spring.cloud.zookeeper.discovery.metadata.group=xxx-service-group
+spring.cloud.zookeeper.discovery.metadata.version=1.0
+spring.cloud.zookeeper.discovery.metadata.region=dev
+spring.cloud.zookeeper.discovery.metadata.env=env1
+
+# Nacos config for discovery
+spring.cloud.nacos.discovery.metadata.group=example-service-group
+spring.cloud.nacos.discovery.metadata.version=1.0
+spring.cloud.nacos.discovery.metadata.region=dev
+spring.cloud.nacos.discovery.metadata.env=env1
+
+# Management config
+# E版配置方式
+# 关闭访问Rest接口时候的权限验证
+management.security.enabled=false
+management.port=5100
+
+# F版或以上配置方式
+management.server.port=5100
+```
+
+### 功能开关配置
+服务端配置
+```
+# Plugin core config
+# 开启和关闭服务注册层面的控制。一旦关闭，服务注册的黑/白名单过滤功能将失效，最大注册数的限制过滤功能将失效。缺失则默认为true
+spring.application.register.control.enabled=true
+# 开启和关闭服务发现层面的控制。一旦关闭，服务多版本调用的控制功能将失效，动态屏蔽指定IP地址的服务实例被发现的功能将失效。缺失则默认为true
+spring.application.discovery.control.enabled=true
+# 开启和关闭通过Rest方式对规则配置的控制和推送。一旦关闭，只能通过远程配置中心来控制和推送。缺失则默认为true
+spring.application.config.rest.control.enabled=true
+# 规则文件的格式，支持xml和json。缺失则默认为xml
+spring.application.config.format=xml
+# spring.application.config.format=json
+# 本地规则文件的路径，支持两种方式：classpath:rule.xml（rule.json） - 规则文件放在resources目录下，便于打包进jar；file:rule.xml（rule.json） - 规则文件放在工程根目录下，放置在外部便于修改。缺失则默认为不装载本地规则
+spring.application.config.path=classpath:rule.xml
+# spring.application.config.path=classpath:rule.json
+# 为微服务归类的Key，一般通过group字段来归类，例如eureka.instance.metadataMap.group=xxx-group或者eureka.instance.metadataMap.application=xxx-application。缺失则默认为group
+spring.application.group.key=group
+# spring.application.group.key=application
+# 业务系统希望大多数时候Spring、SpringBoot或者SpringCloud的基本配置、调优参数（非业务系统配置参数），不配置在业务端，集成到基础框架里。但特殊情况下，业务系统有时候也希望能把基础框架里配置的参数给覆盖掉，用他们自己的配置
+# 对于此类型的配置需求，可以配置在下面的配置文件里。该文件一般放在resource目录下。缺失则默认为spring-application-default.properties
+spring.application.default.properties.path=spring-application-default.properties
+# 负载均衡下，消费端尝试获取对应提供端初始服务实例列表为空的时候，进行重试。缺失则默认为false
+spring.application.no.servers.retry.enabled=false
+# 负载均衡下，消费端尝试获取对应提供端初始服务实例列表为空的时候，进行重试的次数。缺失则默认为5
+spring.application.no.servers.retry.times=5
+# 负载均衡下，消费端尝试获取对应提供端初始服务实例列表为空的时候，进行重试的时间间隔。缺失则默认为2000
+spring.application.no.servers.retry.await.time=2000
+# 负载均衡下，消费端尝试获取对应提供端服务实例列表为空的时候，通过日志方式通知。缺失则默认为false
+spring.application.no.servers.notify.enabled=false
+
+# Plugin strategy config
+# 开启和关闭路由策略的控制。一旦关闭，路由策略功能将失效。缺失则默认为true
+spring.application.strategy.control.enabled=true
+# 开启和关闭Ribbon默认的ZoneAvoidanceRule负载均衡策略。一旦关闭，则使用RoundRobin简单轮询负载均衡策略。缺失则默认为true
+spring.application.strategy.zone.avoidance.rule.enabled=true
+# 启动和关闭路由策略的时候，对REST方式的调用拦截。缺失则默认为true
+spring.application.strategy.rest.intercept.enabled=true
+# 启动和关闭路由策略的时候，对REST方式在异步调用场景下在服务端的Request请求的装饰，当主线程先于子线程执行完的时候，Request会被Destory，导致Header仍旧拿不到，开启装饰，就可以确保拿到。缺失则默认为false
+spring.application.strategy.rest.request.decorator.enabled=true
+# 启动和关闭Header传递的Debug日志打印，注意：每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
+spring.application.strategy.rest.intercept.debug.enabled=true
+# 路由策略的时候，对REST方式调用拦截的时候（支持Feign或者RestTemplate调用），希望把来自外部自定义的Header参数（用于框架内置上下文Header，例如：trace-id, span-id等）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
+spring.application.strategy.context.request.headers=trace-id;span-id
+# 路由策略的时候，对REST方式调用拦截的时候（支持Feign或者RestTemplate调用），希望把来自外部自定义的Header参数（用于业务系统子定义Header，例如：mobile）传递到服务里，那么配置如下值。如果多个用“;”分隔，不允许出现空格
+spring.application.strategy.business.request.headers=token
+# 启动和关闭路由策略的时候，对RPC方式的调用拦截。缺失则默认为false
+spring.application.strategy.rpc.intercept.enabled=true
+# 路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能
+spring.application.strategy.scan.packages=com.nepxion.discovery.plugin.example.service.feign
+# 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
+spring.application.strategy.register.isolation.enabled=true
+# 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
+spring.application.strategy.consumer.isolation.enabled=true
+# 启动和关闭提供端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
+spring.application.strategy.provider.isolation.enabled=true
+
+# 启动和关闭核心策略Header传递，缺失则默认为true。当全局订阅启动时，可以关闭核心策略Header传递，这样可以节省传递数据的大小，一定程度上可以提升性能。核心策略Header，包含如下
+# 1. n-d-version
+# 2. n-d-region
+# 3. n-d-address
+# 4. n-d-version-weight
+# 5. n-d-region-weight
+# 6. n-d-env (不属于灰度蓝绿范畴的Header，只要外部传入就会全程传递)
+spring.application.strategy.core.header.transmission.enabled=false
+# 启动和关闭监控，一旦关闭，调用链和日志输出都将关闭。缺失则默认为false
+spring.application.strategy.monitor.enabled=true
+# 启动和关闭日志输出。缺失则默认为false
+spring.application.strategy.logger.enabled=true
+# 日志输出中，是否显示MDC前面的Key。缺失则默认为true
+spring.application.strategy.logger.mdc.key.shown=true
+# 启动和关闭Debug日志打印，注意：每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
+spring.application.strategy.logger.debug.enabled=true
+# 启动和关闭调用链输出。缺失则默认为false
+spring.application.strategy.tracer.enabled=true
+# 启动和关闭调用链的灰度信息以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中（Skywalking不支持原生模式）。缺失则默认为true
+spring.application.strategy.tracer.separate.span.enabled=true
+# 启动和关闭调用链的灰度规则策略信息输出。缺失则默认为true
+spring.application.strategy.tracer.rule.output.enabled=true
+# 启动和关闭调用链的异常信息是否以详细格式输出。缺失则默认为false
+spring.application.strategy.tracer.exception.detail.output.enabled=true
+# 启动和关闭类方法上入参和出参输出到调用链。缺失则默认为false
+spring.application.strategy.tracer.method.context.output.enabled=true
+# 显示在调用链界面上灰度Span的名称，建议改成具有公司特色的框架产品名称。缺失则默认为NEPXION
+spring.application.strategy.tracer.span.value=NEPXION
+# 显示在调用链界面上灰度Span Tag的插件名称，建议改成具有公司特色的框架产品的描述。缺失则默认为Nepxion Discovery
+spring.application.strategy.tracer.span.tag.plugin.value=Nepxion Discovery
+# 启动和关闭Sentinel调用链上规则在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为true
+spring.application.strategy.tracer.sentinel.rule.output.enabled=true
+# 启动和关闭Sentinel调用链上方法入参在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为false
+spring.application.strategy.tracer.sentinel.args.output.enabled=true
+
+# 开启服务端实现Hystrix线程隔离模式做服务隔离时，必须把spring.application.strategy.hystrix.threadlocal.supported设置为true，同时要引入discovery-plugin-strategy-starter-hystrix包，否则线程切换时会发生ThreadLocal上下文对象丢失。缺失则默认为false
+spring.application.strategy.hystrix.threadlocal.supported=true
+
+# 启动和关闭Sentinel限流降级熔断权限等原生功能的数据来源扩展和调用链埋点输出。缺失则默认为false
+spring.application.strategy.sentinel.enabled=true
+# 流控规则文件路径。缺失则默认为classpath:sentinel-flow.json
+spring.application.strategy.sentinel.flow.path=classpath:sentinel-flow.json
+# 降级规则文件路径。缺失则默认为classpath:sentinel-degrade.json
+spring.application.strategy.sentinel.degrade.path=classpath:sentinel-degrade.json
+# 授权规则文件路径。缺失则默认为classpath:sentinel-authority.json
+spring.application.strategy.sentinel.authority.path=classpath:sentinel-authority.json
+# 系统规则文件路径。缺失则默认为classpath:sentinel-system.json
+spring.application.strategy.sentinel.system.path=classpath:sentinel-system.json
+# 热点参数流控规则文件路径。缺失则默认为classpath:sentinel-param-flow.json
+spring.application.strategy.sentinel.param.flow.path=classpath:sentinel-param-flow.json
+# 服务端执行规则时候，以Http请求中的Header值作为关键Key。缺失则默认为n-d-service-id，即以服务名作为关键Key
+spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
+# 启动和关闭Sentinel LimitApp限流等功能。缺失则默认为false
+spring.application.strategy.service.sentinel.limit.app.enabled=true
+
+# 防止多个网关上并行实施灰度路由产生混乱，对处于非灰度状态的服务，调用它的时候，只取它的老的稳定版本的实例；灰度状态的服务，还是根据传递的Header版本号进行匹配
+# 启动和关闭调用对端服务，是否执行调用它的时候只取它的老的稳定版本的实例的策略。缺失则默认为false
+spring.application.strategy.version.filter.enabled=true
+
+# 流量路由到指定的环境下。不允许为保留值default，缺失则默认为common
+spring.application.environment.route=common
+
+# 开启和关闭使用服务名前缀来作为服务组名。缺失则默认为false
+spring.application.group.generator.enabled=true
+# 服务名前缀的截断长度，必须大于0
+spring.application.group.generator.length=15
+# 服务名前缀的截断标志。当截断长度配置了，则取截断长度方式，否则取截断标志方式
+spring.application.group.generator.character=-
+
+# 开启和关闭使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为false
+spring.application.git.generator.enabled=true
+# 插件git-commit-id-plugin产生git信息文件的输出路径，支持properties和json两种格式，支持classpath:xxx和file:xxx两种路径，这些需要和插件里的配置保持一致。缺失则默认为classpath:git.properties
+spring.application.git.generator.path=classpath:git.properties
+# spring.application.git.generator.path=classpath:git.json
+# 使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为{git.commit.time}-{git.total.commit.count}
+spring.application.git.version.key={git.commit.id.abbrev}-{git.commit.time}
+# spring.application.git.version.key={git.build.version}-{git.commit.time}
+```
+
+Spring Cloud Gateway端配置
+```
+# Plugin core config
+# 开启和关闭服务注册层面的控制。一旦关闭，服务注册的黑/白名单过滤功能将失效，最大注册数的限制过滤功能将失效。缺失则默认为true
+spring.application.register.control.enabled=true
+# 开启和关闭服务发现层面的控制。一旦关闭，服务多版本调用的控制功能将失效，动态屏蔽指定IP地址的服务实例被发现的功能将失效。缺失则默认为true
+spring.application.discovery.control.enabled=true
+# 开启和关闭通过Rest方式对规则配置的控制和推送。一旦关闭，只能通过远程配置中心来控制和推送。缺失则默认为true
+spring.application.config.rest.control.enabled=true
+# 规则文件的格式，支持xml和json。缺失则默认为xml
+spring.application.config.format=xml
+# spring.application.config.format=json
+# 本地规则文件的路径，支持两种方式：classpath:rule.xml（rule.json） - 规则文件放在resources目录下，便于打包进jar；file:rule.xml（rule.json） - 规则文件放在工程根目录下，放置在外部便于修改。缺失则默认为不装载本地规则
+spring.application.config.path=classpath:rule.xml
+# spring.application.config.path=classpath:rule.json
+# 为微服务归类的Key，一般通过group字段来归类，例如eureka.instance.metadataMap.group=xxx-group或者eureka.instance.metadataMap.application=xxx-application。缺失则默认为group
+spring.application.group.key=group
+# spring.application.group.key=application
+# 业务系统希望大多数时候Spring、SpringBoot或者SpringCloud的基本配置、调优参数（非业务系统配置参数），不配置在业务端，集成到基础框架里。但特殊情况下，业务系统有时候也希望能把基础框架里配置的参数给覆盖掉，用他们自己的配置
+# 对于此类型的配置需求，可以配置在下面的配置文件里。该文件一般放在resource目录下。缺失则默认为spring-application-default.properties
+spring.application.default.properties.path=spring-application-default.properties
+# 负载均衡下，消费端尝试获取对应提供端初始服务实例列表为空的时候，进行重试。缺失则默认为false
+spring.application.no.servers.retry.enabled=false
+# 负载均衡下，消费端尝试获取对应提供端初始服务实例列表为空的时候，进行重试的次数。缺失则默认为5
+spring.application.no.servers.retry.times=5
+# 负载均衡下，消费端尝试获取对应提供端初始服务实例列表为空的时候，进行重试的时间间隔。缺失则默认为2000
+spring.application.no.servers.retry.await.time=2000
+# 负载均衡下，消费端尝试获取对应提供端服务实例列表为空的时候，通过日志方式通知。缺失则默认为false
+spring.application.no.servers.notify.enabled=false
+
+# Plugin strategy config
+# 开启和关闭路由策略的控制。一旦关闭，路由策略功能将失效。缺失则默认为true
+spring.application.strategy.control.enabled=true
+# 开启和关闭Ribbon默认的ZoneAvoidanceRule负载均衡策略。一旦关闭，则使用RoundRobin简单轮询负载均衡策略。缺失则默认为true
+spring.application.strategy.zone.avoidance.rule.enabled=true
+# 路由策略过滤器的执行顺序（Order）。缺失则默认为9000
+spring.application.strategy.gateway.route.filter.order=9000
+# 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
+spring.application.strategy.gateway.header.priority=false
+# 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
+spring.application.strategy.gateway.original.header.ignored=true
+# 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
+spring.application.strategy.register.isolation.enabled=true
+# 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
+spring.application.strategy.consumer.isolation.enabled=true
+
+# 启动和关闭核心策略Header传递，缺失则默认为true。当全局订阅启动时，可以关闭核心策略Header传递，这样可以节省传递数据的大小，一定程度上可以提升性能。核心策略Header，包含如下
+# 1. n-d-version
+# 2. n-d-region
+# 3. n-d-address
+# 4. n-d-version-weight
+# 5. n-d-region-weight
+# 6. n-d-env (不属于灰度蓝绿范畴的Header，只要外部传入就会全程传递)
+spring.application.strategy.core.header.transmission.enabled=false
+# 启动和关闭监控，一旦关闭，调用链和日志输出都将关闭。缺失则默认为false
+spring.application.strategy.monitor.enabled=true
+# 启动和关闭日志输出。缺失则默认为false
+spring.application.strategy.logger.enabled=true
+# 日志输出中，是否显示MDC前面的Key。缺失则默认为true
+spring.application.strategy.logger.mdc.key.shown=true
+# 启动和关闭Debug日志打印，注意：每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
+spring.application.strategy.logger.debug.enabled=true
+# 启动和关闭调用链输出。缺失则默认为false
+spring.application.strategy.tracer.enabled=true
+# 启动和关闭调用链的灰度信息以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中（Skywalking不支持原生模式）。缺失则默认为true
+spring.application.strategy.tracer.separate.span.enabled=true
+# 启动和关闭调用链的灰度规则策略信息输出。缺失则默认为true
+spring.application.strategy.tracer.rule.output.enabled=true
+# 启动和关闭调用链的异常信息是否以详细格式输出。缺失则默认为false
+spring.application.strategy.tracer.exception.detail.output.enabled=true
+# 显示在调用链界面上灰度Span的名称，建议改成具有公司特色的框架产品名称。缺失则默认为NEPXION
+spring.application.strategy.tracer.span.value=NEPXION
+# 显示在调用链界面上灰度Span Tag的插件名称，建议改成具有公司特色的框架产品的描述。缺失则默认为Nepxion Discovery
+spring.application.strategy.tracer.span.tag.plugin.value=Nepxion Discovery
+# 启动和关闭Sentinel调用链上规则在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为true
+spring.application.strategy.tracer.sentinel.rule.output.enabled=true
+# 启动和关闭Sentinel调用链上方法入参在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为false
+spring.application.strategy.tracer.sentinel.args.output.enabled=true
+
+# 开启Spring Cloud Gateway网关上实现Hystrix线程隔离模式做服务隔离时，必须把spring.application.strategy.hystrix.threadlocal.supported设置为true，同时要引入discovery-plugin-strategy-starter-hystrix包，否则线程切换时会发生ThreadLocal上下文对象丢失。缺失则默认为false
+spring.application.strategy.hystrix.threadlocal.supported=true
+
+# 防止多个网关上并行实施灰度路由产生混乱，对处于非灰度状态的服务，调用它的时候，只取它的老的稳定版本的实例；灰度状态的服务，还是根据传递的Header版本号进行匹配
+# 启动和关闭调用对端服务，是否执行调用它的时候只取它的老的稳定版本的实例的策略。缺失则默认为false
+spring.application.strategy.version.filter.enabled=true
+
+# 流量路由到指定的环境下。不允许为保留值default，缺失则默认为common
+spring.application.environment.route=common
+
+# 开启和关闭使用服务名前缀来作为服务组名。缺失则默认为false
+spring.application.group.generator.enabled=true
+# 服务名前缀的截断长度，必须大于0
+spring.application.group.generator.length=15
+# 服务名前缀的截断标志。当截断长度配置了，则取截断长度方式，否则取截断标志方式
+spring.application.group.generator.character=-
+
+# 开启和关闭使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为false
+spring.application.git.generator.enabled=true
+# 插件git-commit-id-plugin产生git信息文件的输出路径，支持properties和json两种格式，支持classpath:xxx和file:xxx两种路径，这些需要和插件里的配置保持一致。缺失则默认为classpath:git.properties
+spring.application.git.generator.path=classpath:git.properties
+# spring.application.git.generator.path=classpath:git.json
+# 使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为{git.commit.time}-{git.total.commit.count}
+spring.application.git.version.key={git.commit.id.abbrev}-{git.commit.time}
+# spring.application.git.version.key={git.build.version}-{git.commit.time}
+```
+
+Zuul端配置
+```
+# Plugin core config
+# 开启和关闭服务注册层面的控制。一旦关闭，服务注册的黑/白名单过滤功能将失效，最大注册数的限制过滤功能将失效。缺失则默认为true
+spring.application.register.control.enabled=true
+# 开启和关闭服务发现层面的控制。一旦关闭，服务多版本调用的控制功能将失效，动态屏蔽指定IP地址的服务实例被发现的功能将失效。缺失则默认为true
+spring.application.discovery.control.enabled=true
+# 开启和关闭通过Rest方式对规则配置的控制和推送。一旦关闭，只能通过远程配置中心来控制和推送。缺失则默认为true
+spring.application.config.rest.control.enabled=true
+# 规则文件的格式，支持xml和json。缺失则默认为xml
+spring.application.config.format=xml
+# spring.application.config.format=json
+# 本地规则文件的路径，支持两种方式：classpath:rule.xml（rule.json） - 规则文件放在resources目录下，便于打包进jar；file:rule.xml（rule.json） - 规则文件放在工程根目录下，放置在外部便于修改。缺失则默认为不装载本地规则
+spring.application.config.path=classpath:rule.xml
+# spring.application.config.path=classpath:rule.json
+# 为微服务归类的Key，一般通过group字段来归类，例如eureka.instance.metadataMap.group=xxx-group或者eureka.instance.metadataMap.application=xxx-application。缺失则默认为group
+spring.application.group.key=group
+# spring.application.group.key=application
+# 业务系统希望大多数时候Spring、SpringBoot或者SpringCloud的基本配置、调优参数（非业务系统配置参数），不配置在业务端，集成到基础框架里。但特殊情况下，业务系统有时候也希望能把基础框架里配置的参数给覆盖掉，用他们自己的配置
+# 对于此类型的配置需求，可以配置在下面的配置文件里。该文件一般放在resource目录下。缺失则默认为spring-application-default.properties
+spring.application.default.properties.path=spring-application-default.properties
+# 负载均衡下，消费端尝试获取对应提供端初始服务实例列表为空的时候，进行重试。缺失则默认为false
+spring.application.no.servers.retry.enabled=false
+# 负载均衡下，消费端尝试获取对应提供端初始服务实例列表为空的时候，进行重试的次数。缺失则默认为5
+spring.application.no.servers.retry.times=5
+# 负载均衡下，消费端尝试获取对应提供端初始服务实例列表为空的时候，进行重试的时间间隔。缺失则默认为2000
+spring.application.no.servers.retry.await.time=2000
+# 负载均衡下，消费端尝试获取对应提供端服务实例列表为空的时候，通过日志方式通知。缺失则默认为false
+spring.application.no.servers.notify.enabled=false
+
+# Plugin strategy config
+# 开启和关闭路由策略的控制。一旦关闭，路由策略功能将失效。缺失则默认为true
+spring.application.strategy.control.enabled=true
+# 开启和关闭Ribbon默认的ZoneAvoidanceRule负载均衡策略。一旦关闭，则使用RoundRobin简单轮询负载均衡策略。缺失则默认为true
+spring.application.strategy.zone.avoidance.rule.enabled=true
+# 路由策略过滤器的执行顺序（Order）。缺失则默认为0
+spring.application.strategy.zuul.route.filter.order=0
+# 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
+spring.application.strategy.zuul.header.priority=false
+# 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
+spring.application.strategy.zuul.original.header.ignored=true
+# 启动和关闭注册的服务隔离（基于Group黑/白名单的策略）。缺失则默认为false
+spring.application.strategy.register.isolation.enabled=true
+# 启动和关闭消费端的服务隔离（基于Group是否相同的策略）。缺失则默认为false
+spring.application.strategy.consumer.isolation.enabled=true
+
+# 启动和关闭核心策略Header传递，缺失则默认为true。当全局订阅启动时，可以关闭核心策略Header传递，这样可以节省传递数据的大小，一定程度上可以提升性能。核心策略Header，包含如下
+# 1. n-d-version
+# 2. n-d-region
+# 3. n-d-address
+# 4. n-d-version-weight
+# 5. n-d-region-weight
+# 6. n-d-env (不属于灰度蓝绿范畴的Header，只要外部传入就会全程传递)
+spring.application.strategy.core.header.transmission.enabled=false
+# 启动和关闭监控，一旦关闭，调用链和日志输出都将关闭。缺失则默认为false
+spring.application.strategy.monitor.enabled=true
+# 启动和关闭日志输出。缺失则默认为false
+spring.application.strategy.logger.enabled=true
+# 日志输出中，是否显示MDC前面的Key。缺失则默认为true
+spring.application.strategy.logger.mdc.key.shown=true
+# 启动和关闭Debug日志打印，注意：每调用一次都会打印一次，会对性能有所影响，建议压测环境和生产环境关闭。缺失则默认为false
+spring.application.strategy.logger.debug.enabled=true
+# 启动和关闭调用链输出。缺失则默认为false
+spring.application.strategy.tracer.enabled=true
+# 启动和关闭调用链的灰度信息以独立的Span节点输出，如果关闭，则灰度信息输出到原生的Span节点中（Skywalking不支持原生模式）。缺失则默认为true
+spring.application.strategy.tracer.separate.span.enabled=true
+# 启动和关闭调用链的灰度规则策略信息输出。缺失则默认为true
+spring.application.strategy.tracer.rule.output.enabled=true
+# 启动和关闭调用链的异常信息是否以详细格式输出。缺失则默认为false
+spring.application.strategy.tracer.exception.detail.output.enabled=true
+# 显示在调用链界面上灰度Span的名称，建议改成具有公司特色的框架产品名称。缺失则默认为NEPXION
+spring.application.strategy.tracer.span.value=NEPXION
+# 显示在调用链界面上灰度Span Tag的插件名称，建议改成具有公司特色的框架产品的描述。缺失则默认为Nepxion Discovery
+spring.application.strategy.tracer.span.tag.plugin.value=Nepxion Discovery
+# 启动和关闭Sentinel调用链上规则在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为true
+spring.application.strategy.tracer.sentinel.rule.output.enabled=true
+# 启动和关闭Sentinel调用链上方法入参在Span上的输出，注意：原生的Sentinel不是Spring技术栈，下面参数必须通过-D方式或者System.setProperty方式等设置进去。缺失则默认为false
+spring.application.strategy.tracer.sentinel.args.output.enabled=true
+
+# 开启Zuul网关上实现Hystrix线程隔离模式做服务隔离时，必须把spring.application.strategy.hystrix.threadlocal.supported设置为true，同时要引入discovery-plugin-strategy-starter-hystrix包，否则线程切换时会发生ThreadLocal上下文对象丢失。缺失则默认为false
+spring.application.strategy.hystrix.threadlocal.supported=true
+
+# 防止多个网关上并行实施灰度路由产生混乱，对处于非灰度状态的服务，调用它的时候，只取它的老的稳定版本的实例；灰度状态的服务，还是根据传递的Header版本号进行匹配
+# 启动和关闭调用对端服务，是否执行调用它的时候只取它的老的稳定版本的实例的策略。缺失则默认为false
+spring.application.strategy.version.filter.enabled=true
+
+# 流量路由到指定的环境下。不允许为保留值default，缺失则默认为common
+spring.application.environment.route=common
+
+# 开启和关闭使用服务名前缀来作为服务组名。缺失则默认为false
+spring.application.group.generator.enabled=true
+# 服务名前缀的截断长度，必须大于0
+spring.application.group.generator.length=15
+# 服务名前缀的截断标志。当截断长度配置了，则取截断长度方式，否则取截断标志方式
+spring.application.group.generator.character=-
+
+# 开启和关闭使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为false
+spring.application.git.generator.enabled=true
+# 插件git-commit-id-plugin产生git信息文件的输出路径，支持properties和json两种格式，支持classpath:xxx和file:xxx两种路径，这些需要和插件里的配置保持一致。缺失则默认为classpath:git.properties
+spring.application.git.generator.path=classpath:git.properties
+# spring.application.git.generator.path=classpath:git.json
+# 使用Git信息中的字段单个或者多个组合来作为服务版本号。缺失则默认为{git.commit.time}-{git.total.commit.count}
+# spring.application.git.version.key={git.commit.id.abbrev}-{git.commit.time}
+# spring.application.git.version.key={git.build.version}-{git.commit.time}
+```
+
+### 内置文件配置
+
+框架提供内置文件方式的配置spring-application-default.properties。如果使用者希望对框架做封装，并提供相应的默认配置，可以在src/main/resources目录下放置spring-application-default.properties
 
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：该文件在整个服务目录和包中只能出现一次
 
