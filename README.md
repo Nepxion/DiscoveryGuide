@@ -258,7 +258,8 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     - [规则策略示例](#规则策略示例)
 - [基于多方式的规则和策略推送](#基于多方式的规则和策略推送)
     - [基于远程配置中心的规则和策略订阅推送](#基于远程配置中心的规则和策略订阅推送)
-    - [基于Swagger和Rest的规则和策略推送](#基于Swagger和Rest的规则和策略推送)	
+    - [基于Swagger和Rest的规则和策略推送](#基于Swagger和Rest的规则和策略推送)
+    - [基于图形化界面的规则和策略推送](#基于图形化界面的规则和策略推送)
 - [基于Group的全链路服务隔离](#基于Group的全链路服务隔离)
     - [注册服务隔离](#注册服务隔离)
     - [消费端服务隔离](#消费端服务隔离)
@@ -1841,7 +1842,10 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Swagger2.jpg)
 
-### 基于图形化桌面程序的灰度发布
+### 基于图形化界面的规则和策略推送
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 下面两种方式有点古老，并不再维护，请斟酌使用
+
+① 基于图形化桌面程序的灰度发布
 - 桌面程序对Windows和Mac操作系统都支持，但在Mac操作系统中界面显示有点瑕疵，但不影响功能使用
 - Clone [https://github.com/Nepxion/Discovery.git](https://github.com/Nepxion/Discovery.git)获取源码
 - 通过IDE启动
@@ -1885,7 +1889,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         - 请访问[https://pan.baidu.com/s/1XQSKCZUykc6t04xzfrFHsg](https://pan.baidu.com/s/1XQSKCZUykc6t04xzfrFHsg)，获取更清晰的视频，注意一定要下载下来看，不要在线看，否则不清晰
         - 请访问[http://www.iqiyi.com/w_19s1e0zf95.html](http://www.iqiyi.com/w_19s1e0zf95.html)，视频清晰度改成720P，然后最大化播放
 
-### 基于图形化Web程序的灰度发布
+② 基于图形化Web程序的灰度发布
 - 参考[图形化Web](https://github.com/Nepxion/DiscoveryUI)
 - 操作过程跟“基于图形化桌面程序的灰度发布”类似
 
