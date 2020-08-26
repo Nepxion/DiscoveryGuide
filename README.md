@@ -324,7 +324,6 @@ Discovery【探索】微服务框架，易用性上特性包括
 ![](http://nepxion.gitee.io/docs/zxing-doc/微信-1.jpg)![](http://nepxion.gitee.io/docs/zxing-doc/公众号-1.jpg)![](http://nepxion.gitee.io/docs/zxing-doc/文档-1.jpg)
 
 ## 相关版本
-
 | 框架版本 | 框架分支 | 框架状态 | Spring Cloud版本 | Spring Boot版本 | Spring Cloud Alibaba版本 |
 | --- | --- | --- | --- | --- | --- |
 | 6.0.7 | master | ![](http://nepxion.gitee.io/docs/icon-doc/confirm_24.png) | Hoxton<br><br>Greenwich<br>Finchley | 2.3.x.RELEASE<br>2.2.x.RELEASE<br>2.1.x.RELEASE<br>2.0.x.RELEASE | 2.2.x.RELEASE<br><br>2.1.x.RELEASE<br>2.0.x.RELEASE |
@@ -384,7 +383,6 @@ Discovery【探索】微服务框架，易用性上特性包括
 ## 工程架构
 
 ### 工程清单
-
 | 工程名 | 描述 |
 | --- | --- |
 | <img src="http://nepxion.gitee.io/docs/icon-doc/direction_west.png"> discovery-common | 通用模块 |
@@ -581,7 +579,6 @@ spring.application.discovery.control.enabled=false
 ```
 
 ### 架构核心
-
 - 灰度方式区别图
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Difference.jpg)
@@ -599,7 +596,6 @@ spring.application.discovery.control.enabled=false
 ![](http://nepxion.gitee.io/docs/discovery-doc/Module.jpg)
 
 ## 准备工作
-
 为了更好的阐述框架的各项功能，本文围绕指南示例进行阐述，请使用者先进行下面的准备工作。指南示例以Nacos为服务注册中心和配置中心展开介绍，使用者可自行换成其它服务注册中心和配置中心
 
 ### 环境搭建
@@ -652,7 +648,6 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 - 上述步骤在下面每次更改规则策略的时候执行，并验证结果和规则策略的期望值是否相同
 
 ## 基于Header传递方式的灰度路由策略
-
 ![](http://nepxion.gitee.io/docs/icon-doc/information.png) 本章节通过网关为触发点来介绍灰度路由策略功能，使用者也可以不通过网关，直接以微服务为触发点进行实施
 
 ### 配置网关灰度路由策略
@@ -796,7 +791,6 @@ IP地址和端口灰度路由架构图
 ![](http://nepxion.gitee.io/docs/discovery-doc/RouteAddress.jpg)
 
 #### 动态变更元数据的灰度路由策略
-
 利用注册中心的Open API接口动态变更服务实例的元数据，达到稳定版本和灰度版本流量控制的目的。以Nacos的版本匹配为例
 老的稳定版本的服务实例配置元数据
 ```
@@ -852,7 +846,6 @@ curl -X PUT 'http://ip:port/eureka/apps/{appId}/{instanceId}/metadata?version=st
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 需要注意的是，该方案利用第三方注册中心的Open API达到控制目的，具有一定的延迟性，不如本框架那样具有灰度发布实时生效的特征
 
 #### 全局订阅式的灰度路由策略
-
 通过全链路传递Header实现灰度路由，会存在一定的困难，框架提供另外一种很简单的方式来规避Header传递，但能达到Header传递一样的效果。以版本匹配为例
 
 增加版本匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务走1.0版本，b服务走1.1版本
@@ -1411,7 +1404,6 @@ spring.application.strategy.rpc.intercept.enabled=true
 ```
 
 ### 并行灰度路由下的版本优选策略
-
 防止多个网关上并行实时灰度路由产生混乱，对处于非灰度状态的服务，调用它的时候，只取它的老的稳定版本的实例；灰度状态的服务，还是根据传递的Header版本号进行匹配
 优选的方式，对版本号进行排序，取第一个版本号，所以此方案的前置条件是必须版本号是规律的有次序，例如，以时间戳的方式
 
@@ -1422,7 +1414,6 @@ spring.application.strategy.version.filter.enabled=true
 ```
 
 ### 基于异步场景的全链路灰度路由策略
-
 当若干个服务之间调用，存在异步场景，如下
 - 调用时候，启用了Hystrix线程池隔离机制
 - 线程池里的线程触发调用
@@ -1433,7 +1424,6 @@ spring.application.strategy.version.filter.enabled=true
 参考异步跨线程Agent的解决方案
 
 ## 基于订阅方式的全链路灰度发布规则
-
 在Nacos配置中心，增加全链路灰度发布规则
 
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：该功能和网关灰度路由和灰度权重功能会叠加，为了不影响演示效果，请先清除网关灰度路由的策略
@@ -1573,7 +1563,6 @@ spring.application.strategy.version.filter.enabled=true
 ## 基于多方式的规则和策略推送
 
 ### 基于远程配置中心的规则和策略订阅推送
-
 Nacos订阅推送界面
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Nacos2.jpg)
@@ -1583,7 +1572,6 @@ Apollo订阅推送界面
 ![](http://nepxion.gitee.io/docs/discovery-doc/Apollo1.jpg)
 
 ### 基于Swagger和Rest的规则和策略推送
-
 服务侧单个推送界面
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Swagger1.jpg)
@@ -1593,7 +1581,6 @@ Apollo订阅推送界面
 ![](http://nepxion.gitee.io/docs/discovery-doc/Swagger2.jpg)
 
 ## 基于Group的全链路服务隔离
-
 元数据中的Group在一定意义上代表着系统ID或者系统逻辑分组，基于Group策略意味着只有同一个系统中的服务才能调用
 
 ### 注册服务隔离
@@ -1635,20 +1622,17 @@ Reject to invoke because of isolation with different service group
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide6-2.jpg)
 
 ## 基于Env的全链路环境隔离和路由
-
 基于服务实例的元数据Metadata的env参数和全链路传递的环境Header值进行比对实现隔离，当从网关传递来的环境Header（n-d-env）值和提供端实例的元数据Metadata环境配置值相等才能调用。环境隔离下，调用端实例找不到符合条件的提供端实例，把流量路由到一个通用或者备份环境
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/IsolationEnvironment.jpg)
 
 ### 环境隔离
-
 在网关或者服务端，配置环境元数据，在同一套环境下，env值必须是一样的，这样才能达到在同一个注册中心下，环境隔离的目的
 ```
 spring.cloud.nacos.discovery.metadata.env=env1
 ```
 
 ### 环境路由
-
 在环境隔离执行的时候，如果无法找到对应的环境，则会路由到一个通用或者备份环境，默认为env为common的环境，可以通过如下参数进行更改
 ```
 # 流量路由到指定的环境下。不允许为保留值default，缺失则默认为common
@@ -1662,7 +1646,6 @@ spring.application.environment.route=common
 - 如果没有传递环境Header（n-d-env）值，则执行Spring Cloud Ribbon轮询策略
 
 ## 基于Sentinel的全链路服务限流熔断降级权限和灰度融合
-
 集成Sentinel熔断隔离限流降级平台
 ![](http://nepxion.gitee.io/docs/discovery-doc/Sentinel3.jpg)
 ![](http://nepxion.gitee.io/docs/discovery-doc/Sentinel4.jpg)
@@ -1684,7 +1667,6 @@ spring.application.strategy.sentinel.enabled=true
 ```
 
 ### 原生Sentinel注解
-
 参照下面代码，为接口方法增加@SentinelResource注解，value为sentinel-resource，blockHandler和fallback是防护其作用后需要执行的方法
 
 ```java
@@ -1714,11 +1696,9 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ```
 
 ### 原生Sentinel规则
-
 原生Sentinel规则的用法，请参照Sentinel官方文档
 
 #### 流控规则
-
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-flow，规则内容如下
 ```
 [
@@ -1740,7 +1720,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-1.jpg)
 
 #### 降级规则
-
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-degrade，规则内容如下
 ```
 [
@@ -1757,7 +1736,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-2.jpg)
 
 #### 授权规则
-
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-authority，规则内容如下
 ```
 [
@@ -1771,7 +1749,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-3.jpg)
 
 #### 系统规则
-
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-system，规则内容如下
 ```
 [
@@ -1789,7 +1766,6 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-4.jpg)
 
 #### 热点参数流控规则
-
 增加服务discovery-guide-service-b的规则，Group为discovery-guide-group，Data Id为discovery-guide-service-b-sentinel-param-flow，规则内容如下
 ```
 [
@@ -1811,13 +1787,11 @@ public class BFeignImpl extends AbstractFeignImpl implements BFeign {
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-5.jpg)
 
 ### 基于灰度路由和Sentinel-LimitApp扩展的防护机制
-
 该方式对于上面5种规则都有效，这里以授权规则展开阐述
 
 授权规则中，limitApp，如果有多个，可以通过“,”分隔。"strategy": 0 表示白名单，"strategy": 1 表示黑名单
 
 #### 基于服务名的防护机制
-
 修改配置项Sentinel Request Origin Key为服务名的Header名称，修改授权规则中limitApp为对应的服务名，可实现基于服务名的防护机制
 
 配置项，该配置项默认为n-d-service-id，可以不配置
@@ -1837,7 +1811,6 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-id
 ```
 
 #### 基于灰度组的防护机制
-
 修改配置项Sentinel Request Origin Key为灰度组的Header名称，修改授权规则中limitApp为对应的组名，可实现基于组名的防护机制
 
 配置项
@@ -1857,7 +1830,6 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-grou
 ```
 
 #### 基于灰度版本的防护机制
-
 修改配置项Sentinel Request Origin Key为灰度版本的Header名称，修改授权规则中limitApp为对应的版本，可实现基于版本的防护机制
 
 配置项
@@ -1877,7 +1849,6 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-vers
 ```
 
 #### 基于灰度区域的防护机制
-
 修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域，可实现基于区域的防护机制
 
 配置项
@@ -1897,7 +1868,6 @@ spring.application.strategy.service.sentinel.request.origin.key=n-d-service-regi
 ```
 
 #### 基于IP地址和端口的防护机制
-
 修改配置项Sentinel Request Origin Key为灰度区域的Header名称，修改授权规则中limitApp为对应的区域值，可实现基于IP地址和端口的防护机制
 
 配置项
@@ -1923,7 +1893,6 @@ spring.application.strategy.service.sentinel.limit.app.enabled=true
 ```
 
 #### 自定义业务参数的组合式防护机制
-
 通过适配类实现自定义业务参数的组合式防护机制
 ```java
 // 自定义版本号+用户名，实现组合式熔断
@@ -1971,7 +1940,6 @@ public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter()
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide7-8.jpg)
 
 ## 基于Hystrix的全链路服务限流熔断和灰度融合
-
 通过引入Hystrix组件实现服务限流熔断的功能。灰度路由Header和调用链Span在Hystrix线程池隔离模式（信号量模式不需要引入）下传递时，通过线程上下文切换会存在丢失Header的问题，通过下述步骤解决，同时适用于网关端和服务端
 
 - Pom引入
@@ -1995,7 +1963,6 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 ## 全链路监控
 
 ### 全链路调用链监控-Tracing
-
 调用链监控，在本文主要指灰度调用链监控。快速入门操作，请访问操作视频[Nepxion Discovery 灰度发布路由调用链](https://pan.baidu.com/s/1PbksbZKVY7reBrnVb3RS6Q)，注意一定要下载下来看，不要在线看，否则不清晰
 
 灰度调用链主要包括如下12个参数，以n-d-service开头的是必须的，其它是可选的或者按照场景而定。使用者可以自行定义要传递的调用链参数，例如：traceId, spanId等；也可以自行定义要传递的业务调用链参数，例如：mobile, user等
@@ -2016,13 +1983,11 @@ spring.application.strategy.hystrix.threadlocal.supported=true
 灰度调用链输出分为Header方式、调用链方式、日志MDC方式，三种方式可以并存使用。调用链方式支持WebMvc和WebFlux
 
 #### Header输出方式
-
 - Spring Cloud Gateway网关端自行会传输Header值（参考Discovery源码中的AbstractGatewayStrategyRouteFilter.java）
 - Zuul网关端自行会传输Header值（参考Discovery源码中的AbstractZuulStrategyRouteFilter.java）
 - 服务端通过Feign和RestTemplate拦截器传输Header值（参考Discovery源码中的FeignStrategyInterceptor.java和RestTemplateStrategyInterceptor.java）
 
 #### 调用链输出方式
-
 调用链输出方式以OpenUber Jaeger为例来说明
 
 1. 从[网盘文档](https://pan.baidu.com/s/1i57rXaNKPuhGRqZ2MONZOA)获取，Windows操作系统下解压后运行jaeger.bat，Mac和Lunix操作系统请自行研究
@@ -2193,29 +2158,23 @@ spring.application.strategy.tracer.sentinel.args.output.enabled=true
 上述方式也适用于其它引入了低版本reactor-core包版本兼容性的场景
 
 #### 日志输出方式
-
 可以单独输出，也可以结合调用链一起组合输出，使用方式跟调用链方式类似 
 
 参考在IDE控制台打印的结果
 ![](http://nepxion.gitee.io/docs/discovery-doc/Tracer.jpg)
 
 ### 全链路指标监控-Metrics
-
 #### Prometheus监控方式
-
 ![](http://nepxion.gitee.io/docs/discovery-doc/Prometheus.jpg)
 
 #### Grafana监控方式
-
 ![](http://nepxion.gitee.io/docs/discovery-doc/Grafana.jpg)
 
 #### Spring-Boot-Admin监控方式
-
 ![](http://nepxion.gitee.io/docs/discovery-doc/Admin1.jpg)
 ![](http://nepxion.gitee.io/docs/discovery-doc/Admin7.jpg)
 
 ## 全链路Header传递
-
 框架会默认把相关的Header，进行全链路传递，可以通过如下配置进行。除此之外，凡是以“n-d-”开头的任何Header，框架都会默认全链路传递
 ```
 # 启动和关闭路由策略的时候，对REST方式的调用拦截。缺失则默认为true
@@ -2229,7 +2188,6 @@ spring.application.strategy.business.request.headers=user;mobile
 ```
 
 ## 全链路侦测
-
 通过内置基于LoadBalanced RestTemplate方式的/inspector/inspect接口方法，实现全链路侦测，可以查看全链路中调用的各个服务的版本、区域、子环境、IP地址等是否符合预期，是否满足灰度条件，该接口可以集成到使用者的界面中，就可以规避通过Postman工具或者调用链系统去判断，有利于节省人工成本。使用方式
 ```
 1. 执行Post请求
@@ -2238,7 +2196,6 @@ spring.application.strategy.business.request.headers=user;mobile
 ```
 
 ## 全链路服务侧注解
-
 服务侧对于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能，默认映射到RestController类（含有@RestController注解），并配合如下的扫描路径才能工作
 ```
 # 灰度路由策略的时候，需要指定对业务RestController类的扫描路径。此项配置作用于RPC方式的调用拦截、消费端的服务隔离和调用链三项功能
@@ -2247,7 +2204,6 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 当使用者不希望只局限于RestController类（含有@RestController注解）方式，而要求在任何类中实现上述功能，那么框架提供@ServiceStrategy注解，使用者把它加在类头部即可，可以达到和@RestController注解同样的效果
 
 ## 全链路服务侧API权限
-
 服务侧对于RPC方式的调用，可以加入API权限控制，通过在接口或者类名上加@Permission注解，或者在接口或者类的方法名上加@Permission注解，实现API权限控制。如果两者都加，以前者为优先
 - 实现权限自动扫描入库
 - 实现提供显式基于注解的权限验证，参数通过注解传递；实现提供基于Rest请求的权限验证，参数通过Header传递
@@ -2256,7 +2212,6 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 请参考[权限代码](https://github.com/Nepxion/DiscoveryGuide/blob/master/discovery-guide-service/src/main/java/com/nepxion/discovery/guide/service/permission)
 
 ## 异步跨线程Agent
-
 灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程、线程池、@Async注解等异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过下述步骤解决，同时适用于网关端和服务端。该方案可以替代Hystrix线程池隔离模式下的解决方案，也适用于其它有相同使用场景的基础框架和业务场景，例如：Dubbo
 
 ### 插件获取
@@ -2288,7 +2243,6 @@ spring.application.strategy.scan.packages=com.nepxion.discovery.guide.service.fe
 ## 元数据Metadata自动化策略
 
 ### 基于服务名前缀自动创建灰度组名
-
 通过指定长度截断或者标志截断服务名的前缀来自动创建灰度组名，这样就可以避免使用者手工维护灰度组名。当两者都启用的时候，截断方式的组名优先级要高于手工配置的组名
 
 - 增加配置项
@@ -2302,7 +2256,6 @@ spring.application.group.generator.character=-
 ```
 
 ### 基于Git插件自动创建灰度版本号
-
 通过集成插件git-commit-id-plugin，通过产生git信息文件的方式，获取git.commit.id（最后一次代码的提交ID）或者git.build.version（对应到Maven工程的版本）来自动创建灰度版本号，这样就可以避免使用者手工维护灰度版本号。当两者都启用的时候，Git插件方式的版本号优先级要高于手工配置的版本号
 
 - 增加Git编译插件
@@ -2444,7 +2397,6 @@ spring.application.git.generator.path=file:git.json
 内置基于Swagger的Rest接口，可以供外部查询当前服务的Git信息
 
 ## 元数据Metadata运维平台策略
-
 外部系统（例如：运维发布平台）在远程启动微服务的时候，可以通过参数传递来动态改变元数据或者增加运维特色的参数，最后注册到远程配置中心。有如下两种方式
 - 通过Program arguments来传递，它的用法是前面加“--”。支持Eureka、Zookeeper和Nacos的增量覆盖，Consul由于使用了全量覆盖的tag方式，不适用改变单个元数据的方式。例如：--spring.cloud.nacos.discovery.metadata.version=1.0
 - 通过VM arguments来传递，它的用法是前面加“-D”。支持上述所有的注册组件，它的限制是变量前面必须要加“metadata.”，推荐使用该方式。例如：-Dmetadata.version=1.0
@@ -2835,7 +2787,6 @@ spring.application.git.generator.path=classpath:git.properties
 ```
 
 ### 内置文件配置
-
 框架提供内置文件方式的配置spring-application-default.properties。如果使用者希望对框架做封装，并提供相应的默认配置，可以在src/main/resources目录下放置spring-application-default.properties
 
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：该文件在整个服务目录和包中只能出现一次
@@ -2843,7 +2794,6 @@ spring.application.git.generator.path=classpath:git.properties
 ## Docker容器化和Kubernetes平台支持
 
 ### Docker容器化
-
 - 搭建Windows10操作系统或者Linux操作系统下的Docker环境
     - Windows10环境下，具体步骤参考[Docker安装步骤](https://github.com/Nepxion/Thunder/blob/master/thunder-spring-boot-docker-example/README.md)
     - Linux环境请自行研究
@@ -2902,25 +2852,20 @@ spring.application.git.generator.path=classpath:git.properties
 ![](http://nepxion.gitee.io/docs/discovery-doc/Docker.jpg)
 
 ### Kubernetes平台支持
-
 请自行研究
 
 ## 自动化测试
-
 自动化测试，基于Spring Boot/Spring Cloud的自动化测试框架，包括普通调用测试、灰度调用测试和扩展调用测试（例如：支持阿里巴巴的Sentinel，FF4j的功能开关等）。通过注解形式，跟Spring Boot内置的测试机制集成，使用简单方便。该自动化测试框架的现实意义，可以把服务注册发现中心、远程配置中心、负载均衡、灰度发布、熔断降级限流、功能开关、Feign或者RestTemplate调用等中间件或者组件，一条龙组合起来进行自动化测试
 
 自动化测试代码参考[指南示例自动化测试](https://github.com/Nepxion/DiscoveryGuide/tree/master/discovery-guide-test-automation)
 
 ### 架构设计
-
 通过Matrix Aop框架，实现TestAutoScanProxy和TestInterceptor拦截测试用例，实现配置内容的自动化推送
 
 ### 启动控制台
-
 运行[指南示例](https://github.com/Nepxion/DiscoveryGuide)下的DiscoveryGuideConsole.java控制台服务，它是连接服务注册发现中心、远程配置中心和服务的纽带，自动化测试利用控制台实现配置的自动更新和清除
 
 ### 配置文件
-
 ```
 # 自动化测试框架内置配置
 # 测试用例类的扫描路径
@@ -2957,7 +2902,6 @@ gray.weight.testcase.result.offset=5
 ### 测试用例
 
 #### 测试包引入
-
 ```xml
 <dependencies>
     <dependency>
@@ -2992,9 +2936,7 @@ gray.weight.testcase.result.offset=5
 - Idea加"-parameters"参数：http://blog.csdn.net/royal_lr/article/details/52279993
 
 #### 测试入口程序
-
 结合Spring Boot Junit，TestApplication.class为测试框架内置应用启动程序，DiscoveryGuideTestConfiguration用于初始化所有测试用例类。在测试方法上面加入JUnit的@Test注解
-
 ```java
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { TestApplication.class, DiscoveryGuideTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -3039,9 +2981,7 @@ public class DiscoveryGuideTestConfiguration {
 ```
 
 #### 普通调用测试
-
 在测试方法上面增加注解@DTest，通过断言Assert来判断测试结果。注解@DTest内容如下
-
 ```java
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
@@ -3053,7 +2993,6 @@ public @interface DTest {
 ```
 
 代码如下
-
 ```java
 public class DiscoveryGuideTestCases {
     @Autowired
@@ -3080,9 +3019,7 @@ public class DiscoveryGuideTestCases {
 ```
 
 #### 灰度调用测试
-
 在测试方法上面增加注解@DTestConfig，通过断言Assert来判断测试结果。注解DTestConfig注解内容如下
-
 ```java
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
@@ -3154,7 +3091,6 @@ public class DiscoveryGuideTestCases {
 ```
 
 #### 扩展调用测试
-
 除了支持灰度自动化测试外，使用者可扩展出以远程配置中心内容做变更的自动化测试。以阿里巴巴的Sentinel为例子，测试实现方式如下
 - 远程配置中心约定，Apollo上Key的格式为{group}-{serviceId}-sentinel，Nacos上Group为代码中的{group}，Data ID为{serviceId}-{suffix}，即{serviceId}-sentinel
 - 执行测试用例前，把执行限流降级熔断等逻辑的内容（executePath = "sentinel-test.xml"）推送到远程配置中心
@@ -3174,7 +3110,6 @@ public class DiscoveryGuideTestCases {
 ```
 
 ### 测试报告
-
 - 路由策略测试报告样例
 ```
 ---------- Run automation testcase :: testNoGray() ----------
@@ -3276,7 +3211,6 @@ A service 1.1 version weight=60.1667%
 ```
 
 ## 压力测试
-
 压力测试，基于wrk的异步压力测试框架，能用很少的线程压测出很大的并发量，使用简单方便
 
 ### 测试环境
