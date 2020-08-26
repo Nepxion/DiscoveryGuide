@@ -22,8 +22,13 @@
 - [指南Gitee同步镜像](https://gitee.com/Nepxion/DiscoveryGuide)
 - [指南Github原镜像](https://github.com/Nepxion/DiscoveryGuide)
 
-![](http://nepxion.gitee.io/docs/icon-doc/information.png) Polaris【北极星】 企业级云原生微服务框架，基础架构脚手架 ，请访问
-- [Polaris【北极星】 企业级云原生微服务框架](https://github.com/Nepxion/Polaris)
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) Polaris【北极星】企业级云原生微服务框架文档 ，请访问
+- [Polaris【北极星】企业级云原生微服务框架(PDF版)](http://nepxion.gitee.io/docs/link-doc/polaris-framework-pdf.html)
+- [Polaris【北极星】企业级云原生微服务框架(HTML版)](http://nepxion.gitee.io/docs/link-doc/polaris-framework.html)
+
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) Polaris【北极星】企业级云原生微服务框架代码 ，请访问
+- [源码Gitee同步镜像](https://gitee.com/Nepxion/Polaris)
+- [源码Github原镜像](https://github.com/Nepxion/Polaris)
 
 ## 简介
 Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册发现、Ribbon负载均衡、Feign和RestTemplate调用等组件全方位增强的企业级微服务开源解决方案，更贴近企业级需求，更具有企业级的插件引入、开箱即用特征
