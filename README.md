@@ -253,7 +253,8 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
         - [局部区域权重灰度规则](#局部区域权重灰度规则)
     - [配置全链路灰度权重和灰度匹配组合式规则](#配置全链路灰度权重和灰度匹配组合式规则)
 - [基于多格式的规则策略定义](#基于多格式的规则策略定义)
-    - [规则策略定义](#规则策略定义)
+    - [规则策略格式定义](#规则策略格式定义)
+    - [规则策略内容定义](#规则策略内容定义)
     - [规则策略示例](#规则策略示例)
 - [基于多方式的规则和策略推送](#基于多方式的规则和策略推送)
     - [基于远程配置中心的规则和策略订阅推送](#基于远程配置中心的规则和策略订阅推送)
@@ -1570,16 +1571,17 @@ spring.application.strategy.version.filter.enabled=true
 
 ## 基于多格式的规则策略定义
 
-## 规则策略定义
-规则是基于XML或者Json为配置方式，存储于本地文件或者远程配置中心，可以通过远程配置中心修改的方式达到规则动态化。其核心代码参考discovery-plugin-framework以及它的扩展、discovery-plugin-config-center以及它的扩展和discovery-plugin-admin-center等
-
-### 规则策略示例
-XML示例如下，Json示例见源码discovery-springcloud-example-service工程下的rule.json
-
+## 规则策略格式定义
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：服务名大小写规则
 - 在配置文件（application.properties、application.yaml等）里，定义服务名（spring.application.name）不区分大小写
 - 在规则文件（XML、Json）里，引用的服务名必须小写
 - 在Nacos、Apollo、Redis等远程配置中心的Key，包含的服务名必须小写
+
+## 规则策略内容定义
+规则是基于XML或者Json为配置方式，存储于本地文件或者远程配置中心，可以通过远程配置中心修改的方式达到规则动态化。其核心代码参考discovery-plugin-framework以及它的扩展、discovery-plugin-config-center以及它的扩展和discovery-plugin-admin-center等
+
+### 规则策略示例
+XML最全的示例如下，Json示例见源码discovery-springcloud-example-service工程下的rule.json
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
