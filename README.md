@@ -444,6 +444,11 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
 | DiscoveryGuideConsole.java | Console | 6001 | 1.0 | 无 | 无 |
 | DiscoveryGuideAdmin.java | Admin | 6002 | 1.0 | 无 | 无 |
 
+全链路路径， 如下：
+```
+API网关 -> 服务A（两个实例） -> 服务B（两个实例）
+```
+
 ## 环境验证
 - 导入Postman的测试脚本，[脚本地址](https://github.com/Nepxion/DiscoveryGuide/raw/master/postman.json)
 
@@ -2381,23 +2386,6 @@ gray.weight.testcase.result.offset=5
 ```
 
 ### 测试用例
-
-- 自动化测试场景以API网关是测试的触发点，全链路如下：
-
-```
-API网关 -> 服务A（两个实例） -> 服务B（两个实例）
-```
-
-- 各个实例部署情况如下：
-
-| 类名 | 微服务 | 服务端口 | 版本 | 区域 |
-| --- | --- | --- | --- | --- |
-| DiscoveryGuideServiceA1.java | A1 | 3001 | 1.0 | dev |
-| DiscoveryGuideServiceA2.java | A2 | 3002 | 1.1 | qa |
-| DiscoveryGuideServiceB1.java | B1 | 4001 | 1.0 | qa |
-| DiscoveryGuideServiceB2.java | B2 | 4002 | 1.1 | dev |
-| DiscoveryGuideGateway.java | Gateway | 5001 | 1.0 | 无 |
-| DiscoveryGuideZuul.java | Zuul | 5002 | 1.0 | 无 |
 
 #### 测试包引入
 
