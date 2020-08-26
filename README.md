@@ -49,8 +49,7 @@ Discovery【探索】微服务框架，功能主要包括
     - 前端灰度和网关灰度路由组合式策略
 - 基于多方式的规则和策略推送。主要包括
     - 基于远程配置中心的规则和策略订阅推送
-    - 基于Swagger的规则和策略订阅推送
-    - 基于Rest的规则和策略推送
+    - 基于Swagger和Rest的规则和策略推送
 - 基于组（Group）和黑/白名单的全链路服务隔离和准入。主要包括
     - 服务注册准入。包括基于组（Group）和IP地址的黑/白名单注册准入，基于最大注册数限制的注册准入
     - 消费端服务隔离。包括基于组（Group）的负载均衡的隔离，基于IP地址的黑/白名单隔离
@@ -195,9 +194,10 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
 - [工程架构](#工程架构)
     - [架构核心](#架构核心)
     - [工程清单](#工程清单)
-- [环境搭建](#环境搭建)
-- [启动服务](#启动服务)
-- [环境验证](#环境验证)
+- [准备工作](#准备工作)	
+    - [环境搭建](#环境搭建)
+    - [启动服务](#启动服务)
+    - [环境验证](#环境验证)
 - [基于Header传递方式的灰度路由策略](#基于Header传递方式的灰度路由策略)
     - [配置网关灰度路由策略](#配置网关灰度路由策略)
         - [版本匹配灰度路由策略](#版本匹配灰度路由策略)
@@ -408,7 +408,11 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Module.jpg)
 
-## 环境搭建
+## 准备工作
+
+为了更好的阐述框架的各项功能，本文围绕指南示例进行阐述，请使用者先进行下面的准备工作
+
+### 环境搭建
 - 下载代码
     - Git clone https://github.com/Nepxion/DiscoveryGuide.git 
 - 代码导入IDE
@@ -418,7 +422,7 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
     - Windows环境下，运行bin目录下的startup.cmd
     - Linux环境下，运行bin目录下的startup.sh
 
-## 启动服务 
+### 启动服务 
 - 在IDE中，启动四个应用服务和两个网关服务，控制平台服务和监控平台服务可选，如下
 
 | 类名 | 微服务 | 服务端口 | 版本 | 区域 | 子环境 |
@@ -432,15 +436,15 @@ Discovery【探索】微服务框架，涉及到的主要中间件包括
 | DiscoveryGuideConsole.java | Console | 6001 | 1.0 | 无 | 无 |
 | DiscoveryGuideAdmin.java | Admin | 6002 | 1.0 | 无 | 无 |
 
+- 部署拓扑图
+![](http://nepxion.gitee.io/docs/discovery-doc/BasicTopology.jpg)
+
 全链路路径， 如下
 ```
 API网关 -> 服务A（两个实例） -> 服务B（两个实例）
 ```
 
-- 部署拓扑图
-![](http://nepxion.gitee.io/docs/discovery-doc/BasicTopology.jpg)
-
-## 环境验证
+### 环境验证
 - 导入Postman的测试脚本，[脚本地址](https://github.com/Nepxion/DiscoveryGuide/raw/master/postman.json)
 
 - 在Postman中执行目录结构下 ”Nepxion“ -> ”Discovery指南网关接口“ -> ”Gateway网关调用示例“，调用地址为[http://localhost:5001/discovery-guide-service-a/invoke/gateway](http://localhost:5001/discovery-guide-service-a/invoke/gateway)，相关的Header值已经预设，供开发者修改。测试通过Spring Cloud Gateway网关的调用结果，结果为如下格式
