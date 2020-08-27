@@ -396,10 +396,10 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 
 ① 灰度发布（规则）和灰度路由（策略）对比
 
-| | 灰度发布 | 灰度路由 |
+| &nbsp; | 灰度发布 | 灰度路由 |
 | --- | --- | --- |
 | 驱动域 | 规则 | 策略 |
-| 驱动方式 | 通过XML或者Json配置直接驱动 | 通过REST或者RPC调用传递Header或者参数 + XML或者Json配置辅助驱动 |
+| 驱动方式 | 通过XML或者Json配置直接驱动 | 通过REST或者RPC调用传递Header或者参数 + <br>XML或者Json配置辅助驱动 |
 | 驱动频率 | 配置更新，频率低，有延迟性 | 每次调用时候传递，频率高，实时无延迟性 |
 | 扩展性 | 内置，有限扩展，继承三个AbstractXXXListener | 内置，完全扩展，实现DiscoveryEnabledStrategy |
 | 作用域 | 运行前，运行期 | 运行期 |
