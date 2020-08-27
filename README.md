@@ -47,6 +47,8 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由策略映射在网关过滤器中植入Header信息而实现，路由策略传递到全链路服务中，可以在前端界面、网关过滤器、负载均衡策略类三个地方实现路由功能。路由方式主要包括
     - 匹配路由。包括版本匹配路由、区域匹配路由、IP地址和端口匹配路由
     - 权重路由。包括版本权重路由、区域权重路由
+    - 动态变更元数据路由
+    - 全局订阅式的路由。此为妥协性的变种方式
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅一个共享配置。发布方式主要包括
     - 匹配发布。包括版本匹配发布、区域匹配发布
     - 权重发布。包括版本权重发布、区域权重发布
@@ -73,7 +75,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     - 基于IP地址和端口的防护
     - 基于自定义任意的业务参数组合的防护
 - 基于Hystrix的全链路服务限流熔断和灰度融合
-- 全链路监控。包括全链路调用链监控（Tracing）、全链路日志监控（Logging）、全链路指标监控（Metrics），CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）。框架支持符合OpenTracing规范的Uber Jaeger、Apache Skywalking
+- 全链路监控。包括全链路调用链监控（Tracing）、全链路日志监控（Logging）、全链路指标监控（Metrics）。框架支持符合OpenTracing规范的Uber Jaeger、Apache Skywalking
     - 全链路调用链监控（Tracing）包括Header方式、调用链方式、日志方式等单个或者组合式的全链路灰度调用链，支持对Sentinel自动埋点。调用链方式不支持Edgware版（Spring Boot 1.x.x）
     - 全链路指标监控（Metrics）包括Prometheus、Grafana、Spring Boot Admin
 - 全链路Header传递
@@ -95,7 +97,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - [**Nacos**] 阿里巴巴中间件部门开发的新一代集服务注册发现中心和配置中心为一体的中间件。它是构建以“服务”为中心的现代应用架构 (例如微服务范式、云原生范式) 的服务基础设施，支持几乎所有主流类型的“服务”的发现、配置和管理，更敏捷和容易地构建、交付和管理微服务平台
 - [**Sentinel**] 阿里巴巴中间件部门开发的新一代以流量为切入点，从流量控制、熔断降级、系统负载保护等多个维度保护服务的稳定性的分布式系统的流量防卫兵。它承接了阿里巴巴近10年的双十一大促流量的核心场景，例如秒杀（即突发流量控制在系统容量可以承受的范围）、消息削峰填谷、集群流量控制、实时熔断下游不可用应用等
 - [**Spring Cloud Alibaba**] 阿里巴巴中间件部门开发的Spring Cloud增强套件，致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过Spring Cloud编程模型轻松使用这些组件来开发分布式应用服务。依托Spring Cloud Alibaba，只需要添加一些注解和少量配置，就可以将Spring Cloud应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统
-- [**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范
+- [**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范。CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）
 
 ④ 框架支持易用性表现，如下
 - 现有的Spring Cloud微服务很方便引入该中间件，代码零侵入
