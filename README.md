@@ -76,8 +76,8 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     - 基于自定义任意的业务参数组合的防护
 - 基于Hystrix的全链路服务限流熔断和灰度融合
 - 全链路监控。包括全链路调用链监控（Tracing）、全链路日志监控（Logging）、全链路指标监控（Metrics）。框架支持符合OpenTracing规范的Uber Jaeger、Apache Skywalking
-    - 全链路调用链监控（Tracing）包括Header方式、调用链方式、日志方式等单个或者组合式的全链路灰度调用链，支持对Sentinel自动埋点。调用链方式不支持Edgware版（Spring Boot 1.x.x）
-    - 全链路指标监控（Metrics）包括Prometheus、Grafana、Spring Boot Admin
+    - 全链路调用链监控（Tracing）。包括Header方式、调用链方式、日志方式等单个或者组合式的全链路灰度调用链，支持对Sentinel自动埋点。调用链方式不支持Edgware版（Spring Boot 1.x.x）
+    - 全链路指标监控（Metrics）。包括Prometheus、Grafana、Spring Boot Admin
 - 全链路Header传递
 - 全链路服务侧注解
 - 全链路服务侧API权限
@@ -85,11 +85,6 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 元数据Metadata运维平台策略
 - 同城双活多机房切换。基于区域匹配发布或者路由的同城双活多机房切换
 - 数据库灰度发布。基于多数据源的数据库灰度发布，内置简单的数据库灰度发布策略
-- 自定义和编程实现扩展
-    - 用户自定义和编程禁止注册、禁止被发现、禁止被负载均衡的策略
-    - 用户自定义和编程灰度路由策略
-    - 用户自定义和编程负载均衡策略类
-    - 用户自定义参数化灰度发布
 - 灰度路由和发布的自动化测试。基于Spring Boot/Spring Cloud自动化测试，包括普通调用测试、灰度调用测试和扩展调用测试（可扩展出阿里巴巴Sentinel、FF4j功能开关等自动化测试）
 - Docker容器化和Kubernetes平台的无缝支持部署
 
@@ -279,6 +274,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
         - [基于IP地址黑白名单注册准入](#基于IP地址黑白名单注册准入)
         - [基于最大注册数限制注册准入](#基于最大注册数限制注册准入)
         - [基于IP地址黑白名单发现准入](#基于IP地址黑白名单发现准入)
+        - [自定义注册发现准入](#自定义注册发现准入)
     - [消费端服务隔离](#消费端服务隔离)
         - [基于组负载均衡隔离](#基于组负载均衡隔离)
     - [提供端服务隔离](#提供端服务隔离)
@@ -1971,6 +1967,11 @@ spring.application.strategy.register.isolation.group.whitelist=
 
 #### 基于IP地址黑白名单发现准入
 微服务启动的时候，禁止指定的IP地址被服务发现。它使用的方式和[基于IP地址黑白名单注册准入](#基于IP地址黑白名单注册准入)一致
+
+#### 自定义注册发现准入
+- 集成AbstractRegisterListener，实现自定义禁止注册
+- 集成AbstractDiscoveryListener，实现自定义禁止被发现。注意，在Consul下，同时会触发service和management两个实例的事件，需要区别判断
+- 集成AbstractLoadBalanceListener，实现自定义禁止被负载均衡
 
 ### 消费端服务隔离
 
