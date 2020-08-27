@@ -44,12 +44,12 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 支持和兼容Spring Cloud Edgware版、Finchley版、Greenwich版和Hoxton版
 
 ② 框架支持的应用功能，如下
-- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由规则映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中，可以在网关过滤器、前端界面、负载均衡策略类三个地方实现路由功能。路由方式主要包括
-    - 切换路由。包括版本匹配路由、区域匹配路由、IP地址和端口匹配路由
-    - 平滑路由。包括版本权重路由、区域权重路由
+- 基于Header传递的全链路灰度路由，网关为路由触发点。采用配置中心配置路由策略映射在网关过滤器中植入Header信息而实现，路由规则传递到全链路服务中，可以在前端界面、网关过滤器、负载均衡策略类三个地方实现路由功能。路由方式主要包括
+    - 匹配路由。包括版本匹配路由、区域匹配路由、IP地址和端口匹配路由
+    - 权重路由。包括版本权重路由、区域权重路由
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅某个共享配置。发布方式主要包括
-    - 切换发布。包括版本匹配发布，区域匹配发布
-    - 平滑发布。包括版本权重发布、区域权重发布
+    - 匹配发布。包括版本匹配发布，区域匹配发布
+    - 权重发布。包括版本权重发布、区域权重发布
 - 基于灰度发布和灰度路由的多种组合式规则和策略。主要包括
     - 全链路灰度条件命中和灰度匹配组合式策略
     - 全链路灰度条件权重和灰度匹配组合式策略
@@ -57,6 +57,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 基于多方式的规则和策略推送。主要包括
     - 基于远程配置中心的规则和策略订阅推送
     - 基于Swagger和Rest的规则和策略推送
+    - 基于图形化界面的规则和策略推送
 - 基于组（Group）和黑/白名单的全链路服务隔离和准入。主要包括
     - 服务注册准入。包括基于组（Group）和IP地址的黑/白名单注册准入，基于最大注册数限制的注册准入
     - 消费端服务隔离。包括基于组（Group）的负载均衡的隔离，基于IP地址的黑/白名单隔离
@@ -380,7 +381,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 ## 名词解释
 - E版、F版、G版、H版，即Spring Cloud的Edgware、Finchley、Greenwich、Hoxton的首字母，以此类推
 - 灰度发布和灰度路由。灰度发布即基于订阅方式的灰度功能，灰度路由即通过Http Header的传递路由信息的灰度功能，但它也能支持订阅方式
-- 切换灰度（也叫刚性灰度）和平滑灰度（也叫柔性灰度）。切换灰度即在灰度的时候，没有过渡过程，流量直接从旧版本切换到新版本，平滑灰度即在灰度的时候，有个过渡过程，可以根据实际情况，先给新版本分配低额流量，给旧版本分配高额流量，对新版本进行监测，如果没有问题，就继续把旧版的流量切换到新版本上
+- 匹配灰度和权重灰度。匹配灰度即在灰度的时候，没有过渡过程，用版本匹配的方式流量，直接从旧版本切换到新版本，权重灰度即在灰度的时候，有个过渡过程，可以根据实际情况，先给新版本分配低额流量，给旧版本分配高额流量，对新版本进行监测，如果没有问题，就继续把旧版的流量切换到新版本上
 - 规则定义和策略定义。规则定义即通过XML或者Json定义既有格式的规则，策略定义即通过Http Header的策略方式传递路由信息
 - 本地版本，即初始化读取本地配置文件获取的版本，也可以是第一次读取远程配置中心获取的版本。本地版本和初始版本是同一个概念
 - 动态版本，即灰度发布时的版本。动态版本和灰度版本是同一个概念
@@ -390,6 +391,27 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 远程配置中心，即可以存储规则配置XML格式的配置中心，可以包括不限于Nacos，Redis，Apollo
 - 配置（Config）和规则（Rule）。在本系统中属于同一个概念，例如更新配置，即更新规则；例如远程配置中心存储的配置，即规则XML
 - 服务端口和管理端口。服务端口即在配置文件的server.port值，管理端口即management.port（E版）值或者management.server.port（F版或以上）值
+
+这里着重阐述一下，灰度发布（规则）和灰度路由（策略）的关系
+
+① 灰度发布（规则）和灰度路由（策略）对比
+
+| | 灰度发布 | 灰度路由 |
+| --- | --- | --- |
+| 驱动域 | 规则 | 策略 |
+| 驱动方式 | 通过XML或者Json配置直接驱动 | 通过REST或者RPC调用传递Header或者参数 + XML或者Json配置辅助驱动 |
+| 驱动频率 | 配置更新，频率低，有延迟性 | 每次调用时候传递，频率高，实时无延迟性 |
+| 扩展性 | 内置，有限扩展，继承三个AbstractXXXListener | 内置，完全扩展，实现DiscoveryEnabledStrategy |
+| 作用域 | 运行前，运行期 | 运行期 |
+| 依赖性 | 依赖配置中心或者本地配置文件 | 依赖每次调用 |
+
+② 灰度发布（规则）和灰度路由（策略）关系
+
+- 灰度发布（规则）和灰度路由（策略），可以并行在一起工作，也关闭一项，让另一项单独工作
+- 灰度发布（规则）和灰度路由（策略），一起工作的时候，先执行规则过滤逻辑，再执行策略过滤逻辑
+- 灰度发布（规则）和灰度路由（策略）关闭
+    - 灰度发布（规则）关闭，spring.application.register.control.enabled=false和spring.application.discovery.control.enabled=false
+    - 灰度路由（策略）关闭，spring.application.strategy.control.enabled=false
 
 ## 工程架构
 
@@ -445,21 +467,23 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 | <img src="http://nepxion.gitee.io/docs/icon-doc/direction_west.png"> discovery-springcloud-example-gateway | 用于灰度发布的Spring Cloud Gateway示例 |
 
 ### 依赖引入
-下面标注[必须引入]是一定要引入的包，标注[选择引入]是可以选择一个引入，或者不引入
 
-核心插件引入，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端，包括核心灰度发布功能，管理中心，配置中心等
+#### 服务注册发现核心依赖引入
+服务注册发现中间件的四个核心插件，必须引入其中一个。该依赖包括灰度发布功能、注册发现中心、管理中心等功能
 ```xml
-[必须引入] 四个服务注册发现的中间件的增强插件，请任选一个引入
 <dependency>
     <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-starter-nacos</artifactId>
     <artifactId>discovery-plugin-starter-eureka</artifactId>
     <artifactId>discovery-plugin-starter-consul</artifactId>
     <artifactId>discovery-plugin-starter-zookeeper</artifactId>
-    <artifactId>discovery-plugin-starter-nacos</artifactId>
     <version>${discovery.version}</version>
 </dependency>
+```
 
-[选择引入] 三个远程配置中心的中间件的扩展插件，如需要，请任选一个引入，或者也可以引入您自己的扩展
+#### 远程配置中心扩展依赖引入
+远程配置中心中间件的三个扩展插件，选择引入其中一个（也可以引入使用者自己的扩展）。该依赖包括配置中心、规则和策略解析等功能
+```xml
 <dependency>
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-plugin-config-center-starter-apollo</artifactId>
@@ -469,38 +493,43 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 </dependency>
 ```
 
-策略功能引入，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端，包括内置版本路由、区域路由、自定义和编程灰度路由
+#### 路由策略扩展依赖引入
+微服务端、网关Zuul端和网关Spring Cloud Gateway端三个路由策略扩展插件，选择引入其中一个。该依赖灰度路由功能、Http Header传递等功能
 ```xml
-微服务端引入
-[选择引入] 路由策略，如需要，请引入
 <dependency>
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-plugin-strategy-starter-service</artifactId>
-    <version>${discovery.version}</version>
-</dependency>
-
-网关Zuul端引入
-[选择引入] 路由策略，如需要，请引入
-<dependency>
-    <groupId>com.nepxion</groupId>
     <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
-    <version>${discovery.version}</version>
-</dependency>
-
-网关Spring Cloud Gateway端引入
-[选择引入] 路由策略，如需要，请引入
-<dependency>
-    <groupId>com.nepxion</groupId>
     <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
     <version>${discovery.version}</version>
 </dependency>
 ```
 
-[选择引入] 路由策略时候，Hystrix线程池隔离模式下必须引入该插件。灰度路由Header和调用链Span在Hystrix线程池隔离模式（信号量模式不需要引入）下传递时，通过线程上下文切换会存在丢失Header的问题，通过该插件解决，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
+#### 防护插件扩展依赖引入
+- Hystrix防护扩展插件。Hystrix线程池隔离模式下必须引入该插件，灰度路由Header和调用链Span在Hystrix线程池隔离模式（信号量模式不需要引入）下传递时，通过线程上下文切换会存在丢失Header的问题，通过该插件解决，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-plugin-strategy-starter-hystrix</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+- Sentinel防护扩展插件。只适用于微服务端
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-service-sentinel</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+Sentinel防护的数据源扩展插件，选择引入其中一个（也可以引入使用者自己的扩展）
+```xml
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-sentinel-starter-nacos</artifactId>
+    <artifactId>discovery-plugin-strategy-sentinel-starter-apollo</artifactId>
+    <artifactId>discovery-plugin-strategy-sentinel-starter-local</artifactId>
     <version>${discovery.version}</version>
 </dependency>
 ```
@@ -532,24 +561,6 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 spring.application.register.control.enabled=false
 # 开启和关闭服务发现层面的控制。一旦关闭，服务多版本调用的控制功能将失效，动态屏蔽指定IP地址的服务实例被发现的功能将失效。缺失则默认为true
 spring.application.discovery.control.enabled=false
-```
-
-服务端Sentinel防护插件的引入
-```xml
-<dependency>
-    <groupId>com.nepxion</groupId>
-    <artifactId>discovery-plugin-strategy-starter-service-sentinel</artifactId>
-    <version>${discovery.version}</version>
-</dependency>
-
-[选择引入] Sentinel数据源，如需要，请任选一个引入，或者也可以引入您自己的扩展
-<dependency>
-    <groupId>com.nepxion</groupId>
-    <artifactId>discovery-plugin-strategy-sentinel-starter-nacos</artifactId>
-    <artifactId>discovery-plugin-strategy-sentinel-starter-apollo</artifactId>
-    <artifactId>discovery-plugin-strategy-sentinel-starter-local</artifactId>
-    <version>${discovery.version}</version>
-</dependency>
 ```
 
 调用链功能引入，包含三大调用链，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
@@ -593,6 +604,10 @@ spring.application.discovery.control.enabled=false
 - 灰度方式区别图
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Difference.jpg)
+
+- `基于网关为触点的Header传递的全链路灰度路由`，适用于网关前置部署方式的企业。域网关部署模式下，最适用于该方式；非域网关部署模式下，开启并行灰度路由下的版本优选策略
+- `基于全局订阅方式的全链路灰度发布`，适用于网关部署方式比较弱化的企业
+- `基于全局订阅和Header传递组合式全链路灰度路由`，上述两种方式的结合体，是比较理想和节省成本的落地方式
 
 - 服务治理架构图
 
