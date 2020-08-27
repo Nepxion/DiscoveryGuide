@@ -216,8 +216,8 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - [现有痛点](#现有痛点)
 - [名词解释](#名词解释)
 - [工程架构](#工程架构)
-    - [架构核心](#架构核心)
     - [工程清单](#工程清单)
+    - [架构核心](#架构核心)
     - [依赖引入](#依赖引入)	
 - [准备工作](#准备工作)	
     - [环境搭建](#环境搭建)
@@ -316,6 +316,8 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     - [功能开关配置](#功能开关配置)
     - [内置文件配置](#内置文件配置)
 - [Docker容器化和Kubernetes平台支持](#Docker容器化和Kubernetes平台支持)
+    - [Docker容器化](#Docker容器化)
+    - [Kubernetes平台支持](#Kubernetes平台支持)
 - [自动化测试](#自动化测试)
     - [架构设计](#架构设计)
     - [启动控制台](#启动控制台)
@@ -3200,6 +3202,8 @@ spring.application.git.generator.path=classpath:git.properties
 ## Docker容器化和Kubernetes平台支持
 
 ### Docker容器化
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) Spring 2.3.x支持Docker分层部署，步骤也更简单，请参考Polaris【北极星】企业级云原生微服务框架里的介绍
+
 - 搭建Windows10操作系统或者Linux操作系统下的Docker环境
     - Windows10环境下，具体步骤参考[Docker安装步骤](https://github.com/Nepxion/Thunder/blob/master/thunder-spring-boot-docker-example/README.md)
     - Linux环境请自行研究
@@ -3253,7 +3257,6 @@ spring.application.git.generator.path=classpath:git.properties
     - 一键运行install-docker-console.bat或者.sh，把控制平台全自动部署且运行起来
     - 一键运行install-docker-admin.bat或者.sh，把监控平台全自动部署且运行起来	
 - 上述步骤为演示步骤，和DevOps平台结合在一起，更为完美
-- Spring 2.3.x支持Docker分层部署，步骤也更简单，请参考Polaris云原生框架里的介绍
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Docker.jpg)
 
