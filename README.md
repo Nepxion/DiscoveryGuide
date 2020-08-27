@@ -400,10 +400,12 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 | --- | --- | --- |
 | 驱动域 | 规则 | 策略 |
 | 驱动方式 | 通过XML或者Json配置直接驱动 | 通过REST或者RPC调用传递Header或者参数 + <br>XML或者Json配置辅助驱动 |
-| 驱动频率 | 配置更新，频率低，有延迟性 | 每次调用时候传递，频率高，实时无延迟性 |
-| 扩展性 | 内置，有限扩展，继承三个AbstractXXXListener | 内置，完全扩展，实现DiscoveryEnabledStrategy |
+| 驱动频率 | 配置更新，频率低 | 每次调用时候传递，频率高 |
+| 扩展性 | 扩展继承三个AbstractXXXListener | 扩展实现DiscoveryEnabledStrategy |
 | 作用域 | 运行前，运行期 | 运行期 |
 | 依赖性 | 依赖配置中心或者本地配置文件 | 依赖每次调用 |
+| 优点 | 封闭式灰度，无Header驱动，业务无感知 | 开放式灰度，支持Header驱动，条件型灵活灰度，<br>灰度生效实时无延迟性 |
+| 缺点 | 不支持条件型灵活灰度，灰度生效有延迟性 | 需要业务介入，需要处理好异步调用场景下<br>Header丢失的问题 |
 
 ② 灰度发布（规则）和灰度路由（策略）关系
 
