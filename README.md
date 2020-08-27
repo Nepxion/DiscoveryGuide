@@ -52,14 +52,14 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅一个共享配置。发布方式主要包括
     - 匹配发布。包括版本匹配发布、区域匹配发布
     - 权重发布。包括版本权重发布、区域权重发布
-- 基于灰度发布和灰度路由的多种组合式规则和策略。主要包括
+- 基于灰度发布和灰度路由的多种组合式规则策略。主要包括
     - 全链路灰度条件命中和灰度匹配组合式策略
     - 全链路灰度条件权重和灰度匹配组合式策略
     - 前端灰度和网关灰度路由组合式策略
-- 基于多方式的规则和策略推送。主要包括
-    - 基于远程配置中心的规则和策略订阅推送
-    - 基于Swagger和Rest的规则和策略推送
-    - 基于图形化界面的规则和策略推送
+- 基于多方式的规则策略推送。主要包括
+    - 基于远程配置中心的规则策略订阅推送
+    - 基于Swagger和Rest的规则策略推送
+    - 基于图形化界面的规则策略推送
 - 基于组（Group）和黑白名单的全链路服务隔离和准入。主要包括
     - 服务注册发现准入。包括基于组（Group）黑白名单注册准入、基于IP地址黑白名单注册准入、基于最大注册数限制注册准入、基于IP地址黑白名单发现准入
     - 消费端服务隔离。包括基于组（Group）负载均衡隔离
@@ -264,10 +264,10 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     - [规则策略格式定义](#规则策略格式定义)
     - [规则策略内容定义](#规则策略内容定义)
     - [规则策略示例](#规则策略示例)
-- [基于多方式的规则和策略推送](#基于多方式的规则和策略推送)
-    - [基于远程配置中心的规则和策略订阅推送](#基于远程配置中心的规则和策略订阅推送)
-    - [基于Swagger和Rest的规则和策略推送](#基于Swagger和Rest的规则和策略推送)
-    - [基于图形化界面的规则和策略推送](#基于图形化界面的规则和策略推送)
+- [基于多方式的规则策略推送](#基于多方式的规则策略推送)
+    - [基于远程配置中心的规则策略订阅推送](#基于远程配置中心的规则策略订阅推送)
+    - [基于Swagger和Rest的规则策略推送](#基于Swagger和Rest的规则策略推送)
+    - [基于图形化界面的规则策略推送](#基于图形化界面的规则策略推送)
 - [基于组和黑白名单的全链路服务隔离和准入](#基于组和黑白名单的全链路服务隔离和准入)
     - [服务注册发现准入](#服务注册发现准入)
         - [基于组黑白名单注册准入](#基于组黑白名单注册准入)
@@ -401,12 +401,12 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 动态版本，即灰度发布时的版本。动态版本和灰度版本是同一个概念
 - 本地规则，即初始化读取本地配置文件获取的规则，也可以是第一次读取远程配置中心获取的规则。本地规则和初始规则是同一个概念
 - 动态规则，即灰度发布时的规则。动态规则和灰度规则是同一个概念
-- 事件总线，即基于Google Guava的EventBus构建的组件。通过事件总线可以推送动态版本和动态规则的更新和删除
-- 远程配置中心，即可以存储规则配置XML格式的配置中心，可以包括不限于Nacos，Redis，Apollo
+- 事件总线，即基于Google Guava的EventBus构建的组件。通过事件总线可以推送动态规则策略和动态版本的更新和删除
+- 远程配置中心，即可以存储规则策略配置XML格式的配置中心，可以包括不限于Nacos，Redis，Apollo
 - 配置（Config）和规则（Rule）。在本系统中属于同一个概念，例如更新配置，即更新规则；例如远程配置中心存储的配置，即规则XML
 - 服务端口和管理端口。服务端口即在配置文件的server.port值，管理端口即management.port（E版）值或者management.server.port（F版或以上）值
 
-这里着重阐述一下，灰度发布（规则）和灰度路由（策略）的关系
+![](http://nepxion.gitee.io/docs/icon-doc/tip.png) 灰度发布（规则）和灰度路由（策略）
 
 ① 灰度发布（规则）和灰度路由（策略）对比
 
@@ -427,6 +427,31 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - 灰度发布（规则）和灰度路由（策略）关闭
     - 灰度发布（规则）关闭，spring.application.register.control.enabled=false和spring.application.discovery.control.enabled=false
     - 灰度路由（策略）关闭，spring.application.strategy.control.enabled=false
+
+![](http://nepxion.gitee.io/docs/icon-doc/tip.png) 动态改变规则策略和动态改变版本
+
+① 动态改变规则策略
+
+微服务启动的时候，由于规则策略（例如：rule.xml）已经配置在本地，使用者希望改变一下规则策略，而不重启微服务，达到规则策略的改变 
+- 规则策略分为本地规则策略和动态规则策略
+- 本地规则策略是通过在本地规则策略（例如：rule.xml）文件定义的，也可以从远程配置中心获取，在微服务启动的时候读取
+- 动态规则策略是通过POST方式动态设置，或者由远程配置中心推送设置
+- 规则策略初始化的时候，如果接入了远程配置中心，先读取远程规则策略，如果不存在，再读取本地规则策略文件
+- 规则策略可以持久化到远程配置中心，一旦微服务死掉后，再次启动，仍旧可以拿到灰度规则策略，所以动态改变规则策略策略属于永久灰度手段
+- 规则策略推送到远程配置中心可以分为局部推送和全局推送
+    - 局部推送是基于Group+ServiceId来推送的，就是同一个Group下同一个ServiceId的服务集群独立拥有一个规则策略配置，如果采用这种方式，需要在每个微服务集群下做一次灰度。优点是独立封闭，本服务集群灰度失败不会影响到其它服务集群，缺点是相对繁琐
+    - 全局推送是基于Group来推送的（接口参数中的ServiceId由Group来代替），就是同一个Group下所有服务集群共同拥有一个规则策略配置，如果采用这种方式，只需要做一次灰度，所有服务集群都生效。优点是非常简便，缺点具有一定风险，因为这个规则策略配置掌握着所有服务集群的命运。全局推送用于全链路灰度
+    - 如果既执行了全局推送，又执行了局部推送，那么，当服务运行中，优先接受最后一次推送的规则策略；当服务重新启动的时候，优先读取局部推送的规则策略
+
+② 动态改变版本
+![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：动态改变版本，只允许发生在调用链的起点，例如网关，如果没有网关，则取第一个服务，其它层级的服务不能使用该功能
+
+微服务启动的时候，由于版本已经写死在application.properties里，使用者希望改变一下版本，而不重启微服务，达到访问版本的路径改变
+- 版本分为本地版本和动态版本
+- 本地版本是通过在application.properties里配置的，在微服务启动的时候读取
+- 动态版本是通过POST方式动态设置
+- 获取版本值的时候，先获取动态版本，如果不存在，再获取本地版本
+- 版本不会持久化到远程配置中心，一旦微服务死掉后，再次启动，拿到的还是本地版本，所以动态改变版本策略属于临时灰度手段
 
 ## 工程架构
 
@@ -499,7 +524,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 
 ② 远程配置中心依赖引入
 
-远程配置中心中间件的三个插件，选择引入其中一个（也可以引入使用者自己的扩展）。该依赖提供配置中心、规则和策略解析等功能
+远程配置中心中间件的三个插件，选择引入其中一个（也可以引入使用者自己的扩展）。该依赖提供配置中心、规则策略解析等功能
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -554,7 +579,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 
 ⑤ 控制台依赖引入
 
-远程配置中心中间件的三个插件，选择引入其中一个（也可以引入使用者自己的扩展）。该依赖提供配置中心、规则和策略解析等功能
+远程配置中心中间件的三个插件，选择引入其中一个（也可以引入使用者自己的扩展）。该依赖提供配置中心、规则策略解析等功能
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -689,9 +714,9 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 - 启动源码工程下的discovery-console-desktop/ConsoleLauncher
 - 通过admin/admin登录，点击“显示服务拓扑”按钮，将呈现如下界面
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-2.jpg)
-- 在加入上述规则前，选中网关节点，右键点击“执行灰度路由”，在弹出路由界面中，依次加入“discovery-guide-service-a”和“discovery-guide-service-b”，点击“执行路由”按钮，将呈现如下界面
+- 在加入上述规则策略前，选中网关节点，右键点击“执行灰度路由”，在弹出路由界面中，依次加入“discovery-guide-service-a”和“discovery-guide-service-b”，点击“执行路由”按钮，将呈现如下界面
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-3.jpg)
-- 在加入上述规则后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
+- 在加入上述规则策略后，在路由界面中，再次点击“执行路由”按钮，将呈现如下界面
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-4.jpg)
 
 ## 基于Header传递方式的灰度路由策略
@@ -895,7 +920,7 @@ curl -X PUT 'http://ip:port/eureka/apps/{appId}/{instanceId}/metadata?version=st
 #### 全局订阅式的灰度路由策略
 通过全链路传递Header实现灰度路由，会存在一定的困难，框架提供另外一种很简单的方式来规避Header传递，但能达到Header传递一样的效果。以版本匹配为例
 
-增加版本匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现a服务走1.0版本，b服务走1.1版本
+增加版本匹配的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），策略内容如下，实现a服务走1.0版本，b服务走1.1版本
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -921,7 +946,7 @@ spring.application.strategy.core.header.transmission.enabled=true
 ### 配置全链路灰度条件命中和灰度匹配组合式策略
 属于全链路蓝绿部署的范畴。既适用于Zuul和Spring Cloud Gateway网关，也适用于Service微服务，一般来说，网关已经加了，服务上就不需要加，当不存在的网关的时候，服务就可以考虑加上
 
-支持Spel表达式进行自定义规则，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于规则保存在XML文件里，对于特殊符号需要转义，见下面表格
+支持Spel表达式进行自定义策略，支持所有标准的Spel表达式，包括==，!=，>，>=，<，<=，&&，||等，由于策略保存在XML文件里，对于特殊符号需要转义，见下面表格
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/EscapeCharacter1.jpg)
 
@@ -1621,7 +1646,7 @@ spring.application.strategy.version.filter.enabled=true
 - 在Nacos、Apollo、Redis等远程配置中心的Key，包含的服务名必须小写
 
 ### 规则策略内容定义
-规则是基于XML或者Json为配置方式，存储于本地文件或者远程配置中心，可以通过远程配置中心修改的方式达到规则动态化。其核心代码参考discovery-plugin-framework以及它的扩展、discovery-plugin-config-center以及它的扩展和discovery-plugin-admin-center等
+规则策略的格式是XML或者Json，存储于本地文件或者远程配置中心，可以通过远程配置中心修改的方式达到规则策略动态化。其核心代码参考discovery-plugin-framework以及它的扩展、discovery-plugin-config-center以及它的扩展和discovery-plugin-admin-center等
 
 ### 规则策略示例
 XML最全的示例如下，Json示例见源码discovery-springcloud-example-service工程下的rule.json
@@ -1845,9 +1870,9 @@ XML最全的示例如下，Json示例见源码discovery-springcloud-example-serv
 </rule>
 ```
 
-## 基于多方式的规则和策略推送
+## 基于多方式的规则策略推送
 
-### 基于远程配置中心的规则和策略订阅推送
+### 基于远程配置中心的规则策略订阅推送
 ① Apollo订阅推送界面
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Apollo1.jpg)
@@ -1856,7 +1881,7 @@ XML最全的示例如下，Json示例见源码discovery-springcloud-example-serv
     - 设置页面中AppId和配置文件里面app.id一致
     - 设置页面中Namespace和配置文件里面apollo.plugin.namespace一致，如果配置文件里不设置，那么页面默认采用内置的“application”
     - 在页面中添加配置
-        - 局部配置方式：一个服务集群（eureka.instance.metadataMap.group和spring.application.name都相同的服务）对应一个配置文件，通过group+serviceId方式添加，Key为“group-serviceId”，Value为Xml或者Json格式的规则内容。group取值于配置文件里的eureka.instance.metadataMap.group配置项，serviceId取值于spring.application.name配置项目
+        - 局部配置方式：一个服务集群（eureka.instance.metadataMap.group和spring.application.name都相同的服务）对应一个配置文件，通过group+serviceId方式添加，Key为“group-serviceId”，Value为Xml或者Json格式的规则策略内容。group取值于配置文件里的eureka.instance.metadataMap.group配置项，serviceId取值于spring.application.name配置项目
         - 全局配置方式：一组服务集群（eureka.instance.metadataMap.group相同，但spring.application.name可以不相同的服务）对应一个配置文件，通过group方式添加，Key为“group-group”，Value为Xml或者Json格式的规则内容。group取值于配置文件里的eureka.instance.metadataMap.group配置项
         - 强烈建议局部配置方式和全局配置方式不要混用，否则连使用者自己都无法搞清楚到底是哪种配置方式在起作用
     - 其他更多参数，例如evn, cluster等，请自行参考Apollo官方文档，保持一致
@@ -1875,7 +1900,7 @@ XML最全的示例如下，Json示例见源码discovery-springcloud-example-serv
 
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-### 基于Swagger和Rest的规则和策略推送
+### 基于Swagger和Rest的规则策略推送
 服务侧单个推送界面
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Swagger1.jpg)
@@ -1884,7 +1909,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Swagger2.jpg)
 
-### 基于图形化界面的规则和策略推送
+### 基于图形化界面的规则策略推送
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 下面两种方式有点古老，并不再维护，请斟酌使用
 
 ① 基于图形化桌面程序的灰度发布
