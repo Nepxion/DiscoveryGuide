@@ -48,7 +48,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     - 匹配路由。包括版本匹配路由、区域匹配路由、IP地址和端口匹配路由
     - 权重路由。包括版本权重路由、区域权重路由
     - 动态变更元数据路由
-    - 全局订阅式的路由。此为妥协性的变种方式
+    - 全局订阅式的路由。此为变种方案
 - 基于规则订阅的全链路灰度发布。采用配置中心配置灰度规则映射在全链路服务而实现，所有服务都订阅一个共享配置。发布方式主要包括
     - 匹配发布。包括版本匹配发布、区域匹配发布
     - 权重发布。包括版本权重发布、区域权重发布
@@ -480,8 +480,9 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 
 ### 依赖引入
 
-#### 服务注册发现核心依赖引入
-服务注册发现中间件的四个核心插件，必须引入其中一个。该依赖包括灰度发布功能、注册发现中心、管理中心等功能
+① 服务注册发现依赖引入
+
+服务注册发现中间件的四个插件，必须引入其中一个。该依赖提供灰度发布功能、注册发现中心、管理中心等功能
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -493,8 +494,9 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 </dependency>
 ```
 
-#### 远程配置中心扩展依赖引入
-远程配置中心中间件的三个扩展插件，选择引入其中一个（也可以引入使用者自己的扩展）。该依赖包括配置中心、规则和策略解析等功能
+② 远程配置中心依赖引入
+
+远程配置中心中间件的三个插件，选择引入其中一个（也可以引入使用者自己的扩展）。该依赖提供配置中心、规则和策略解析等功能
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -505,8 +507,9 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 </dependency>
 ```
 
-#### 路由策略扩展依赖引入
-微服务端、网关Zuul端和网关Spring Cloud Gateway端三个路由策略扩展插件，选择引入其中一个。该依赖灰度路由功能、Http Header传递等功能
+③ 路由策略依赖引入
+
+微服务端、网关Zuul端和网关Spring Cloud Gateway端三个路由策略插件，选择引入其中一个。该依赖提供灰度路由功能、Http Header传递等功能
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -517,17 +520,9 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 </dependency>
 ```
 
-#### 防护插件扩展依赖引入
-- Hystrix防护扩展插件。Hystrix线程池隔离模式下必须引入该插件，灰度路由Header和调用链Span在Hystrix线程池隔离模式（信号量模式不需要引入）下传递时，通过线程上下文切换会存在丢失Header的问题，通过该插件解决，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
-```xml
-<dependency>
-    <groupId>com.nepxion</groupId>
-    <artifactId>discovery-plugin-strategy-starter-hystrix</artifactId>
-    <version>${discovery.version}</version>
-</dependency>
-```
+④ 防护插件依赖引入
 
-- Sentinel防护扩展插件。只适用于微服务端
+- Sentinel防护插件。只适用于微服务端
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -535,7 +530,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     <version>${discovery.version}</version>
 </dependency>
 ```
-Sentinel防护的数据源扩展插件，选择引入其中一个（也可以引入使用者自己的扩展）
+- Sentinel防护的数据源插件，选择引入其中一个（也可以引入使用者自己的扩展）
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -545,10 +540,19 @@ Sentinel防护的数据源扩展插件，选择引入其中一个（也可以引
     <version>${discovery.version}</version>
 </dependency>
 ```
-
-控制平台引入
+- Hystrix防护插件。Hystrix线程池隔离模式（信号量隔离模式不需要引入）下必须引入该插件，灰度路由Header和调用链Span在Hystrix线程池隔离模式下传递时，通过线程上下文切换会存在丢失Header的问题，通过该插件解决，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
 ```xml
-[选择引入] 三个远程配置中心的中间件的扩展插件，如需要，请任选一个引入，或者也可以引入您自己的扩展
+<dependency>
+    <groupId>com.nepxion</groupId>
+    <artifactId>discovery-plugin-strategy-starter-hystrix</artifactId>
+    <version>${discovery.version}</version>
+</dependency>
+```
+
+⑤ 控制台依赖引入
+
+远程配置中心中间件的三个插件，选择引入其中一个（也可以引入使用者自己的扩展）。该依赖提供配置中心、规则和策略解析等功能
+```xml
 <dependency>
     <groupId>com.nepxion</groupId>
     <artifactId>discovery-console-starter-apollo</artifactId>
@@ -558,25 +562,9 @@ Sentinel防护的数据源扩展插件，选择引入其中一个（也可以引
 </dependency>
 ```
 
-如果只想要灰度路由策略功能，而不想要灰度发布功能
-- 灰度路由策略是可以不需要接入远程配置中心的，所以建议去除远程配置中心包的引入
-```xml
-<dependency>
-    <groupId>com.nepxion</groupId>
-    <artifactId>discovery-plugin-config-center-starter-xxx</artifactId>
-    <version>${discovery.version}</version>
-</dependency>
-```
-- 灰度路由策略是不会对服务注册发现等逻辑产生影响，可以把下面两项配置改为false
-```
-# 开启和关闭服务注册层面的控制。一旦关闭，服务注册的黑/白名单过滤功能将失效，最大注册数的限制过滤功能将失效。缺失则默认为true
-spring.application.register.control.enabled=false
-# 开启和关闭服务发现层面的控制。一旦关闭，服务多版本调用的控制功能将失效，动态屏蔽指定IP地址的服务实例被发现的功能将失效。缺失则默认为true
-spring.application.discovery.control.enabled=false
-```
+⑥ 调用链插件依赖引入
 
-调用链功能引入，包含三大调用链，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
-
+调用链功能引入，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：该模块支持F版或更高版本，且不能同时引入
 ```xml
 微服务端引入
@@ -588,7 +576,9 @@ spring.application.discovery.control.enabled=false
 </dependency>
 ```
 
-异步跨线程Agent的引入，灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程、线程池、@Async注解等异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过该插件解决，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
+⑦ 异步跨线程Agent依赖引入
+
+异步跨线程Agent的引入，通过Java Agent方式启动。灰度路由Header和调用链Span在Hystrix线程池隔离模式下或者线程、线程池、@Async注解等异步调用Feign或者RestTemplate时，通过线程上下文切换会存在丢失Header的问题，通过该插件解决，支持微服务端、网关Zuul端和网关Spring Cloud Gateway端
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
@@ -603,7 +593,7 @@ spring.application.discovery.control.enabled=false
 </dependency>
 ```
 
-自动化测试插件的引入
+⑧ 自动化测试插件依赖引入
 ```xml
 <dependency>
     <groupId>com.nepxion</groupId>
