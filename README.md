@@ -79,13 +79,19 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     - 全链路调用链监控（Tracing）。包括Header方式、调用链方式、日志方式等单个或者组合式的全链路灰度调用链，支持对Sentinel自动埋点。调用链方式不支持Edgware版（Spring Boot 1.x.x）
     - 全链路指标监控（Metrics）。包括Prometheus、Grafana、Spring Boot Admin
 - 全链路Header传递
+- 全链路侦测
 - 全链路服务侧注解
 - 全链路服务侧API权限
-- 元数据Metadata自动化策略。包括基于服务名前缀自动创建灰度组名和基于Git插件自动创建灰度版本号
+- 异步跨线程Agent。包括插件获取、使用和扩展
+- 元数据Metadata自动化策略。包括
+    - 基于服务名前缀自动创建灰度组名
+    - 基于Git插件自动创建灰度版本号
 - 元数据Metadata运维平台策略
 - 同城双活多机房切换。基于区域匹配发布或者路由的同城双活多机房切换
 - 数据库灰度发布。基于多数据源的数据库灰度发布，内置简单的数据库灰度发布策略
-- 灰度路由和发布的自动化测试。基于Spring Boot/Spring Cloud自动化测试，包括普通调用测试、灰度调用测试和扩展调用测试（可扩展出阿里巴巴Sentinel、FF4j功能开关等自动化测试）
+- 灰度路由和发布的自动化测试。包括
+    - 基于Spring Boot/Spring Cloud自动化测试，包括普通调用测试、灰度调用测试和扩展调用测试（可扩展出阿里巴巴Sentinel、FF4j功能开关等自动化测试）
+    - 基于wrk的性能压力测试
 - Docker容器化和Kubernetes平台的无缝支持部署
 
 ③ 微服务框架支持的重要中间件，如下
