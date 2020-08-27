@@ -264,6 +264,7 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
         - [全局区域权重灰度规则](#全局区域权重灰度规则)
         - [局部区域权重灰度规则](#局部区域权重灰度规则)
     - [配置全链路灰度权重和灰度匹配组合式规则](#配置全链路灰度权重和灰度匹配组合式规则)
+    - [数据库灰度发布规则](#数据库灰度发布规则)
 - [基于多格式的规则策略定义](#基于多格式的规则策略定义)
     - [规则策略格式定义](#规则策略格式定义)
     - [规则策略内容定义](#规则策略内容定义)
@@ -1574,7 +1575,6 @@ spring.application.strategy.version.filter.enabled=true
 - a服务1.0版本只能访问b服务1.0版本，1.1版本只能访问b服务1.1版本
 
 该功能的意义是，网关随机权重调用服务，而服务链路按照版本匹配方式调用
-
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -1593,15 +1593,32 @@ spring.application.strategy.version.filter.enabled=true
 ```
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide5-1.jpg)
 
+### 数据库灰度发布规则
+通过订阅业务参数的变化，实现参数化灰度发布，例如，多数据源的数据库切换的灰度发布
+
+增加参数化灰度规则，Group为discovery-guide-group，Data Id为discovery-guide-group（全局发布，两者都是组名），规则内容如下，实现功能
+- a服务指向测试数据库（database的value为qa）
+- b服务指向生产数据库（database的value为prod）
+- a服务上线后，执行数据库灰度发布，改对应value为prod，结合ShardingSphere等多数据源中间件，实现实时无缝切换，即可实现数据库灰度发布
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <parameter>
+        <service service-name="discovery-guide-service-a" key="database" value="qa"/>
+        <service service-name="discovery-guide-service-b" key="database" value="prod"/>
+    </parameter>
+</rule>
+```
+
 ## 基于多格式的规则策略定义
 
-## 规则策略格式定义
+### 规则策略格式定义
 ![](http://nepxion.gitee.io/docs/icon-doc/warning.png) 注意：服务名大小写规则
 - 在配置文件（application.properties、application.yaml等）里，定义服务名（spring.application.name）不区分大小写
 - 在规则文件（XML、Json）里，引用的服务名必须小写
 - 在Nacos、Apollo、Redis等远程配置中心的Key，包含的服务名必须小写
 
-## 规则策略内容定义
+### 规则策略内容定义
 规则是基于XML或者Json为配置方式，存储于本地文件或者远程配置中心，可以通过远程配置中心修改的方式达到规则动态化。其核心代码参考discovery-plugin-framework以及它的扩展、discovery-plugin-config-center以及它的扩展和discovery-plugin-admin-center等
 
 ### 规则策略示例
