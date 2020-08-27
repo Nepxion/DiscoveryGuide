@@ -95,18 +95,10 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 - [**OpenTracing**] OpenTracing已进入CNCF，正在为全球的分布式追踪系统提供统一的概念、规范、架构和数据标准。它通过提供平台无关、厂商无关的API，使得开发人员能够方便的添加（或更换）追踪系统的实现。对于存在多样化的技术栈共存的调用链中，OpenTracing适配Java、C、Go和.Net等技术栈，实现全链路分布式追踪功能。迄今为止，Uber Jaeger、Twitter Zipkin和Apache Skywalking已经适配了OpenTracing规范。CNCF技术委员会通过OpenTelemetry规范整合基于Tracing的OpenTracing规范（官方推荐Jaeger做Backend）和基于Metrics的OpenSensus规范（官方推荐Prometheus做Backend）
 
 ④ 框架支持易用性表现，如下
-- 现有的Spring Cloud微服务很方便引入该中间件，代码零侵入
-- 兼容现有的Spring Cloud主流四个版本
-- 使用方便。只需如下步骤
-    - 引入相关依赖到pom.xml。参考[依赖引入](#依赖引入)
-    - 操作配置文件。参考[配置文件](#配置文件)
-        - 在元数据MetaData中，为微服务定义一个所属组名（group）或者应用名（application）或者通过服务名前缀来自动产生服务组名，定义一个版本号（version）或者通过Git插件方式自动产生版本号，定义一个所属区域名（region），定义一个所属环境（env）。参考[基础属性配置](#基础属性配置)
-        - 根据项目实际情况，开启和关闭相关功能项或者属性值，达到最佳配置。参考[功能开关配置](#功能开关配置)
-    - 规则推送。参考[规则定义](#规则定义)和[策略定义](#策略定义)
-        - 通过远程配置中心推送规则。参考[基于Apollo界面的灰度发布](#基于Apollo界面的灰度发布)和[基于Nacos界面的灰度发布](#基于Nacos界面的灰度发布)
-        - 通过控制平台界面推送规则。参考[基于Rest方式的灰度发布](#基于Rest方式的灰度发布)
-        - 通过客户端工具（例如Postman）推送。[基于图形化桌面程序的灰度发布](#基于图形化桌面程序的灰度发布)和[基于图形化Web程序的灰度发布](#基于图形化Web程序的灰度发布)
-- 丰富的功能开关，并采用“约定大于配置”的方式
+- 引入相关依赖到pom.xml
+- 设置元数据MetaData，为微服务定义一个所属组名（group）或者应用名（application）或者通过服务名前缀来自动产生服务组名，定义一个版本号（version）或者通过Git插件方式自动产生版本号，定义一个所属区域名（region），定义一个所属环境（env）。这四个元数据按需设置
+- 执行采用“约定大于配置”的方式，使用者可以开启和关闭相关功能项或者属性值，达到最佳配置
+- 规则策略文件设置和推送
 
 ## 鸣谢
 ![](http://nepxion.gitee.io/docs/icon-doc/information.png) 鸣谢，如下
