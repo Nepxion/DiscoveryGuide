@@ -498,6 +498,27 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
 | <img src="http://nepxion.gitee.io/docs/icon-doc/direction_west.png"> discovery-springcloud-example-zuul | 用于灰度发布的Zuul示例 |
 | <img src="http://nepxion.gitee.io/docs/icon-doc/direction_west.png"> discovery-springcloud-example-gateway | 用于灰度发布的Spring Cloud Gateway示例 |
 
+### 架构核心
+- 灰度方式区别图
+
+![](http://nepxion.gitee.io/docs/discovery-doc/Difference.jpg)
+
+- `基于网关为触点的Header传递的全链路灰度路由`，适用于网关前置部署方式的企业。域网关部署模式下，最适用于该方式；非域网关部署模式下，开启并行灰度路由下的版本优选策略
+- `基于全局订阅方式的全链路灰度发布`，适用于网关部署方式比较弱化的企业
+- `基于全局订阅和Header传递组合式全链路灰度路由`，上述两种方式的结合体，是比较理想和节省成本的落地方式
+
+- 服务治理架构图
+
+![](http://nepxion.gitee.io/docs/discovery-doc/Govern.jpg)
+
+- 全局架构图
+
+![](http://nepxion.gitee.io/docs/discovery-doc/Architecture.jpg)
+
+- 模块结构图
+
+![](http://nepxion.gitee.io/docs/discovery-doc/Module.jpg)
+
 ### 依赖引入
 
 ① 服务注册发现依赖引入
@@ -621,27 +642,6 @@ Discovery【探索】微服务框架，基于Spring Cloud Discovery服务注册�
     <version>${discovery.version}</version>
 </dependency>
 ```
-
-### 架构核心
-- 灰度方式区别图
-
-![](http://nepxion.gitee.io/docs/discovery-doc/Difference.jpg)
-
-- `基于网关为触点的Header传递的全链路灰度路由`，适用于网关前置部署方式的企业。域网关部署模式下，最适用于该方式；非域网关部署模式下，开启并行灰度路由下的版本优选策略
-- `基于全局订阅方式的全链路灰度发布`，适用于网关部署方式比较弱化的企业
-- `基于全局订阅和Header传递组合式全链路灰度路由`，上述两种方式的结合体，是比较理想和节省成本的落地方式
-
-- 服务治理架构图
-
-![](http://nepxion.gitee.io/docs/discovery-doc/Govern.jpg)
-
-- 全局架构图
-
-![](http://nepxion.gitee.io/docs/discovery-doc/Architecture.jpg)
-
-- 模块结构图
-
-![](http://nepxion.gitee.io/docs/discovery-doc/Module.jpg)
 
 ## 准备工作
 为了更好的阐述框架的各项功能，本文围绕指南示例进行阐述，请使用者先进行下面的准备工作。指南示例以Nacos为服务注册中心和配置中心展开介绍，使用者可自行换成其它服务注册中心和配置中心
