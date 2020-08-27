@@ -27,10 +27,6 @@
 - [Polaris【北极星】企业级云原生微服务框架(PDF版)](http://nepxion.gitee.io/docs/link-doc/polaris-pdf.html)
 - [Polaris【北极星】企业级云原生微服务框架(HTML版)](http://nepxion.gitee.io/docs/link-doc/polaris-html.html)
 
-![](http://nepxion.gitee.io/docs/icon-doc/information.png) Polaris【北极星】企业级云原生微服务框架双镜像源码。请访问Gitee镜像获得最佳网速体验
-- [源码Gitee同步镜像](https://gitee.com/Nepxion/Polaris)
-- [源码Github原镜像](https://github.com/Nepxion/Polaris)
-
 ## 请联系我
 微信、公众号和文档
 
