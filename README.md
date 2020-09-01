@@ -41,6 +41,30 @@
 - [指南Gitee同步镜像](https://gitee.com/Nepxion/PolarisGuide)
 - [指南Github原镜像](https://github.com/Nepxion/PolarisGuide)
 
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) Discovery【探索】和Polaris【北极星】联合架构图
+
+![](http://nepxion.gitee.io/docs/polaris-doc/Architecture.jpg)
+
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) Discovery【探索】和Polaris【北极星】联合拓扑图
+
+![](http://nepxion.gitee.io/docs/polaris-doc/Topology.jpg)
+
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) Polaris【北极星】分层架构图
+
+![](http://nepxion.gitee.io/docs/polaris-doc/Layer.jpg)
+
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) Discovery【探索】域网关实施图
+
+![](http://nepxion.gitee.io/docs/polaris-doc/DomainEnable.jpg)
+
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) Discovery【探索】非域网关实施图
+
+![](http://nepxion.gitee.io/docs/polaris-doc/DomainDisable.jpg)
+
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) Discovery【探索】全局订阅实施图
+
+![](http://nepxion.gitee.io/docs/polaris-doc/GlobalSub.jpg)
+
 ## 请联系我
 微信、公众号和文档
 
