@@ -315,4 +315,20 @@ public class DiscoveryGuideTest {
             }
         }
     }
+
+    @Test
+    public void testBlacklist() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testBlacklist(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testBlacklist(zuulGroup, zuulGroup, zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testEnv() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testEnv(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testEnv(zuulGroup, zuulGroup, zuulTestUrl);
+        }
+    }
 }

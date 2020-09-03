@@ -1059,4 +1059,42 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
         Assert.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
     }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blacklist.xml", resetPath = "gray-default.xml")
+    public void testBlacklist(String group, String serviceId, String testUrl) {
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            int index = result.indexOf(":3002");
+            int lastIndex = result.lastIndexOf(":4002");
+
+            Assert.assertNotEquals(index, -1);
+            Assert.assertNotEquals(lastIndex, -1);
+            Assert.assertNotEquals(index, lastIndex);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-default.xml", resetPath = "gray-default.xml")
+    public void testEnv(String group, String serviceId, String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("n-d-env", "env1");
+
+        LOG.info("Header : {}", headers);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            int index = result.indexOf("[E=env1]");
+            int lastIndex = result.lastIndexOf("[E=env1]");
+
+            Assert.assertNotEquals(index, -1);
+            Assert.assertNotEquals(lastIndex, -1);
+            Assert.assertNotEquals(index, lastIndex);
+        }
+    }
 }
