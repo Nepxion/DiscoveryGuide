@@ -50,6 +50,18 @@
 								"disabled": true
 							},
 							{
+								"key": "n-d-id-blacklist",
+								"value": "211783d6-1df0-40d0-8ac0-bf3fb4ac0b37;e74c1478-fbe9-41ac-aa41-7fb9fb2a58b4",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-address-blacklist",
+								"value": "3*2;4001",
+								"type": "text",
+								"disabled": true
+							},
+							{
 								"key": "app-version",
 								"value": "2.0",
 								"type": "text",
@@ -109,6 +121,118 @@
 					"response": []
 				},
 				{
+					"name": "Zuul网关调用示例",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "n-d-version",
+								"value": "{\"discovery-guide-service-a\":\"1.0\", \"discovery-guide-service-b\":\"1.0\"}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-version-weight",
+								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-region",
+								"value": "dev",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-region-weight",
+								"value": "dev=99;qa=1",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-address",
+								"value": "{\"discovery-guide-service-a\":\"3001\", \"discovery-guide-service-b\":\"4002\"}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-env",
+								"value": "env1",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-id-blacklist",
+								"value": "211783d6-1df0-40d0-8ac0-bf3fb4ac0b37;e74c1478-fbe9-41ac-aa41-7fb9fb2a58b4",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-address-blacklist",
+								"value": "3*2;4001",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "app-version",
+								"value": "1.0",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "mobile",
+								"value": "13812345678",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "user",
+								"value": "lisi",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "trace-id",
+								"value": "lochmbu18nfo",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "span-id",
+								"value": "6913",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "a",
+								"value": "1",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "b",
+								"value": "2",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5002/discovery-guide-service-a/invoke/zuul",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"discovery-guide-service-a",
+								"invoke",
+								"zuul"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Gateway网关全链路侦测示例",
 					"request": {
 						"method": "POST",
@@ -116,7 +240,8 @@
 							{
 								"key": "n-d-version",
 								"type": "text",
-								"value": "{\"discovery-guide-service-a\":\"1.1\", \"discovery-guide-service-b\":\"1.1\"}"
+								"value": "{\"discovery-guide-service-a\":\"1.0\", \"discovery-guide-service-b\":\"1.0\"}",
+								"disabled": true
 							},
 							{
 								"key": "n-d-version-weight",
@@ -146,6 +271,18 @@
 								"key": "n-d-env",
 								"type": "text",
 								"value": "env1",
+								"disabled": true
+							},
+							{
+								"key": "n-d-id-blacklist",
+								"value": "211783d6-1df0-40d0-8ac0-bf3fb4ac0b37;e74c1478-fbe9-41ac-aa41-7fb9fb2a58b4",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-address-blacklist",
+								"value": "3*2;4001",
+								"type": "text",
 								"disabled": true
 							},
 							{
@@ -224,7 +361,8 @@
 							{
 								"key": "n-d-version",
 								"type": "text",
-								"value": "{\"discovery-guide-service-a\":\"1.1\", \"discovery-guide-service-b\":\"1.1\"}"
+								"value": "{\"discovery-guide-service-a\":\"1.1\", \"discovery-guide-service-b\":\"1.1\"}",
+								"disabled": true
 							},
 							{
 								"key": "n-d-version-weight",
@@ -254,6 +392,18 @@
 								"key": "n-d-env",
 								"type": "text",
 								"value": "env1",
+								"disabled": true
+							},
+							{
+								"key": "n-d-id-blacklist",
+								"value": "211783d6-1df0-40d0-8ac0-bf3fb4ac0b37;e74c1478-fbe9-41ac-aa41-7fb9fb2a58b4",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "n-d-address-blacklist",
+								"value": "3*2;4001",
+								"type": "text",
 								"disabled": true
 							},
 							{
@@ -319,106 +469,6 @@
 								"discovery-guide-service-a",
 								"inspector",
 								"inspect"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Zuul网关调用示例",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "n-d-version",
-								"value": "{\"discovery-guide-service-a\":\"1.0\", \"discovery-guide-service-b\":\"1.0\"}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "n-d-version-weight",
-								"value": "{\"discovery-guide-service-a\":\"1.0=90;1.1=10\", \"discovery-guide-service-b\":\"1.0=20;1.1=80\"}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "n-d-region",
-								"value": "qa",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "n-d-region-weight",
-								"value": "dev=99;qa=1",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "n-d-address",
-								"value": "{\"discovery-guide-service-a\":\"3001\", \"discovery-guide-service-b\":\"4002\"}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "n-d-env",
-								"value": "env1",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "app-version",
-								"value": "1.0",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "mobile",
-								"value": "13812345678",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "user",
-								"value": "lisi",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "trace-id",
-								"value": "lochmbu18nfo",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "span-id",
-								"value": "6913",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "a",
-								"value": "1",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "b",
-								"value": "2",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "http://localhost:5002/discovery-guide-service-a/invoke/zuul",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5002",
-							"path": [
-								"discovery-guide-service-a",
-								"invoke",
-								"zuul"
 							]
 						}
 					},
