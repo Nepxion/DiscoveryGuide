@@ -2,7 +2,7 @@
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Banner.png)
 
-# Discovery【探索】微服务企业级解决方案入门必读
+# Discovery【探索】微服务企业级解决方案新手快速入门
 
 ## 准备工作
 
