@@ -88,4 +88,4 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
-上述简单示例以版本匹配灰度路由为例，更多使用方式请参考官方主页文档
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) 上述简单示例以版本匹配灰度路由为例，更多使用方式请参考官方主页文档
