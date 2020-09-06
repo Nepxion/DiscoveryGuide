@@ -64,7 +64,7 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 
 ### 执行灰度路由
 
-#### 基于Header传递方式的灰度路由策略
+① 基于Header传递方式的灰度路由策略
 
 在Postman上，设置Header为如下值
 ```
@@ -73,9 +73,13 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
-#### 基于网关配置的灰度路由策略
+② 基于网关配置的灰度路由策略
 
-- 增加Spring Cloud Gateway的基于版本匹配路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-gateway，策略内容如下
+分别对Spring Cloud Gateway和Zuul增加灰度策略
+- 对于Spring Cloud Gateway，它的Group为discovery-guide-group，Data Id为discovery-guide-gateway
+- 对于Zuul，它的Group为discovery-guide-group，Data Id为discovery-guide-zuul
+
+灰度策略内容统一如下
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -87,14 +91,4 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
-- 增加Zuul的基于版本匹配路由的灰度策略，Group为discovery-guide-group，Data Id为discovery-guide-zuul，策略内容如下
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<rule>
-    <strategy>
-        <version>{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}</version>
-    </strategy>
-</rule>
-```
-
-执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
+上述简单示例以版本匹配灰度路由为例，更多使用方式请参考官方主页文档
