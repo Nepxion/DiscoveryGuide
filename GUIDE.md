@@ -8,7 +8,7 @@
 为了更好的阐述框架的各项功能，本文围绕指南示例展开，请使用者先进行下面的准备工作。指南示例以Nacos为服务注册中心和配置中心展开介绍，使用者可自行换成其它服务注册中心和配置中心
 
 ### 环境搭建
-① 下载代码，Git clone https://github.com/Nepxion/DiscoveryGuide.git，分支为simple
+① 下载代码，Git clone [https://github.com/Nepxion/DiscoveryGuide.git](https://github.com/Nepxion/DiscoveryGuide.git)，分支为simple
 
 ② 代码导入IDE
 
