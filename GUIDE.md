@@ -61,6 +61,8 @@ zuul -> [ID=discovery-guide-service-a][P=Nacos][H=192.168.0.107:3001][V=1.0][R=d
 
 ### 执行灰度路由
 
+有如下两种方式，执行最终效果一致
+
 ① 基于Header传递方式的灰度路由策略
 
 在Postman上，设置Header为如下值
@@ -88,4 +90,4 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
-![](http://nepxion.gitee.io/docs/icon-doc/information.png) 上述简单示例以版本匹配灰度路由为例，更多使用方式请参考官方主页文档
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) 上述简单示例以版本匹配灰度路由为例，更多的使用方式，请参考官方主页文档
