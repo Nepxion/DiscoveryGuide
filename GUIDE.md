@@ -8,17 +8,15 @@
 为了更好的阐述框架的各项功能，本文围绕指南示例展开，请使用者先进行下面的准备工作。指南示例以Nacos为服务注册中心和配置中心展开介绍，使用者可自行换成其它服务注册中心和配置中心
 
 ### 环境搭建
-① 下载代码
+① 下载代码，Git clone https://github.com/Nepxion/DiscoveryGuide.git，分支为simple
 
-② Git clone https://github.com/Nepxion/DiscoveryGuide.git
+② 代码导入IDE
 
-③ 代码导入IDE
-
-④ 下载Nacos服务器
+③ 下载Nacos服务器
 
 - 从[https://github.com/alibaba/nacos/releases](https://github.com/alibaba/nacos/releases)获取nacos-server-x.x.x.zip，并解压
 
-⑤ 启动Nacos服务器
+④ 启动Nacos服务器
 
 - Windows环境下，运行bin目录下的startup.cmd
 - Linux环境下，运行bin目录下的startup.sh
