@@ -61,11 +61,11 @@ zuul
 
 - 上述步骤在下面每次更改规则策略的时候执行，并验证结果和规则策略的期望值是否相同
 
-### 执行灰度路由
+## 执行灰度路由
 
 ![](http://nepxion.gitee.io/docs/icon-doc/tip.png) 有如下两种简单方式，最终执行结果一致
 
-① 基于Header传递方式的灰度路由策略
+### 基于Header传递方式的灰度路由策略
 
 在Postman上，设置Header为如下值
 ```
@@ -74,11 +74,13 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
-② 基于网关配置的灰度路由策略
+### 基于网关配置的灰度路由策略
 
 分别对Spring Cloud Gateway和Zuul增加灰度路由策略
 - 对于Spring Cloud Gateway，它的Group为discovery-guide-group，Data Id为discovery-guide-gateway
+![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-13.jpg)
 - 对于Zuul，它的Group为discovery-guide-group，Data Id为discovery-guide-zuul
+![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-14.jpg)
 
 内容统一如下
 ```xml
