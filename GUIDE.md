@@ -33,6 +33,7 @@
 | DiscoveryGuideZuul.java | Zuul | 5002 | 1.0 | 无 | 无 | 无 |
 
 - 部署拓扑图
+
 ![](http://nepxion.gitee.io/docs/discovery-doc/BasicTopology.jpg)
 
 全链路路径， 如下
