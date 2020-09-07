@@ -83,6 +83,7 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-13.jpg)
 
 ② 对于Zuul，它的Group为discovery-guide-group，Data Id为discovery-guide-zuul
+
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-14.jpg)
 
 ③ 灰度路由策略内容统一如下
