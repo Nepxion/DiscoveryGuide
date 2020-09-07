@@ -77,12 +77,15 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 ### 基于网关配置的灰度路由策略
 
 分别对Spring Cloud Gateway和Zuul增加灰度路由策略
-- 对于Spring Cloud Gateway，它的Group为discovery-guide-group，Data Id为discovery-guide-gateway
+
+① 对于Spring Cloud Gateway，它的Group为discovery-guide-group，Data Id为discovery-guide-gateway
+
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-13.jpg)
-- 对于Zuul，它的Group为discovery-guide-group，Data Id为discovery-guide-zuul
+
+② 对于Zuul，它的Group为discovery-guide-group，Data Id为discovery-guide-zuul
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-14.jpg)
 
-内容统一如下
+③ 灰度路由策略内容统一如下
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
