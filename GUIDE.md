@@ -66,7 +66,7 @@ zuul
 
 ## 执行灰度路由
 
-![](http://nepxion.gitee.io/docs/icon-doc/tip.png) 有如下两种简单方式，最终执行结果一致
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) 有如下两种简单方式，最终执行结果一致
 
 ### 基于Header传递方式的灰度路由策略
 
