@@ -6,7 +6,7 @@
 
 ## 准备工作
 
-![](http://nepxion.gitee.io/docs/icon-doc/tip.png) 请注意，新手快速入门，用的是simple分支
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) 请注意，新手快速入门，用的是simple分支
 
 ### 环境搭建
 ① 下载代码，Git clone [https://github.com/Nepxion/DiscoveryGuide.git](https://github.com/Nepxion/DiscoveryGuide.git)，分支为simple
