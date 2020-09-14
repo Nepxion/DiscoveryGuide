@@ -1076,8 +1076,8 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-default.xml", resetPath = "gray-default.xml")
-    public void testBlacklist2(String group, String serviceId, String testUrl) {
+    @DTest
+    public void testBlacklist2(String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("n-d-address-blacklist", "3001;4001");
 
@@ -1098,8 +1098,8 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-default.xml", resetPath = "gray-default.xml")
-    public void testBlacklist3(String group, String serviceId, String testUrl) {
+    @DTest
+    public void testBlacklist3(String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("n-d-address-blacklist", "3*2;4??1");
 
@@ -1120,8 +1120,8 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-default.xml", resetPath = "gray-default.xml")
-    public void testEnv(String group, String serviceId, String testUrl) {
+    @DTest
+    public void testEnv(String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("n-d-env", "env1");
 
