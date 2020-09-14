@@ -327,24 +327,24 @@ public class DiscoveryGuideTest {
     @Test
     public void testBlacklist2() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testBlacklist2(gatewayGroup, gatewayGroup, gatewayTestUrl);
-            discoveryGuideTestCases.testBlacklist2(zuulGroup, zuulGroup, zuulTestUrl);
+            discoveryGuideTestCases.testBlacklist2(gatewayTestUrl);
+            discoveryGuideTestCases.testBlacklist2(zuulTestUrl);
         }
     }
 
     @Test
     public void testBlacklist3() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testBlacklist3(gatewayGroup, gatewayGroup, gatewayTestUrl);
-            discoveryGuideTestCases.testBlacklist3(zuulGroup, zuulGroup, zuulTestUrl);
+            discoveryGuideTestCases.testBlacklist3(gatewayTestUrl);
+            discoveryGuideTestCases.testBlacklist3(zuulTestUrl);
         }
     }
 
     @Test
     public void testEnv() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testEnv(gatewayGroup, gatewayGroup, gatewayTestUrl);
-            discoveryGuideTestCases.testEnv(zuulGroup, zuulGroup, zuulTestUrl);
+            discoveryGuideTestCases.testEnv(gatewayTestUrl);
+            discoveryGuideTestCases.testEnv(zuulTestUrl);
         }
     }
 }
