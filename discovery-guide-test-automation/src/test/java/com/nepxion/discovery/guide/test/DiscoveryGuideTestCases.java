@@ -41,8 +41,8 @@ public class DiscoveryGuideTestCases {
     @Value("${gray.weight.testcase.result.offset:5}")
     private Integer resultOffset;
 
-    @DTest
-    public void testNoGray(String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-default.xml", resetPath = "gray-default.xml")
+    public void testNoGray(String group, String serviceId, String testUrl) {
         int noRepeatCount = 0;
         List<String> resultList = new ArrayList<String>();
         for (int i = 0; i < 4; i++) {
@@ -1139,6 +1139,15 @@ public class DiscoveryGuideTestCases {
             Assert.assertNotEquals(index, -1);
             Assert.assertNotEquals(lastIndex, -1);
             Assert.assertNotEquals(index, lastIndex);
+        }
+    }
+
+    @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-polaris-service-b", executePath = "sentinel-authority.json", resetPath = "sentinel-default.json")
+    public void testSentinelAuthority(String testUrl) {
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
         }
     }
 }

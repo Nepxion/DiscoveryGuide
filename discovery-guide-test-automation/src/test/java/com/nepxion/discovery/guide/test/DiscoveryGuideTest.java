@@ -11,8 +11,10 @@ package com.nepxion.discovery.guide.test;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import com.nepxion.discovery.plugin.test.application.TestApplication;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { TestApplication.class, DiscoveryGuideTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DiscoveryGuideTest {
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGuideTest.class);
 
@@ -76,10 +79,12 @@ public class DiscoveryGuideTest {
     }
 
     @Test
-    public void testNoGray() throws Exception {
+    public void testANoGray() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testNoGray(gatewayTestUrl);
-            discoveryGuideTestCases.testNoGray(zuulTestUrl);
+            discoveryGuideTestCases.testNoGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testNoGray(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testNoGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testNoGray(zuulGroup, zuulGroup, zuulTestUrl);
         }
     }
 
