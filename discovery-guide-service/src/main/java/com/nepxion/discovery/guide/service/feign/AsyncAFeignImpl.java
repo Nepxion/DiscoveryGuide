@@ -13,6 +13,8 @@ import io.opentracing.contrib.concurrent.TracedRunnable;
 import io.opentracing.util.GlobalTracer;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,8 @@ import com.nepxion.discovery.guide.service.core.CoreImpl;
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-a")
 public class AsyncAFeignImpl extends CoreImpl implements AsyncAFeign {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncAFeignImpl.class);
+
+    private ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
     @Autowired
     private BFeign bFeign;
@@ -55,7 +59,25 @@ public class AsyncAFeignImpl extends CoreImpl implements AsyncAFeign {
 
     @Override
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
-    public String invokeRunnable(@PathVariable(value = "value") String value) {
+    public String invokeThread(@PathVariable(value = "value") String value) {
+        Runnable runnable = createRunnable(value);
+
+        new Thread(runnable).start();
+
+        return "Invoke Thread";
+    }
+
+    @Override
+    @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
+    public String invokeThreadPool(String value) {
+        Runnable runnable = createRunnable(value);
+
+        cachedThreadPool.execute(runnable);
+
+        return "Invoke ThreadPool";
+    }
+
+    private Runnable createRunnable(String value) {
         Runnable invokeRunnable = new Runnable() {
             @Override
             public void run() {
@@ -63,9 +85,8 @@ public class AsyncAFeignImpl extends CoreImpl implements AsyncAFeign {
             }
         };
         TracedRunnable tracedRunnable = new TracedRunnable(invokeRunnable, GlobalTracer.get());
-        new Thread(tracedRunnable).start();
 
-        return "Invoke Async";
+        return tracedRunnable;
     }
 
     private String invoke(String value) {
