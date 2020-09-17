@@ -44,12 +44,24 @@
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- Spring Cloud Alibaba官方订阅方式 -->
         <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
+
+        <!-- Nepxion Discovery自身实现的订阅方式 -->
+        <!-- <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-sentinel-starter-nacos</artifactId>
-            <!-- <artifactId>discovery-plugin-strategy-sentinel-starter-apollo</artifactId> -->
+            <artifactId>discovery-plugin-strategy-sentinel-starter-apollo</artifactId>
             <version>${discovery.version}</version>
-        </dependency>
+        </dependency> -->
 
         <!-- ********** 不同的调用链中间件不能共存 ********** -->
         <!-- ********** Jaeger调用链相关包引入开始 ********** -->

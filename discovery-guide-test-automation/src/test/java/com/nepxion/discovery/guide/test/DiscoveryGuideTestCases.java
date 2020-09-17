@@ -1142,12 +1142,63 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-polaris-service-b", executePath = "sentinel-authority.json", resetPath = "sentinel-default.json")
-    public void testSentinelAuthority(String testUrl) {
+    @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-1.json", resetPath = "sentinel-default.json")
+    public void testSentinelAuthority1(String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("user", "zhangsan");
+
+        LOG.info("Header : {}", headers);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        int count = 0;
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            if (result.contains("AuthorityRule")) {
+                count++;
+            }
+        }
+
+        Assert.assertEquals(count, 2);
+    }
+
+    @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-1.json", resetPath = "sentinel-default.json")
+    public void testSentinelAuthority2(String testUrl) {
+        int count = 0;
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             LOG.info("Result{} : {}", i + 1, result);
+
+            if (result.contains("AuthorityRule")) {
+                count++;
+            }
         }
+
+        Assert.assertEquals(count, 4);
+    }
+
+    @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-2.json", resetPath = "sentinel-default.json")
+    public void testSentinelAuthority3(String testUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("user", "zhangsan");
+
+        LOG.info("Header : {}", headers);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        int count = 0;
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            if (result.contains("AuthorityRule")) {
+                count++;
+            }
+        }
+
+        Assert.assertEquals(count, 4);
     }
 }
