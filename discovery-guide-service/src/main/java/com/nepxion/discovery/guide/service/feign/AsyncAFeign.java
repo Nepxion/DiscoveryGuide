@@ -17,4 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface AsyncAFeign {
     @GetMapping(path = "/invoke-async/{value}")
     String invokeAsync(@PathVariable(value = "value") String value);
+
+    @GetMapping(path = "/invoke-runnable/{value}")
+    String invokeRunnable(@PathVariable(value = "value") String value);
 }

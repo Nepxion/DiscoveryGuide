@@ -1,13 +1,25 @@
 package com.nepxion.discovery.guide.service.feign;
 
+/**
+ * <p>Title: Nepxion Discovery</p>
+ * <p>Description: Nepxion Discovery</p>
+ * <p>Copyright: Copyright (c) 2017-2050</p>
+ * <p>Company: Nepxion</p>
+ * @author Haojun Ren
+ * @version 1.0
+ */
+
 import io.opentracing.contrib.concurrent.TracedRunnable;
 import io.opentracing.util.GlobalTracer;
+
+import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,15 +41,21 @@ public class AsyncAFeignImpl extends CoreImpl implements AsyncAFeign {
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
     @Async
     public String invokeAsync(@PathVariable(value = "value") String value) {
-        /*value = invoke(value);
+        value = invoke(value);
 
         AsyncResult<String> result = new AsyncResult<String>(value);
         try {
             value = result.get();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }*/
+        }
 
+        return "Invoke Async";
+    }
+
+    @Override
+    @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
+    public String invokeRunnable(@PathVariable(value = "value") String value) {
         Runnable invokeRunnable = new Runnable() {
             @Override
             public void run() {
@@ -49,13 +67,13 @@ public class AsyncAFeignImpl extends CoreImpl implements AsyncAFeign {
 
         return "Invoke Async";
     }
-    
+
     private String invoke(String value) {
         value = getPluginInfo(value);
         value = bFeign.invoke(value);
 
         LOG.info("调用路径：{}", value);
-        
+
         return value;
     }
 
