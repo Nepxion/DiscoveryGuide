@@ -9,6 +9,8 @@ package com.nepxion.discovery.guide.service.feign;
  * @version 1.0
  */
 
+import java.util.concurrent.Future;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface AsyncAFeign {
     // @Async注解方式的异步
     @GetMapping(path = "/invoke-async/{value}")
-    String invokeAsync(@PathVariable(value = "value") String value);
+    Future<String> invokeAsync(@PathVariable(value = "value") String value);
 
     // 单线程方式的异步
     @GetMapping(path = "/invoke-thread/{value}")
