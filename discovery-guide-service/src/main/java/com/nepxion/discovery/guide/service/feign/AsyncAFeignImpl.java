@@ -12,9 +12,9 @@ package com.nepxion.discovery.guide.service.feign;
 import io.opentracing.contrib.concurrent.TracedRunnable;
 import io.opentracing.util.GlobalTracer;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,17 +44,17 @@ public class AsyncAFeignImpl extends CoreImpl implements AsyncAFeign {
     @Override
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
     @Async
-    public String invokeAsync(@PathVariable(value = "value") String value) {
+    public Future<String> invokeAsync(@PathVariable(value = "value") String value) {
         value = invoke(value);
 
         AsyncResult<String> result = new AsyncResult<String>(value);
         try {
-            value = result.get();
-        } catch (ExecutionException e) {
+            return result;
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "Invoke Async";
+        return null;
     }
 
     @Override
