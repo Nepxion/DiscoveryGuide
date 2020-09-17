@@ -38,9 +38,9 @@ public class DiscoveryGuideServiceA1 {
         System.setProperty("nepxion.banner.shown.ansi.mode", "true");
 
         // 阿里巴巴Sentinel Dashboard设置
-        System.setProperty("project.name", "guide-service-a1");
+        /*System.setProperty("project.name", "guide-service-a1");
         System.setProperty("csp.sentinel.dashboard.server", System.getProperty("middleware.host", "localhost") + ":8075");
-        System.setProperty("csp.sentinel.api.port", "3001");
+        System.setProperty("csp.sentinel.api.port", "3001");*/
 
         new SpringApplicationBuilder(DiscoveryGuideServiceA1.class).run(args);
     }
