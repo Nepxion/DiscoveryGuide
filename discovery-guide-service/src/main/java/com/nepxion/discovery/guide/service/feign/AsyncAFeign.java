@@ -15,9 +15,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(value = "discovery-guide-service-a")
 public interface AsyncAFeign {
+    // @Async注解方式的异步
     @GetMapping(path = "/invoke-async/{value}")
     String invokeAsync(@PathVariable(value = "value") String value);
 
-    @GetMapping(path = "/invoke-runnable/{value}")
-    String invokeRunnable(@PathVariable(value = "value") String value);
+    // 单线程方式的异步
+    @GetMapping(path = "/invoke-thread/{value}")
+    String invokeThread(@PathVariable(value = "value") String value);
+
+    // 线程池方式的异步
+    @GetMapping(path = "/invoke-threadpool/{value}")
+    String invokeThreadPool(@PathVariable(value = "value") String value);
 }
