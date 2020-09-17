@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(value = "discovery-guide-service-a")
-public interface AFeign {
-    @GetMapping(path = "/invoke/{value}")
-    String invoke(@PathVariable(value = "value") String value);
+public interface AsyncAFeign {
+    @GetMapping(path = "/invoke-async/{value}")
+    String invokeAsync(@PathVariable(value = "value") String value);
 }

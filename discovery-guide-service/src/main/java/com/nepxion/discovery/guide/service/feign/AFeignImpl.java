@@ -10,7 +10,6 @@ package com.nepxion.discovery.guide.service.feign;
  */
 
 import io.opentracing.Span;
-import io.opentracing.contrib.concurrent.TracedRunnable;
 import io.opentracing.tag.Tags;
 import io.opentracing.util.GlobalTracer;
 
@@ -79,23 +78,6 @@ public class AFeignImpl extends CoreImpl implements AFeign {
         middlewareOperation.operate();
 
         return value;
-    }
-
-    @Override
-    @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
-    public String invokeAsync(@PathVariable(value = "value") String value) {
-        Runnable invokeRunnable = new Runnable() {
-            @Override
-            public void run() {
-                bFeign.invoke(value);
-
-                LOG.info("异步调用...");
-            }
-        };
-        TracedRunnable tracedRunnable = new TracedRunnable(invokeRunnable, GlobalTracer.get());
-        new Thread(tracedRunnable).start();
-
-        return "Invoke Async";
     }
 
     public String handleBlock(String value, BlockException e) {
