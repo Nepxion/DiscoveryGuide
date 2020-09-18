@@ -45,7 +45,11 @@ public class AsyncAFeignImpl extends CoreImpl implements AsyncAFeign {
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
     @Async
     public Future<String> invokeAsync(@PathVariable(value = "value") String value) {
-        value = invoke(value);
+        try {
+            value = invoke(value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         AsyncResult<String> result = new AsyncResult<String>(value);
         try {
