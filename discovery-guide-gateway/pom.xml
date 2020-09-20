@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-starter-nacos</artifactId>
+            <artifactId>discovery-plugin-register-center-starter-nacos</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
