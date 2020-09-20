@@ -13,12 +13,12 @@
     </parent>
 
     <dependencies>
-        <!-- 基于注册中心的核心实现，必须引入 -->
+        <!-- 基于注册中心的灰度实现，必须引入 -->
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-starter-nacos</artifactId>
-            <!-- <artifactId>discovery-plugin-starter-consul</artifactId> -->
-            <!-- <artifactId>discovery-plugin-starter-eureka</artifactId> -->
+            <artifactId>discovery-plugin-register-center-starter-nacos</artifactId>
+            <!-- <artifactId>discovery-plugin-register-center-starter-consul</artifactId> -->
+            <!-- <artifactId>discovery-plugin-register-center-starter-eureka</artifactId> -->
             <version>${discovery.version}</version>
         </dependency>
 
