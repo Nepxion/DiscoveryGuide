@@ -26,8 +26,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 
 import com.nepxion.discovery.common.entity.InspectorEntity;
-import com.nepxion.discovery.plugin.test.annotation.DTest;
-import com.nepxion.discovery.plugin.test.annotation.DTestConfig;
+import com.nepxion.discovery.plugin.test.automation.annotation.DTest;
+import com.nepxion.discovery.plugin.test.automation.annotation.DTestConfig;
 
 public class DiscoveryGuideTestCases {
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryGuideTestCases.class);

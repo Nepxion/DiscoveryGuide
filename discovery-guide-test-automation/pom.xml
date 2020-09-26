@@ -13,10 +13,10 @@
     </parent>
 
     <dependencies>
-        <!-- 框架支持自动化测试，必须引入 -->
+        <!-- 自动化测试插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-test-starter</artifactId>
+            <artifactId>discovery-plugin-test-starter-automation</artifactId>
             <version>${discovery.version}</version>
         </dependency>
     </dependencies>
