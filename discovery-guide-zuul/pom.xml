@@ -13,18 +13,21 @@
     </parent>
 
     <dependencies>
+        <!-- 1.注册中心插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-register-center-starter-nacos</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 2.配置中心插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 3.网关的策略编排插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-zuul</artifactId>
