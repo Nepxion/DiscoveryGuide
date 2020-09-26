@@ -13,6 +13,7 @@
     </parent>
 
     <dependencies>
+        <!-- 1.控制台 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-console-starter-nacos</artifactId>
@@ -20,6 +21,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
+        <!-- 2.注册中心 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -28,13 +30,13 @@
             <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
         </dependency>
 
-        <!-- 框架支持控制平台的Spring Boot Admin监控，可以不引入 -->
+        <!-- 3.Spring Boot Admin监控 -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
-        <!-- 框架支持控制平台的Prometheus监控，可以不引入 -->
+        <!-- 4.Prometheus监控 -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>

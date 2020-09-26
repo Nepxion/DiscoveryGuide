@@ -13,7 +13,8 @@
     </parent>
 
     <dependencies>
-        <!-- 基于注册中心的灰度实现，必须引入 -->
+        <!-- ========== 核心插件 ========== -->
+        <!-- 1.注册中心插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-register-center-starter-nacos</artifactId>
@@ -22,7 +23,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 基于配置中心的灰度配置和策略订阅，可以不引入。强烈建议引入 -->
+        <!-- 2.配置中心插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
@@ -30,42 +31,15 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 服务的策略扩展包，可以不引入。强烈建议引入 -->
+        <!-- 3.服务的策略编排插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 服务的Sentinel灰度增强功能，可以不引入。必须和下面的包配套引入 -->
-        <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-service-sentinel</artifactId>
-            <version>${discovery.version}</version>
-        </dependency>
-
-        <!-- Spring Cloud Alibaba官方订阅方式 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
-        </dependency>
-
-        <!-- Nepxion Discovery自身实现的订阅方式 -->
-        <!-- <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-sentinel-starter-nacos</artifactId>
-            <artifactId>discovery-plugin-strategy-sentinel-starter-apollo</artifactId>
-            <version>${discovery.version}</version>
-        </dependency> -->
-
-        <!-- ********** 不同的调用链中间件不能共存 ********** -->
-        <!-- ********** Jaeger调用链相关包引入开始 ********** -->
-        <!-- Jaeger调用链，可以不引入。必须和下面的包配套引入 -->
+        <!-- ========== 扩展插件 ========== -->
+        <!-- 1.Jaeger + Opentracing调用链插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-opentracing</artifactId>
@@ -74,7 +48,7 @@
 
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-sentinel-starter-opentracing</artifactId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-opentracing</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
@@ -95,10 +69,8 @@
             <artifactId>opentracing-concurrent</artifactId>
             <version>${opentracing.concurrent.version}</version>
         </dependency>
-        <!-- ********** Jaeger调用链相关包引入结束 ********** -->
 
-        <!-- ********** Skywalking调用链相关包引入开始 ********** -->
-        <!-- Skywalking调用链，可以不引入。必须和下面的包配套引入 -->
+        <!-- 2.Skywalking + Opentracing调用链插件 -->
         <!-- <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-skywalking</artifactId>
@@ -107,18 +79,45 @@
 
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-sentinel-starter-skywalking</artifactId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-skywalking</artifactId>
             <version>${discovery.version}</version>
         </dependency> -->
-        <!-- ********** Skywalking调用链相关包引入开始 ********** -->
 
-        <!-- Spring Boot Admin监控，可以不引入 -->
+        <!-- 3.服务的Sentinel插件 -->
+        <!-- Sentinel LimitApp熔断插件 -->
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-service-sentinel</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
+
+        <!-- Sentinel订阅插件。下面两种订阅方式，任选一种 -->
+        <!-- Spring Cloud Alibaba官方提供的订阅方式 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
+
+        <!-- Nepxion Discovery框架提供的订阅方式 -->
+        <!-- <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-nacos</artifactId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-apollo</artifactId>
+            <version>${discovery.version}</version>
+        </dependency> -->
+
+        <!-- 4.Spring Boot Admin监控 -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
-        <!-- Prometheus监控，可以不引入 -->
+        <!-- 5.Prometheus监控 -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>

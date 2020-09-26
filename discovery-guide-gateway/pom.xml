@@ -13,7 +13,8 @@
     </parent>
 
     <dependencies>
-        <!-- 基于注册中心的灰度实现，必须引入 -->
+        <!-- ========== 核心插件 ========== -->
+        <!-- 1.注册中心插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-register-center-starter-nacos</artifactId>
@@ -22,7 +23,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 基于配置中心的灰度配置和策略订阅，可以不引入。强烈建议引入 -->
+        <!-- 2.配置中心插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-config-center-starter-nacos</artifactId>
@@ -30,16 +31,15 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 网关的策略扩展包，可以不引入。强烈建议引入 -->
+        <!-- 3.网关的策略编排插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- ********** 不同的调用链中间件不能共存 ********** -->
-        <!-- ********** Jaeger调用链相关包引入开始 ********** -->
-        <!-- Jaeger调用链，可以不引入。必须和下面的包配套引入 -->
+        <!-- ========== 扩展插件 ========== -->
+        <!-- 1.Jaeger + Opentracing调用链插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-opentracing</artifactId>
@@ -48,7 +48,7 @@
 
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-sentinel-starter-opentracing</artifactId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-opentracing</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 
@@ -63,24 +63,27 @@
             <artifactId>opentracing-spring-jaeger-starter</artifactId>
             <version>${opentracing.spring.jaeger.version}</version>
         </dependency>
-        <!-- ********** Jaeger调用链相关包引入结束 ********** -->
 
-        <!-- ********** Skywalking调用链相关包引入开始 ********** -->
-        <!-- Skywalking调用链，可以不引入。必须和下面的包配套引入 -->
+        <!-- 2.Skywalking + Opentracing调用链插件 -->
         <!-- <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-skywalking</artifactId>
             <version>${discovery.version}</version>
-        </dependency> -->
-        <!-- ********** Skywalking调用链相关包引入开始 ********** -->
+        </dependency>
 
-        <!-- Spring Boot Admin监控，可以不引入 -->
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-skywalking</artifactId>
+            <version>${discovery.version}</version>
+        </dependency> -->
+
+        <!-- 3.Spring Boot Admin监控 -->
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
-        <!-- Prometheus监控，可以不引入 -->
+        <!-- 4.Prometheus监控 -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>

@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.nepxion.discovery.plugin.test.application.TestApplication;
+import com.nepxion.discovery.plugin.test.automation.application.TestApplication;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { TestApplication.class, DiscoveryGuideTestConfiguration.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
