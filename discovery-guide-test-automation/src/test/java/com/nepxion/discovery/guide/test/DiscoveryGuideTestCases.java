@@ -24,6 +24,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import com.nepxion.discovery.common.entity.InspectorEntity;
 import com.nepxion.discovery.plugin.test.automation.annotation.DTest;
@@ -1200,5 +1204,149 @@ public class DiscoveryGuideTestCases {
         }
 
         Assert.assertEquals(count, 4);
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-4.xml", resetPath = "gray-default.xml")
+    public void testNacosDynamicalMetadataUpdated(String group, String serviceId, String testUrl) {
+        String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        StringBuilder targetStringBuilder = new StringBuilder();
+        targetStringBuilder.append("[");
+        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-a\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
+        targetStringBuilder.append(",");
+        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-b\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
+        targetStringBuilder.append("]");
+
+        StringBuilder metadataStringBuilder = new StringBuilder();
+        metadataStringBuilder.append("{\"version\":\"2.0\"}");
+
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+        parameters.add("namespace", "public");
+        parameters.add("target", targetStringBuilder.toString());
+        parameters.add("metadata", metadataStringBuilder.toString());
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
+
+        ResponseEntity<String> response = testRestTemplate.exchange(nacosUrl, HttpMethod.PUT, requestEntity, String.class);
+
+        LOG.info("Nacos Result : {}", response.getBody());
+
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            int index = result.indexOf("[V=2.0]");
+            int lastIndex = result.lastIndexOf("[V=2.0]");
+
+            Assert.assertNotEquals(index, -1);
+            Assert.assertNotEquals(lastIndex, -1);
+            Assert.assertNotEquals(index, lastIndex);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-5.xml", resetPath = "gray-default.xml")
+    public void testNacosDynamicalMetadataDeleted(String group, String serviceId, String testUrl) {
+        String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        StringBuilder targetStringBuilder = new StringBuilder();
+        targetStringBuilder.append("[");
+        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-a\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
+        targetStringBuilder.append(",");
+        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-b\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
+        targetStringBuilder.append("]");
+
+        StringBuilder metadataStringBuilder = new StringBuilder();
+        metadataStringBuilder.append("{\"version\":\"2.0\"}");
+
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+        parameters.add("namespace", "public");
+        parameters.add("target", targetStringBuilder.toString());
+        parameters.add("metadata", metadataStringBuilder.toString());
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
+
+        ResponseEntity<String> response = testRestTemplate.exchange(nacosUrl, HttpMethod.DELETE, requestEntity, String.class);
+
+        LOG.info("Nacos Result : {}", response.getBody());
+
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            int index = result.indexOf("[V=default]");
+            int lastIndex = result.lastIndexOf("[V=default]");
+
+            Assert.assertNotEquals(index, -1);
+            Assert.assertNotEquals(lastIndex, -1);
+            Assert.assertNotEquals(index, lastIndex);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-1.xml", resetPath = "gray-default.xml")
+    public void testNacosDynamicalMetadataRecovery(String group, String serviceId, String testUrl) {
+        String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        StringBuilder targetStringBuilder = new StringBuilder();
+        targetStringBuilder.append("[");
+        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-a\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
+        targetStringBuilder.append(",");
+        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-b\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
+        targetStringBuilder.append("]");
+
+        StringBuilder metadataStringBuilder = new StringBuilder();
+        metadataStringBuilder.append("{\"version\":\"1.0\"}");
+
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+        parameters.add("namespace", "public");
+        parameters.add("target", targetStringBuilder.toString());
+        parameters.add("metadata", metadataStringBuilder.toString());
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
+
+        ResponseEntity<String> response = testRestTemplate.exchange(nacosUrl, HttpMethod.PUT, requestEntity, String.class);
+
+        LOG.info("Nacos Result : {}", response.getBody());
+
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            int index = result.indexOf("[V=1.0]");
+            int lastIndex = result.lastIndexOf("[V=1.0]");
+
+            Assert.assertNotEquals(index, -1);
+            Assert.assertNotEquals(lastIndex, -1);
+            Assert.assertNotEquals(index, lastIndex);
+        }
     }
 }
