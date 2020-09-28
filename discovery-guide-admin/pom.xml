@@ -20,6 +20,7 @@
             <!-- <groupId>org.springframework.cloud</groupId> -->
             <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
             <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
+            <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
         </dependency>
 
         <!-- 2.Spring Boot Admin监控服务器 -->

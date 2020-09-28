@@ -20,6 +20,7 @@
             <artifactId>discovery-plugin-register-center-starter-nacos</artifactId>
             <!-- <artifactId>discovery-plugin-register-center-starter-consul</artifactId> -->
             <!-- <artifactId>discovery-plugin-register-center-starter-eureka</artifactId> -->
+            <!-- <artifactId>discovery-plugin-register-center-starter-zookeeper</artifactId> -->
             <version>${discovery.version}</version>
         </dependency>
 
