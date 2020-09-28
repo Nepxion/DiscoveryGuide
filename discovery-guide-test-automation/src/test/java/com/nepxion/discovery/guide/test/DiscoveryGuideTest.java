@@ -376,4 +376,28 @@ public class DiscoveryGuideTest {
             discoveryGuideTestCases.testSentinelAuthority3(zuulTestUrl);
         }
     }
+
+    @Test
+    public void testZ1NacosDynamicalMetadataUpdated() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testNacosDynamicalMetadataUpdated(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testNacosDynamicalMetadataUpdated(zuulGroup, zuulGroup, zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testZ2NacosDynamicalMetadataDeleted() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testNacosDynamicalMetadataDeleted(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testNacosDynamicalMetadataDeleted(zuulGroup, zuulGroup, zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testZ3NacosDynamicalMetadataRecovery() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testNacosDynamicalMetadataRecovery(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testNacosDynamicalMetadataRecovery(zuulGroup, zuulGroup, zuulTestUrl);
+        }
+    }
 }
