@@ -20,10 +20,12 @@ import org.springframework.web.client.RestTemplate;
 import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceStrategyMonitorAdapter;
+import com.nepxion.discovery.guide.service.impl.MyServiceStrategyRouteFilter;
 import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.guide.service.impl.MySubscriber;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
+import com.nepxion.discovery.plugin.strategy.service.filter.ServiceStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMonitorAdapter;
 import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.ServiceSentinelRequestOriginAdapter;
 
@@ -53,10 +55,10 @@ public class DiscoveryGuideServiceA1 {
     }
 
     // 自定义灰度路由策略
-    /*@Bean
+    @Bean
     public ServiceStrategyRouteFilter serviceStrategyRouteFilter() {
         return new MyServiceStrategyRouteFilter();
-    }*/
+    }
 
     // 自定义组合式熔断
     @Bean
