@@ -105,6 +105,38 @@ public class DiscoveryGuideTest {
     }
 
     @Test
+    public void testVersionRouteFilter1() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testVersionRouteFilter1(gatewayTestUrl);
+            discoveryGuideTestCases.testVersionRouteFilter1(zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testVersionRouteFilter2() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testVersionRouteFilter2(gatewayTestUrl);
+            discoveryGuideTestCases.testVersionRouteFilter2(zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testRegionRouteFilter1() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testRegionRouteFilter1(gatewayTestUrl);
+            discoveryGuideTestCases.testRegionRouteFilter1(zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void testRegionRouteFilter2() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testRegionRouteFilter2(gatewayTestUrl);
+            discoveryGuideTestCases.testRegionRouteFilter2(zuulTestUrl);
+        }
+    }
+
+    @Test
     public void testVersionStrategyGray1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
             discoveryGuideTestCases.testVersionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
