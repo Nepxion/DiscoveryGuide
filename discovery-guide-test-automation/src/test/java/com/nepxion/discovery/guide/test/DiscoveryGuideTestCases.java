@@ -1149,7 +1149,7 @@ public class DiscoveryGuideTestCases {
     @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-1.json", resetPath = "sentinel-default.json")
     public void testSentinelAuthority1(String testUrl) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("user", "zhangsan");
+        headers.add("location", "shanghai");
 
         LOG.info("Header : {}", headers);
 
@@ -1187,7 +1187,7 @@ public class DiscoveryGuideTestCases {
     @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-2.json", resetPath = "sentinel-default.json")
     public void testSentinelAuthority3(String testUrl) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("user", "zhangsan");
+        headers.add("location", "shanghai");
 
         LOG.info("Header : {}", headers);
 

@@ -19,8 +19,8 @@ public class MyServiceSentinelRequestOriginAdapter extends DefaultServiceSentine
     @Override
     public String parseOrigin(HttpServletRequest request) {
         String version = request.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION);
-        String user = request.getHeader("user");
+        String location = request.getHeader("location");
 
-        return version + "&" + user;
+        return version + "&" + location;
     }
 }
