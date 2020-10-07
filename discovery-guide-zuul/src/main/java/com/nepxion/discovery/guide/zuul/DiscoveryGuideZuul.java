@@ -17,8 +17,10 @@ import org.springframework.context.annotation.Bean;
 
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.zuul.impl.MyStrategyTracerAdapter;
+import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
+import com.nepxion.discovery.plugin.strategy.zuul.filter.ZuulStrategyRouteFilter;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -39,10 +41,10 @@ public class DiscoveryGuideZuul {
     }
 
     // 自定义灰度路由策略
-    /*@Bean
+    @Bean
     public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
         return new MyZuulStrategyRouteFilter();
-    }*/
+    }
 
     // 自定义调用链上下文参数
     @Bean
