@@ -27,7 +27,7 @@
 							},
 							{
 								"key": "n-d-region",
-								"value": "qa",
+								"value": "dev",
 								"type": "text",
 								"disabled": true
 							},
@@ -63,7 +63,7 @@
 							},
 							{
 								"key": "app-version",
-								"value": "2.0",
+								"value": "1.0",
 								"type": "text",
 								"disabled": true
 							},
@@ -76,6 +76,12 @@
 							{
 								"key": "user",
 								"value": "zhangsan",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "location",
+								"value": "shanghai",
 								"type": "text",
 								"disabled": true
 							},
@@ -181,25 +187,31 @@
 							},
 							{
 								"key": "mobile",
-								"value": "13812345678",
+								"value": "13312345678",
 								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "user",
-								"value": "lisi",
+								"value": "zhangsan",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "location",
+								"value": "shanghai",
 								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "trace-id",
-								"value": "lochmbu18nfo",
+								"value": "c0zs78kcze5z",
 								"type": "text",
 								"disabled": true
 							},
 							{
 								"key": "span-id",
-								"value": "6913",
+								"value": "1589",
 								"type": "text",
 								"disabled": true
 							},
@@ -252,7 +264,7 @@
 							{
 								"key": "n-d-region",
 								"type": "text",
-								"value": "qa",
+								"value": "dev",
 								"disabled": true
 							},
 							{
@@ -288,7 +300,7 @@
 							{
 								"key": "app-version",
 								"type": "text",
-								"value": "2.0",
+								"value": "1.0",
 								"disabled": true
 							},
 							{
@@ -301,6 +313,12 @@
 								"key": "user",
 								"type": "text",
 								"value": "zhangsan",
+								"disabled": true
+							},
+							{
+								"key": "location",
+								"value": "shanghai",
+								"type": "text",
 								"disabled": true
 							},
 							{
@@ -361,7 +379,7 @@
 							{
 								"key": "n-d-version",
 								"type": "text",
-								"value": "{\"discovery-guide-service-a\":\"1.1\", \"discovery-guide-service-b\":\"1.1\"}",
+								"value": "{\"discovery-guide-service-a\":\"1.0\", \"discovery-guide-service-b\":\"1.0\"}",
 								"disabled": true
 							},
 							{
@@ -373,7 +391,7 @@
 							{
 								"key": "n-d-region",
 								"type": "text",
-								"value": "qa",
+								"value": "dev",
 								"disabled": true
 							},
 							{
@@ -409,7 +427,7 @@
 							{
 								"key": "app-version",
 								"type": "text",
-								"value": "2.0",
+								"value": "1.0",
 								"disabled": true
 							},
 							{
@@ -422,6 +440,12 @@
 								"key": "user",
 								"type": "text",
 								"value": "zhangsan",
+								"disabled": true
+							},
+							{
+								"key": "location",
+								"value": "shanghai",
+								"type": "text",
 								"disabled": true
 							},
 							{
