@@ -137,18 +137,18 @@ public class DiscoveryGuideTest {
     }
 
     @Test
-    public void testEnvironmentRouteFilter1() throws Exception {
+    public void testAddressRouteFilter1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testEnvironmentRouteFilter1(gatewayTestUrl);
-            discoveryGuideTestCases.testEnvironmentRouteFilter1(zuulTestUrl);
+            discoveryGuideTestCases.testAddressRouteFilter1(gatewayTestUrl);
+            discoveryGuideTestCases.testAddressRouteFilter1(zuulTestUrl);
         }
     }
 
     @Test
-    public void testEnvironmentRouteFilter2() throws Exception {
+    public void testAddressRouteFilter2() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testEnvironmentRouteFilter2(gatewayTestUrl);
-            discoveryGuideTestCases.testEnvironmentRouteFilter2(zuulTestUrl);
+            discoveryGuideTestCases.testAddressRouteFilter2(gatewayTestUrl);
+            discoveryGuideTestCases.testAddressRouteFilter2(zuulTestUrl);
         }
     }
 

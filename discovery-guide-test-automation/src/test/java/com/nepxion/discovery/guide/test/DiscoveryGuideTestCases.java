@@ -254,7 +254,7 @@ public class DiscoveryGuideTestCases {
     }
 
     @DTest
-    public void testEnvironmentRouteFilter1(String testUrl) {
+    public void testAddressRouteFilter1(String testUrl) {
         List<String> cookieList = new ArrayList<String>();
         cookieList.add("user=zhangsan");
         cookieList.add("Path=/");
@@ -272,28 +272,17 @@ public class DiscoveryGuideTestCases {
 
             LOG.info("Result{} : {}", i + 1, result);
 
-            boolean aMatched = false;
-            boolean bMatched = false;
-            String[] array = result.split("->");
-            for (String value : array) {
-                if (value.contains("discovery-guide-service-a")) {
-                    if (value.contains("[E=env1]")) {
-                        aMatched = true;
-                    }
-                }
-                if (value.contains("discovery-guide-service-b")) {
-                    if (value.contains("[E=env1]")) {
-                        bMatched = true;
-                    }
-                }
-            }
+            int index = result.indexOf(":3001");
+            int lastIndex = result.lastIndexOf(":4002");
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assert.assertNotEquals(index, -1);
+            Assert.assertNotEquals(lastIndex, -1);
+            Assert.assertNotEquals(index, lastIndex);
         }
     }
 
     @DTest
-    public void testEnvironmentRouteFilter2(String testUrl) {
+    public void testAddressRouteFilter2(String testUrl) {
         List<String> cookieList = new ArrayList<String>();
         cookieList.add("user=lisi");
         cookieList.add("Path=/");
@@ -311,23 +300,12 @@ public class DiscoveryGuideTestCases {
 
             LOG.info("Result{} : {}", i + 1, result);
 
-            boolean aMatched = false;
-            boolean bMatched = false;
-            String[] array = result.split("->");
-            for (String value : array) {
-                if (value.contains("discovery-guide-service-a")) {
-                    if (value.contains("[E=common]")) {
-                        aMatched = true;
-                    }
-                }
-                if (value.contains("discovery-guide-service-b")) {
-                    if (value.contains("[E=common]")) {
-                        bMatched = true;
-                    }
-                }
-            }
+            int index = result.indexOf(":3002");
+            int lastIndex = result.lastIndexOf(":4001");
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assert.assertNotEquals(index, -1);
+            Assert.assertNotEquals(lastIndex, -1);
+            Assert.assertNotEquals(index, lastIndex);
         }
     }
 
