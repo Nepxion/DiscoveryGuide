@@ -682,6 +682,51 @@ public class DiscoveryGuideTestCases {
         }
     }
 
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green-header-parameter-cookie.xml", resetPath = "gray-default.xml")
+    public void testStrategyCustomizationBlueGreenHeaderParameterCookie(String group, String serviceId, String testUrl) {
+        // 条件参数a来自于Http Query Parameter
+        testUrl += "?a=1";
+
+        // 条件参数b来自于Http Cookie
+        List<String> cookieList = new ArrayList<String>();
+        cookieList.add("b=2");
+        cookieList.add("Path=/");
+        cookieList.add("Domain=nepxion");
+        cookieList.add("Expires=Fri, 07 Oct 2050 15:00:00 GMT");
+
+        // 条件参数c来自于Http Header
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("c", "3");
+        headers.put("Cookie", cookieList);
+
+        LOG.info("Header : {}", headers);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.1]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.1]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            Assert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green-header-1.xml", resetPath = "gray-default.xml")
     public void testInspectStrategyCustomizationBlueGreenHeader1(String group, String serviceId, String testUrl) {
         InspectorEntity inspectorEntity = new InspectorEntity();
