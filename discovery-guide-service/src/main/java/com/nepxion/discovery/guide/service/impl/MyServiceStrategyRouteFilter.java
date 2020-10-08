@@ -115,11 +115,11 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     private ServiceStrategyContextHolder serviceStrategyContextHolder;
 
     // 自定义根据域名全链路环境隔离
-    // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效   
+    // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效
     @Override
     public String getRouteEnvironment() {
         String requestURL = serviceStrategyContextHolder.getRequestURL();
-        if (requestURL.contains("nepxion.com")) {            
+        if (requestURL.contains("nepxion.com")) {
             LOG.info("自定义根据域名全链路环境隔离, URL={}", requestURL);
 
             String host = requestURL.substring("http://".length(), requestURL.length());
