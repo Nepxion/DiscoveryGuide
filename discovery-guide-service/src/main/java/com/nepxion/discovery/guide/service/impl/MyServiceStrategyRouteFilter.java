@@ -12,8 +12,10 @@ package com.nepxion.discovery.guide.service.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.nepxion.discovery.plugin.strategy.service.context.ServiceStrategyContextHolder;
 import com.nepxion.discovery.plugin.strategy.service.filter.DefaultServiceStrategyRouteFilter;
 
 // 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
@@ -25,8 +27,8 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     private static final String DEFAULT_B_ROUTE_VERSION = "{\"discovery-guide-service-a\":\"1.1\", \"discovery-guide-service-b\":\"1.0\"}";
     private static final String DEFAULT_A_ROUTE_REGION = "{\"discovery-guide-service-a\":\"dev\", \"discovery-guide-service-b\":\"qa\"}";
     private static final String DEFAULT_B_ROUTE_REGION = "{\"discovery-guide-service-a\":\"qa\", \"discovery-guide-service-b\":\"dev\"}";
-    private static final String DEFAULT_A_ROUTE_ENVIRONMENT = "env1";
-    private static final String DEFAULT_B_ROUTE_ENVIRONMENT = "common";
+    private static final String DEFAULT_A_ROUTE_ADDRESS = "{\"discovery-guide-service-a\":\"3001\", \"discovery-guide-service-b\":\"4002\"}";
+    private static final String DEFAULT_B_ROUTE_ADDRESS = "{\"discovery-guide-service-a\":\"3002\", \"discovery-guide-service-b\":\"4001\"}";
 
     @Value("${a.route.version:" + DEFAULT_A_ROUTE_VERSION + "}")
     private String aRouteVersion;
@@ -40,11 +42,11 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     @Value("${b.route.region:" + DEFAULT_B_ROUTE_REGION + "}")
     private String bRouteRegion;
 
-    @Value("${a.route.env:" + DEFAULT_A_ROUTE_ENVIRONMENT + "}")
-    private String aRouteEnvironment;
+    @Value("${a.route.address:" + DEFAULT_A_ROUTE_ADDRESS + "}")
+    private String aRouteAddress;
 
-    @Value("${b.route.env:" + DEFAULT_B_ROUTE_ENVIRONMENT + "}")
-    private String bRouteEnvironment;
+    @Value("${b.route.address:" + DEFAULT_B_ROUTE_ADDRESS + "}")
+    private String bRouteAddress;
 
     // 自定义根据Header全链路版本匹配
     // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效
@@ -88,22 +90,44 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
         return super.getRouteRegion();
     }
 
-    // 自定义根据Cookie全链路环境隔离
+    // 自定义根据Cookie全链路IP地址和端口匹配
     // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效
     @Override
-    public String getRouteEnvironment() {
+    public String getRouteAddress() {
         String user = strategyContextHolder.getCookie("user");
 
-        LOG.info("自定义根据Cookie全链路环境隔离, Cookie user={}", user);
+        LOG.info("自定义根据Cookie全链路IP地址和端口匹配, Cookie user={}", user);
 
         if (StringUtils.equals(user, "zhangsan")) {
-            LOG.info("执行全链路环境隔离={}", aRouteEnvironment);
+            LOG.info("执行全链路IP地址和端口匹配={}", aRouteAddress);
 
-            return aRouteEnvironment;
+            return aRouteAddress;
         } else if (StringUtils.equals(user, "lisi")) {
-            LOG.info("执行全链路环境隔离={}", bRouteEnvironment);
+            LOG.info("执行全链路IP地址和端口匹配={}", bRouteAddress);
 
-            return bRouteEnvironment;
+            return bRouteAddress;
+        }
+
+        return super.getRouteEnvironment();
+    }
+
+    @Autowired
+    private ServiceStrategyContextHolder serviceStrategyContextHolder;
+
+    // 自定义根据域名全链路环境隔离
+    // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效   
+    @Override
+    public String getRouteEnvironment() {
+        String requestURL = serviceStrategyContextHolder.getRequestURL();
+        if (requestURL.contains("nepxion.com")) {            
+            LOG.info("自定义根据域名全链路环境隔离, URL={}", requestURL);
+
+            String host = requestURL.substring("http://".length(), requestURL.length());
+            String environment = host.substring(0, host.indexOf("."));
+
+            LOG.info("执行全链路环境隔离={}", environment);
+
+            return environment;
         }
 
         return super.getRouteEnvironment();
