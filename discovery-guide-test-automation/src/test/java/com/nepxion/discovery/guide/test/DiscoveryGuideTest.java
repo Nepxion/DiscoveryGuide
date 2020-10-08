@@ -268,6 +268,14 @@ public class DiscoveryGuideTest {
     }
 
     @Test
+    public void testStrategyCustomizationBlueGreenHeaderParameterCookie() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeaderParameterCookie(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeaderParameterCookie(zuulGroup, zuulServiceId, zuulTestUrl);
+        }
+    }
+
+    @Test
     public void testInspectStrategyCustomizationBlueGreenHeader1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
             discoveryGuideTestCases.testInspectStrategyCustomizationBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
