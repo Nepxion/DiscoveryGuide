@@ -1438,19 +1438,18 @@ public class DiscoveryGuideTestCases {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        StringBuilder targetStringBuilder = new StringBuilder();
-        targetStringBuilder.append("[");
-        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-a\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
-        targetStringBuilder.append(",");
-        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-b\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
-        targetStringBuilder.append("]");
+        StringBuilder instancesStringBuilder = new StringBuilder();
+        instancesStringBuilder.append("[");
+        instancesStringBuilder.append("{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}");
+        instancesStringBuilder.append("]");
 
         StringBuilder metadataStringBuilder = new StringBuilder();
         metadataStringBuilder.append("{\"version\":\"2.0\"}");
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
         parameters.add("namespace", "public");
-        parameters.add("target", targetStringBuilder.toString());
+        parameters.add("serviceName", "DEFAULT_GROUP@@discovery-guide-service-a");
+        parameters.add("instances", instancesStringBuilder.toString());
         parameters.add("metadata", metadataStringBuilder.toString());
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
@@ -1486,19 +1485,18 @@ public class DiscoveryGuideTestCases {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        StringBuilder targetStringBuilder = new StringBuilder();
-        targetStringBuilder.append("[");
-        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-a\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
-        targetStringBuilder.append(",");
-        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-b\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
-        targetStringBuilder.append("]");
+        StringBuilder instancesStringBuilder = new StringBuilder();
+        instancesStringBuilder.append("[");
+        instancesStringBuilder.append("{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}");
+        instancesStringBuilder.append("]");
 
         StringBuilder metadataStringBuilder = new StringBuilder();
         metadataStringBuilder.append("{\"version\":\"2.0\"}");
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
         parameters.add("namespace", "public");
-        parameters.add("target", targetStringBuilder.toString());
+        parameters.add("serviceName", "DEFAULT_GROUP@@discovery-guide-service-a");
+        parameters.add("instances", instancesStringBuilder.toString());
         parameters.add("metadata", metadataStringBuilder.toString());
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
@@ -1534,19 +1532,18 @@ public class DiscoveryGuideTestCases {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        StringBuilder targetStringBuilder = new StringBuilder();
-        targetStringBuilder.append("[");
-        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-a\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
-        targetStringBuilder.append(",");
-        targetStringBuilder.append("{\"serviceName\":\"DEFAULT_GROUP@@discovery-guide-service-b\",\"instances\":[{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}]}");
-        targetStringBuilder.append("]");
+        StringBuilder instancesStringBuilder = new StringBuilder();
+        instancesStringBuilder.append("[");
+        instancesStringBuilder.append("{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}");
+        instancesStringBuilder.append("]");
 
         StringBuilder metadataStringBuilder = new StringBuilder();
         metadataStringBuilder.append("{\"version\":\"1.0\"}");
 
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
         parameters.add("namespace", "public");
-        parameters.add("target", targetStringBuilder.toString());
+        parameters.add("serviceName", "DEFAULT_GROUP@@discovery-guide-service-a");
+        parameters.add("instances", instancesStringBuilder.toString());
         parameters.add("metadata", metadataStringBuilder.toString());
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
