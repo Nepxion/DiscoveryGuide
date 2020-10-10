@@ -1445,7 +1445,7 @@ public class DiscoveryGuideTestCases {
         LOG.info("Nacos dynamical metadata processed Result : {}", response2);
 
         try {
-            Thread.sleep(30000);
+            Thread.sleep(45000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -1479,7 +1479,7 @@ public class DiscoveryGuideTestCases {
         LOG.info("Nacos dynamical metadata processed Result : {}", response2);
 
         try {
-            Thread.sleep(30000);
+            Thread.sleep(45000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -1513,7 +1513,7 @@ public class DiscoveryGuideTestCases {
         LOG.info("Nacos dynamical metadata processed Result : {}", response2);
 
         try {
-            Thread.sleep(30000);
+            Thread.sleep(45000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
