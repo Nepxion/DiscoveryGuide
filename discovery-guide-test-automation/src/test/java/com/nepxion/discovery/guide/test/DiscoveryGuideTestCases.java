@@ -25,7 +25,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -1435,28 +1434,15 @@ public class DiscoveryGuideTestCases {
     public void testNacosDynamicalMetadataUpdated(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        String instancesJson1 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String metadataJson1 = "{\"version\":\"2.0\"}";
+        String response1 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-a", instancesJson1, metadataJson1, HttpMethod.PUT);
+        LOG.info("Nacos dynamical metadata processed Result : {}", response1);
 
-        StringBuilder instancesStringBuilder = new StringBuilder();
-        instancesStringBuilder.append("[");
-        instancesStringBuilder.append("{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}");
-        instancesStringBuilder.append("]");
-
-        StringBuilder metadataStringBuilder = new StringBuilder();
-        metadataStringBuilder.append("{\"version\":\"2.0\"}");
-
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-        parameters.add("namespace", "public");
-        parameters.add("serviceName", "DEFAULT_GROUP@@discovery-guide-service-a");
-        parameters.add("instances", instancesStringBuilder.toString());
-        parameters.add("metadata", metadataStringBuilder.toString());
-
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
-
-        ResponseEntity<String> response = testRestTemplate.exchange(nacosUrl, HttpMethod.PUT, requestEntity, String.class);
-
-        LOG.info("Nacos Result : {}", response.getBody());
+        String instancesJson2 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String metadataJson2 = "{\"version\":\"2.0\"}";
+        String response2 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-b", instancesJson2, metadataJson2, HttpMethod.PUT);
+        LOG.info("Nacos dynamical metadata processed Result : {}", response2);
 
         try {
             Thread.sleep(30000);
@@ -1482,28 +1468,15 @@ public class DiscoveryGuideTestCases {
     public void testNacosDynamicalMetadataDeleted(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        String instancesJson1 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String metadataJson1 = "{\"version\":\"1.0\"}";
+        String response1 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-a", instancesJson1, metadataJson1, HttpMethod.DELETE);
+        LOG.info("Nacos dynamical metadata processed Result : {}", response1);
 
-        StringBuilder instancesStringBuilder = new StringBuilder();
-        instancesStringBuilder.append("[");
-        instancesStringBuilder.append("{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}");
-        instancesStringBuilder.append("]");
-
-        StringBuilder metadataStringBuilder = new StringBuilder();
-        metadataStringBuilder.append("{\"version\":\"2.0\"}");
-
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-        parameters.add("namespace", "public");
-        parameters.add("serviceName", "DEFAULT_GROUP@@discovery-guide-service-a");
-        parameters.add("instances", instancesStringBuilder.toString());
-        parameters.add("metadata", metadataStringBuilder.toString());
-
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
-
-        ResponseEntity<String> response = testRestTemplate.exchange(nacosUrl, HttpMethod.DELETE, requestEntity, String.class);
-
-        LOG.info("Nacos Result : {}", response.getBody());
+        String instancesJson2 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String metadataJson2 = "{\"version\":\"1.0\"}";
+        String response2 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-b", instancesJson2, metadataJson2, HttpMethod.DELETE);
+        LOG.info("Nacos dynamical metadata processed Result : {}", response2);
 
         try {
             Thread.sleep(30000);
@@ -1526,31 +1499,18 @@ public class DiscoveryGuideTestCases {
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-1.xml", resetPath = "gray-default.xml")
-    public void testNacosDynamicalMetadataRecovery(String group, String serviceId, String testUrl) {
+    public void testNacosDynamicalMetadataRestored(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        String instancesJson1 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String metadataJson1 = "{\"version\":\"1.0\"}";
+        String response1 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-a", instancesJson1, metadataJson1, HttpMethod.PUT);
+        LOG.info("Nacos dynamical metadata processed Result : {}", response1);
 
-        StringBuilder instancesStringBuilder = new StringBuilder();
-        instancesStringBuilder.append("[");
-        instancesStringBuilder.append("{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}");
-        instancesStringBuilder.append("]");
-
-        StringBuilder metadataStringBuilder = new StringBuilder();
-        metadataStringBuilder.append("{\"version\":\"1.0\"}");
-
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-        parameters.add("namespace", "public");
-        parameters.add("serviceName", "DEFAULT_GROUP@@discovery-guide-service-a");
-        parameters.add("instances", instancesStringBuilder.toString());
-        parameters.add("metadata", metadataStringBuilder.toString());
-
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
-
-        ResponseEntity<String> response = testRestTemplate.exchange(nacosUrl, HttpMethod.PUT, requestEntity, String.class);
-
-        LOG.info("Nacos Result : {}", response.getBody());
+        String instancesJson2 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String metadataJson2 = "{\"version\":\"1.0\"}";
+        String response2 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-b", instancesJson2, metadataJson2, HttpMethod.PUT);
+        LOG.info("Nacos dynamical metadata processed Result : {}", response2);
 
         try {
             Thread.sleep(30000);
@@ -1570,5 +1530,20 @@ public class DiscoveryGuideTestCases {
             Assert.assertNotEquals(lastIndex, -1);
             Assert.assertNotEquals(index, lastIndex);
         }
+    }
+
+    public String processNacosDynamicalMetadata(String url, String namespace, String group, String serviceId, String instancesJson, String metadataJson, HttpMethod httpMethod) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+        parameters.add("namespace", namespace);
+        parameters.add("serviceName", group + "@@" + serviceId);
+        parameters.add("instances", instancesJson);
+        parameters.add("metadata", metadataJson);
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
+
+        return testRestTemplate.exchange(url, httpMethod, requestEntity, String.class).getBody();
     }
 }
