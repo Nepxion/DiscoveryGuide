@@ -450,10 +450,10 @@ public class DiscoveryGuideTest {
     }
 
     @Test
-    public void testZ3NacosDynamicalMetadataRecovery() throws Exception {
+    public void testZ3NacosDynamicalMetadataRestored() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testNacosDynamicalMetadataRecovery(gatewayGroup, gatewayGroup, gatewayTestUrl);
-            discoveryGuideTestCases.testNacosDynamicalMetadataRecovery(zuulGroup, zuulGroup, zuulTestUrl);
+            discoveryGuideTestCases.testNacosDynamicalMetadataRestored(gatewayGroup, gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testNacosDynamicalMetadataRestored(zuulGroup, zuulGroup, zuulTestUrl);
         }
     }
 }
