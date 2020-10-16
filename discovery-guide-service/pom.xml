@@ -27,7 +27,14 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 3.服务的策略编排插件 -->
+        <!-- 3.管理中心插件 -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>discovery-plugin-admin-center-starter</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
+
+        <!-- 4.服务的策略编排插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service</artifactId>
