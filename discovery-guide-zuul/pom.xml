@@ -32,7 +32,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 3.配置中心插件 -->
+        <!-- 3.管理中心插件 -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>discovery-plugin-admin-center-starter</artifactId>
