@@ -10,16 +10,22 @@ package com.nepxion.discovery.guide.service.feign;
  */
 
 import io.opentracing.Span;
+import io.opentracing.contrib.concurrent.TracedRunnable;
 import io.opentracing.tag.Tags;
 import io.opentracing.util.GlobalTracer;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,12 +48,13 @@ public class AFeignImpl extends CoreImpl implements AFeign {
     @Autowired
     private StrategyMonitorContext strategyMonitorContext;
 
+    private ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+
     @Override
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
     @Permission(name = "AFeign invoke", label = "AFeign invoke label", description = "AFeign invoke description")
     public String invoke(@PathVariable(value = "value") String value) {
-        value = getPluginInfo(value);
-        value = bFeign.invoke(value);
+        value = doInvoke(value);
 
         LOG.info("获取TraceId={}, SpanId={}", strategyMonitorContext.getTraceId(), strategyMonitorContext.getSpanId());
 
@@ -68,6 +75,65 @@ public class AFeignImpl extends CoreImpl implements AFeign {
             errorSpan.log(customizationMap);
             errorSpan.finish();
         }
+
+        return value;
+    }
+
+    @Override
+    @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
+    @Async
+    public Future<String> invokeAsync(@PathVariable(value = "value") String value) {
+        try {
+            value = doInvoke(value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        AsyncResult<String> result = new AsyncResult<String>(value);
+        try {
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
+    public String invokeThread(@PathVariable(value = "value") String value) {
+        Runnable runnable = createRunnable(value);
+
+        new Thread(runnable).start();
+
+        return "Invoke Thread";
+    }
+
+    @Override
+    @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
+    public String invokeThreadPool(String value) {
+        Runnable runnable = createRunnable(value);
+
+        cachedThreadPool.execute(runnable);
+
+        return "Invoke ThreadPool";
+    }
+
+    private Runnable createRunnable(String value) {
+        Runnable invokeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                doInvoke(value);
+            }
+        };
+        TracedRunnable tracedRunnable = new TracedRunnable(invokeRunnable, GlobalTracer.get());
+
+        return tracedRunnable;
+    }
+
+    private String doInvoke(String value) {
+        value = getPluginInfo(value);
+        value = bFeign.invoke(value);
 
         LOG.info("调用路径：{}", value);
 
