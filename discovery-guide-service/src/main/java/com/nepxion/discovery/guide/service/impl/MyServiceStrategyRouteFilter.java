@@ -49,7 +49,6 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     private String bRouteAddress;
 
     // 自定义根据Header全链路版本匹配路由
-    // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效
     @Override
     public String getRouteVersion() {
         String user = strategyContextHolder.getHeader("user");
@@ -70,7 +69,6 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     }
 
     // 自定义根据Parameter全链路区域匹配路由
-    // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效
     @Override
     public String getRouteRegion() {
         String user = strategyContextHolder.getParameter("user");
@@ -91,7 +89,6 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     }
 
     // 自定义根据Cookie全链路IP地址和端口匹配路由
-    // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效
     @Override
     public String getRouteAddress() {
         String user = strategyContextHolder.getCookie("user");
@@ -115,7 +112,6 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     private ServiceStrategyContextHolder serviceStrategyContextHolder;
 
     // 自定义根据域名全链路环境隔离
-    // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效
     @Override
     public String getRouteEnvironment() {
         String requestURL = serviceStrategyContextHolder.getRequestURL();
@@ -134,7 +130,6 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
     }
 
     // 自定义全链路版本权重路由
-    // 当网关有对应策略传入时，以网关策略优先，此处逻辑无效
     /*@Override
     public String getRouteVersion() {
         LOG.info("自定义全链路版本权重路由");
