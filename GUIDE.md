@@ -89,7 +89,7 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-14.jpg)
 
-③ 蓝绿灰度发布策略内容统一如下
+③ 蓝绿发布策略内容统一如下
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
