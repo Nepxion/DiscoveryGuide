@@ -34,13 +34,13 @@ public class DiscoveryGuideZuul {
     }
 
     // ========== 下面的Bean配置以及impl目录下的类都是高级应用，可以全部删除 ==========
-    // 自定义负载均衡的灰度策略
+    // 自定义负载均衡的蓝绿灰度策略
     @Bean
     public DiscoveryEnabledStrategy discoveryEnabledStrategy() {
         return new MyDiscoveryEnabledStrategy();
     }
 
-    // 自定义灰度路由策略
+    // 自定义路由过滤的蓝绿灰度策略
     @Bean
     public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
         return new MyZuulStrategyRouteFilter();
