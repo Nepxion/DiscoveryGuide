@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.nepxion.discovery.plugin.strategy.zuul.context.ZuulStrategyContextHolder;
 import com.nepxion.discovery.plugin.strategy.zuul.filter.DefaultZuulStrategyRouteFilter;
 
-// 适用于A/B Testing或者更根据某业务参数决定灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
+// 适用于A/B Testing或者更根据某业务参数决定蓝绿灰度路由路径。可以结合配置中心分别配置A/B两条路径，可以动态改变并通知
 // 当Header中传来的用户为张三，执行一条路由路径；为李四，执行另一条路由路径
 public class MyZuulStrategyRouteFilter extends DefaultZuulStrategyRouteFilter {
     private static final Logger LOG = LoggerFactory.getLogger(MyZuulStrategyRouteFilter.class);
