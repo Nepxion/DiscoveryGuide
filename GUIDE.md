@@ -64,11 +64,11 @@ zuul
 
 - 上述步骤在下面每次更改规则策略的时候执行，并验证结果和规则策略的期望值是否相同
 
-## 执行灰度路由
+## 执行蓝绿发布
 
 ![](http://nepxion.gitee.io/docs/icon-doc/information.png) 有如下两种简单方式，最终执行结果一致
 
-### 基于Header传递方式的灰度路由策略
+### 基于Header传递方式的蓝绿发布策略
 
 在Postman上，设置Header为如下值
 ```
@@ -77,9 +77,9 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
-### 基于网关配置的灰度路由策略
+### 基于网关配置的蓝绿发布策略
 
-分别对Spring Cloud Gateway和Zuul增加灰度路由策略
+分别对Spring Cloud Gateway和Zuul增加蓝绿发布策略
 
 ① 对于Spring Cloud Gateway，它的Group为discovery-guide-group，Data Id为discovery-guide-gateway
 
@@ -89,7 +89,7 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/DiscoveryGuide2-14.jpg)
 
-③ 灰度路由策略内容统一如下
+③ 蓝绿灰度发布策略内容统一如下
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <rule>
@@ -101,4 +101,4 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
-![](http://nepxion.gitee.io/docs/icon-doc/information.png) 上述简单示例以版本匹配灰度路由为例，更多的使用方式，请参考官方主页文档
+![](http://nepxion.gitee.io/docs/icon-doc/information.png) 上述简单示例以版本匹配蓝绿发布为例，更多的使用方式，请参考官方主页文档
