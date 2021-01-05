@@ -14,6 +14,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
+import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyStrategyTracerAdapter;
@@ -25,8 +26,10 @@ import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyRoute
 @EnableDiscoveryClient
 public class DiscoveryGuideGateway {
     public static void main(String[] args) {
-        // 彩色旗标显示设置
-        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
+        // 是否要显示旗标
+        System.setProperty(BannerConstant.BANNER_SHOWN, "true");
+        // 是否把旗标渲染成彩色
+        System.setProperty(BannerConstant.BANNER_SHOWN_ANSI_MODE, "true");
 
         new SpringApplicationBuilder(DiscoveryGuideGateway.class).run(args);
     }

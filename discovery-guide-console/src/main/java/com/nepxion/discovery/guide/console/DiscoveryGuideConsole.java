@@ -13,12 +13,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+import com.nepxion.banner.BannerConstant;
+
 @SpringBootApplication
 @EnableDiscoveryClient
 public class DiscoveryGuideConsole {
     public static void main(String[] args) {
-        // 彩色旗标显示设置
-        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
+        // 是否要显示旗标
+        System.setProperty(BannerConstant.BANNER_SHOWN, "true");
+        // 是否把旗标渲染成彩色
+        System.setProperty(BannerConstant.BANNER_SHOWN_ANSI_MODE, "true");
 
         new SpringApplicationBuilder(DiscoveryGuideConsole.class).run(args);
     }

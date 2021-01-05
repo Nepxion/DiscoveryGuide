@@ -15,6 +15,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
+import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.zuul.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyRouteFilter;
@@ -27,8 +28,10 @@ import com.nepxion.discovery.plugin.strategy.zuul.filter.ZuulStrategyRouteFilter
 @EnableZuulProxy
 public class DiscoveryGuideZuul {
     public static void main(String[] args) {
-        // 彩色旗标显示设置
-        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
+        // 是否要显示旗标
+        System.setProperty(BannerConstant.BANNER_SHOWN, "true");
+        // 是否把旗标渲染成彩色
+        System.setProperty(BannerConstant.BANNER_SHOWN_ANSI_MODE, "true");
 
         new SpringApplicationBuilder(DiscoveryGuideZuul.class).run(args);
     }

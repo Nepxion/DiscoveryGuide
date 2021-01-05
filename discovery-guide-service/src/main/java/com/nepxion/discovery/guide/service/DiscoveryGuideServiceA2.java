@@ -15,6 +15,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import com.nepxion.banner.BannerConstant;
+
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
@@ -23,8 +25,10 @@ public class DiscoveryGuideServiceA2 {
     public static void main(String[] args) {
         System.setProperty("spring.profiles.active", "a2");
 
-        // 彩色旗标显示设置
-        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
+        // 是否要显示旗标
+        System.setProperty(BannerConstant.BANNER_SHOWN, "true");
+        // 是否把旗标渲染成彩色
+        System.setProperty(BannerConstant.BANNER_SHOWN_ANSI_MODE, "true");
 
         // 阿里巴巴Sentinel Dashboard设置
         /*System.setProperty("project.name", "guide-service-a2");

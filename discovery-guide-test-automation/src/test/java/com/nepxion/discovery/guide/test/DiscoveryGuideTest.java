@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.plugin.test.automation.application.TestApplication;
 
 @RunWith(SpringRunner.class)
@@ -73,8 +74,10 @@ public class DiscoveryGuideTest {
 
     @BeforeClass
     public static void beforeTest() {
-        // 彩色旗标显示设置
-        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
+        // 是否要显示旗标
+        System.setProperty(BannerConstant.BANNER_SHOWN, "true");
+        // 是否把旗标渲染成彩色
+        System.setProperty(BannerConstant.BANNER_SHOWN_ANSI_MODE, "true");
 
         startTime = System.currentTimeMillis();
     }

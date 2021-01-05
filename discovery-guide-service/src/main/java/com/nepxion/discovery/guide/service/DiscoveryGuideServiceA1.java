@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 
+import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceStrategyMonitorAdapter;
@@ -38,8 +39,10 @@ public class DiscoveryGuideServiceA1 {
     public static void main(String[] args) {
         System.setProperty("spring.profiles.active", "a1");
 
-        // 彩色旗标显示设置
-        System.setProperty("nepxion.banner.shown.ansi.mode", "true");
+        // 是否要显示旗标
+        System.setProperty(BannerConstant.BANNER_SHOWN, "true");
+        // 是否把旗标渲染成彩色
+        System.setProperty(BannerConstant.BANNER_SHOWN_ANSI_MODE, "true");
 
         // 阿里巴巴Sentinel Dashboard设置
         /*System.setProperty("project.name", "guide-service-a1");
