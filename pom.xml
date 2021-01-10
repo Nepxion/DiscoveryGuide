@@ -42,8 +42,8 @@
 
         <!-- OpenTracing for Spring Cloud & Jaeger compatible versions -->
         <!-- Select low OpenTracing versions while executing failed in low Spring Cloud versions -->
-        <opentracing.spring.cloud.version>0.5.5</opentracing.spring.cloud.version>
-        <opentracing.spring.jaeger.version>3.1.2</opentracing.spring.jaeger.version>
+        <opentracing.spring.cloud.version>0.5.9</opentracing.spring.cloud.version>
+        <opentracing.spring.jaeger.version>3.2.2</opentracing.spring.jaeger.version>
         <opentracing.concurrent.version>0.4.0</opentracing.concurrent.version>
 
         <!-- <opentracing.spring.cloud.version>0.3.12</opentracing.spring.cloud.version>
