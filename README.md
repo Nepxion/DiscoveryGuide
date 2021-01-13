@@ -14,7 +14,7 @@
 ![](http://nepxion.gitee.io/docs/icon-doc/star1.png) 首席作者简介
 - Nepxion开源社区创始人
 - 2020年阿里巴巴中国云原生峰会出品人
-- Nacos Group Member
+- Nacos Group Member、Spring Cloud Alibaba Member
 - Spring Cloud Alibaba、Nacos、Sentinel、OpenTracing Committer & Contributor
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Logo64.png) Discovery【探索】微服务企业级解决方案
@@ -34,9 +34,10 @@
 - [指南Github原镜像](https://github.com/Nepxion/DiscoveryGuide)
 
 ④ Discovery【探索】微服务框架指南示例说明
-- 对于入门级玩家，参考[指南示例极简版](https://github.com/Nepxion/DiscoveryGuide/tree/simple)，分支为simple。涉及到指南篇里的蓝绿灰度发布的基本功能，![](http://nepxion.gitee.io/docs/icon-doc/information_message.png) 参考[新手快速入门](https://gitee.com/nepxion/DiscoveryGuide/blob/simple/GUIDE.md)
-- 对于熟练级玩家，参考[指南示例精进版](https://github.com/Nepxion/DiscoveryGuide/tree/master)，分支为master。除上述《极简版》功能外，涉及到指南篇里的绝大多数高级功能
-- 对于骨灰级玩家，参考[指南示例高级版](https://github.com/Nepxion/DiscoveryGuide/tree/premium)，分支为premium。除上述《精进版》功能外，涉及到指南篇里的ActiveMQ、MongoDB、RabbitMQ、Redis、RocketMQ、MySQL等高级调用链和蓝绿灰度调用链的整合
+- 对于入门级玩家，参考[6.x.x指南示例极简版](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-simple)，分支为6.x.x-simple。涉及到指南篇里的蓝绿灰度发布的基本功能，![](http://nepxion.gitee.io/docs/icon-doc/information_message.png) 参考[新手快速入门](https://gitee.com/nepxion/DiscoveryGuide/blob/6.x.x-simple/GUIDE.md)
+- 对于熟练级玩家，参考[6.x.x指南示例精进版](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x)，分支为6.x.x。除上述《极简版》功能外，涉及到指南篇里的绝大多数高级功能
+- 对于骨灰级玩家，参考[6.x.x指南示例高级版](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-complex)，分支为6.x.x-complex。除上述《精进版》功能外，涉及到指南篇里的ActiveMQ、MongoDB、RabbitMQ、Redis、RocketMQ、MySQL等高级调用链和蓝绿灰度调用链的整合
+- 上述指南实例分支是针对Spring Cloud旧版本。对于Spring Cloud 202x版本，参考[202x版指南示例精进版](https://github.com/Nepxion/DiscoveryGuide/tree/master)，分支为master
 
 ![](http://nepxion.gitee.io/docs/polaris-doc/Logo64.png) Polaris【北极星】企业级云原生微服务框架
 
