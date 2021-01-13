@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class DiscoveryGuideTestCases {
             resultList.add(result);
         }
 
-        Assert.assertEquals(noRepeatCount, 4);
+        Assertions.assertEquals(noRepeatCount, 4);
     }
 
     @DTest
@@ -91,7 +91,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -124,7 +124,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -157,7 +157,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -190,7 +190,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -219,7 +219,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -248,7 +248,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -274,9 +274,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf(":3001");
             int lastIndex = result.lastIndexOf(":4002");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -302,9 +302,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf(":3002");
             int lastIndex = result.lastIndexOf(":4001");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -332,9 +332,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf("[V=1.0]");
             int lastIndex = result.lastIndexOf("[V=1.0]");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -390,10 +390,10 @@ public class DiscoveryGuideTestCases {
         LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
         LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
 
-        Assert.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
-        Assert.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
-        Assert.assertEquals(bV0Reslut > bV0Weight - resultOffset && bV0Reslut < bV0Weight + resultOffset, true);
-        Assert.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
+        Assertions.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
+        Assertions.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
+        Assertions.assertEquals(bV0Reslut > bV0Weight - resultOffset && bV0Reslut < bV0Weight + resultOffset, true);
+        Assertions.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-region-1.xml", resetPath = "gray-default.xml")
@@ -420,9 +420,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf("[R=dev]");
             int lastIndex = result.lastIndexOf("[R=dev]");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -478,10 +478,10 @@ public class DiscoveryGuideTestCases {
         LOG.info("Result : B service dev region weight={}%", bDevReslut);
         LOG.info("Result : B service qa region weight={}%", bQaReslut);
 
-        Assert.assertEquals(aDevReslut > aDevWeight - resultOffset && aDevReslut < aDevWeight + resultOffset, true);
-        Assert.assertEquals(aQaReslut > aQaWeight - resultOffset && aQaReslut < aQaWeight + resultOffset, true);
-        Assert.assertEquals(bDevReslut > bDevWeight - resultOffset && bDevReslut < bDevWeight + resultOffset, true);
-        Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
+        Assertions.assertEquals(aDevReslut > aDevWeight - resultOffset && aDevReslut < aDevWeight + resultOffset, true);
+        Assertions.assertEquals(aQaReslut > aQaWeight - resultOffset && aQaReslut < aQaWeight + resultOffset, true);
+        Assertions.assertEquals(bDevReslut > bDevWeight - resultOffset && bDevReslut < bDevWeight + resultOffset, true);
+        Assertions.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-blue-green.xml", resetPath = "gray-default.xml")
@@ -507,7 +507,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -540,7 +540,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -574,7 +574,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -601,7 +601,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -628,7 +628,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -655,7 +655,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -700,7 +700,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -730,7 +730,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -760,7 +760,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -790,7 +790,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -846,7 +846,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+            Assertions.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
@@ -860,13 +860,13 @@ public class DiscoveryGuideTestCases {
         LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
         LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
 
-        Assert.assertEquals(aV0Reslut > v0Weight - resultOffset && aV0Reslut < v0Weight + resultOffset, true);
-        Assert.assertEquals(aV1Reslut > v1Weight - resultOffset && aV1Reslut < v1Weight + resultOffset, true);
-        Assert.assertEquals(bV0Reslut > v0Weight - resultOffset && bV0Reslut < v0Weight + resultOffset, true);
-        Assert.assertEquals(bV1Reslut > v1Weight - resultOffset && bV1Reslut < v1Weight + resultOffset, true);
+        Assertions.assertEquals(aV0Reslut > v0Weight - resultOffset && aV0Reslut < v0Weight + resultOffset, true);
+        Assertions.assertEquals(aV1Reslut > v1Weight - resultOffset && aV1Reslut < v1Weight + resultOffset, true);
+        Assertions.assertEquals(bV0Reslut > v0Weight - resultOffset && bV0Reslut < v0Weight + resultOffset, true);
+        Assertions.assertEquals(bV1Reslut > v1Weight - resultOffset && bV1Reslut < v1Weight + resultOffset, true);
 
-        Assert.assertEquals(String.valueOf(aV0Reslut), String.valueOf(bV0Reslut));
-        Assert.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
+        Assertions.assertEquals(String.valueOf(aV0Reslut), String.valueOf(bV0Reslut));
+        Assertions.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-gray-2.xml", resetPath = "gray-default.xml")
@@ -892,7 +892,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals(aMatched && bMatched, true);
+            Assertions.assertEquals(aMatched && bMatched, true);
         }
     }
 
@@ -948,7 +948,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+            Assertions.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
@@ -962,13 +962,13 @@ public class DiscoveryGuideTestCases {
         LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
         LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
 
-        Assert.assertEquals(aV0Reslut > v0Weight - resultOffset && aV0Reslut < v0Weight + resultOffset, true);
-        Assert.assertEquals(aV1Reslut > v1Weight - resultOffset && aV1Reslut < v1Weight + resultOffset, true);
-        Assert.assertEquals(bV0Reslut > v0Weight - resultOffset && bV0Reslut < v0Weight + resultOffset, true);
-        Assert.assertEquals(bV1Reslut > v1Weight - resultOffset && bV1Reslut < v1Weight + resultOffset, true);
+        Assertions.assertEquals(aV0Reslut > v0Weight - resultOffset && aV0Reslut < v0Weight + resultOffset, true);
+        Assertions.assertEquals(aV1Reslut > v1Weight - resultOffset && aV1Reslut < v1Weight + resultOffset, true);
+        Assertions.assertEquals(bV0Reslut > v0Weight - resultOffset && bV0Reslut < v0Weight + resultOffset, true);
+        Assertions.assertEquals(bV1Reslut > v1Weight - resultOffset && bV1Reslut < v1Weight + resultOffset, true);
 
-        Assert.assertEquals(String.valueOf(aV0Reslut), String.valueOf(bV0Reslut));
-        Assert.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
+        Assertions.assertEquals(String.valueOf(aV0Reslut), String.valueOf(bV0Reslut));
+        Assertions.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-gray-2.xml", resetPath = "gray-default.xml")
@@ -1024,7 +1024,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+            Assertions.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
@@ -1038,13 +1038,13 @@ public class DiscoveryGuideTestCases {
         LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
         LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
 
-        Assert.assertEquals(aV0Reslut > v0Weight - resultOffset && aV0Reslut < v0Weight + resultOffset, true);
-        Assert.assertEquals(aV1Reslut > v1Weight - resultOffset && aV1Reslut < v1Weight + resultOffset, true);
-        Assert.assertEquals(bV0Reslut > v0Weight - resultOffset && bV0Reslut < v0Weight + resultOffset, true);
-        Assert.assertEquals(bV1Reslut > v1Weight - resultOffset && bV1Reslut < v1Weight + resultOffset, true);
+        Assertions.assertEquals(aV0Reslut > v0Weight - resultOffset && aV0Reslut < v0Weight + resultOffset, true);
+        Assertions.assertEquals(aV1Reslut > v1Weight - resultOffset && aV1Reslut < v1Weight + resultOffset, true);
+        Assertions.assertEquals(bV0Reslut > v0Weight - resultOffset && bV0Reslut < v0Weight + resultOffset, true);
+        Assertions.assertEquals(bV1Reslut > v1Weight - resultOffset && bV1Reslut < v1Weight + resultOffset, true);
 
-        Assert.assertEquals(String.valueOf(aV0Reslut), String.valueOf(bV0Reslut));
-        Assert.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
+        Assertions.assertEquals(String.valueOf(aV0Reslut), String.valueOf(bV0Reslut));
+        Assertions.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-version.xml", resetPath = "gray-default.xml")
@@ -1078,7 +1078,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+            Assertions.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
         }
     }
 
@@ -1113,7 +1113,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals((aDevMatched && bDevMatched) || (aQaMatched && bQaMatched), true);
+            Assertions.assertEquals((aDevMatched && bDevMatched) || (aQaMatched && bQaMatched), true);
         }
     }
 
@@ -1169,10 +1169,10 @@ public class DiscoveryGuideTestCases {
         LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
         LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
 
-        Assert.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
-        Assert.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
-        Assert.assertEquals(bV0Reslut > bV0Weight - resultOffset && bV0Reslut < bV0Weight + resultOffset, true);
-        Assert.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
+        Assertions.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
+        Assertions.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
+        Assertions.assertEquals(bV0Reslut > bV0Weight - resultOffset && bV0Reslut < bV0Weight + resultOffset, true);
+        Assertions.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-region-weight.xml", resetPath = "gray-default.xml")
@@ -1227,10 +1227,10 @@ public class DiscoveryGuideTestCases {
         LOG.info("Result : B service dev region weight={}%", bDevReslut);
         LOG.info("Result : B service qa region weight={}%", bQaReslut);
 
-        Assert.assertEquals(aDevReslut > aDevWeight - resultOffset && aDevReslut < aDevWeight + resultOffset, true);
-        Assert.assertEquals(aQaReslut > aQaWeight - resultOffset && aQaReslut < aQaWeight + resultOffset, true);
-        Assert.assertEquals(bDevReslut > bDevWeight - resultOffset && bDevReslut < bDevWeight + resultOffset, true);
-        Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
+        Assertions.assertEquals(aDevReslut > aDevWeight - resultOffset && aDevReslut < aDevWeight + resultOffset, true);
+        Assertions.assertEquals(aQaReslut > aQaWeight - resultOffset && aQaReslut < aQaWeight + resultOffset, true);
+        Assertions.assertEquals(bDevReslut > bDevWeight - resultOffset && bDevReslut < bDevWeight + resultOffset, true);
+        Assertions.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-version-composite.xml", resetPath = "gray-default.xml")
@@ -1275,7 +1275,7 @@ public class DiscoveryGuideTestCases {
                 }
             }
 
-            Assert.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
+            Assertions.assertEquals((aV0Matched && bV0Matched) || (aV1Matched && bV1Matched), true);
         }
 
         DecimalFormat format = new DecimalFormat("0.0000");
@@ -1284,8 +1284,8 @@ public class DiscoveryGuideTestCases {
         LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
         LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
 
-        Assert.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
-        Assert.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
+        Assertions.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
+        Assertions.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blacklist.xml", resetPath = "gray-default.xml")
@@ -1298,9 +1298,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf(":3002");
             int lastIndex = result.lastIndexOf(":4002");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -1320,9 +1320,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf(":3002");
             int lastIndex = result.lastIndexOf(":4002");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -1342,9 +1342,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf(":3001");
             int lastIndex = result.lastIndexOf(":4002");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -1364,9 +1364,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf("[E=env1]");
             int lastIndex = result.lastIndexOf("[E=env1]");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -1389,7 +1389,7 @@ public class DiscoveryGuideTestCases {
             }
         }
 
-        Assert.assertEquals(count, 2);
+        Assertions.assertEquals(count, 2);
     }
 
     @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-1.json", resetPath = "sentinel-default.json")
@@ -1405,7 +1405,7 @@ public class DiscoveryGuideTestCases {
             }
         }
 
-        Assert.assertEquals(count, 4);
+        Assertions.assertEquals(count, 4);
     }
 
     @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-2.json", resetPath = "sentinel-default.json")
@@ -1427,7 +1427,7 @@ public class DiscoveryGuideTestCases {
             }
         }
 
-        Assert.assertEquals(count, 4);
+        Assertions.assertEquals(count, 4);
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-4.xml", resetPath = "gray-default.xml")
@@ -1458,9 +1458,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf("[V=2.0]");
             int lastIndex = result.lastIndexOf("[V=2.0]");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -1492,9 +1492,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf("[V=default]");
             int lastIndex = result.lastIndexOf("[V=default]");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 
@@ -1526,9 +1526,9 @@ public class DiscoveryGuideTestCases {
             int index = result.indexOf("[V=1.0]");
             int lastIndex = result.lastIndexOf("[V=1.0]");
 
-            Assert.assertNotEquals(index, -1);
-            Assert.assertNotEquals(lastIndex, -1);
-            Assert.assertNotEquals(index, lastIndex);
+            Assertions.assertNotEquals(index, -1);
+            Assertions.assertNotEquals(lastIndex, -1);
+            Assertions.assertNotEquals(index, lastIndex);
         }
     }
 

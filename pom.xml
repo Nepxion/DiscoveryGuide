@@ -10,7 +10,6 @@
 
     <modules>
         <module>discovery-guide-gateway</module>
-        <module>discovery-guide-zuul</module>
         <module>discovery-guide-service</module>
         <module>discovery-guide-console</module>
         <module>discovery-guide-admin</module>
@@ -18,37 +17,20 @@
     </modules>
 
     <properties>
-        <discovery.version>6.5.0</discovery.version>
+        <discovery.version>7.0.0-SNAPSHOT</discovery.version>
 
         <!-- <nacos.client.version>1.3.2</nacos.client.version> -->
 
-        <!-- Spring Cloud Hoxton compatible versions -->
-        <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
+        <!-- Spring Cloud 202x compatible versions -->
+        <spring.cloud.version>2020.0.0</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.3.RELEASE</spring.cloud.alibaba.version>
-        <spring.boot.version>2.3.7.RELEASE</spring.boot.version>
+        <spring.boot.version>2.4.1</spring.boot.version>
         <spring.boot.admin.version>2.3.1</spring.boot.admin.version>
 
-        <!-- Spring Cloud Greenwich compatible versions -->
-        <!-- <spring.cloud.version>Greenwich.SR6</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.1.3.RELEASE</spring.cloud.alibaba.version>
-        <spring.boot.version>2.1.18.RELEASE</spring.boot.version>
-        <spring.boot.admin.version>2.1.6</spring.boot.admin.version> -->
-
-        <!-- Spring Cloud Finchley compatible versions -->
-        <!-- <spring.cloud.version>Finchley.SR4</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.0.3.RELEASE</spring.cloud.alibaba.version>
-        <spring.boot.version>2.0.9.RELEASE</spring.boot.version>
-        <spring.boot.admin.version>2.0.6</spring.boot.admin.version> -->
-
         <!-- OpenTracing for Spring Cloud & Jaeger compatible versions -->
-        <!-- Select low OpenTracing versions while executing failed in low Spring Cloud versions -->
         <opentracing.spring.cloud.version>0.5.9</opentracing.spring.cloud.version>
         <opentracing.spring.jaeger.version>3.2.2</opentracing.spring.jaeger.version>
         <opentracing.concurrent.version>0.4.0</opentracing.concurrent.version>
-
-        <!-- <opentracing.spring.cloud.version>0.3.12</opentracing.spring.cloud.version>
-        <opentracing.spring.jaeger.version>2.0.3</opentracing.spring.jaeger.version>
-        <opentracing.concurrent.version>0.3.0</opentracing.concurrent.version> -->
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

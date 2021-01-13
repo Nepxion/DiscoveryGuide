@@ -12,9 +12,9 @@ package com.nepxion.discovery.guide.gateway.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.client.ServiceInstance;
 
 import com.nepxion.discovery.plugin.strategy.adapter.DefaultDiscoveryEnabledStrategy;
-import com.netflix.loadbalancer.Server;
 
 // 实现了组合策略，版本路由策略+区域路由策略+IP地址和端口路由策略+自定义策略
 public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy {
@@ -22,7 +22,7 @@ public class MyDiscoveryEnabledStrategy extends DefaultDiscoveryEnabledStrategy 
 
     // 对REST调用传来的Header参数（例如：mobile）做策略
     @Override
-    public boolean apply(Server server) {
+    public boolean apply(ServiceInstance server) {
         String mobile = strategyContextHolder.getHeader("mobile");
         String serviceId = pluginAdapter.getServerServiceId(server);
         String version = pluginAdapter.getServerVersion(server);
