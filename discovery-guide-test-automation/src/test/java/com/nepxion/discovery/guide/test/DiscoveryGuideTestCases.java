@@ -9,6 +9,8 @@ package com.nepxion.discovery.guide.test;
  * @version 1.0
  */
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1434,12 +1436,12 @@ public class DiscoveryGuideTestCases {
     public void testNacosDynamicalMetadataUpdated(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
 
-        String instancesJson1 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String instancesJson1 = "[" + "{\"ip\":\"" + getNacosLocalIP() + "\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
         String metadataJson1 = "{\"version\":\"2.0\"}";
         String response1 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-a", instancesJson1, metadataJson1, HttpMethod.PUT);
         LOG.info("Nacos dynamical metadata processed Result : {}", response1);
 
-        String instancesJson2 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String instancesJson2 = "[" + "{\"ip\":\"" + getNacosLocalIP() + "\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
         String metadataJson2 = "{\"version\":\"2.0\"}";
         String response2 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-b", instancesJson2, metadataJson2, HttpMethod.PUT);
         LOG.info("Nacos dynamical metadata processed Result : {}", response2);
@@ -1468,12 +1470,12 @@ public class DiscoveryGuideTestCases {
     public void testNacosDynamicalMetadataDeleted(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
 
-        String instancesJson1 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String instancesJson1 = "[" + "{\"ip\":\"" + getNacosLocalIP() + "\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
         String metadataJson1 = "{\"version\":\"1.0\"}";
         String response1 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-a", instancesJson1, metadataJson1, HttpMethod.DELETE);
         LOG.info("Nacos dynamical metadata processed Result : {}", response1);
 
-        String instancesJson2 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String instancesJson2 = "[" + "{\"ip\":\"" + getNacosLocalIP() + "\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
         String metadataJson2 = "{\"version\":\"1.0\"}";
         String response2 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-b", instancesJson2, metadataJson2, HttpMethod.DELETE);
         LOG.info("Nacos dynamical metadata processed Result : {}", response2);
@@ -1502,12 +1504,12 @@ public class DiscoveryGuideTestCases {
     public void testNacosDynamicalMetadataRestored(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
 
-        String instancesJson1 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String instancesJson1 = "[" + "{\"ip\":\"" + getNacosLocalIP() + "\",\"port\": \"3001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
         String metadataJson1 = "{\"version\":\"1.0\"}";
         String response1 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-a", instancesJson1, metadataJson1, HttpMethod.PUT);
         LOG.info("Nacos dynamical metadata processed Result : {}", response1);
 
-        String instancesJson2 = "[" + "{\"ip\":\"172.27.208.1\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
+        String instancesJson2 = "[" + "{\"ip\":\"" + getNacosLocalIP() + "\",\"port\": \"4001\",\"ephemeral\":\"true\",\"clusterName\":\"DEFAULT\"}" + "]";
         String metadataJson2 = "{\"version\":\"1.0\"}";
         String response2 = processNacosDynamicalMetadata(nacosUrl, "public", "DEFAULT_GROUP", "discovery-guide-service-b", instancesJson2, metadataJson2, HttpMethod.PUT);
         LOG.info("Nacos dynamical metadata processed Result : {}", response2);
@@ -1545,5 +1547,13 @@ public class DiscoveryGuideTestCases {
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
 
         return testRestTemplate.exchange(url, httpMethod, requestEntity, String.class).getBody();
+    }
+
+    private String getNacosLocalIP() {
+        try {
+            return System.getProperty("com.alibaba.nacos.client.naming.local.ip", InetAddress.getLocalHost().getHostAddress());
+        } catch (UnknownHostException e) {
+            return null;
+        }
     }
 }
