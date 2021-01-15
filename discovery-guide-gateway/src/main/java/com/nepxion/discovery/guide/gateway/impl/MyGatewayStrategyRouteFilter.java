@@ -105,7 +105,7 @@ public class MyGatewayStrategyRouteFilter extends DefaultGatewayStrategyRouteFil
             return bRouteAddress;
         }
 
-        return super.getRouteEnvironment();
+        return super.getRouteAddress();
     }
 
     @Autowired

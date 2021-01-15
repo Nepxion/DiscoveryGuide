@@ -105,7 +105,7 @@ public class MyServiceStrategyRouteFilter extends DefaultServiceStrategyRouteFil
             return bRouteAddress;
         }
 
-        return super.getRouteEnvironment();
+        return super.getRouteAddress();
     }
 
     @Autowired
