@@ -105,7 +105,7 @@ public class MyZuulStrategyRouteFilter extends DefaultZuulStrategyRouteFilter {
             return bRouteAddress;
         }
 
-        return super.getRouteEnvironment();
+        return super.getRouteAddress();
     }
 
     @Autowired
