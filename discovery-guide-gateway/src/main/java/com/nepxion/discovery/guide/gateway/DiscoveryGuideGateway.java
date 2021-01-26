@@ -9,22 +9,12 @@ package com.nepxion.discovery.guide.gateway;
  * @version 1.0
  */
 
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.banner.BannerConstant;
-import com.nepxion.discovery.guide.gateway.filter.MyGatewayFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyStrategyTracerAdapter;
@@ -34,7 +24,6 @@ import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyRoute
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
 public class DiscoveryGuideGateway {
     public static void main(String[] args) {
         // 是否要显示旗标
@@ -62,22 +51,5 @@ public class DiscoveryGuideGateway {
     @Bean
     public StrategyTracerAdapter strategyTracerAdapter() {
         return new MyStrategyTracerAdapter();
-    }
-
-    // 自定义路由过滤的Feign和RestTemplate调用
-    @Bean
-    public GlobalFilter gatewayFilter() {
-        return new MyGatewayFilter();
-    }
-
-    @Bean
-    @LoadBalanced
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-    @Bean
-    public HttpMessageConverters messageConverters(ObjectProvider<HttpMessageConverter<?>> converters) {
-        return new HttpMessageConverters(converters.orderedStream().collect(Collectors.toList()));
     }
 }
