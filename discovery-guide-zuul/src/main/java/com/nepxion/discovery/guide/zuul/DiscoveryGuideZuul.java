@@ -9,23 +9,34 @@ package com.nepxion.discovery.guide.zuul;
  * @version 1.0
  */
 
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.banner.BannerConstant;
+import com.nepxion.discovery.guide.zuul.filter.MyZuulFilter;
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.zuul.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.zuul.filter.ZuulStrategyRouteFilter;
+import com.netflix.zuul.ZuulFilter;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableZuulProxy
+@EnableFeignClients
 public class DiscoveryGuideZuul {
     public static void main(String[] args) {
         // 是否要显示旗标
@@ -53,5 +64,22 @@ public class DiscoveryGuideZuul {
     @Bean
     public StrategyTracerAdapter strategyTracerAdapter() {
         return new MyStrategyTracerAdapter();
+    }
+
+    // 自定义路由过滤的Feign和RestTemplate调用
+    @Bean
+    public ZuulFilter zuulFilter() {
+        return new MyZuulFilter();
+    }
+
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean
+    public HttpMessageConverters messageConverters(ObjectProvider<HttpMessageConverter<?>> converters) {
+        return new HttpMessageConverters(converters.orderedStream().collect(Collectors.toList()));
     }
 }
