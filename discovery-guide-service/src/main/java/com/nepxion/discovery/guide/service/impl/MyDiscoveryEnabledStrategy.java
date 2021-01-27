@@ -85,7 +85,7 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
         if (attributes.containsKey(DiscoveryConstant.PARAMETER_MAP)) {
             Map<String, Object> parameterMap = (Map<String, Object>) attributes.get(DiscoveryConstant.PARAMETER_MAP);
             String value = parameterMap.get("value").toString();
-            if (StringUtils.isNotEmpty(value)) {
+            if (StringUtils.equals(value, "dev") || StringUtils.equals(value, "qa")) {
                 // 输入值包含dev，路由到dev区域的服务上
                 if (value.contains("dev") && StringUtils.equals(region, "dev")) {
                     return true;
@@ -93,8 +93,7 @@ public class MyDiscoveryEnabledStrategy implements DiscoveryEnabledStrategy {
                 } else if (value.contains("qa") && StringUtils.equals(region, "qa")) {
                     return true;
                 } else {
-                    // 其它情况，直接通过请求
-                    return true;
+                    return false;
                 }
             }
         }
