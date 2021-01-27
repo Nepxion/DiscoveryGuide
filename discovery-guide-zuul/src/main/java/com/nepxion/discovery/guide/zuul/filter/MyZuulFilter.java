@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.discovery.guide.zuul.feign.ZuulFeign;
@@ -52,7 +51,7 @@ public class MyZuulFilter extends ZuulFilter {
 
             LOG.info("网关上触发Feigin调用，返回值={}", feignValue);
             LOG.info("网关上触发RestTemplate调用，返回值={}", restTemplateValue);
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             LOG.info("Invoke failed", e);
         }
 
