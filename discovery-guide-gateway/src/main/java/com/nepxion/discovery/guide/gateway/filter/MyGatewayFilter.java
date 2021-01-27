@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ServerWebExchange;
 
@@ -46,7 +45,7 @@ public class MyGatewayFilter implements GlobalFilter, Ordered {
 
             LOG.info("网关上触发Feigin调用，返回值={}", feignValue);
             LOG.info("网关上触发RestTemplate调用，返回值={}", restTemplateValue);
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             LOG.info("Invoke failed", e);
         }
 
