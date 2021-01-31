@@ -20,7 +20,7 @@ IMAGE_NAME=guide-admin
 MAIN_CLASS='com.nepxion.discovery.guide.admin.DiscoveryGuideAdmin'
 MACHINE_PORT=6002
 CONTAINER_PORT=6002
-MIDDLEWARE_HOST=10.0.75.1
+MIDDLEWARE_HOST=192.168.0.107
 RUN_MODE='-i -t'
 # RUN_MODE=-d
 
