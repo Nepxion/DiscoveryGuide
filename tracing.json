@@ -56,7 +56,7 @@
                         {
                             "key": "n-d-service-address",
                             "type": "string",
-                            "value": "10.0.75.1:5001"
+                            "value": "192.168.0.107:5001"
                         },
                         {
                             "key": "plugin",
@@ -111,7 +111,7 @@
                         {
                             "key": "http.url",
                             "type": "string",
-                            "value": "http://10.0.75.1:4001/invoke/gateway%20-%3E%20discovery-guide-service-a%5B10.0.75.1:3001%5D%5BV=1.0%5D%5BR=dev%5D%5BG=discovery-guide-group%5D"
+                            "value": "http://192.168.0.107:4001/invoke/gateway%20-%3E%20discovery-guide-service-a%5B192.168.0.107:3001%5D%5BV=1.0%5D%5BR=dev%5D%5BG=discovery-guide-group%5D"
                         },
                         {
                             "key": "component",
@@ -196,7 +196,7 @@
                         {
                             "key": "n-d-service-address",
                             "type": "string",
-                            "value": "10.0.75.1:4001"
+                            "value": "192.168.0.107:4001"
                         },
                         {
                             "key": "plugin",
@@ -256,7 +256,7 @@
                         {
                             "key": "http.url",
                             "type": "string",
-                            "value": "http://10.0.75.1:4001/invoke/gateway%20-%3E%20discovery-guide-service-a%5B10.0.75.1:3001%5D%5BV=1.0%5D%5BR=dev%5D%5BG=discovery-guide-group%5D"
+                            "value": "http://192.168.0.107:4001/invoke/gateway%20-%3E%20discovery-guide-service-a%5B192.168.0.107:3001%5D%5BV=1.0%5D%5BR=dev%5D%5BG=discovery-guide-group%5D"
                         },
                         {
                             "key": "component",
@@ -817,7 +817,7 @@
                         {
                             "key": "n-d-service-address",
                             "type": "string",
-                            "value": "10.0.75.1:3001"
+                            "value": "192.168.0.107:3001"
                         },
                         {
                             "key": "plugin",
@@ -932,7 +932,7 @@
                         {
                             "key": "http.url",
                             "type": "string",
-                            "value": "http://10.0.75.1:3001/invoke/gateway"
+                            "value": "http://192.168.0.107:3001/invoke/gateway"
                         },
                         {
                             "key": "component",
@@ -1222,7 +1222,7 @@
                                 {
                                     "key": "message",
                                     "type": "string",
-                                    "value": "DynamicServerListLoadBalancer for client discovery-guide-service-a initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=discovery-guide-service-a,current list of Servers=[10.0.75.1:3001],Load balancer stats=Zone stats: {unknown=[Zone:unknown;\tInstance count:1;\tActive connections count: 0;\tCircuit breaker tripped count: 0;\tActive connections per server: 0.0;]\n},Server stats: [[Server:10.0.75.1:3001;\tZone:UNKNOWN;\tTotal Requests:0;\tSuccessive connection failure:0;\tTotal blackout seconds:0;\tLast connection made:Thu Jan 01 08:00:00 CST 1970;\tFirst connection made: Thu Jan 01 08:00:00 CST 1970;\tActive Connections:0;\ttotal failure count in last (1000) msecs:0;\taverage resp time:0.0;\t90 percentile resp time:0.0;\t95 percentile resp time:0.0;\tmin resp time:0.0;\tmax resp time:0.0;\tstddev resp time:0.0]\n]}ServerList:com.nepxion.discovery.plugin.framework.decorator.NacosServerListDecorator@18fae765"
+                                    "value": "DynamicServerListLoadBalancer for client discovery-guide-service-a initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=discovery-guide-service-a,current list of Servers=[192.168.0.107:3001],Load balancer stats=Zone stats: {unknown=[Zone:unknown;\tInstance count:1;\tActive connections count: 0;\tCircuit breaker tripped count: 0;\tActive connections per server: 0.0;]\n},Server stats: [[Server:192.168.0.107:3001;\tZone:UNKNOWN;\tTotal Requests:0;\tSuccessive connection failure:0;\tTotal blackout seconds:0;\tLast connection made:Thu Jan 01 08:00:00 CST 1970;\tFirst connection made: Thu Jan 01 08:00:00 CST 1970;\tActive Connections:0;\ttotal failure count in last (1000) msecs:0;\taverage resp time:0.0;\t90 percentile resp time:0.0;\t95 percentile resp time:0.0;\tmin resp time:0.0;\tmax resp time:0.0;\tstddev resp time:0.0]\n]}ServerList:com.nepxion.discovery.plugin.framework.decorator.NacosServerListDecorator@18fae765"
                                 },
                                 {
                                     "key": "thread",
@@ -1247,7 +1247,7 @@
                                 {
                                     "key": "message",
                                     "type": "string",
-                                    "value": "负载均衡用户定制触发：mobile=null, serviceId=discovery-guide-service-a, version=1.0, region=dev, address=10.0.75.1:3001"
+                                    "value": "负载均衡用户定制触发：mobile=null, serviceId=discovery-guide-service-a, version=1.0, region=dev, address=192.168.0.107:3001"
                                 },
                                 {
                                     "key": "thread",

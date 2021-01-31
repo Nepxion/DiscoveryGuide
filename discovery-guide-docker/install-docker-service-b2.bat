@@ -23,7 +23,7 @@
 @set MAIN_CLASS=com.nepxion.discovery.guide.service.DiscoveryGuideServiceB2
 @set MACHINE_PORT=4002
 @set CONTAINER_PORT=4002
-@set MIDDLEWARE_HOST=10.0.75.1
+@set MIDDLEWARE_HOST=192.168.0.107
 @set RUN_MODE=-i -t
 @rem @set RUN_MODE=-d
 

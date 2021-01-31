@@ -20,7 +20,7 @@ IMAGE_NAME=guide-service-a2
 MAIN_CLASS='com.nepxion.discovery.guide.service.DiscoveryGuideServiceA2'
 MACHINE_PORT=3002
 CONTAINER_PORT=3002
-MIDDLEWARE_HOST=10.0.75.1
+MIDDLEWARE_HOST=192.168.0.107
 RUN_MODE='-i -t'
 # RUN_MODE=-d
 
