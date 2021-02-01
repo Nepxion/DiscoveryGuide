@@ -23,7 +23,7 @@
 
         <!-- Spring Cloud 202x compatible versions -->
         <spring.cloud.version>2020.0.1</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.2.4.RELEASE</spring.cloud.alibaba.version>
+        <spring.cloud.alibaba.version>2.2.5.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.4.2</spring.boot.version>
         <spring.boot.admin.version>2.3.1</spring.boot.admin.version>
 
