@@ -614,7 +614,7 @@ public class DiscoveryGuideTest {
         }
     }
 
-    @Test
+    /*@Test
     public void testZ1NacosDynamicalMetadataUpdated() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
             if (gatewayEnabled) {
@@ -648,5 +648,5 @@ public class DiscoveryGuideTest {
                 discoveryGuideTestCases.testNacosDynamicalMetadataRestored(zuulGroup, zuulGroup, zuulTestUrl);
             }
         }
-    }
+    }*/
 }
