@@ -17,14 +17,12 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.banner.BannerConstant;
-import com.nepxion.discovery.guide.gateway.filter.MyGatewayFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyStrategyTracerAdapter;
@@ -65,10 +63,10 @@ public class DiscoveryGuideGateway {
     }
 
     // 自定义路由过滤的Feign和RestTemplate调用
-    @Bean
+    /*@Bean
     public GlobalFilter gatewayFilter() {
         return new MyGatewayFilter();
-    }
+    }*/
 
     @Bean
     @LoadBalanced
