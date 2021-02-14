@@ -60,26 +60,6 @@ public class AFeignImpl extends CoreImpl implements AFeign {
     public String invoke(@PathVariable(value = "value") String value) {
         value = doInvoke(value);
 
-        LOG.info("获取TraceId={}, SpanId={}", strategyMonitorContext.getTraceId(), strategyMonitorContext.getSpanId());
-
-        Span invokeSpan = GlobalTracer.get().buildSpan("自定义调用埋点").start();
-        // 如果没有子Span就不需要下面的代码
-        // GlobalTracer.get().activateSpan(invokeSpan);
-        invokeSpan.setTag("自定义参数", "这是我自定义的参数");
-        invokeSpan.finish();
-
-        if (value.contains("gateway") || value.contains("zuul")) {
-            Span errorSpan = GlobalTracer.get().buildSpan("自定义异常埋点").start();
-            // 如果没有子Span就不需要下面的代码
-            // GlobalTracer.get().activateSpan(errorSpan);
-            Map<String, Object> customizationMap = new HashMap<String, Object>();
-            customizationMap.put("自定义参数", "这是我自定义的参数");
-            customizationMap.put(DiscoveryConstant.EVENT, Tags.ERROR.getKey());
-            customizationMap.put(DiscoveryConstant.ERROR_OBJECT, new IllegalArgumentException("我认为入参包含'gateway'或'zuul'，是一个错误的参数，那么就做异常埋点处理"));
-            errorSpan.log(customizationMap);
-            errorSpan.finish();
-        }
-
         middlewareOperation.operate();
 
         return value;
@@ -143,7 +123,31 @@ public class AFeignImpl extends CoreImpl implements AFeign {
 
         LOG.info("调用路径：{}", value);
 
+        doTrace(value);
+
         return value;
+    }
+
+    private void doTrace(String value) {
+        LOG.info("获取TraceId={}, SpanId={}", strategyMonitorContext.getTraceId(), strategyMonitorContext.getSpanId());
+
+        Span invokeSpan = GlobalTracer.get().buildSpan("自定义调用埋点").start();
+        // 如果没有子Span就不需要下面的代码
+        // GlobalTracer.get().activateSpan(invokeSpan);
+        invokeSpan.setTag("自定义参数", "这是我自定义的参数");
+        invokeSpan.finish();
+
+        if (value.contains("gateway") || value.contains("zuul")) {
+            Span errorSpan = GlobalTracer.get().buildSpan("自定义异常埋点").start();
+            // 如果没有子Span就不需要下面的代码
+            // GlobalTracer.get().activateSpan(errorSpan);
+            Map<String, Object> customizationMap = new HashMap<String, Object>();
+            customizationMap.put("自定义参数", "这是我自定义的参数");
+            customizationMap.put(DiscoveryConstant.EVENT, Tags.ERROR.getKey());
+            customizationMap.put(DiscoveryConstant.ERROR_OBJECT, new IllegalArgumentException("我认为入参包含'gateway'或'zuul'，是一个错误的参数，那么就做异常埋点处理"));
+            errorSpan.log(customizationMap);
+            errorSpan.finish();
+        }
     }
 
     public String handleBlock(String value, BlockException e) {
