@@ -67,7 +67,7 @@ public class DiscoveryGuideServiceA1 {
 
     // 自定义组合式熔断
     @Bean
-    public ServiceSentinelRequestOriginAdapter ServiceSentinelRequestOriginAdapter() {
+    public ServiceSentinelRequestOriginAdapter serviceSentinelRequestOriginAdapter() {
         return new MyServiceSentinelRequestOriginAdapter();
     }
 
