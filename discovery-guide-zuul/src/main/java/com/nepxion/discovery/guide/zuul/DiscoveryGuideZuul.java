@@ -24,14 +24,12 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.banner.BannerConstant;
-import com.nepxion.discovery.guide.zuul.filter.MyZuulFilter;
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.zuul.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.zuul.filter.ZuulStrategyRouteFilter;
-import com.netflix.zuul.ZuulFilter;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -67,10 +65,10 @@ public class DiscoveryGuideZuul {
     }
 
     // 自定义路由过滤的Feign和RestTemplate调用
-    @Bean
+    /*@Bean
     public ZuulFilter zuulFilter() {
         return new MyZuulFilter();
-    }
+    }*/
 
     @Bean
     @LoadBalanced
