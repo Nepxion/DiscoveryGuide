@@ -60,8 +60,6 @@ public class AFeignImpl extends CoreImpl implements AFeign {
     public String invoke(@PathVariable(value = "value") String value) {
         value = doInvoke(value);
 
-        middlewareOperation.operate();
-
         return value;
     }
 
@@ -125,6 +123,8 @@ public class AFeignImpl extends CoreImpl implements AFeign {
 
         doTrace(value);
 
+        doOperate();
+
         return value;
     }
 
@@ -148,6 +148,10 @@ public class AFeignImpl extends CoreImpl implements AFeign {
             errorSpan.log(customizationMap);
             errorSpan.finish();
         }
+    }
+
+    private void doOperate() {
+        middlewareOperation.operate();
     }
 
     public String handleBlock(String value, BlockException e) {
