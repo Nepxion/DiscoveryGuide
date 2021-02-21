@@ -12,7 +12,9 @@ package com.nepxion.discovery.guide.gateway;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
@@ -51,5 +53,17 @@ public class DiscoveryGuideGateway {
     @Bean
     public StrategyTracerAdapter strategyTracerAdapter() {
         return new MyStrategyTracerAdapter();
+    }
+
+    // 自定义路由过滤的WebClient调用
+    /*@Bean
+    public GlobalFilter gatewayFilter() {
+        return new MyGatewayFilter();
+    }*/
+
+    @Bean
+    @LoadBalanced
+    public WebClient.Builder webClient() {
+       return WebClient.builder();
     }
 }
