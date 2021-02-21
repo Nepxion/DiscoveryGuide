@@ -21,6 +21,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
@@ -72,6 +73,12 @@ public class DiscoveryGuideGateway {
     @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    @LoadBalanced
+    public WebClient.Builder webClient() {
+       return WebClient.builder();
     }
 
     @Bean
