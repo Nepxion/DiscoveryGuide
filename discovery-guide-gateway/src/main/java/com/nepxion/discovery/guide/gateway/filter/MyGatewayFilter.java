@@ -17,26 +17,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
 
-import com.nepxion.discovery.guide.gateway.feign.GatewayFeign;
+import com.nepxion.discovery.plugin.strategy.gateway.context.GatewayStrategyContext;
 
 public class MyGatewayFilter implements GlobalFilter, Ordered {
     private static final Logger LOG = LoggerFactory.getLogger(MyGatewayFilter.class);
 
-    @Autowired
+    /*@Autowired
     private GatewayFeign gatewayFeign;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate;*/
+    
+    @Autowired
+    private WebClient.Builder webClient;
 
     @Override
     public int getOrder() {
         return 10000;
     }
 
-    @Override
+    /*@Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         try {
             String parameter = "MyGatewayFilter";
@@ -50,5 +53,19 @@ public class MyGatewayFilter implements GlobalFilter, Ordered {
         }
 
         return chain.filter(exchange);
+    }*/
+
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        String parameter = "MyGatewayFilter";
+
+        return webClient.build().get().uri("http://discovery-guide-service-a/rest/" + parameter).retrieve().bodyToMono(String.class).flatMap(s -> {
+            // 这行必须写上，否则上下文丢失
+            GatewayStrategyContext.getCurrentContext().setExchange(exchange);
+ 
+            LOG.info("网关上触发WebClient调用，返回值={}", s);
+
+            return chain.filter(exchange);
+        });
     }
 }
