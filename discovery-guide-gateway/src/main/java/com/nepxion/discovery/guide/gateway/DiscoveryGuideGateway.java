@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -24,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.nepxion.banner.BannerConstant;
+import com.nepxion.discovery.guide.gateway.filter.MyGatewayFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyStrategyTracerAdapter;
@@ -63,11 +65,11 @@ public class DiscoveryGuideGateway {
         return new MyStrategyTracerAdapter();
     }
 
-    // 自定义路由过滤的Feign和RestTemplate调用
-    /*@Bean
+    // 自定义路由过滤的Feign、RestTemplate或者WebClient调用
+    @Bean
     public GlobalFilter gatewayFilter() {
         return new MyGatewayFilter();
-    }*/
+    }
 
     @Bean
     @LoadBalanced
@@ -78,7 +80,7 @@ public class DiscoveryGuideGateway {
     @Bean
     @LoadBalanced
     public WebClient.Builder webClient() {
-       return WebClient.builder();
+        return WebClient.builder();
     }
 
     @Bean
