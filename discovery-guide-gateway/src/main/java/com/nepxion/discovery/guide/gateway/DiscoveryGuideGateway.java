@@ -80,7 +80,7 @@ public class DiscoveryGuideGateway {
     @Bean
     @LoadBalanced
     public WebClient.Builder webClient() {
-       return WebClient.builder();
+        return WebClient.builder();
     }
 
     @Bean
