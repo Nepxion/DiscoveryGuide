@@ -13,10 +13,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.nepxion.banner.BannerConstant;
+import com.nepxion.discovery.guide.gateway.filter.MyGatewayFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyStrategyTracerAdapter;
@@ -56,14 +58,14 @@ public class DiscoveryGuideGateway {
     }
 
     // 自定义路由过滤的WebClient调用
-    /*@Bean
+    @Bean
     public GlobalFilter gatewayFilter() {
         return new MyGatewayFilter();
-    }*/
+    }
 
     @Bean
     @LoadBalanced
     public WebClient.Builder webClient() {
-       return WebClient.builder();
+        return WebClient.builder();
     }
 }

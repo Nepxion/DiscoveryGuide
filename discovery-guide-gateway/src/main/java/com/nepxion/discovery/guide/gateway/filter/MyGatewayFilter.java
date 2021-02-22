@@ -37,10 +37,10 @@ public class MyGatewayFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String parameter = "MyGatewayFilter";
 
-        return webClient.build().get().uri("http://discovery-guide-service-a/rest/" + parameter).retrieve().bodyToMono(String.class).flatMap(s -> {
-            // 这行必须写上，否则上下文丢失
+        return webClient.build().get().uri("http://discovery-guide-service-b/rest/" + parameter).retrieve().bodyToMono(String.class).flatMap(s -> {
+            // 异步线程需要复制上下文
             GatewayStrategyContext.getCurrentContext().setExchange(exchange);
- 
+
             LOG.info("网关上触发WebClient调用，返回值={}", s);
 
             return chain.filter(exchange);
