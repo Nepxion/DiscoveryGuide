@@ -9,13 +9,6 @@ package com.nepxion.discovery.guide.service.feign;
  * @version 1.0
  */
 
-import io.opentracing.Span;
-import io.opentracing.contrib.concurrent.TracedRunnable;
-import io.opentracing.tag.Tags;
-import io.opentracing.util.GlobalTracer;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -110,9 +103,11 @@ public class AFeignImpl extends CoreImpl implements AFeign {
                 doInvoke(value);
             }
         };
-        TracedRunnable tracedRunnable = new TracedRunnable(invokeRunnable, GlobalTracer.get());
+        /*TracedRunnable tracedRunnable = new TracedRunnable(invokeRunnable, GlobalTracer.get());
 
-        return tracedRunnable;
+        return tracedRunnable;*/
+
+        return invokeRunnable;
     }
 
     private String doInvoke(String value) {
@@ -131,7 +126,7 @@ public class AFeignImpl extends CoreImpl implements AFeign {
     private void doTrace(String value) {
         LOG.info("获取TraceId={}, SpanId={}", strategyMonitorContext.getTraceId(), strategyMonitorContext.getSpanId());
 
-        Span invokeSpan = GlobalTracer.get().buildSpan("自定义调用埋点").start();
+        /*Span invokeSpan = GlobalTracer.get().buildSpan("自定义调用埋点").start();
         // 如果没有子Span就不需要下面的代码
         // GlobalTracer.get().activateSpan(invokeSpan);
         invokeSpan.setTag("自定义参数", "这是我自定义的参数");
@@ -147,7 +142,7 @@ public class AFeignImpl extends CoreImpl implements AFeign {
             customizationMap.put(DiscoveryConstant.ERROR_OBJECT, new IllegalArgumentException("我认为入参包含'gateway'或'zuul'，是一个错误的参数，那么就做异常埋点处理"));
             errorSpan.log(customizationMap);
             errorSpan.finish();
-        }
+        }*/
     }
 
     private void doOperate() {
