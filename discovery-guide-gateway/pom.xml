@@ -52,7 +52,7 @@
 
         <!-- ========== 扩展插件 ========== -->
         <!-- 1.Jaeger + OpenTracing调用链插件 -->
-        <dependency>
+        <!-- <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-opentracing</artifactId>
             <version>${discovery.version}</version>
@@ -74,7 +74,7 @@
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-jaeger-starter</artifactId>
             <version>${opentracing.spring.jaeger.version}</version>
-        </dependency>
+        </dependency> -->
 
         <!-- 2.SkyWalking + OpenTracing调用链插件 -->
         <!-- <dependency>
