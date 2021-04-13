@@ -103,4 +103,24 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
+### 蓝绿发布优先级控制策略
+
+上述`基于Header传递方式的蓝绿发布策略`和`基于网关配置的蓝绿发布策略`两种方式同时并存时，可以在网关上，通过如下开关来控制它们的优先级
+
+#### Spring Cloud Gateway配置
+```
+# 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
+spring.application.strategy.gateway.header.priority=false
+# 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
+# spring.application.strategy.gateway.original.header.ignored=true
+```
+
+#### Zuul配置
+```
+# 当外界传值Header的时候，网关也设置并传递同名的Header，需要决定哪个Header传递到后边的服务去。如果下面开关为true，以网关设置为优先，否则以外界传值为优先。缺失则默认为true
+spring.application.strategy.zuul.header.priority=false
+# 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
+# spring.application.strategy.zuul.original.header.ignored=true
+```
+
 ![](http://nepxion.gitee.io/docs/icon-doc/information.png) 上述简单示例以版本匹配蓝绿发布为例，更多的使用方式，请参考官方主页文档
