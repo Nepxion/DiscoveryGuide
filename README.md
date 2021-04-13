@@ -71,7 +71,6 @@ zuul
 ![](http://nepxion.gitee.io/docs/icon-doc/information.png) 有如下两种简单方式，最终执行结果一致
 
 ### 基于Header传递方式的蓝绿发布策略
-
 在Postman上，设置Header为如下值
 ```
 n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}
@@ -80,7 +79,6 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
 ### 基于网关配置的蓝绿发布策略
-
 分别对Spring Cloud Gateway和Zuul增加蓝绿发布策略
 
 ① 对于Spring Cloud Gateway，它的Group为discovery-guide-group，Data Id为discovery-guide-gateway
@@ -104,8 +102,7 @@ n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1
 执行调用，根据返回值，验证discovery-guide-service-a是否选择1.0版本进行调用，discovery-guide-service-b是否选择1.1版本进行调用
 
 ### 蓝绿发布优先级控制策略
-
-上述`基于Header传递方式的蓝绿发布策略`和`基于网关配置的蓝绿发布策略`两种方式同时并存时，可以在网关上，通过如下开关来控制它们的优先级
+上述“基于Header传递方式的蓝绿发布策略”和“基于网关配置的蓝绿发布策略”两种方式同时并存时，可以在网关上，通过如下开关来控制它们的优先级
 
 #### Spring Cloud Gateway配置
 ```
@@ -122,5 +119,73 @@ spring.application.strategy.zuul.header.priority=false
 # 当以网关设置为优先的时候，网关未配置Header，而外界配置了Header，仍旧忽略外界的Header。缺失则默认为true
 # spring.application.strategy.zuul.original.header.ignored=true
 ```
+
+### 蓝绿发布校验策略
+蓝绿发布是否已经生效，关键在于判断路由Header是否全链路传递
+
+#### 开启Debug开关
+您需要增加如下两个开关
+```
+spring.application.strategy.monitor.enabled=true
+spring.application.strategy.logger.debug.enabled=true
+```
+如果您用了Feign、RestTemplate或者WebClient调用方式，建议再增加如下开关，判断Feign、RestTemplate或者WebClient在转发Header过程中，是否正常
+```
+spring.application.strategy.rest.intercept.debug.enabled=true
+```
+
+#### Debug样例
+① 网关端和服务端自身蓝绿埋点Debug辅助监控
+```
+------------------ Logger Debug ------------------
+trace-id=dade3982ae65e9e1
+span-id=997e31021e9fce20
+n-d-service-group=discovery-guide-group
+n-d-service-type=service
+n-d-service-id=discovery-guide-service-a
+n-d-service-address=172.27.208.1:3001
+n-d-service-version=1.0
+n-d-service-region=dev
+n-d-service-env=env1
+n-d-service-zone=zone1
+n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
+mobile=13812345678
+user=
+--------------------------------------------------
+```
+
+② 服务端Feign、RestTemplate或者WebClient拦截输入的蓝绿埋点Debug辅助监控
+```
+------- Feign Intercept Input Header Information -------
+n-d-service-group=discovery-guide-group
+n-d-version={"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}
+n-d-service-type=gateway
+n-d-service-id=discovery-guide-zuul
+n-d-service-env=default
+mobile=13812345678
+n-d-service-region=default
+n-d-service-zone=default
+n-d-service-address=172.27.208.1:5002
+n-d-service-version=1.0
+--------------------------------------------------
+```
+
+③ 服务端Feign、RestTemplate或者支持WebClient调用拦截输出的蓝绿埋点Debug辅助监控
+```
+------- Feign Intercept Output Header Information ------
+mobile=[13812345678]
+n-d-service-address=[172.27.208.1:3001]
+n-d-service-env=[env1]
+n-d-service-group=[discovery-guide-group]
+n-d-service-id=[discovery-guide-service-a]
+n-d-service-region=[dev]
+n-d-service-type=[service]
+n-d-service-version=[1.0]
+n-d-service-zone=[zone1]
+n-d-version=[{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.0"}]
+--------------------------------------------------
+```
+
+对于上面以版本为维度的蓝绿灰度，只需要观测n-d-version从网关全链路传递到服务过程中，是否会丢失，是否相同
 
 ![](http://nepxion.gitee.io/docs/icon-doc/information.png) 上述简单示例以版本匹配蓝绿发布为例，更多的使用方式，请参考官方主页文档
