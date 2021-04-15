@@ -16,6 +16,7 @@ import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.discovery.guide.zuul.feign.ZuulFeign;
+import com.nepxion.discovery.plugin.strategy.monitor.StrategyMonitorContext;
 import com.netflix.zuul.ZuulFilter;
 
 public class MyZuulFilter extends ZuulFilter {
@@ -26,6 +27,9 @@ public class MyZuulFilter extends ZuulFilter {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private StrategyMonitorContext strategyMonitorContext;
 
     @Override
     public String filterType() {
@@ -44,6 +48,8 @@ public class MyZuulFilter extends ZuulFilter {
 
     @Override
     public Object run() {
+        LOG.info("获取TraceId={}, SpanId={}", strategyMonitorContext.getTraceId(), strategyMonitorContext.getSpanId());
+
         try {
             String parameter = "MyZuulFilter";
             String feignValue = zuulFeign.invoke(parameter);
