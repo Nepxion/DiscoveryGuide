@@ -21,12 +21,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.nepxion.discovery.plugin.strategy.gateway.context.GatewayStrategyContext;
+import com.nepxion.discovery.plugin.strategy.monitor.StrategyMonitorContext;
 
 public class MyGatewayFilter implements GlobalFilter, Ordered {
     private static final Logger LOG = LoggerFactory.getLogger(MyGatewayFilter.class);
 
     @Autowired
     private WebClient.Builder webClient;
+
+    @Autowired
+    private StrategyMonitorContext strategyMonitorContext;
 
     @Override
     public int getOrder() {
@@ -35,6 +39,8 @@ public class MyGatewayFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        LOG.info("获取TraceId={}, SpanId={}", strategyMonitorContext.getTraceId(), strategyMonitorContext.getSpanId());
+
         String parameter = "MyGatewayFilter";
 
         return webClient.build().get().uri("http://discovery-guide-service-b/rest/" + parameter).retrieve().bodyToMono(String.class).flatMap(s -> {
