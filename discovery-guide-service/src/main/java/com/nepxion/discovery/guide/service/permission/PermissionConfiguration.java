@@ -11,11 +11,13 @@ package com.nepxion.discovery.guide.service.permission;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
+import com.nepxion.discovery.common.util.SpringBootUtil;
 import com.nepxion.discovery.plugin.strategy.service.constant.ServiceStrategyConstant;
 
 @Configuration
@@ -23,9 +25,16 @@ public class PermissionConfiguration {
     @Autowired
     private ConfigurableEnvironment environment;
 
+    @Autowired
+    private ConfigurableApplicationContext applicationContext;
+
     @Bean
     public PermissionAutoScanProxy permissionAutoScanProxy() {
         String scanPackages = environment.getProperty(ServiceStrategyConstant.SPRING_APPLICATION_STRATEGY_SCAN_PACKAGES);
+        if (StringUtils.isEmpty(scanPackages)) {
+            scanPackages = SpringBootUtil.convertBasePackages(applicationContext);
+        }
+
         if (StringUtils.isEmpty(scanPackages)) {
             throw new PermissionException(ServiceStrategyConstant.SPRING_APPLICATION_STRATEGY_SCAN_PACKAGES + "'s value can't be empty");
         }
