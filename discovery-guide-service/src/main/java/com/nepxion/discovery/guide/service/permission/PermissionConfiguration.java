@@ -31,7 +31,7 @@ public class PermissionConfiguration {
     public PermissionAutoScanProxy permissionAutoScanProxy() {
         String scanPackages = environment.getProperty(ServiceStrategyConstant.SPRING_APPLICATION_STRATEGY_SCAN_PACKAGES);
         if (StringUtils.isEmpty(scanPackages)) {
-            scanPackages = strategyPackagesExtractor.getBasePackages();
+            scanPackages = strategyPackagesExtractor.getAllPackages();
         }
 
         if (StringUtils.isEmpty(scanPackages)) {
