@@ -18,7 +18,7 @@
         <discovery.version>6.10.0-SNAPSHOT</discovery.version>
 
         <!-- Spring Cloud Hoxton compatible versions -->
-        <spring.cloud.version>Hoxton.SR10</spring.cloud.version>
+        <spring.cloud.version>Hoxton.SR11</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.5.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.3.10.RELEASE</spring.boot.version>
 
