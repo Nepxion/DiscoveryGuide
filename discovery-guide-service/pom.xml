@@ -52,7 +52,7 @@
 
         <!-- ========== 扩展插件 ========== -->
         <!-- 1.Jaeger + OpenTracing调用链插件 -->
-        <!-- dependency>
+        <!-- <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-opentracing</artifactId>
             <version>${discovery.version}</version>
