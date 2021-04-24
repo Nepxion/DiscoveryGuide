@@ -74,12 +74,6 @@
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-jaeger-starter</artifactId>
             <version>${opentracing.spring.jaeger.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.opentracing.contrib</groupId>
-            <artifactId>opentracing-concurrent</artifactId>
-            <version>${opentracing.concurrent.version}</version>
         </dependency> -->
 
         <!-- 2.SkyWalking + OpenTracing调用链插件 -->
