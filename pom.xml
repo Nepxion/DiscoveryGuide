@@ -44,11 +44,9 @@
         <!-- Select low OpenTracing versions while executing failed in low Spring Cloud versions -->
         <opentracing.spring.cloud.version>0.5.9</opentracing.spring.cloud.version>
         <opentracing.spring.jaeger.version>3.3.1</opentracing.spring.jaeger.version>
-        <opentracing.concurrent.version>0.4.0</opentracing.concurrent.version>
 
         <!-- <opentracing.spring.cloud.version>0.3.12</opentracing.spring.cloud.version>
-        <opentracing.spring.jaeger.version>2.0.3</opentracing.spring.jaeger.version>
-        <opentracing.concurrent.version>0.3.0</opentracing.concurrent.version> -->
+        <opentracing.spring.jaeger.version>2.0.3</opentracing.spring.jaeger.version> -->
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
