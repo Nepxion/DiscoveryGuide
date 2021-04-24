@@ -14,8 +14,18 @@
 ![](http://nepxion.gitee.io/docs/icon-doc/star1.png) 首席作者简介
 - Nepxion开源社区创始人
 - 2020年阿里巴巴中国云原生峰会出品人
+- 2021年阿里巴巴技术峰会上海站演讲嘉宾
+- 2021年荣获陆奇博士主持的奇绩资本，进行风险投资的关注和调研
+- 2021年入选Gitee最有价值开源项目
 - Nacos Group Member、Spring Cloud Alibaba Member
 - Spring Cloud Alibaba、Nacos、Sentinel、OpenTracing Committer & Contributor
+
+![](http://nepxion.gitee.io/docs/icon-doc/star2.png) 商业化合作
+- Discovery 7.0.0（对应到Spring Cloud 2020版）源码，价格6888元一套，远程技术支持、生产落地
+- Polaris（Discovery高级版）源码，价格6888元一套，远程技术支持、生产落地
+- 添加微信1394997，通过如下微信支付相关商业费用
+
+![](http://nepxion.gitee.io/docs/zxing-doc/微信支付.jpg)
 
 ![](http://nepxion.gitee.io/docs/discovery-doc/Logo64.png) Discovery【探索】微服务企业级解决方案
 
@@ -33,7 +43,7 @@
 - [指南Gitee同步镜像](https://gitee.com/Nepxion/DiscoveryGuide)
 - [指南Github原镜像](https://github.com/Nepxion/DiscoveryGuide)
 
-④ Discovery【探索】微服务框架指南示例说明
+④ Discovery【探索】微服务企业级解决方案指南示例说明
 - 对于入门级玩家，参考[6.x.x指南示例极简版](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-simple)，分支为6.x.x-simple。涉及到指南篇里的蓝绿灰度发布的基本功能，![](http://nepxion.gitee.io/docs/icon-doc/information_message.png) 参考[新手快速入门](https://gitee.com/nepxion/DiscoveryGuide/blob/6.x.x-simple/GUIDE.md)
 - 对于熟练级玩家，参考[6.x.x指南示例精进版](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x)，分支为6.x.x。除上述《极简版》功能外，涉及到指南篇里的绝大多数高级功能
 - 对于骨灰级玩家，参考[6.x.x指南示例高级版](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-complex)，分支为6.x.x-complex。除上述《精进版》功能外，涉及到指南篇里的ActiveMQ、MongoDB、RabbitMQ、Redis、RocketMQ、MySQL等高级调用链和蓝绿灰度调用链的整合
@@ -53,6 +63,10 @@
 ③ Polaris【北极星】企业级云原生微服务框架指南示例源码。请访问Gitee镜像获得最佳体验
 - [指南Gitee同步镜像](https://gitee.com/polaris-paas/polaris-guide)
 - [指南Github原镜像](https://github.com/polaris-paas/polaris-guide)
+
+④ Polaris【北极星】企业级云原生微服务框架指南示例说明
+- Spring Cloud旧版本，参考[1.x.x指南示例](https://github.com/polaris-paas/polaris-guide/tree/1.x.x)，分支为1.x.x
+- Spring Cloud新版本，参考[2.x.x指南示例](https://github.com/polaris-paas/polaris-guide/tree/master)，分支为master
 
 ![](http://nepxion.gitee.io/docs/icon-doc/Logo64.png) Discovery【探索】和Polaris【北极星】架构体系
 
