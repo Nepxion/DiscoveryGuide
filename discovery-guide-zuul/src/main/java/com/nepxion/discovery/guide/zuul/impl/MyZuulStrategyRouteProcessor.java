@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
-import com.nepxion.discovery.common.nacos.template.NacosTemplate;
+import com.nepxion.discovery.common.nacos.proccessor.NacosProcessor;
 import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 
 /*
@@ -80,7 +80,7 @@ import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 */
 
 // 使用Nacos配置中心
-public class MyZuulStrategyRouteTemplate extends NacosTemplate {
+public class MyZuulStrategyRouteProcessor extends NacosProcessor {
     private String group = "DEFAULT_GROUP";
 
     @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
@@ -111,7 +111,7 @@ public class MyZuulStrategyRouteTemplate extends NacosTemplate {
 }
 
 // 使用Apollo配置中心
-/*public class MyZuulStrategyRouteTemplate extends ApolloTemplate {
+/*public class MyZuulStrategyRouteProcessor extends ApolloProcessor {
     @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
     private String dataId;
 
