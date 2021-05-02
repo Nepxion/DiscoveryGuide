@@ -16,17 +16,33 @@ import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
 
 /*
 一个服务映射多个动态路由路径，配置中心界面上推送示例，如下
+① 精简配置
 [
     {
         "id": "route0", 
         "uri": "lb://discovery-guide-service-a", 
         "predicates": [
-            "Path=/x/**,/y/**"
+            "Path=/discovery-guide-service-a/**, /x/**,/y/**"
+        ], 
+        "filters": [
+            "StripPrefix=1"
+        ]
+    }
+]
+
+② 完整配置
+[
+    {
+        "id": "route0", 
+        "uri": "lb://discovery-guide-service-a", 
+        "predicates": [
+            "Path=/discovery-guide-service-a/**, /x/**,/y/**"
         ], 
         "filters": [
             "StripPrefix=1"
         ], 
-        "order": 0
+        "order": 0,
+        "metadata": {}
     }
 ]
 */
