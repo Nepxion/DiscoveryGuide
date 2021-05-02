@@ -16,15 +16,20 @@ import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 
 /*
 一个服务映射多个动态路由路径，配置中心界面上推送示例，如下
-① 简单格式
+① 精简配置
 [
     {
         "id": "route0",
         "serviceId": "discovery-guide-service-a",
-        "path": "/x/**"
+        "path": "/discovery-guide-service-a/**"
     },
     {
         "id": "route1",
+        "serviceId": "discovery-guide-service-a",
+        "path": "/x/**"
+    },
+    {
+        "id": "route2",
         "serviceId": "discovery-guide-service-a",
         "path": "/y/**"
     }
@@ -37,10 +42,20 @@ import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
     }
 ]
 
-② 详细格式
+② 完整配置
 [
     {
         "id": "route0",
+        "serviceId": "discovery-guide-service-a",
+        "path": "/discovery-guide-service-a/**",
+        "url": null,
+        "stripPrefix": true,
+        "retryable": null,
+        "sensitiveHeaders": [],
+        "customSensitiveHeaders": false
+    },
+    {
+        "id": "route1",
         "serviceId": "discovery-guide-service-a",
         "path": "/x/**",
         "url": null,
@@ -50,7 +65,7 @@ import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
         "customSensitiveHeaders": false
     },
     {
-        "id": "route1",
+        "id": "route2",
         "serviceId": "discovery-guide-service-a",
         "path": "/y/**",
         "url": null,
