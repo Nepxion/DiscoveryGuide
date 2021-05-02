@@ -43,7 +43,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 4.网关的策略编排插件 -->
+        <!-- 4.网关策略编排插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
