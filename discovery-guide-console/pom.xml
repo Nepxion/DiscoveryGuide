@@ -13,7 +13,7 @@
     </parent>
 
     <dependencies>
-        <!-- 1.控制台 -->
+        <!-- 1.控制台配置中心 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-console-starter-nacos</artifactId>
@@ -25,7 +25,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 2.注册中心 -->
+        <!-- 2.控制台注册中心 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
