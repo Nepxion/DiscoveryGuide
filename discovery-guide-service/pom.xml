@@ -34,7 +34,7 @@
             <version>${discovery.version}</version>
         </dependency>
 
-        <!-- 4.服务的策略编排插件 -->
+        <!-- 4.服务策略编排插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service</artifactId>
