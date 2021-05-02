@@ -10,7 +10,9 @@ package com.nepxion.discovery.guide.zuul.impl;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.nacos.template.NacosTemplate;
 import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 
@@ -80,7 +82,9 @@ import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 // 使用Nacos配置中心
 public class MyZuulStrategyRouteTemplate extends NacosTemplate {
     private String group = "DEFAULT_GROUP";
-    private String dataId = "zuul-route";
+
+    @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
+    private String dataId;
 
     @Autowired
     private ZuulStrategyRoute zuulStrategyRoute;
@@ -108,7 +112,8 @@ public class MyZuulStrategyRouteTemplate extends NacosTemplate {
 
 // 使用Apollo配置中心
 /*public class MyZuulStrategyRouteTemplate extends ApolloTemplate {
-    private String dataId = "zuul-route";
+    @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
+    private String dataId;
 
     @Autowired
     private ZuulStrategyRoute zuulStrategyRoute;

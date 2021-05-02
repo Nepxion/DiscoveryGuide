@@ -10,7 +10,9 @@ package com.nepxion.discovery.guide.gateway.impl;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
+import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.nacos.template.NacosTemplate;
 import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
 
@@ -22,7 +24,7 @@ import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
         "id": "route0", 
         "uri": "lb://discovery-guide-service-a", 
         "predicates": [
-            "Path=/discovery-guide-service-a/**, /x/**,/y/**"
+            "Path=/discovery-guide-service-a/**,/x/**,/y/**"
         ], 
         "filters": [
             "StripPrefix=1"
@@ -36,7 +38,7 @@ import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
         "id": "route0", 
         "uri": "lb://discovery-guide-service-a", 
         "predicates": [
-            "Path=/discovery-guide-service-a/**, /x/**,/y/**"
+            "Path=/discovery-guide-service-a/**,/x/**,/y/**"
         ], 
         "filters": [
             "StripPrefix=1"
@@ -50,7 +52,9 @@ import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
 // 使用Nacos配置中心
 public class MyGatewayStrategyRouteTemplate extends NacosTemplate {
     private String group = "DEFAULT_GROUP";
-    private String dataId = "gateway-route";
+
+    @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
+    private String dataId;
 
     @Autowired
     private GatewayStrategyRoute gatewayStrategyRoute;
@@ -78,7 +82,8 @@ public class MyGatewayStrategyRouteTemplate extends NacosTemplate {
 
 // 使用Apollo配置中心
 /*public class MyZuulStrategyRouteTemplate extends ApolloTemplate {
-    private String dataId = "gateway-route";
+    @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
+    private String dataId;
 
     @Autowired
     private GatewayStrategyRoute gatewayStrategyRoute;
