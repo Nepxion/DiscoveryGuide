@@ -21,7 +21,7 @@ import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.gateway.filter.MyGatewayFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteFilter;
-import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteTemplate;
+import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteProcessor;
 import com.nepxion.discovery.guide.gateway.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
@@ -66,8 +66,8 @@ public class DiscoveryGuideGateway {
 
     // 自定义动态路由订阅
     @Bean
-    public MyGatewayStrategyRouteTemplate gatewayStrategyRouteTemplate() {
-        return new MyGatewayStrategyRouteTemplate();
+    public MyGatewayStrategyRouteProcessor gatewayStrategyRouteProcessor() {
+        return new MyGatewayStrategyRouteProcessor();
     }
 
     @Bean
