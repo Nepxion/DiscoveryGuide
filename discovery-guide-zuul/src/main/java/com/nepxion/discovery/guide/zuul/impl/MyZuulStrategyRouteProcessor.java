@@ -79,9 +79,20 @@ import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 ]
 */
 
-// 使用Nacos配置中心
+// 把继承类（extends）换成如下任何一个，即可切换配置中心，代码无需任何变动
+// 1. NacosProcessor
+// 2. ApolloProcessor
+// 3. ConsulProcessor
+// 4. EtcdProcessor
+// 5. ZookeeperProcessor
+// 6. RedisProcessor
+// Group和DataId自行决定，需要注意
+// 1. 对于Nacos配置中心，Group和DataId需要和界面相对应
+// 2. 对于其它配置中心，Key的格式为Group-DataId
+// 3. 千万不能和蓝绿灰度发布的Group和DataId冲突
 public class MyZuulStrategyRouteProcessor extends NacosProcessor {
-    private String group = "DEFAULT_GROUP";
+    // private String group = "DEFAULT_GROUP";
+    private String group = "nepxion";
 
     @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
     private String dataId;
@@ -109,34 +120,3 @@ public class MyZuulStrategyRouteProcessor extends NacosProcessor {
         zuulStrategyRoute.updateAll(config);
     }
 }
-
-// 使用Apollo配置中心
-/*public class MyZuulStrategyRouteProcessor extends ApolloProcessor {
-     private String group = "nepxion";
-
-    @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
-    private String dataId;
-
-    @Autowired
-    private ZuulStrategyRoute zuulStrategyRoute;
-
-    @Override
-    public String getGroup() {
-        return group;
-    }
-
-    @Override
-    public String getKey() {
-        return dataId;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Zuul dynamic route";
-    }
-
-    @Override
-    public void callbackConfig(String config) {
-        zuulStrategyRoute.updateAll(config);
-    }
-}*/
