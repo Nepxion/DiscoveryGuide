@@ -1,0 +1,12 @@
+[
+    {
+        "id": "route0",
+        "serviceId": "discovery-guide-service-a",
+        "path": "/discovery-guide-service-a/**"
+    },
+    {
+        "id": "route1",
+        "serviceId": "discovery-guide-service-a",
+        "path": "/z/**"
+    }
+]

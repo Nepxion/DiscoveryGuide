@@ -40,6 +40,15 @@ public class DiscoveryGuideTest {
     @Value("${gateway.test.url}")
     private String gatewayTestUrl;
 
+    @Value("${gateway.route0.test.url}")
+    private String gatewayTestRoute0Url;
+
+    @Value("${gateway.route1.test.url}")
+    private String gatewayTestRoute1Url;
+
+    @Value("${gateway.route2.test.url}")
+    private String gatewayTestRoute2Url;
+
     @Value("${gateway.inspect.url}")
     private String gatewayInspectUrl;
 
@@ -51,6 +60,15 @@ public class DiscoveryGuideTest {
 
     @Value("${zuul.test.url}")
     private String zuulTestUrl;
+
+    @Value("${zuul.route0.test.url}")
+    private String zuulTestRoute0Url;
+
+    @Value("${zuul.route1.test.url}")
+    private String zuulTestRoute1Url;
+
+    @Value("${zuul.route2.test.url}")
+    private String zuulTestRoute2Url;
 
     @Value("${zuul.inspect.url}")
     private String zuulInspectUrl;
@@ -434,6 +452,15 @@ public class DiscoveryGuideTest {
             discoveryGuideTestCases.testSentinelAuthority3(gatewayTestUrl);
             discoveryGuideTestCases.testSentinelAuthority3(zuulTestUrl);
         }
+    }
+
+    @Test
+    public void testDynamicRoute() throws Exception {
+        discoveryGuideTestCases.testDynamicRoute1("nepxion", gatewayServiceId, new String[] {gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url}, "dynamic-route-gateway-default.json");
+        discoveryGuideTestCases.testDynamicRoute2("nepxion", gatewayServiceId, new String[] {gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url}, "dynamic-route-gateway.json", "dynamic-route-gateway-default.json");
+
+        discoveryGuideTestCases.testDynamicRoute1("nepxion", zuulServiceId, new String[] {zuulTestRoute0Url, zuulTestRoute1Url, zuulTestRoute2Url}, "dynamic-route-zuul-default.json");
+        discoveryGuideTestCases.testDynamicRoute2("nepxion", zuulServiceId, new String[] {zuulTestRoute0Url, zuulTestRoute1Url, zuulTestRoute2Url}, "dynamic-route-zuul.json", "dynamic-route-zuul-default.json");
     }
 
     /*@Test

@@ -1,0 +1,12 @@
+[
+    {
+        "id": "route0", 
+        "uri": "lb://discovery-guide-service-a", 
+        "predicates": [
+            "Path=/discovery-guide-service-a/**,/x/**,/y/**"
+        ], 
+        "filters": [
+            "StripPrefix=1"
+        ]
+    }
+]
