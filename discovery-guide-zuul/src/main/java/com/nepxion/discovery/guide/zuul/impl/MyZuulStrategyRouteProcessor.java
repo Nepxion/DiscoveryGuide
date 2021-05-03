@@ -112,11 +112,18 @@ public class MyZuulStrategyRouteProcessor extends NacosProcessor {
 
 // 使用Apollo配置中心
 /*public class MyZuulStrategyRouteProcessor extends ApolloProcessor {
+     private String group = "nepxion";
+
     @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
     private String dataId;
 
     @Autowired
     private ZuulStrategyRoute zuulStrategyRoute;
+
+    @Override
+    public String getGroup() {
+        return group;
+    }
 
     @Override
     public String getKey() {
