@@ -40,6 +40,15 @@ public class DiscoveryGuideTest {
     @Value("${gateway.test.url}")
     private String gatewayTestUrl;
 
+    @Value("${gateway.route0.test.url}")
+    private String gatewayTestRoute0Url;
+
+    @Value("${gateway.route1.test.url}")
+    private String gatewayTestRoute1Url;
+
+    @Value("${gateway.route2.test.url}")
+    private String gatewayTestRoute2Url;
+
     @Value("${gateway.inspect.url}")
     private String gatewayInspectUrl;
 
@@ -378,6 +387,12 @@ public class DiscoveryGuideTest {
         for (int i = 0; i < loopTimes; i++) {
             discoveryGuideTestCases.testSentinelAuthority3(gatewayTestUrl);
         }
+    }
+
+    @Test
+    public void testDynamicRoute() throws Exception {
+        discoveryGuideTestCases.testDynamicRoute1("nepxion", gatewayServiceId, new String[] {gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url}, "dynamic-route-gateway-default.json");
+        discoveryGuideTestCases.testDynamicRoute2("nepxion", gatewayServiceId, new String[] {gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url}, "dynamic-route-gateway.json", "dynamic-route-gateway-default.json");
     }
 
     /*@Test

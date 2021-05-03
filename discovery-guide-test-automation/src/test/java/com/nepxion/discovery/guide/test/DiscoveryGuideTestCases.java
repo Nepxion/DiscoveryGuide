@@ -1432,6 +1432,60 @@ public class DiscoveryGuideTestCases {
         Assertions.assertEquals(count, 4);
     }
 
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "#executePath")
+    public void testDynamicRoute1(String group, String serviceId, String[] testUrls, String executePath) {
+        String result1 = testRestTemplate.getForEntity(testUrls[0], String.class).getBody();
+
+        LOG.info("Result1 : {}", result1);
+
+        int index1 = result1.indexOf("][P=");
+
+        Assertions.assertNotEquals(index1, -1);
+
+        String result2 = testRestTemplate.getForEntity(testUrls[1], String.class).getBody();
+
+        LOG.info("Result2 : {}", result2);
+
+        int index2 = result2.indexOf("][P=");
+
+        Assertions.assertNotEquals(index2, -1);
+
+        String result3 = testRestTemplate.getForEntity(testUrls[2], String.class).getBody();
+
+        LOG.info("Result3 : {}", result3);
+
+        int index3 = result3.indexOf("][P=");
+
+        Assertions.assertEquals(index3, -1);
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "#executePath", resetPath = "#resetPath")
+    public void testDynamicRoute2(String group, String serviceId, String[] testUrls, String executePath, String resetPath) {
+        String result1 = testRestTemplate.getForEntity(testUrls[0], String.class).getBody();
+
+        LOG.info("Result1 : {}", result1);
+
+        int index1 = result1.indexOf("][P=");
+
+        Assertions.assertEquals(index1, -1);
+
+        String result2 = testRestTemplate.getForEntity(testUrls[1], String.class).getBody();
+
+        LOG.info("Result2 : {}", result2);
+
+        int index2 = result2.indexOf("][P=");
+
+        Assertions.assertEquals(index2, -1);
+
+        String result3 = testRestTemplate.getForEntity(testUrls[2], String.class).getBody();
+
+        LOG.info("Result3 : {}", result3);
+
+        int index3 = result3.indexOf("][P=");
+
+        Assertions.assertNotEquals(index3, -1);
+    }
+
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-4.xml", resetPath = "gray-default.xml")
     public void testNacosDynamicalMetadataUpdated(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
