@@ -100,7 +100,7 @@ public class MyZuulStrategyRouteProcessor extends NacosProcessor {
     }
 
     @Override
-    public String getConfigType() {
+    public String getDescription() {
         return "Zuul dynamic route";
     }
 
@@ -131,7 +131,7 @@ public class MyZuulStrategyRouteProcessor extends NacosProcessor {
     }
 
     @Override
-    public String getConfigType() {
+    public String getDescription() {
         return "Zuul dynamic route";
     }
 
