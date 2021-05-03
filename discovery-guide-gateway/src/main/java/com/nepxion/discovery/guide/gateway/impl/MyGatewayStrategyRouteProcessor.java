@@ -70,7 +70,7 @@ public class MyGatewayStrategyRouteProcessor extends NacosProcessor {
     }
 
     @Override
-    public String getConfigType() {
+    public String getDescription() {
         return "Gateway dynamic route";
     }
 
@@ -101,7 +101,7 @@ public class MyGatewayStrategyRouteProcessor extends NacosProcessor {
     }
 
     @Override
-    public String getConfigType() {
+    public String getDescription() {
         return "Gateway dynamic route";
     }
 
