@@ -30,6 +30,7 @@ import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteProcessor;
 import com.nepxion.discovery.guide.gateway.impl.MyStrategyTracerAdapter;
+import com.nepxion.discovery.guide.gateway.impl.MySubscriber;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyRouteFilter;
@@ -76,6 +77,12 @@ public class DiscoveryGuideGateway {
     @Bean
     public MyGatewayStrategyRouteProcessor gatewayStrategyRouteProcessor() {
         return new MyGatewayStrategyRouteProcessor();
+    }
+
+    // 自定义事件总线订阅
+    @Bean
+    public MySubscriber mySubscriber() {
+        return new MySubscriber();
     }
 
     @Bean
