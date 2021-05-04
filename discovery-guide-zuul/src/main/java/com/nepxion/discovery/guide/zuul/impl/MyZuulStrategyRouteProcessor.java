@@ -18,7 +18,7 @@ import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
 
 /*
 一个服务映射多个动态路由路径，配置中心界面上推送示例，如下
-① 精简配置
+1. 精简配置
 [
     {
         "id": "route0",
@@ -44,7 +44,7 @@ import com.nepxion.discovery.plugin.strategy.zuul.route.ZuulStrategyRoute;
     }
 ]
 
-② 完整配置
+2. 完整配置
 [
     {
         "id": "route0",
