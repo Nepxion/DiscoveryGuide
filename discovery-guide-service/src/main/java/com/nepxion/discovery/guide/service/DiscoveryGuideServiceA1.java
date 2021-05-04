@@ -83,6 +83,7 @@ public class DiscoveryGuideServiceA1 {
         return new MyStrategyTracerAdapter();
     }
 
+    // 自定义事件总线订阅
     @Bean
     public MySubscriber mySubscriber() {
         return new MySubscriber();

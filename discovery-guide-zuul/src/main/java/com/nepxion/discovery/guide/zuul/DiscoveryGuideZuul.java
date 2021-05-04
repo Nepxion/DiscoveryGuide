@@ -27,6 +27,7 @@ import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.zuul.filter.MyZuulFilter;
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.zuul.impl.MyStrategyTracerAdapter;
+import com.nepxion.discovery.guide.zuul.impl.MySubscriber;
 import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyRouteFilter;
 import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyRouteProcessor;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
@@ -77,6 +78,12 @@ public class DiscoveryGuideZuul {
     @Bean
     public MyZuulStrategyRouteProcessor zuulStrategyRouteProcessor() {
         return new MyZuulStrategyRouteProcessor();
+    }
+
+    // 自定义事件总线订阅
+    @Bean
+    public MySubscriber mySubscriber() {
+        return new MySubscriber();
     }
 
     @Bean
