@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.common.nacos.proccessor.NacosProcessor;
+import com.nepxion.discovery.plugin.strategy.constant.StrategyConstant;
 import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
 
 /*
@@ -61,8 +62,11 @@ import com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute;
 // 2. 对于其它配置中心，Key的格式为Group-DataId
 // 3. 千万不能和蓝绿灰度发布的Group和DataId冲突
 public class MyGatewayStrategyRouteProcessor extends NacosProcessor {
-    // private String group = "DEFAULT_GROUP";
-    private String group = "nepxion";
+    @Value("${" + StrategyConstant.SPRING_APPLICATION_STRATEGY_DYNAMIC_ROUTE_GROUP + ":" + DiscoveryConstant.NEPXION + "}")
+    private String group;
+
+    /*@Value("${" + StrategyConstant.SPRING_APPLICATION_STRATEGY_DYNAMIC_ROUTE_GROUP + ":DEFAULT_GROUP}")
+    private String group;*/
 
     @Value("${" + DiscoveryConstant.SPRING_APPLICATION_NAME + "}")
     private String dataId;
