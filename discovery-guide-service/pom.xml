@@ -112,8 +112,7 @@
         <!-- Nepxion Discovery框架提供的订阅方式 -->
         <!-- <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-sentinel-nacos</artifactId>
-            <artifactId>discovery-plugin-strategy-starter-sentinel-apollo</artifactId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-datasource</artifactId>
             <version>${discovery.version}</version>
         </dependency> -->
 
