@@ -12,10 +12,10 @@ package com.nepxion.discovery.guide.service.impl;
 import javax.servlet.http.HttpServletRequest;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
-import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.DefaultServiceSentinelRequestOriginAdapter;
+import com.nepxion.discovery.plugin.strategy.sentinel.limiter.adapter.DefaultSentinelStrategyRequestOriginAdapter;
 
 // 自定义版本号+地域名，实现组合式熔断
-public class MyServiceSentinelRequestOriginAdapter extends DefaultServiceSentinelRequestOriginAdapter {
+public class MySentinelStrategyRequestOriginAdapter extends DefaultSentinelStrategyRequestOriginAdapter {
     @Override
     public String parseOrigin(HttpServletRequest request) {
         String version = request.getHeader(DiscoveryConstant.N_D_SERVICE_VERSION);
