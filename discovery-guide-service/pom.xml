@@ -89,11 +89,10 @@
             <version>${discovery.version}</version>
         </dependency> -->
 
-        <!-- 3.服务的Sentinel插件 -->
-        <!-- Sentinel LimitApp熔断插件 -->
+        <!-- 3.Sentinel LimitApp熔断插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-service-sentinel</artifactId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-limiter</artifactId>
             <version>${discovery.version}</version>
         </dependency>
 

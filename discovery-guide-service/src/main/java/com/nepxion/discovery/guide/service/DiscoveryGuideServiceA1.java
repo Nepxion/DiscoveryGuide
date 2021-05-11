@@ -20,16 +20,16 @@ import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
-import com.nepxion.discovery.guide.service.impl.MyServiceSentinelRequestOriginAdapter;
+import com.nepxion.discovery.guide.service.impl.MySentinelStrategyRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceStrategyMonitorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceStrategyRouteFilter;
 import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.guide.service.impl.MySubscriber;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
+import com.nepxion.discovery.plugin.strategy.sentinel.limiter.adapter.SentinelStrategyRequestOriginAdapter;
 import com.nepxion.discovery.plugin.strategy.service.filter.ServiceStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMonitorAdapter;
-import com.nepxion.discovery.plugin.strategy.service.sentinel.adapter.ServiceSentinelRequestOriginAdapter;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -65,12 +65,6 @@ public class DiscoveryGuideServiceA1 {
         return new MyServiceStrategyRouteFilter();
     }
 
-    // 自定义组合式熔断
-    @Bean
-    public ServiceSentinelRequestOriginAdapter serviceSentinelRequestOriginAdapter() {
-        return new MyServiceSentinelRequestOriginAdapter();
-    }
-
     // 自定义服务端接口方法的入参输出到调用链Span上
     @Bean
     public ServiceStrategyMonitorAdapter serviceStrategyMonitorAdapter() {
@@ -81,6 +75,12 @@ public class DiscoveryGuideServiceA1 {
     @Bean
     public StrategyTracerAdapter strategyTracerAdapter() {
         return new MyStrategyTracerAdapter();
+    }
+
+    // 自定义组合式熔断
+    @Bean
+    public SentinelStrategyRequestOriginAdapter sentinelStrategyRequestOriginAdapter() {
+        return new MySentinelStrategyRequestOriginAdapter();
     }
 
     // 自定义事件总线订阅
