@@ -89,7 +89,7 @@
             <version>${discovery.version}</version>
         </dependency> -->
 
-        <!-- 3.Sentinel LimitApp熔断插件 -->
+        <!-- 3.Sentinel LimitApp高级限流熔断插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-sentinel-limiter</artifactId>
