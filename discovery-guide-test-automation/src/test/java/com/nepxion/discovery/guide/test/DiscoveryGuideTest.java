@@ -433,24 +433,24 @@ public class DiscoveryGuideTest {
     @Test
     public void testSentinelAuthority1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testSentinelAuthority1(gatewayTestUrl);
-            discoveryGuideTestCases.testSentinelAuthority1(zuulTestUrl);
+            discoveryGuideTestCases.testSentinelAuthority1(gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testSentinelAuthority1(zuulGroup, zuulTestUrl);
         }
     }
 
     @Test
     public void testSentinelAuthority2() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testSentinelAuthority2(gatewayTestUrl);
-            discoveryGuideTestCases.testSentinelAuthority2(zuulTestUrl);
+            discoveryGuideTestCases.testSentinelAuthority2(gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testSentinelAuthority2(zuulGroup, zuulTestUrl);
         }
     }
 
     @Test
     public void testSentinelAuthority3() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testSentinelAuthority3(gatewayTestUrl);
-            discoveryGuideTestCases.testSentinelAuthority3(zuulTestUrl);
+            discoveryGuideTestCases.testSentinelAuthority3(gatewayGroup, gatewayTestUrl);
+            discoveryGuideTestCases.testSentinelAuthority3(zuulGroup, zuulTestUrl);
         }
     }
 
