@@ -97,8 +97,15 @@
         </dependency>
 
         <!-- Sentinel订阅插件。下面两种订阅方式，任选一种 -->
-        <!-- Spring Cloud Alibaba官方提供的订阅方式 -->
+        <!-- Nepxion Discovery框架提供的订阅方式 -->
         <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-datasource</artifactId>
+            <version>${discovery.version}</version>
+        </dependency>
+        
+        <!-- Spring Cloud Alibaba官方提供的订阅方式 -->
+        <!-- <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
@@ -106,13 +113,6 @@
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
-        </dependency>
-
-        <!-- Nepxion Discovery框架提供的订阅方式 -->
-        <!-- <dependency>
-            <groupId>com.nepxion</groupId>
-            <artifactId>discovery-plugin-strategy-starter-sentinel-datasource</artifactId>
-            <version>${discovery.version}</version>
         </dependency> -->
 
         <!-- 4.Spring Boot Admin监控 -->
