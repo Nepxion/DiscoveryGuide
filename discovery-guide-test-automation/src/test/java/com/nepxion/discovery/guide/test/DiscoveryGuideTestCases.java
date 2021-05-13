@@ -1372,8 +1372,8 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-1.json", resetPath = "sentinel-default.json")
-    public void testSentinelAuthority1(String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "discovery-guide-service-b-sentinel-authority", executePath = "sentinel-authority-1.json", resetPath = "sentinel-default.json")
+    public void testSentinelAuthority1(String group, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("location", "shanghai");
 
@@ -1394,8 +1394,8 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(count, 2);
     }
 
-    @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-1.json", resetPath = "sentinel-default.json")
-    public void testSentinelAuthority2(String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "discovery-guide-service-b-sentinel-authority", executePath = "sentinel-authority-1.json", resetPath = "sentinel-default.json")
+    public void testSentinelAuthority2(String group, String testUrl) {
         int count = 0;
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -1410,8 +1410,8 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(count, 4);
     }
 
-    @DTestConfig(group = "DEFAULT_GROUP", serviceId = "sentinel-authority-discovery-guide-service-b", executePath = "sentinel-authority-2.json", resetPath = "sentinel-default.json")
-    public void testSentinelAuthority3(String testUrl) {
+    @DTestConfig(group = "#group", serviceId = "discovery-guide-service-b-sentinel-authority", executePath = "sentinel-authority-2.json", resetPath = "sentinel-default.json")
+    public void testSentinelAuthority3(String group, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("location", "shanghai");
 
