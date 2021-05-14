@@ -13,7 +13,17 @@
     </parent>
 
     <dependencies>
-        <!-- 1.控制台配置中心 -->
+        <!-- 1.注册中心插件 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <!-- <groupId>org.springframework.cloud</groupId> -->
+            <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
+            <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
+            <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
+        </dependency>
+
+        <!-- 2.配置中心插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-console-starter-nacos</artifactId>
@@ -23,16 +33,6 @@
             <!-- <artifactId>discovery-console-starter-consul</artifactId> -->
             <!-- <artifactId>discovery-console-starter-etcd</artifactId> -->
             <version>${discovery.version}</version>
-        </dependency>
-
-        <!-- 2.控制台注册中心 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <!-- <groupId>org.springframework.cloud</groupId> -->
-            <!-- <artifactId>spring-cloud-starter-consul-discovery</artifactId> -->
-            <!-- <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> -->
-            <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
         </dependency>
 
         <!-- 3.Spring Boot Admin监控 -->
