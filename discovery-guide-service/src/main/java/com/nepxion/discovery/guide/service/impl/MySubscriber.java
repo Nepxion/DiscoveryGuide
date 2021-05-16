@@ -10,7 +10,7 @@ package com.nepxion.discovery.guide.service.impl;
  */
 
 import com.google.common.eventbus.Subscribe;
-import com.nepxion.discovery.plugin.framework.event.AlarmEvent;
+import com.nepxion.discovery.common.event.AlarmEvent;
 import com.nepxion.discovery.plugin.framework.event.RuleClearedEvent;
 import com.nepxion.discovery.plugin.framework.event.RuleFailureEvent;
 import com.nepxion.discovery.plugin.framework.event.RuleUpdatedEvent;
