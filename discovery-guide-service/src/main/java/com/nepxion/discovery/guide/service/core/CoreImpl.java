@@ -19,8 +19,5 @@ public class CoreImpl {
 
     public String getPluginInfo(String value) {
         return pluginAdapter.getPluginInfo(value);
-
-        // SkyWalking下不支持长URL的GET方式的埋点输出，返回值改成OK
-        // return "OK";
     }
 }
