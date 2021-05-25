@@ -4,7 +4,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
         <encoder>
-            <pattern>discovery %date %level [%thread] [%X{trace-id}] [%X{span-id}] [%X{n-d-service-group}] [%X{n-d-service-type}] [%X{n-d-service-app-id}] [%X{n-d-service-id}] [%X{n-d-service-address}] [%X{n-d-service-version}] [%X{n-d-service-region}] [%X{n-d-service-env}] [%X{n-d-service-zone}] [%X{mobile}] [%X{user}] %logger{10} [%file:%line] - %msg%n</pattern>
+            <pattern>discovery %date %level [%thread] %logger{10} [%file:%line] - %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -28,7 +28,7 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
         <encoder>
-            <pattern>discovery %date %level [%thread] [%X{trace-id}] [%X{span-id}] [%X{n-d-service-group}] [%X{n-d-service-type}] [%X{n-d-service-app-id}] [%X{n-d-service-id}] [%X{n-d-service-address}] [%X{n-d-service-version}] [%X{n-d-service-region}] [%X{n-d-service-env}] [%X{n-d-service-zone}] [%X{mobile}] [%X{user}] %logger{10} [%file:%line] - %msg%n</pattern>
+            <pattern>discovery %date %level [%thread] %logger{10} [%file:%line] - %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <!-- Only log level WARN and above -->
