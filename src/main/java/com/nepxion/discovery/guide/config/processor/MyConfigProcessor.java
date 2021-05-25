@@ -21,8 +21,18 @@ import com.nepxion.discovery.common.nacos.proccessor.NacosProcessor;
 // Group和DataId自行决定，需要注意
 // 1. 对于Nacos、Redis、Zookeeper配置中心，Group和DataId需要和界面相对应
 // 2. 对于Apollo、Consul、Etcd配置中心，Key的格式为Group-DataId
-// 3. 千万不能和蓝绿灰度发布的Group和DataId冲突
+// 可以同时支持多个配置中心的订阅，需要同时创建多个不同的Processor，同时@Bean方式进入到Spring容器
 public class MyConfigProcessor extends NacosProcessor {
+    @Override
+    public void beforeInitialization() {
+        System.out.println("订阅器初始化之前，可以做一些工作");
+    }
+
+    @Override
+    public void afterInitialization() {
+        System.out.println("订阅器初始化之后，可以做一些工作");
+    }
+    
     @Override
     public String getGroup() {
         return "b";
@@ -35,13 +45,13 @@ public class MyConfigProcessor extends NacosProcessor {
 
     @Override
     public String getDescription() {
-        // description为日志打印显示而设置，作用是帮助使用者在日志上定位订阅是否在执行
-        return "My operation";
+        // description为日志打印显示而设置，作用是帮助使用者在日志上定位订阅器是否在执行
+        return "My subscription";
     }
 
     @Override
     public void callbackConfig(String config) {
         // config为配置中心对应键值的内容变更，使用者可以根据此变更对业务模块做回调处理
-        System.out.println(config);
+        System.out.println("监听配置改变：config=" + config);
     }
 }
