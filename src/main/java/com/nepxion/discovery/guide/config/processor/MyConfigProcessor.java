@@ -32,7 +32,7 @@ public class MyConfigProcessor extends NacosProcessor {
     public void afterInitialization() {
         System.out.println("订阅器初始化之后，可以做一些工作");
     }
-    
+
     @Override
     public String getGroup() {
         return "b";
