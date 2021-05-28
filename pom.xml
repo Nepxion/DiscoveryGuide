@@ -25,7 +25,7 @@
         <!-- Spring Cloud Hoxton compatible versions -->
         <spring.cloud.version>Hoxton.SR11</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.5.RELEASE</spring.cloud.alibaba.version>
-        <spring.boot.version>2.3.10.RELEASE</spring.boot.version>
+        <spring.boot.version>2.3.11.RELEASE</spring.boot.version>
         <spring.boot.admin.version>2.3.1</spring.boot.admin.version>
 
         <!-- Spring Cloud Greenwich compatible versions -->
