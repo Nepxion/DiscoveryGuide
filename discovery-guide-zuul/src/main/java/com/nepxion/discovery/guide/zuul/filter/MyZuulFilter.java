@@ -53,7 +53,7 @@ public class MyZuulFilter extends ZuulFilter {
         try {
             String parameter = "MyZuulFilter";
             String feignValue = zuulFeign.invoke(parameter);
-            String restTemplateValue = restTemplate.getForEntity("http://discovery-guide-service-a/rest/" + parameter, String.class).getBody();
+            String restTemplateValue = restTemplate.getForEntity("http://discovery-guide-service-b/rest/" + parameter, String.class).getBody();
 
             LOG.info("网关上触发Feigin调用，返回值={}", feignValue);
             LOG.info("网关上触发RestTemplate调用，返回值={}", restTemplateValue);
