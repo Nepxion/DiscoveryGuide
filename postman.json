@@ -51,7 +51,7 @@
 							},
 							{
 								"key": "n-d-id-blacklist",
-								"value": "211783d6-1df0-40d0-8ac0-bf3fb4ac0b37;e74c1478-fbe9-41ac-aa41-7fb9fb2a58b4",
+								"value": "{\"discovery-guide-service-a\":\"20210601-222830-466-1840-750-979\", \"discovery-guide-service-b\":\"20210601-222830-501-4332-921-141\"}",
 								"type": "text",
 								"disabled": true
 							},
@@ -175,7 +175,7 @@
 							},
 							{
 								"key": "n-d-id-blacklist",
-								"value": "211783d6-1df0-40d0-8ac0-bf3fb4ac0b37;e74c1478-fbe9-41ac-aa41-7fb9fb2a58b4",
+								"value": "{\"discovery-guide-service-a\":\"20210601-222830-466-1840-750-979\", \"discovery-guide-service-b\":\"20210601-222830-501-4332-921-141\"}",
 								"type": "text",
 								"disabled": true
 							},
@@ -299,7 +299,7 @@
 							},
 							{
 								"key": "n-d-id-blacklist",
-								"value": "211783d6-1df0-40d0-8ac0-bf3fb4ac0b37;e74c1478-fbe9-41ac-aa41-7fb9fb2a58b4",
+								"value": "{\"discovery-guide-service-a\":\"20210601-222830-466-1840-750-979\", \"discovery-guide-service-b\":\"20210601-222830-501-4332-921-141\"}",
 								"type": "text",
 								"disabled": true
 							},
@@ -432,7 +432,7 @@
 							},
 							{
 								"key": "n-d-id-blacklist",
-								"value": "211783d6-1df0-40d0-8ac0-bf3fb4ac0b37;e74c1478-fbe9-41ac-aa41-7fb9fb2a58b4",
+								"value": "{\"discovery-guide-service-a\":\"20210601-222830-466-1840-750-979\", \"discovery-guide-service-b\":\"20210601-222830-501-4332-921-141\"}",
 								"type": "text",
 								"disabled": true
 							},
