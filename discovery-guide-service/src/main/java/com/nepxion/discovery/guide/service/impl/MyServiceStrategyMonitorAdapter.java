@@ -9,7 +9,7 @@ package com.nepxion.discovery.guide.service.impl;
  * @version 1.0
  */
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.aopalliance.intercept.MethodInvocation;
@@ -25,10 +25,10 @@ import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMoni
 public class MyServiceStrategyMonitorAdapter implements ServiceStrategyMonitorAdapter {
     @Override
     public Map<String, String> getCustomizationMap(ServiceStrategyMonitorInterceptor interceptor, MethodInvocation invocation, Map<String, Object> parameterMap, Object returnValue) {
-        Map<String, String> customizationMap = new HashMap<String, String>();
+        Map<String, String> customizationMap = new LinkedHashMap<String, String>();
         customizationMap.put(DiscoveryConstant.PARAMETER, parameterMap.toString());
         customizationMap.put(DiscoveryConstant.RETURN, returnValue != null ? returnValue.toString() : null);
-        
+
         return customizationMap;
     }
 }
