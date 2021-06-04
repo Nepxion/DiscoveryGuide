@@ -9,7 +9,7 @@ package com.nepxion.discovery.guide.zuul.impl;
  * @version 1.0
  */
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +33,7 @@ public class MyStrategyTracerAdapter extends DefaultStrategyTracerAdapter {
 
     @Override
     public Map<String, String> getCustomizationMap() {
-        Map<String, String> customizationMap = new HashMap<String, String>();
+        Map<String, String> customizationMap = new LinkedHashMap<String, String>();
         customizationMap.put("mobile", StringUtils.isNotEmpty(strategyContextHolder.getHeader("mobile")) ? strategyContextHolder.getHeader("mobile") : StringUtils.EMPTY);
         customizationMap.put("user", StringUtils.isNotEmpty(strategyContextHolder.getHeader("user")) ? strategyContextHolder.getHeader("user") : StringUtils.EMPTY);
 
