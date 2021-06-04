@@ -125,6 +125,10 @@ Polaris为Discovery高级定制版，特色功能
 
 ![](http://nepxion.gitee.io/discovery/docs/polaris-doc/GlobalSub.jpg)
 
+⑧ Discovery【探索】配置中心发布订阅图
+
+![](http://nepxion.gitee.io/discovery/docs/polaris-doc/Config.jpg)
+
 ## 请联系我
 微信、钉钉、公众号和文档
 
