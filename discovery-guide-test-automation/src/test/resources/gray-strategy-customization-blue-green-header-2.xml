@@ -15,9 +15,6 @@
             <route id="version-route2" type="version">{"discovery-guide-service-a":"1.0", "discovery-guide-service-b":"1.1"}</route>
         </routes>
 
-        <headers>
-            <header key="a" value="1"/>
-            <header key="b" value="2"/>
-        </headers>
+        <header>{"a":"1", "b":"2"}</header>
     </strategy-customization>
 </rule>
