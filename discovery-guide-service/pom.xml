@@ -21,7 +21,6 @@
             <!-- <artifactId>discovery-plugin-register-center-starter-consul</artifactId> -->
             <!-- <artifactId>discovery-plugin-register-center-starter-eureka</artifactId> -->
             <!-- <artifactId>discovery-plugin-register-center-starter-zookeeper</artifactId> -->
-            <version>${discovery.version}</version>
         </dependency>
 
         <!-- 2.配置中心插件 -->
@@ -33,21 +32,18 @@
             <!-- <artifactId>discovery-plugin-config-center-starter-zookeeper</artifactId> -->
             <!-- <artifactId>discovery-plugin-config-center-starter-consul</artifactId> -->
             <!-- <artifactId>discovery-plugin-config-center-starter-etcd</artifactId> -->
-            <version>${discovery.version}</version>
         </dependency>
 
         <!-- 3.管理中心插件 -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-admin-center-starter</artifactId>
-            <version>${discovery.version}</version>
         </dependency>
 
         <!-- 4.服务策略编排插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service</artifactId>
-            <version>${discovery.version}</version>
         </dependency>
 
         <!-- ========== 扩展插件 ========== -->
@@ -55,13 +51,11 @@
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-opentracing</artifactId>
-            <version>${discovery.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-sentinel-opentracing</artifactId>
-            <version>${discovery.version}</version>
         </dependency>
 
         <dependency>
@@ -80,20 +74,17 @@
         <!-- <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-skywalking</artifactId>
-            <version>${discovery.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-sentinel-skywalking</artifactId>
-            <version>${discovery.version}</version>
         </dependency> -->
 
         <!-- 3.Sentinel LimitApp高级限流熔断插件 -->
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-sentinel-limiter</artifactId>
-            <version>${discovery.version}</version>
         </dependency>
 
         <!-- Sentinel订阅插件。下面两种订阅方式，任选一种 -->
@@ -101,7 +92,6 @@
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-sentinel-datasource</artifactId>
-            <version>${discovery.version}</version>
         </dependency>
         
         <!-- Spring Cloud Alibaba官方提供的订阅方式 -->
