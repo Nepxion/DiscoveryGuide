@@ -799,7 +799,7 @@ public class DiscoveryGuideTestCases {
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-customization-gray-1.xml", resetPath = "gray-default.xml")
     public void testStrategyCustomizationGray1(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("a", "1");
+        headers.add("a", "3");
 
         LOG.info("Header : {}", headers);
 
