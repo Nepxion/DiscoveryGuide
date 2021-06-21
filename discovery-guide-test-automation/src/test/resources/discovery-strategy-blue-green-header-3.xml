@@ -3,7 +3,7 @@
     <strategy-release>
         <conditions type="blue-green">
             <condition id="condition1" expression="#H['a'] == '1'" version-id="version-route2"/>
-            <condition id="condition2" expression="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1"/>
+            <condition id="condition2" expression="#H['a'] == '1' and #H['b'] == '2'" version-id="version-route1"/>
             <condition id="condition3" version-id="version-route3"/>
         </conditions>
 

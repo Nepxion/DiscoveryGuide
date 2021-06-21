@@ -7,7 +7,7 @@
     <strategy-release>
         <conditions type="gray">
             <condition id="condition1" expression="#H['a'] == '1'" version-id="version-route1=10;version-route2=90"/>
-            <condition id="condition2" expression="#H['a'] == '1' &amp;&amp; #H['b'] == '2'" version-id="version-route1=85;version-route2=15"/>
+            <condition id="condition2" expression="#H['a'] == '1' and #H['b'] == '2'" version-id="version-route1=85;version-route2=15"/>
         </conditions>
 
         <routes>
