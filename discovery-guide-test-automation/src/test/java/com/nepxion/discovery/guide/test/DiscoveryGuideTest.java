@@ -241,114 +241,114 @@ public class DiscoveryGuideTest {
     }
 
     @Test
-    public void testStrategyCustomizationBlueGreen1() throws Exception {
+    public void testStrategyBlueGreen1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreen1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreen1(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreen1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreen1(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationBlueGreen2() throws Exception {
+    public void testStrategyBlueGreen2() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreen2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreen2(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreen2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreen2(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationBlueGreen3() throws Exception {
+    public void testStrategyBlueGreen3() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreen3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreen3(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreen3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreen3(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationBlueGreenHeader1() throws Exception {
+    public void testStrategyBlueGreenHeader1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeader1(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreenHeader1(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationBlueGreenHeader2() throws Exception {
+    public void testStrategyBlueGreenHeader2() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeader2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeader2(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreenHeader2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreenHeader2(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationBlueGreenHeader3() throws Exception {
+    public void testStrategyBlueGreenHeader3() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeader3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeader3(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreenHeader3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreenHeader3(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationBlueGreenHeaderParameterCookie() throws Exception {
+    public void testStrategyBlueGreenHeaderParameterCookie() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeaderParameterCookie(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationBlueGreenHeaderParameterCookie(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreenHeaderParameterCookie(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyBlueGreenHeaderParameterCookie(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testInspectStrategyCustomizationBlueGreenHeader1() throws Exception {
+    public void testInspectStrategyBlueGreenHeader1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testInspectStrategyCustomizationBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
-            discoveryGuideTestCases.testInspectStrategyCustomizationBlueGreenHeader1(zuulGroup, zuulServiceId, zuulInspectUrl);
+            discoveryGuideTestCases.testInspectStrategyBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
+            discoveryGuideTestCases.testInspectStrategyBlueGreenHeader1(zuulGroup, zuulServiceId, zuulInspectUrl);
         }
     }
 
     @Test
-    public void testInspectStrategyCustomizationBlueGreenHeader2() throws Exception {
+    public void testInspectStrategyBlueGreenHeader2() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testInspectStrategyCustomizationBlueGreenHeader2(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
-            discoveryGuideTestCases.testInspectStrategyCustomizationBlueGreenHeader2(zuulGroup, zuulServiceId, zuulInspectUrl);
+            discoveryGuideTestCases.testInspectStrategyBlueGreenHeader2(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
+            discoveryGuideTestCases.testInspectStrategyBlueGreenHeader2(zuulGroup, zuulServiceId, zuulInspectUrl);
         }
     }
 
     @Test
-    public void testInspectStrategyCustomizationBlueGreenHeader3() throws Exception {
+    public void testInspectStrategyBlueGreenHeader3() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testInspectStrategyCustomizationBlueGreenHeader3(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
-            discoveryGuideTestCases.testInspectStrategyCustomizationBlueGreenHeader3(zuulGroup, zuulServiceId, zuulInspectUrl);
+            discoveryGuideTestCases.testInspectStrategyBlueGreenHeader3(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
+            discoveryGuideTestCases.testInspectStrategyBlueGreenHeader3(zuulGroup, zuulServiceId, zuulInspectUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationGray1() throws Exception {
+    public void testStrategyGray1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationGray1(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationGray2() throws Exception {
+    public void testStrategyGray2() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationGray2(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationGray3() throws Exception {
+    public void testStrategyGray3() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationGray3(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     @Test
-    public void testStrategyCustomizationGray4() throws Exception {
+    public void testStrategyGray4() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
-            discoveryGuideTestCases.testStrategyCustomizationGray4(gatewayGroup, gatewayServiceId, gatewayTestUrl);
-            discoveryGuideTestCases.testStrategyCustomizationGray4(zuulGroup, zuulServiceId, zuulTestUrl);
+            discoveryGuideTestCases.testStrategyGray4(gatewayGroup, gatewayServiceId, gatewayTestUrl);
+            discoveryGuideTestCases.testStrategyGray4(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
