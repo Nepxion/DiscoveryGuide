@@ -46,7 +46,7 @@ public class DiscoveryGuideTestCases {
     @Value("${gray.weight.testcase.result.offset:5}")
     private Integer resultOffset;
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-default.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-default.xml", resetPath = "discovery-default.xml")
     public void testNoGray(String group, String serviceId, String testUrl) {
         int noRepeatCount = 0;
         List<String> resultList = new ArrayList<String>();
@@ -310,17 +310,17 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-1.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-version-1.xml", resetPath = "discovery-default.xml")
     public void testVersionStrategyGray1(String group, String serviceId, String testUrl) {
         testVersionStrategyGray(testUrl);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-2.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-version-2.xml", resetPath = "discovery-default.xml")
     public void testVersionStrategyGray2(String group, String serviceId, String testUrl) {
         testVersionStrategyGray(testUrl);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-3.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-version-3.xml", resetPath = "discovery-default.xml")
     public void testVersionStrategyGray3(String group, String serviceId, String testUrl) {
         testVersionStrategyGray(testUrl);
     }
@@ -340,7 +340,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-weight.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-version-weight.xml", resetPath = "discovery-default.xml")
     public void testVersionWeightStrategyGray(String group, String serviceId, String testUrl) {
         int aV0Count = 0;
         int aV1Count = 0;
@@ -398,17 +398,17 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-region-1.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-region-1.xml", resetPath = "discovery-default.xml")
     public void testRegionStrategyGray1(String group, String serviceId, String testUrl) {
         testRegionStrategyGray(testUrl);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-region-2.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-region-2.xml", resetPath = "discovery-default.xml")
     public void testRegionStrategyGray2(String group, String serviceId, String testUrl) {
         testRegionStrategyGray(testUrl);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-region-3.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-region-3.xml", resetPath = "discovery-default.xml")
     public void testRegionStrategyGray3(String group, String serviceId, String testUrl) {
         testRegionStrategyGray(testUrl);
     }
@@ -428,7 +428,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-region-weight.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-region-weight.xml", resetPath = "discovery-default.xml")
     public void testRegionWeightStrategyGray(String group, String serviceId, String testUrl) {
         int aDevCount = 0;
         int aQaCount = 0;
@@ -486,7 +486,7 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green.xml", resetPath = "discovery-default.xml")
     public void testStrategyBlueGreen1(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -513,7 +513,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green.xml", resetPath = "discovery-default.xml")
     public void testStrategyBlueGreen2(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
@@ -546,7 +546,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green.xml", resetPath = "discovery-default.xml")
     public void testStrategyBlueGreen3(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
@@ -580,7 +580,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green-header-1.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green-header-1.xml", resetPath = "discovery-default.xml")
     public void testStrategyBlueGreenHeader1(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -607,7 +607,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green-header-2.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green-header-2.xml", resetPath = "discovery-default.xml")
     public void testStrategyBlueGreenHeader2(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -634,7 +634,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green-header-3.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green-header-3.xml", resetPath = "discovery-default.xml")
     public void testStrategyBlueGreenHeader3(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -661,7 +661,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green-header-parameter-cookie.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green-header-parameter-cookie.xml", resetPath = "discovery-default.xml")
     public void testStrategyBlueGreenHeaderParameterCookie(String group, String serviceId, String testUrl) {
         // 条件参数a来自于Http Query Parameter
         testUrl += "?a=1";
@@ -706,7 +706,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green-header-1.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green-header-1.xml", resetPath = "discovery-default.xml")
     public void testInspectStrategyBlueGreenHeader1(String group, String serviceId, String testUrl) {
         InspectorEntity inspectorEntity = new InspectorEntity();
         inspectorEntity.setServiceIdList(Arrays.asList("discovery-guide-service-b"));
@@ -736,7 +736,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green-header-2.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green-header-2.xml", resetPath = "discovery-default.xml")
     public void testInspectStrategyBlueGreenHeader2(String group, String serviceId, String testUrl) {
         InspectorEntity inspectorEntity = new InspectorEntity();
         inspectorEntity.setServiceIdList(Arrays.asList("discovery-guide-service-b"));
@@ -766,7 +766,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blue-green-header-3.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green-header-3.xml", resetPath = "discovery-default.xml")
     public void testInspectStrategyBlueGreenHeader3(String group, String serviceId, String testUrl) {
         InspectorEntity inspectorEntity = new InspectorEntity();
         inspectorEntity.setServiceIdList(Arrays.asList("discovery-guide-service-b"));
@@ -796,7 +796,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-gray-1.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-gray-1.xml", resetPath = "discovery-default.xml")
     public void testStrategyGray1(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "3");
@@ -871,7 +871,7 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-gray-2.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-gray-2.xml", resetPath = "discovery-default.xml")
     public void testStrategyGray2(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -898,7 +898,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-gray-2.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-gray-2.xml", resetPath = "discovery-default.xml")
     public void testStrategyGray3(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
@@ -973,7 +973,7 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-gray-2.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-gray-2.xml", resetPath = "discovery-default.xml")
     public void testStrategyGray4(String group, String serviceId, String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("a", "1");
@@ -1049,7 +1049,7 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(String.valueOf(aV1Reslut), String.valueOf(bV1Reslut));
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-version.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-rule-version.xml", resetPath = "discovery-default.xml")
     public void testVersionRuleGray(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -1084,7 +1084,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-region.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-rule-region.xml", resetPath = "discovery-default.xml")
     public void testRegionRuleGray(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -1119,7 +1119,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-version-weight.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-rule-version-weight.xml", resetPath = "discovery-default.xml")
     public void testVersionWeightRuleGray(String group, String serviceId, String testUrl) {
         int aV0Count = 0;
         int aV1Count = 0;
@@ -1177,7 +1177,7 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-region-weight.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-rule-region-weight.xml", resetPath = "discovery-default.xml")
     public void testRegionWeightRuleGray(String group, String serviceId, String testUrl) {
         int aDevCount = 0;
         int aQaCount = 0;
@@ -1235,7 +1235,7 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(bQaReslut > bQaWeight - resultOffset && bQaReslut < bQaWeight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-rule-version-composite.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-rule-version-composite.xml", resetPath = "discovery-default.xml")
     public void testVersionCompositeRuleGray(String group, String serviceId, String testUrl) {
         int aV0Count = 0;
         int aV1Count = 0;
@@ -1290,7 +1290,7 @@ public class DiscoveryGuideTestCases {
         Assert.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-blacklist.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blacklist.xml", resetPath = "discovery-default.xml")
     public void testBlacklist1(String group, String serviceId, String testUrl) {
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
@@ -1486,7 +1486,7 @@ public class DiscoveryGuideTestCases {
         Assert.assertNotEquals(index3, -1);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-4.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-version-4.xml", resetPath = "discovery-default.xml")
     public void testNacosDynamicalMetadataUpdated(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
 
@@ -1520,7 +1520,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-5.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-version-5.xml", resetPath = "discovery-default.xml")
     public void testNacosDynamicalMetadataDeleted(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
 
@@ -1554,7 +1554,7 @@ public class DiscoveryGuideTestCases {
         }
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "gray-strategy-version-1.xml", resetPath = "gray-default.xml")
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-version-1.xml", resetPath = "discovery-default.xml")
     public void testNacosDynamicalMetadataRestored(String group, String serviceId, String testUrl) {
         String nacosUrl = "http://localhost:8848/nacos/v1/ns/instance/metadata/batch?namespaceId=public";
 
