@@ -1431,8 +1431,8 @@ public class DiscoveryGuideTestCases {
         DiscoveryGuideTestAssert.assertEquals(count, 4);
     }
 
-    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "#executePath")
-    public void testDynamicRoute1(String group, String serviceId, String[] testUrls, String executePath) {
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "#executePath", resetPath = "#resetPath")
+    public void testDynamicRoute1(String group, String serviceId, String[] testUrls, String executePath, String resetPath) {
         String result1 = testRestTemplate.getForEntity(testUrls[0], String.class).getBody();
 
         LOG.info("Result1 : {}", result1);
