@@ -391,7 +391,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testDynamicRoute() throws Exception {
-        discoveryGuideTestCases.testDynamicRoute1(gatewayGroup, gatewayServiceId + "-dynamic-route", new String[] {gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url}, "dynamic-route-gateway-default.json");
+        discoveryGuideTestCases.testDynamicRoute1(gatewayGroup, gatewayServiceId + "-dynamic-route", new String[] {gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url}, "dynamic-route-gateway-default.json", "dynamic-route-gateway-default.json");
         discoveryGuideTestCases.testDynamicRoute2(gatewayGroup, gatewayServiceId + "-dynamic-route", new String[] {gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url}, "dynamic-route-gateway.json", "dynamic-route-gateway-default.json");
     }
 
