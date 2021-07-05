@@ -107,6 +107,9 @@ public class AFeignImpl extends CoreImpl implements AFeign {
     }
 
     private String doInvoke(String value) {
+        /*FeignClientBuilder.Builder<BFeign> builder = new FeignClientBuilder(applicationContext).forType(BFeign.class, "discovery-guide-service-b");
+        BFeign bFeign = (BFeign) builder.build();*/
+
         value = getPluginInfo(value);
         value = bFeign.invoke(value);
 
