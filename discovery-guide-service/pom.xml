@@ -105,16 +105,22 @@
             <artifactId>sentinel-datasource-nacos</artifactId>
         </dependency> -->
 
-        <!-- 4.Spring Boot Admin监控 -->
+        <!-- Sentinel Micrometer监控 -->
         <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-sentinel-micrometer</artifactId>
         </dependency>
 
-        <!-- 5.Prometheus监控 -->
+        <!-- 4.Prometheus Micrometer监控 -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <!-- 5.Spring Boot Admin监控 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
         <!-- ========== 数据中间件 ========== -->
