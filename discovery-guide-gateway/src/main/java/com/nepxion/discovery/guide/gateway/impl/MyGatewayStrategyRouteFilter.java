@@ -133,10 +133,10 @@ public class MyGatewayStrategyRouteFilter extends DefaultGatewayStrategyRouteFil
     public String getRouteVersion() {
         LOG.info("自定义全链路版本权重路由");
 
-        List<Pair<String, Double>> weightList = new ArrayList<Pair<String, Double>>();
-        weightList.add(new ImmutablePair<String, Double>(aRouteVersion, 30D));
-        weightList.add(new ImmutablePair<String, Double>(bRouteVersion, 70D));
-        MapWeightRandom<String, Double> weightRandom = new MapWeightRandom<String, Double>(weightList);
+        List<Pair<String, Integer>> weightList = new ArrayList<Pair<String, Integer>>();
+        weightList.add(new ImmutablePair<String, Integer>(aRouteVersion, 30));
+        weightList.add(new ImmutablePair<String, Integer>(bRouteVersion, 70));
+        MapWeightRandom<String, Integer> weightRandom = new MapWeightRandom<String, Integer>(weightList);
 
         return weightRandom.random();
     }*/
