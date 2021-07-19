@@ -81,16 +81,16 @@
             <artifactId>discovery-plugin-strategy-starter-sentinel-skywalking</artifactId>
         </dependency> -->
 
-        <!-- 3.Spring Boot Admin监控 -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
-
-        <!-- 4.Prometheus监控 -->
+        <!-- 3.Prometheus Micrometer监控 -->
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <!-- 4.Spring Boot Admin监控 -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
     </dependencies>
 
