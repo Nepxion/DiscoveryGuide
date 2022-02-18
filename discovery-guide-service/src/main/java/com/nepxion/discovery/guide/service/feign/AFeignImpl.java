@@ -84,7 +84,7 @@ public class AFeignImpl extends CoreImpl implements AFeign {
 
     @Override
     @SentinelResource(value = "sentinel-resource", blockHandler = "handleBlock", fallback = "handleFallback")
-    public String invokeThreadPool(String value) {
+    public String invokeThreadPool(@PathVariable(value = "value") String value) {
         Runnable runnable = createRunnable(value);
 
         cachedThreadPool.execute(runnable);
