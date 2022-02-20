@@ -18,13 +18,13 @@
     </modules>
 
     <properties>
-        <discovery.version>6.12.1</discovery.version>
+        <discovery.version>6.13.1</discovery.version>
 
         <!-- <nacos.client.version>1.4.2</nacos.client.version> -->
 
         <!-- Spring Cloud Hoxton compatible versions -->
         <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
-        <spring.cloud.alibaba.version>2.2.6.RELEASE</spring.cloud.alibaba.version>
+        <spring.cloud.alibaba.version>2.2.7.RELEASE</spring.cloud.alibaba.version>
         <spring.boot.version>2.3.12.RELEASE</spring.boot.version>
         <spring.boot.admin.version>2.3.1</spring.boot.admin.version>
 
