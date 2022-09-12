@@ -18,7 +18,7 @@
     </modules>
 
     <properties>
-        <discovery.version>6.15.0</discovery.version>
+        <discovery.version>6.16.0-SNAPSHOT</discovery.version>
 
         <!-- <nacos.client.version>1.4.2</nacos.client.version> -->
 
