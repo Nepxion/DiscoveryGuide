@@ -12,6 +12,7 @@
         <module>discovery-guide-gateway</module>
         <module>discovery-guide-zuul</module>
         <module>discovery-guide-service</module>
+        <module>discovery-guide-console</module>
     </modules>
 
     <properties>
