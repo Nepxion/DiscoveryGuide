@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -703,6 +704,127 @@ public class DiscoveryGuideTestCases {
 
             DiscoveryGuideTestAssert.assertEquals(aMatched && bMatched, true);
         }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-all.xml", resetPath = "discovery-default.xml")
+    public void testStrategyAll1(String group, String serviceId, String testUrl, String headerValue) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("a", headerValue);
+
+        LOG.info("Header : {}", headers);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            boolean aMatched = false;
+            boolean bMatched = false;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1." + headerValue + "]")) {
+                        aMatched = true;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1." + headerValue + "]")) {
+                        bMatched = true;
+                    }
+                }
+            }
+
+            DiscoveryGuideTestAssert.assertEquals(aMatched && bMatched, true);
+        }
+    }
+
+    @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-all.xml", resetPath = "discovery-default.xml")
+    public void testStrategyAll2(String group, String serviceId, String testUrl, String headerValue) {
+        HttpHeaders headers = new HttpHeaders();
+        if (StringUtils.isNotEmpty(headerValue)) {
+            headers.add("a", headerValue);
+        }
+
+        LOG.info("Header : {}", headers);
+
+        int aV0Count = 0;
+        int aV1Count = 0;
+        int bV0Count = 0;
+        int bV1Count = 0;
+
+        int aV0Weight = 0;
+        int aV1Weight = 0;
+        int bV0Weight = 0;
+        int bV1Weight = 0;
+
+        if (StringUtils.isNotEmpty(headerValue)) {
+            if (StringUtils.equals(headerValue, "2")) {
+                aV0Weight = 10;
+                aV1Weight = 90;
+                bV0Weight = 10;
+                bV1Weight = 90;
+            } else if (StringUtils.equals(headerValue, "3")) {
+                aV0Weight = 40;
+                aV1Weight = 60;
+                bV0Weight = 40;
+                bV1Weight = 60;
+            }
+        } else {
+            aV0Weight = 0;
+            aV1Weight = 100;
+            bV0Weight = 0;
+            bV1Weight = 100;
+        }
+
+        LOG.info("Sample count={}", sampleCount);
+        LOG.info("Weight result offset desired={}%", resultOffset);
+        LOG.info("A service desired : 1.0 version weight={}%, 1.1 version weight={}%", aV0Weight, aV1Weight);
+        LOG.info("B service desired : 1.0 version weight={}%, 1.1 version weight={}%", bV0Weight, bV1Weight);
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < sampleCount; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aV0Count++;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        aV1Count++;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bV0Count++;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        bV1Count++;
+                    }
+                }
+            }
+        }
+
+        DecimalFormat format = new DecimalFormat("0.0000");
+        double aV0Reslut = Double.valueOf(format.format((double) aV0Count * 100 / sampleCount));
+        double aV1Reslut = Double.valueOf(format.format((double) aV1Count * 100 / sampleCount));
+        double bV0Reslut = Double.valueOf(format.format((double) bV0Count * 100 / sampleCount));
+        double bV1Reslut = Double.valueOf(format.format((double) bV1Count * 100 / sampleCount));
+
+        LOG.info("Result : A service 1.0 version weight={}%", aV0Reslut);
+        LOG.info("Result : A service 1.1 version weight={}%", aV1Reslut);
+        LOG.info("Result : B service 1.0 version weight={}%", bV0Reslut);
+        LOG.info("Result : B service 1.1 version weight={}%", bV1Reslut);
+
+        DiscoveryGuideTestAssert.assertEquals(aV0Count, bV0Count);
+        DiscoveryGuideTestAssert.assertEquals(aV1Count, bV1Count);
+
+        DiscoveryGuideTestAssert.assertEquals(aV0Reslut > aV0Weight - resultOffset && aV0Reslut < aV0Weight + resultOffset, true);
+        DiscoveryGuideTestAssert.assertEquals(aV1Reslut > aV1Weight - resultOffset && aV1Reslut < aV1Weight + resultOffset, true);
+        DiscoveryGuideTestAssert.assertEquals(bV0Reslut > bV0Weight - resultOffset && bV0Reslut < bV0Weight + resultOffset, true);
+        DiscoveryGuideTestAssert.assertEquals(bV1Reslut > bV1Weight - resultOffset && bV1Reslut < bV1Weight + resultOffset, true);
     }
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-strategy-blue-green-header-1.xml", resetPath = "discovery-default.xml")
