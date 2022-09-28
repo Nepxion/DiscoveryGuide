@@ -251,6 +251,41 @@ public class DiscoveryGuideTest {
     }
 
     @Test
+    public void testStrategyAll1Test1() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testStrategyAll1(gatewayGroup, gatewayServiceId, gatewayTestUrl, "0");
+        }
+    }
+
+    @Test
+    public void testStrategyAll1Test2() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testStrategyAll1(gatewayGroup, gatewayServiceId, gatewayTestUrl, "1");
+        }
+    }
+
+    @Test
+    public void testStrategyAll2Test1() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testStrategyAll2(gatewayGroup, gatewayServiceId, gatewayTestUrl, "2");
+        }
+    }
+
+   @Test
+    public void testStrategyAll2Test2() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testStrategyAll2(gatewayGroup, gatewayServiceId, gatewayTestUrl, "3");
+        }
+    }
+
+   @Test
+   public void testStrategyAll2Test3() throws Exception {
+       for (int i = 0; i < loopTimes; i++) {
+           discoveryGuideTestCases.testStrategyAll2(gatewayGroup, gatewayServiceId, gatewayTestUrl, null);
+       }
+   }
+
+    @Test
     public void testInspectStrategyBlueGreenHeader1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
             discoveryGuideTestCases.testInspectStrategyBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayInspectUrl);

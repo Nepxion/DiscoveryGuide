@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+    <strategy>
+        <version>{"discovery-guide-service-a":"1.0","discovery-guide-service-b":"1.0"}</version>
+    </strategy>
+
+    <strategy-release>
+        <conditions type="blue-green">
+            <condition id="condition0" expression="#H['a'] == '0'" version-id="version-route0"/>
+            <condition id="condition1" expression="#H['a'] == '1'" version-id="version-route1"/>
+        </conditions>
+
+        <conditions type="gray">
+            <condition id="condition0" expression="#H['a'] == '2'" version-id="version-route0=10;version-route1=90"/>
+            <condition id="condition1" expression="#H['a'] == '3'" version-id="version-route0=40;version-route1=60"/>
+            <condition id="condition2" version-id="version-route0=0;version-route1=100"/>
+        </conditions>
+
+        <routes>
+            <route id="version-route0" type="version">{"discovery-guide-service-a":"1.0","discovery-guide-service-b":"1.0"}</route>
+            <route id="version-route1" type="version">{"discovery-guide-service-a":"1.1","discovery-guide-service-b":"1.1"}</route>
+        </routes>
+    </strategy-release>
+</rule>
