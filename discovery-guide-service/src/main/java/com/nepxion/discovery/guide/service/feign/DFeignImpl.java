@@ -1,4 +1,4 @@
-package com.nepxion.discovery.guide.service.rest;
+package com.nepxion.discovery.guide.service.feign;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -13,26 +13,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.core.CoreImpl;
 
 @RestController
-@ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-b")
-public class BRestImpl extends CoreImpl {
-    private static final Logger LOG = LoggerFactory.getLogger(BRestImpl.class);
+@ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-d")
+public class DFeignImpl extends CoreImpl implements CFeign {
+    private static final Logger LOG = LoggerFactory.getLogger(DFeignImpl.class);
 
     @Autowired
-    private RestTemplate restTemplate;
+    private CFeign cFeign;
 
-    @GetMapping(path = "/rest/{value}")
-    public String rest(@PathVariable(value = "value") String value) {
+    @Override
+    public String invoke(@PathVariable(value = "value") String value) {
         value = getPluginInfo(value);
-        value = restTemplate.getForEntity("http://discovery-guide-service-c/rest/" + value, String.class).getBody();
+        value = cFeign.invoke(value);
 
         LOG.info("调用路径：{}", value);
 

@@ -1,4 +1,4 @@
-package com.nepxion.discovery.guide.zuul;
+package com.nepxion.discovery.guide.gateway;
 
 /**
  * <p>Title: Nepxion Discovery</p>
@@ -12,13 +12,13 @@ package com.nepxion.discovery.guide.zuul;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableZuulProxy
-public class DiscoveryGuideZuul {
+public class DiscoveryGuideGateway2 {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(DiscoveryGuideZuul.class).run(args);
+        System.setProperty("spring.profiles.active", "2");
+
+        new SpringApplicationBuilder(DiscoveryGuideGateway2.class).run(args);
     }
 }

@@ -22,9 +22,9 @@ import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.core.CoreImpl;
 
 @RestController
-@ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-b")
-public class BRestImpl extends CoreImpl {
-    private static final Logger LOG = LoggerFactory.getLogger(BRestImpl.class);
+@ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-d")
+public class DRestImpl extends CoreImpl {
+    private static final Logger LOG = LoggerFactory.getLogger(DRestImpl.class);
 
     @Autowired
     private RestTemplate restTemplate;
