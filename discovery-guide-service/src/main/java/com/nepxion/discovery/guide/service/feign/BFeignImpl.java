@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.core.CoreImpl;
@@ -25,12 +26,12 @@ public class BFeignImpl extends CoreImpl implements BFeign {
     private static final Logger LOG = LoggerFactory.getLogger(BFeignImpl.class);
 
     @Autowired
-    private CFeign cFeign;
+    private RestTemplate restTemplate;
 
     @Override
     public String invoke(@PathVariable(value = "value") String value) {
         value = getPluginInfo(value);
-        value = cFeign.invoke(value);
+        value = restTemplate.getForEntity("http://discovery-guide-gateway2/discovery-guide-service-d/invoke/" + value, String.class).getBody();
 
         LOG.info("调用路径：{}", value);
 

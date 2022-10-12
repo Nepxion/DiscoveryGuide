@@ -32,7 +32,7 @@ public class BRestImpl extends CoreImpl {
     @GetMapping(path = "/rest/{value}")
     public String rest(@PathVariable(value = "value") String value) {
         value = getPluginInfo(value);
-        value = restTemplate.getForEntity("http://discovery-guide-service-c/rest/" + value, String.class).getBody();
+        value = restTemplate.getForEntity("http://discovery-guide-gateway2/discovery-guide-service-d/rest/" + value, String.class).getBody();
 
         LOG.info("调用路径：{}", value);
 
