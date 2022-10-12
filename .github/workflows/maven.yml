@@ -5,9 +5,9 @@ name: build
 
 on:
   push:
-    branches: [ 6.x.x-simple-multi-gateway ]
+    branches: [ 6.x.x-simple-non-domain-gateway ]
   pull_request:
-    branches: [ 6.x.x-simple-multi-gateway ]
+    branches: [ 6.x.x-simple-non-domain-gateway ]
 
 jobs:
   build:
