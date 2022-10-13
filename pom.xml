@@ -19,7 +19,7 @@
         <discovery.version>8.0.0</discovery.version>
         <spring.cloud.version>2021.0.4</spring.cloud.version>
         <spring.cloud.alibaba.version>2021.0.4.0</spring.cloud.alibaba.version>
-        <spring.boot.version>2.6.11</spring.boot.version>
+        <spring.boot.version>2.6.12</spring.boot.version>
 
         <!-- Nepxion Discovery 7.x.x compatible versions -->
         <!-- <discovery.version>7.0.0</discovery.version>
