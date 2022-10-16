@@ -100,12 +100,26 @@ public class DiscoveryGuideTest {
     }
 
     @Test
-    public void testANoGray() throws Exception {
+    public void test1NoGray() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
             discoveryGuideTestCases.testNoGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testNoGray(zuulGroup, zuulServiceId, zuulTestUrl);
             discoveryGuideTestCases.testNoGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testNoGray(zuulGroup, zuulGroup, zuulTestUrl);
+        }
+    }
+
+    @Test
+    public void test2DynamicRouteHeader() throws Exception {
+        for (int i = 0; i < 50; i++) {
+            discoveryGuideTestCases.testDynamicRouteHeader(gatewayTestUrl, "1.0", "1.0");
+            discoveryGuideTestCases.testDynamicRouteHeader(gatewayTestUrl, "1.1", "1.1");
+            discoveryGuideTestCases.testDynamicRouteHeader(gatewayTestUrl, "1.0", "1.1");
+            discoveryGuideTestCases.testDynamicRouteHeader(gatewayTestUrl, "1.1", "1.0");
+            discoveryGuideTestCases.testDynamicRouteHeader(zuulTestUrl, "1.0", "1.0");
+            discoveryGuideTestCases.testDynamicRouteHeader(zuulTestUrl, "1.0", "1.1");
+            discoveryGuideTestCases.testDynamicRouteHeader(zuulTestUrl, "1.1", "1.0");
+            discoveryGuideTestCases.testDynamicRouteHeader(zuulTestUrl, "1.1", "1.1");
         }
     }
 
@@ -320,7 +334,7 @@ public class DiscoveryGuideTest {
         }
     }
 
-   @Test
+    @Test
     public void testStrategyAll2Test2() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
             discoveryGuideTestCases.testStrategyAll2(gatewayGroup, gatewayServiceId, gatewayTestUrl, "3");
@@ -328,13 +342,13 @@ public class DiscoveryGuideTest {
         }
     }
 
-   @Test
-   public void testStrategyAll2Test3() throws Exception {
-       for (int i = 0; i < loopTimes; i++) {
-           discoveryGuideTestCases.testStrategyAll2(gatewayGroup, gatewayServiceId, gatewayTestUrl, null);
-           discoveryGuideTestCases.testStrategyAll2(zuulGroup, zuulServiceId, zuulTestUrl, null);
-       }
-   }
+    @Test
+    public void testStrategyAll2Test3() throws Exception {
+        for (int i = 0; i < loopTimes; i++) {
+            discoveryGuideTestCases.testStrategyAll2(gatewayGroup, gatewayServiceId, gatewayTestUrl, null);
+            discoveryGuideTestCases.testStrategyAll2(zuulGroup, zuulServiceId, zuulTestUrl, null);
+        }
+    }
 
     @Test
     public void testInspectStrategyBlueGreenHeader1() throws Exception {
@@ -496,11 +510,10 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testDynamicRoute() throws Exception {
-        discoveryGuideTestCases.testDynamicRoute1(gatewayGroup, gatewayServiceId + "-dynamic-route", new String[] {gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url}, "dynamic-route-gateway-default.json", "dynamic-route-gateway-default.json");
-        discoveryGuideTestCases.testDynamicRoute2(gatewayGroup, gatewayServiceId + "-dynamic-route", new String[] {gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url}, "dynamic-route-gateway.json", "dynamic-route-gateway-default.json");
-
-        discoveryGuideTestCases.testDynamicRoute1(zuulGroup, zuulServiceId + "-dynamic-route", new String[] {zuulTestRoute0Url, zuulTestRoute1Url, zuulTestRoute2Url}, "dynamic-route-zuul-default.json", "dynamic-route-zuul-default.json");
-        discoveryGuideTestCases.testDynamicRoute2(zuulGroup, zuulServiceId + "-dynamic-route", new String[] {zuulTestRoute0Url, zuulTestRoute1Url, zuulTestRoute2Url}, "dynamic-route-zuul.json", "dynamic-route-zuul-default.json");
+        discoveryGuideTestCases.testDynamicRoute1(gatewayGroup, gatewayServiceId + "-dynamic-route", new String[] { gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url }, "dynamic-route-gateway-default.json", "dynamic-route-gateway-default.json");
+        discoveryGuideTestCases.testDynamicRoute2(gatewayGroup, gatewayServiceId + "-dynamic-route", new String[] { gatewayTestRoute0Url, gatewayTestRoute1Url, gatewayTestRoute2Url }, "dynamic-route-gateway.json", "dynamic-route-gateway-default.json");
+        discoveryGuideTestCases.testDynamicRoute1(zuulGroup, zuulServiceId + "-dynamic-route", new String[] { zuulTestRoute0Url, zuulTestRoute1Url, zuulTestRoute2Url }, "dynamic-route-zuul-default.json", "dynamic-route-zuul-default.json");
+        discoveryGuideTestCases.testDynamicRoute2(zuulGroup, zuulServiceId + "-dynamic-route", new String[] { zuulTestRoute0Url, zuulTestRoute1Url, zuulTestRoute2Url }, "dynamic-route-zuul.json", "dynamic-route-zuul-default.json");
     }
 
     /*@Test
