@@ -85,6 +85,44 @@ public class DiscoveryGuideTestCases {
     }
 
     @DTest
+    public void testDynamicRouteHeader(String testUrl, String aVersion, String bVersion) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("n-d-version", "{\"discovery-guide-service-a\":\"" + aVersion + "\", \"discovery-guide-service-b\":\"" + bVersion + "\"}");
+
+        LOG.info("Header : {}", headers);
+
+        int aCount = 0;
+        int bCount = 0;
+
+        HttpEntity<String> requestEntity = new HttpEntity<String>(headers);
+        for (int i = 0; i < 4; i++) {
+            String result = testRestTemplate.exchange(testUrl, HttpMethod.GET, requestEntity, String.class, new HashMap<String, String>()).getBody();
+
+            LOG.info("Result{} : {}", i + 1, result);
+
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=" + aVersion + "]")) {
+                        aCount++;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=" + bVersion + "]")) {
+                        bCount++;
+                    }
+                }
+            }
+        }
+
+        LOG.info("Result : A service {} version count={}", aVersion, aCount);
+        LOG.info("Result : B service {} version count={}", bVersion, bCount);
+
+        DiscoveryGuideTestAssert.assertEquals(aCount, 4);
+        DiscoveryGuideTestAssert.assertEquals(bCount, 4);
+    }
+
+    @DTest
     public void testEnabledStrategyGray1(String testUrl) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("mobile", "138");
