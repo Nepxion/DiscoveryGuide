@@ -22,6 +22,7 @@ import org.springframework.web.server.ServerWebExchange;
 
 import com.nepxion.discovery.plugin.strategy.gateway.context.GatewayStrategyContext;
 import com.nepxion.discovery.plugin.strategy.monitor.StrategyMonitorContext;
+import com.nepxion.discovery.plugin.strategy.monitor.StrategyTracerContext;
 
 public class MyGatewayFilter implements GlobalFilter, Ordered {
     private static final Logger LOG = LoggerFactory.getLogger(MyGatewayFilter.class);
@@ -63,6 +64,8 @@ public class MyGatewayFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        Object span = StrategyTracerContext.getCurrentContext().getSpan();
+
         LOG.info("获取TraceId={}, SpanId={}", strategyMonitorContext.getTraceId(), strategyMonitorContext.getSpanId());
 
         String parameter = "MyGatewayFilter";
@@ -70,6 +73,7 @@ public class MyGatewayFilter implements GlobalFilter, Ordered {
         return webClient.build().get().uri("http://discovery-guide-service-b/rest/" + parameter).retrieve().bodyToMono(String.class).flatMap(s -> {
             // 异步线程需要复制上下文
             GatewayStrategyContext.getCurrentContext().setExchange(exchange);
+            StrategyTracerContext.getCurrentContext().setSpan(span);
 
             LOG.info("网关上触发WebClient调用，返回值={}", s);
 
