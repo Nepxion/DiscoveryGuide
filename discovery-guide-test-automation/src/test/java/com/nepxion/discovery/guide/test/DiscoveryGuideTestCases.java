@@ -48,20 +48,40 @@ public class DiscoveryGuideTestCases {
 
     @DTestConfig(group = "#group", serviceId = "#serviceId", executePath = "discovery-default.xml", resetPath = "discovery-default.xml")
     public void testNoGray(String group, String serviceId, String testUrl) {
-        int noRepeatCount = 0;
-        List<String> resultList = new ArrayList<String>();
+        int aV0Count = 0;
+        int aV1Count = 0;
+        int bV0Count = 0;
+        int bV1Count = 0;
+
         for (int i = 0; i < 4; i++) {
             String result = testRestTemplate.getForEntity(testUrl, String.class).getBody();
 
             LOG.info("Result{} : {}", i + 1, result);
 
-            if (!resultList.contains(result)) {
-                noRepeatCount++;
+            String[] array = result.split("->");
+            for (String value : array) {
+                if (value.contains("discovery-guide-service-a")) {
+                    if (value.contains("[V=1.0]")) {
+                        aV0Count++;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        aV1Count++;
+                    }
+                }
+                if (value.contains("discovery-guide-service-b")) {
+                    if (value.contains("[V=1.0]")) {
+                        bV0Count++;
+                    }
+                    if (value.contains("[V=1.1]")) {
+                        bV1Count++;
+                    }
+                }
             }
-            resultList.add(result);
         }
 
-        DiscoveryGuideTestAssert.assertEquals(noRepeatCount, 4);
+        DiscoveryGuideTestAssert.assertEquals(aV0Count, aV1Count);
+        DiscoveryGuideTestAssert.assertEquals(aV1Count, bV0Count);
+        DiscoveryGuideTestAssert.assertEquals(bV0Count, bV1Count);
     }
 
     @DTest
