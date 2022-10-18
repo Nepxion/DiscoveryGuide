@@ -128,6 +128,18 @@ public class MyGatewayStrategyRouteFilter extends DefaultGatewayStrategyRouteFil
         return super.getRouteEnvironment();
     }
 
+    // 把域名前缀转化成蓝绿灰度条件表达式中的驱动参数
+    /*@Override
+    public Map<String, String> getExternalHeaderMap() {
+        String host = gatewayStrategyContextHolder.getURI().getHost();
+        String domain = host.substring(0, host.indexOf("."));
+
+        Map<String, String> externalHeaderMap = new HashMap<String, String>();
+        externalHeaderMap.put("domain", domain);
+
+        return externalHeaderMap;
+    }*/
+
     // 自定义全链路版本权重路由
     /*@Override
     public String getRouteVersion() {
