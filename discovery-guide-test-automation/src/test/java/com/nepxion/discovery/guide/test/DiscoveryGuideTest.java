@@ -96,6 +96,7 @@ public class DiscoveryGuideTest {
         }
     }
 
+    @Test
     public void testEnabledStrategyGray1() throws Exception {
         for (int i = 0; i < loopTimes; i++) {
             discoveryGuideTestCases.testEnabledStrategyGray1(gatewayTestUrl);
