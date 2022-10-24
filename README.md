@@ -83,9 +83,6 @@ Polaris为Discovery高级定制版，特色功能
     - [极简版非域网关部署指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-simple-non-domain-gateway)，分支为6.x.x-simple-non-domain-gateway
     - [集成版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x)，分支为6.x.x
     - [高级版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-complex)，分支为6.x.x-complex
-    - [统一配置订阅执行器指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-config)，分支为6.x.x-config
-    - [统一控制台](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-console)，分支为6.x.x-console
-    - [自动化蓝绿灰度发布模拟测试](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-simulator)，分支为6.x.x-simulator
 - Spring Cloud 202x版本
     - [极简版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/master-simple)，分支为master-simple
     - [集成版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/master)，分支为master
