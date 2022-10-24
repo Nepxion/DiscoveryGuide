@@ -76,8 +76,8 @@ public class DiscoveryGuideTest {
     @Value("${gray.weight.testcases.enabled:true}")
     private Boolean weightTestcasesEnabled;
 
-    @Value("${testcase.loop.times:1}")
-    private Integer loopTimes;
+    @Value("${testcase.loop.count:1}")
+    private Integer loopCount;
 
     @Autowired
     private DiscoveryGuideTestCases discoveryGuideTestCases;
@@ -101,7 +101,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void test1NoGray() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testNoGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testNoGray(zuulGroup, zuulServiceId, zuulTestUrl);
             discoveryGuideTestCases.testNoGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
@@ -125,7 +125,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testEnabledStrategyGray1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testEnabledStrategyGray1(gatewayTestUrl);
             discoveryGuideTestCases.testEnabledStrategyGray1(zuulTestUrl);
         }
@@ -133,7 +133,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testEnabledStrategyGray2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testEnabledStrategyGray2(gatewayTestUrl);
             discoveryGuideTestCases.testEnabledStrategyGray2(zuulTestUrl);
         }
@@ -141,7 +141,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testVersionRouteFilter1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testVersionRouteFilter1(gatewayTestUrl);
             discoveryGuideTestCases.testVersionRouteFilter1(zuulTestUrl);
         }
@@ -149,7 +149,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testVersionRouteFilter2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testVersionRouteFilter2(gatewayTestUrl);
             discoveryGuideTestCases.testVersionRouteFilter2(zuulTestUrl);
         }
@@ -157,7 +157,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testRegionRouteFilter1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testRegionRouteFilter1(gatewayTestUrl);
             discoveryGuideTestCases.testRegionRouteFilter1(zuulTestUrl);
         }
@@ -165,7 +165,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testRegionRouteFilter2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testRegionRouteFilter2(gatewayTestUrl);
             discoveryGuideTestCases.testRegionRouteFilter2(zuulTestUrl);
         }
@@ -173,7 +173,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testAddressRouteFilter1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testAddressRouteFilter1(gatewayTestUrl);
             discoveryGuideTestCases.testAddressRouteFilter1(zuulTestUrl);
         }
@@ -181,7 +181,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testAddressRouteFilter2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testAddressRouteFilter2(gatewayTestUrl);
             discoveryGuideTestCases.testAddressRouteFilter2(zuulTestUrl);
         }
@@ -189,7 +189,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testVersionStrategyGray1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testVersionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testVersionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -197,7 +197,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testVersionStrategyGray2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testVersionStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testVersionStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -205,7 +205,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testVersionStrategyGray3() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testVersionStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testVersionStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -214,7 +214,7 @@ public class DiscoveryGuideTest {
     @Test
     public void testVersionWeightStrategyGray() throws Exception {
         if (weightTestcasesEnabled) {
-            for (int i = 0; i < loopTimes; i++) {
+            for (int i = 0; i < loopCount; i++) {
                 discoveryGuideTestCases.testVersionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
                 discoveryGuideTestCases.testVersionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
             }
@@ -223,7 +223,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testRegionStrategyGray1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testRegionStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testRegionStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -231,14 +231,14 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testRegionStrategyGray2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testRegionStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testRegionStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
         }
     }
 
     public void testRegionStrategyGray3() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testRegionStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testRegionStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -247,7 +247,7 @@ public class DiscoveryGuideTest {
     @Test
     public void testRegionWeightStrategyGray() throws Exception {
         if (weightTestcasesEnabled) {
-            for (int i = 0; i < loopTimes; i++) {
+            for (int i = 0; i < loopCount; i++) {
                 discoveryGuideTestCases.testRegionWeightStrategyGray(gatewayGroup, gatewayServiceId, gatewayTestUrl);
                 discoveryGuideTestCases.testRegionWeightStrategyGray(zuulGroup, zuulServiceId, zuulTestUrl);
             }
@@ -256,7 +256,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyBlueGreen1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyBlueGreen1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyBlueGreen1(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -264,7 +264,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyBlueGreen2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyBlueGreen2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyBlueGreen2(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -272,7 +272,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyBlueGreen3() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyBlueGreen3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyBlueGreen3(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -280,7 +280,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyBlueGreenHeader1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyBlueGreenHeader1(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -288,7 +288,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyBlueGreenHeader2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyBlueGreenHeader2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyBlueGreenHeader2(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -296,7 +296,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyBlueGreenHeader3() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyBlueGreenHeader3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyBlueGreenHeader3(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -304,7 +304,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyBlueGreenHeaderParameterCookie() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyBlueGreenHeaderParameterCookie(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyBlueGreenHeaderParameterCookie(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -312,7 +312,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyAll1Test1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyAll1(gatewayGroup, gatewayServiceId, gatewayTestUrl, "0");
             discoveryGuideTestCases.testStrategyAll1(zuulGroup, zuulServiceId, zuulTestUrl, "0");
         }
@@ -320,7 +320,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyAll1Test2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyAll1(gatewayGroup, gatewayServiceId, gatewayTestUrl, "1");
             discoveryGuideTestCases.testStrategyAll1(zuulGroup, zuulServiceId, zuulTestUrl, "1");
         }
@@ -328,7 +328,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyAll2Test1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyAll2(gatewayGroup, gatewayServiceId, gatewayTestUrl, "2");
             discoveryGuideTestCases.testStrategyAll2(zuulGroup, zuulServiceId, zuulTestUrl, "2");
         }
@@ -336,7 +336,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyAll2Test2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyAll2(gatewayGroup, gatewayServiceId, gatewayTestUrl, "3");
             discoveryGuideTestCases.testStrategyAll2(zuulGroup, zuulServiceId, zuulTestUrl, "3");
         }
@@ -344,7 +344,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyAll2Test3() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyAll2(gatewayGroup, gatewayServiceId, gatewayTestUrl, null);
             discoveryGuideTestCases.testStrategyAll2(zuulGroup, zuulServiceId, zuulTestUrl, null);
         }
@@ -352,7 +352,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testInspectStrategyBlueGreenHeader1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testInspectStrategyBlueGreenHeader1(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
             discoveryGuideTestCases.testInspectStrategyBlueGreenHeader1(zuulGroup, zuulServiceId, zuulInspectUrl);
         }
@@ -360,7 +360,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testInspectStrategyBlueGreenHeader2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testInspectStrategyBlueGreenHeader2(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
             discoveryGuideTestCases.testInspectStrategyBlueGreenHeader2(zuulGroup, zuulServiceId, zuulInspectUrl);
         }
@@ -368,7 +368,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testInspectStrategyBlueGreenHeader3() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testInspectStrategyBlueGreenHeader3(gatewayGroup, gatewayServiceId, gatewayInspectUrl);
             discoveryGuideTestCases.testInspectStrategyBlueGreenHeader3(zuulGroup, zuulServiceId, zuulInspectUrl);
         }
@@ -376,7 +376,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyGray1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyGray1(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyGray1(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -384,7 +384,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyGray2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyGray2(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyGray2(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -392,7 +392,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyGray3() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyGray3(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyGray3(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -400,7 +400,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testStrategyGray4() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testStrategyGray4(gatewayGroup, gatewayServiceId, gatewayTestUrl);
             discoveryGuideTestCases.testStrategyGray4(zuulGroup, zuulServiceId, zuulTestUrl);
         }
@@ -408,7 +408,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testVersionRuleGray() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testVersionRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testVersionRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
         }
@@ -416,7 +416,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testRegionRuleGray() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testRegionRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testRegionRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
         }
@@ -425,7 +425,7 @@ public class DiscoveryGuideTest {
     @Test
     public void testVersionWeightRuleGray() throws Exception {
         if (weightTestcasesEnabled) {
-            for (int i = 0; i < loopTimes; i++) {
+            for (int i = 0; i < loopCount; i++) {
                 discoveryGuideTestCases.testVersionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
                 discoveryGuideTestCases.testVersionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
             }
@@ -435,7 +435,7 @@ public class DiscoveryGuideTest {
     @Test
     public void testRegionWeightRuleGray() throws Exception {
         if (weightTestcasesEnabled) {
-            for (int i = 0; i < loopTimes; i++) {
+            for (int i = 0; i < loopCount; i++) {
                 discoveryGuideTestCases.testRegionWeightRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
                 discoveryGuideTestCases.testRegionWeightRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
             }
@@ -445,7 +445,7 @@ public class DiscoveryGuideTest {
     @Test
     public void testVersionCompositeRuleGray() throws Exception {
         if (weightTestcasesEnabled) {
-            for (int i = 0; i < loopTimes; i++) {
+            for (int i = 0; i < loopCount; i++) {
                 discoveryGuideTestCases.testVersionCompositeRuleGray(gatewayGroup, gatewayGroup, gatewayTestUrl);
                 discoveryGuideTestCases.testVersionCompositeRuleGray(zuulGroup, zuulGroup, zuulTestUrl);
             }
@@ -454,7 +454,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testBlacklist1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testBlacklist1(gatewayGroup, gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testBlacklist1(zuulGroup, zuulGroup, zuulTestUrl);
         }
@@ -462,7 +462,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testBlacklist2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testBlacklist2(gatewayTestUrl);
             discoveryGuideTestCases.testBlacklist2(zuulTestUrl);
         }
@@ -470,7 +470,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testBlacklist3() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testBlacklist3(gatewayTestUrl);
             discoveryGuideTestCases.testBlacklist3(zuulTestUrl);
         }
@@ -478,7 +478,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testEnv() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testEnv(gatewayTestUrl);
             discoveryGuideTestCases.testEnv(zuulTestUrl);
         }
@@ -486,7 +486,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testSentinelAuthority1() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testSentinelAuthority1(gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testSentinelAuthority1(zuulGroup, zuulTestUrl);
         }
@@ -494,7 +494,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testSentinelAuthority2() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testSentinelAuthority2(gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testSentinelAuthority2(zuulGroup, zuulTestUrl);
         }
@@ -502,7 +502,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testSentinelAuthority3() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testSentinelAuthority3(gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testSentinelAuthority3(zuulGroup, zuulTestUrl);
         }
@@ -518,7 +518,7 @@ public class DiscoveryGuideTest {
 
     /*@Test
     public void testZ1NacosDynamicalMetadataUpdated() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testNacosDynamicalMetadataUpdated(gatewayGroup, gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testNacosDynamicalMetadataUpdated(zuulGroup, zuulGroup, zuulTestUrl);
         }
@@ -526,7 +526,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testZ2NacosDynamicalMetadataDeleted() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testNacosDynamicalMetadataDeleted(gatewayGroup, gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testNacosDynamicalMetadataDeleted(zuulGroup, zuulGroup, zuulTestUrl);
         }
@@ -534,7 +534,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void testZ3NacosDynamicalMetadataRestored() throws Exception {
-        for (int i = 0; i < loopTimes; i++) {
+        for (int i = 0; i < loopCount; i++) {
             discoveryGuideTestCases.testNacosDynamicalMetadataRestored(gatewayGroup, gatewayGroup, gatewayTestUrl);
             discoveryGuideTestCases.testNacosDynamicalMetadataRestored(zuulGroup, zuulGroup, zuulTestUrl);
         }
