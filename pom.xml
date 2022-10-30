@@ -16,7 +16,7 @@
     </modules>
 
     <properties>
-        <discovery.version>6.17.0</discovery.version>
+        <discovery.version>6.18.0-SNAPSHOT</discovery.version>
 
         <!-- Spring Cloud Hoxton compatible versions -->
         <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
