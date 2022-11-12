@@ -16,7 +16,9 @@
     </modules>
 
     <properties>
-        <discovery.version>6.19.0</discovery.version>
+        <discovery.version>6.20.0-SNAPSHOT</discovery.version>
+
+        <discovery.ware.version>1.0.0-SNAPSHOT</discovery.ware.version>
 
         <!-- Spring Cloud Hoxton compatible versions -->
         <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
@@ -59,6 +61,12 @@
                 <version>${discovery.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nepxion</groupId>
+                <artifactId>discovery-plugin-strategy-starter-rocketmq</artifactId>
+                <version>${discovery.ware.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

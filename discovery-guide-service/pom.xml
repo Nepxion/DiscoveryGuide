@@ -36,5 +36,11 @@
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-strategy-starter-service</artifactId>
         </dependency>
+
+        <!-- 5.消息队列插件 -->
+        <dependency>
+            <groupId>com.nepxion</groupId>
+            <artifactId>discovery-plugin-strategy-starter-rocketmq</artifactId>
+        </dependency>
     </dependencies>
 </project>

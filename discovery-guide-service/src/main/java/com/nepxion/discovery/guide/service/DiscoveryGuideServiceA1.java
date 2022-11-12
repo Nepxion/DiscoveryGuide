@@ -17,6 +17,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import com.nepxion.discovery.guide.service.middleware.MyWarMessageConsumer;
+
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
@@ -31,5 +33,10 @@ public class DiscoveryGuideServiceA1 {
     @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public MyWarMessageConsumer warMessageConsumer() {
+        return new MyWarMessageConsumer();
     }
 }

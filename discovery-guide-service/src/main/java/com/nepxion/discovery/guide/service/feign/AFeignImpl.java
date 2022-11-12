@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.core.CoreImpl;
+import com.nepxion.discovery.guide.service.middleware.MiddlewareOperation;
 
 @RestController
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-a")
@@ -27,10 +28,15 @@ public class AFeignImpl extends CoreImpl implements AFeign {
     @Autowired
     private BFeign bFeign;
 
+    @Autowired
+    private MiddlewareOperation middlewareOperation;
+
     @Override
     public String invoke(@PathVariable(value = "value") String value) {
         value = getPluginInfo(value);
-        value = bFeign.invoke(value);
+        // value = bFeign.invoke(value);
+
+        middlewareOperation.operate();
 
         LOG.info("调用路径：{}", value);
 
