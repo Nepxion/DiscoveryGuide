@@ -23,10 +23,14 @@ import com.nepxion.discovery.guide.service.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.service.impl.MySentinelStrategyRequestOriginAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceStrategyMonitorAdapter;
 import com.nepxion.discovery.guide.service.impl.MyServiceStrategyRouteFilter;
+import com.nepxion.discovery.guide.service.impl.MyStrategyPackagesInjector;
 import com.nepxion.discovery.guide.service.impl.MyStrategyTracerAdapter;
+import com.nepxion.discovery.guide.service.impl.MyStrategyTracerHeadersInjector;
 import com.nepxion.discovery.guide.service.impl.MySubscriber;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
+import com.nepxion.discovery.plugin.strategy.injector.StrategyPackagesInjector;
+import com.nepxion.discovery.plugin.strategy.injector.StrategyTracerHeadersInjector;
 import com.nepxion.discovery.plugin.strategy.sentinel.limiter.adapter.SentinelStrategyRequestOriginAdapter;
 import com.nepxion.discovery.plugin.strategy.service.filter.ServiceStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.service.monitor.ServiceStrategyMonitorAdapter;
@@ -65,10 +69,22 @@ public class DiscoveryGuideServiceA1 {
         return new MyServiceStrategyRouteFilter();
     }
 
+    // 自定义扫描目录
+    @Bean
+    public StrategyPackagesInjector strategyPackagesInjector() {
+        return new MyStrategyPackagesInjector();
+    }
+
     // 自定义服务端接口方法的入参输出到调用链Span上
     @Bean
     public ServiceStrategyMonitorAdapter serviceStrategyMonitorAdapter() {
         return new MyServiceStrategyMonitorAdapter();
+    }
+
+    // 自定义Header注入式输出到调用链
+    @Bean
+    public StrategyTracerHeadersInjector strategyTracerHeadersInjector() {
+        return new MyStrategyTracerHeadersInjector();
     }
 
     // 自定义调用链上下文参数
