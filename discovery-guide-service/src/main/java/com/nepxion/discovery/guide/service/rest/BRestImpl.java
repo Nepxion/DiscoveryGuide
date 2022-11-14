@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.guide.service.core.CoreImpl;
+import com.nepxion.discovery.plugin.strategy.service.annotation.ServiceMonitorIgnore;
 
 @RestController
 @ConditionalOnProperty(name = DiscoveryConstant.SPRING_APPLICATION_NAME, havingValue = "discovery-guide-service-b")
@@ -25,6 +26,7 @@ public class BRestImpl extends CoreImpl {
     private static final Logger LOG = LoggerFactory.getLogger(BRestImpl.class);
 
     @GetMapping(path = "/rest/{value}")
+    @ServiceMonitorIgnore
     public String rest(@PathVariable(value = "value") String value) {
         value = getPluginInfo(value);
 
