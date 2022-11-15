@@ -16,7 +16,7 @@ import com.nepxion.discovery.plugin.strategy.injector.StrategyTracerHeadersInjec
 
 public class MyStrategyTracerHeadersInjector implements StrategyTracerHeadersInjector {
     @Override
-    public List<String> getHeaderNames() {
+    public List<String> getHeaderNameList() {
         return Arrays.asList("n-d-xyz");
     }
 }
