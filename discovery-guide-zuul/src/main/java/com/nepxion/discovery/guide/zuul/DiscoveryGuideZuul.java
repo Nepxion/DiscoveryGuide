@@ -26,11 +26,13 @@ import org.springframework.web.client.RestTemplate;
 import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.zuul.filter.MyZuulFilter;
 import com.nepxion.discovery.guide.zuul.impl.MyDiscoveryEnabledStrategy;
+import com.nepxion.discovery.guide.zuul.impl.MyStrategyHeadersInjector;
 import com.nepxion.discovery.guide.zuul.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.guide.zuul.impl.MySubscriber;
 import com.nepxion.discovery.guide.zuul.impl.MyZuulStrategyRouteFilter;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
+import com.nepxion.discovery.plugin.strategy.injector.StrategyHeadersInjector;
 import com.nepxion.discovery.plugin.strategy.zuul.filter.ZuulStrategyRouteFilter;
 import com.netflix.zuul.ZuulFilter;
 
@@ -59,6 +61,12 @@ public class DiscoveryGuideZuul {
     @Bean
     public ZuulStrategyRouteFilter zuulStrategyRouteFilter() {
         return new MyZuulStrategyRouteFilter();
+    }
+
+    // 自定义注入式Header全链路传递或者输出到调用链和告警
+    @Bean
+    public StrategyHeadersInjector strategyHeadersInjector() {
+        return new MyStrategyHeadersInjector();
     }
 
     // 自定义调用链上下文参数
