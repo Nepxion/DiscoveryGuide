@@ -21,11 +21,13 @@ import com.nepxion.banner.BannerConstant;
 import com.nepxion.discovery.guide.gateway.filter.MyGatewayFilter;
 import com.nepxion.discovery.guide.gateway.impl.MyDiscoveryEnabledStrategy;
 import com.nepxion.discovery.guide.gateway.impl.MyGatewayStrategyRouteFilter;
+import com.nepxion.discovery.guide.gateway.impl.MyStrategyHeadersInjector;
 import com.nepxion.discovery.guide.gateway.impl.MyStrategyTracerAdapter;
 import com.nepxion.discovery.guide.gateway.impl.MySubscriber;
 import com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledStrategy;
 import com.nepxion.discovery.plugin.strategy.adapter.StrategyTracerAdapter;
 import com.nepxion.discovery.plugin.strategy.gateway.filter.GatewayStrategyRouteFilter;
+import com.nepxion.discovery.plugin.strategy.injector.StrategyHeadersInjector;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -50,6 +52,12 @@ public class DiscoveryGuideGateway {
     @Bean
     public GatewayStrategyRouteFilter gatewayStrategyRouteFilter() {
         return new MyGatewayStrategyRouteFilter();
+    }
+
+    // 自定义注入式Header全链路传递或者输出到调用链和告警
+    @Bean
+    public StrategyHeadersInjector strategyHeadersInjector() {
+        return new MyStrategyHeadersInjector();
     }
 
     // 自定义调用链上下文参数
