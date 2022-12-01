@@ -4,8 +4,8 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- Encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] %X{trace-id} %X{span-id} %X{n-d-service-group} %X{n-d-service-type} %X{n-d-service-app-id} %X{n-d-service-id} %X{n-d-service-address} %X{n-d-service-version} %X{n-d-service-region} %X{n-d-service-env} %X{n-d-service-zone} %-40.40logger{39} : %msg%n</pattern>
-            <!-- <pattern>discovery %d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] %X{trace-id} %X{span-id} %X{n-d-service-group} %X{n-d-service-type} %X{n-d-service-app-id} %X{n-d-service-id} %X{n-d-service-address} %X{n-d-service-version} %X{n-d-service-region} %X{n-d-service-env} %X{n-d-service-zone} %logger{10} [%file:%line] - %msg%n</pattern> -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] %X{n-d-service-version} %X{n-d-service-region} %X{n-d-service-env} %X{n-d-service-zone} %-40.40logger{39} : %msg%n</pattern>
+            <!-- <pattern>discovery %d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread] %X{n-d-service-version} %X{n-d-service-region} %X{n-d-service-env} %X{n-d-service-zone} %logger{10} [%file:%line] - %msg%n</pattern> -->
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -30,7 +30,7 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- Encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %levelColor(%5p) %magenta(${PID:- }) --- [%15.15t] %levelColor(%X{trace-id}) %levelColor(%X{span-id}) %levelColor(%X{n-d-service-group}) %levelColor(%X{n-d-service-type}) %levelColor(%X{n-d-service-app-id}) %levelColor(%X{n-d-service-id}) %levelColor(%X{n-d-service-address}) %levelColor(%X{n-d-service-version}) %levelColor(%X{n-d-service-region}) %levelColor(%X{n-d-service-env}) %levelColor(%X{n-d-service-zone}) %cyan(%-40.40logger{39}) : %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %levelColor(%5p) %magenta(${PID:- }) --- [%15.15t] %levelColor(%X{n-d-service-version}) %levelColor(%X{n-d-service-region}) %levelColor(%X{n-d-service-env}) %levelColor(%X{n-d-service-zone}) %cyan(%-40.40logger{39}) : %msg%n</pattern>
         </encoder>
         <!-- Only log level WARN and above -->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
