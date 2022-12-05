@@ -88,7 +88,7 @@ public class DiscoveryGuideTest {
 
     @Test
     public void test2DynamicRouteHeader() throws Exception {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 5; i++) {
             discoveryGuideTestCases.testDynamicRouteHeader(gatewayTestUrl, "1.0", "1.0");
             discoveryGuideTestCases.testDynamicRouteHeader(gatewayTestUrl, "1.1", "1.1");
             discoveryGuideTestCases.testDynamicRouteHeader(gatewayTestUrl, "1.0", "1.1");
