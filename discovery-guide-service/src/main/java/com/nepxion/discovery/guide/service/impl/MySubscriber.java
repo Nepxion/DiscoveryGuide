@@ -9,6 +9,9 @@ package com.nepxion.discovery.guide.service.impl;
  * @version 1.0
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.eventbus.Subscribe;
 import com.nepxion.discovery.plugin.framework.event.RuleClearedEvent;
 import com.nepxion.discovery.plugin.framework.event.RuleFailureEvent;
@@ -18,24 +21,26 @@ import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus
 public class MySubscriber {
+    private static final Logger LOG = LoggerFactory.getLogger(MySubscriber.class);
+
     @Subscribe
     public void onRuleUpdated(RuleUpdatedEvent ruleUpdatedEvent) {
-        System.out.println("========== 规则执行更新, rule=" + ruleUpdatedEvent.getRule());
+        LOG.info("========== 规则执行更新, rule=" + ruleUpdatedEvent.getRule());
     }
 
     @Subscribe
     public void onRuleCleared(RuleClearedEvent ruleClearedEvent) {
-        System.out.println("========== 规则执行清空");
+        LOG.info("========== 规则执行清空");
     }
 
     @Subscribe
     public void onRuleRuleFailure(RuleFailureEvent ruleFailureEvent) {
-        System.out.println("========== 规则更新失败, rule=" + ruleFailureEvent.getRule() + ", exception=" + ruleFailureEvent.getException());
+        LOG.info("========== 规则更新失败, rule=" + ruleFailureEvent.getRule() + ", exception=" + ruleFailureEvent.getException());
     }
 
     @Subscribe
     public void onAlarm(StrategyAlarmEvent strategyAlarmEvent) {
-        System.out.println("========== 告警类型=" + strategyAlarmEvent.getAlarmType());
-        System.out.println("========== 告警内容=" + strategyAlarmEvent.getAlarmMap());
+        LOG.info("========== 告警类型=" + strategyAlarmEvent.getAlarmType());
+        LOG.info("========== 告警内容=" + strategyAlarmEvent.getAlarmMap());
     }
 }

@@ -9,6 +9,9 @@ package com.nepxion.discovery.guide.zuul.impl;
  * @version 1.0
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.eventbus.Subscribe;
 import com.nepxion.discovery.plugin.framework.event.RuleClearedEvent;
 import com.nepxion.discovery.plugin.framework.event.RuleFailureEvent;
@@ -22,44 +25,46 @@ import com.nepxion.eventbus.annotation.EventBus;
 
 @EventBus
 public class MySubscriber {
+    private static final Logger LOG = LoggerFactory.getLogger(MySubscriber.class);
+
     @Subscribe
     public void onRuleUpdated(RuleUpdatedEvent ruleUpdatedEvent) {
-        System.out.println("========== 规则执行更新, rule=" + ruleUpdatedEvent.getRule());
+        LOG.info("========== 规则执行更新, rule=" + ruleUpdatedEvent.getRule());
     }
 
     @Subscribe
     public void onRuleCleared(RuleClearedEvent ruleClearedEvent) {
-        System.out.println("========== 规则执行清空");
+        LOG.info("========== 规则执行清空");
     }
 
     @Subscribe
     public void onRuleRuleFailure(RuleFailureEvent ruleFailureEvent) {
-        System.out.println("========== 规则更新失败, rule=" + ruleFailureEvent.getRule() + ", exception=" + ruleFailureEvent.getException());
+        LOG.info("========== 规则更新失败, rule=" + ruleFailureEvent.getRule() + ", exception=" + ruleFailureEvent.getException());
     }
 
     @Subscribe
     public void onAlarm(StrategyAlarmEvent strategyAlarmEvent) {
-        System.out.println("========== 告警类型=" + strategyAlarmEvent.getAlarmType());
-        System.out.println("========== 告警内容=" + strategyAlarmEvent.getAlarmMap());
+        LOG.info("========== 告警类型=" + strategyAlarmEvent.getAlarmType());
+        LOG.info("========== 告警内容=" + strategyAlarmEvent.getAlarmMap());
     }
 
     @Subscribe
     public void onZuulStrategyRouteAdded(ZuulStrategyRouteAddedEvent zuulStrategyRouteAddedEvent) {
-        System.out.println("========== 增加网关路由=" + zuulStrategyRouteAddedEvent.getZuulStrategyRouteEntity());
+        LOG.info("========== 增加网关路由=" + zuulStrategyRouteAddedEvent.getZuulStrategyRouteEntity());
     }
 
     @Subscribe
     public void onZuulStrategyRouteModified(ZuulStrategyRouteModifiedEvent zuulStrategyRouteModifiedEvent) {
-        System.out.println("========== 修改网关路由=" + zuulStrategyRouteModifiedEvent.getZuulStrategyRouteEntity());
+        LOG.info("========== 修改网关路由=" + zuulStrategyRouteModifiedEvent.getZuulStrategyRouteEntity());
     }
 
     @Subscribe
     public void onZuulStrategyRouteDeleted(ZuulStrategyRouteDeletedEvent zuulStrategyRouteDeletedEvent) {
-        System.out.println("========== 删除网关路由=" + zuulStrategyRouteDeletedEvent.getRouteId());
+        LOG.info("========== 删除网关路由=" + zuulStrategyRouteDeletedEvent.getRouteId());
     }
 
     @Subscribe
     public void onZuulStrategyRouteUpdatedAll(ZuulStrategyRouteUpdatedAllEvent zuulStrategyRouteUpdatedAllEvent) {
-        System.out.println("========== 更新全部网关路由=" + zuulStrategyRouteUpdatedAllEvent.getZuulStrategyRouteEntityList());
+        LOG.info("========== 更新全部网关路由=" + zuulStrategyRouteUpdatedAllEvent.getZuulStrategyRouteEntityList());
     }
 }
