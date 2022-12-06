@@ -32,7 +32,7 @@ public class MyGatewayFilter implements GlobalFilter, Ordered {
 
     @Autowired
     private RestTemplate restTemplate;*/
-    
+
     @Autowired
     private WebClient.Builder webClient;
 
