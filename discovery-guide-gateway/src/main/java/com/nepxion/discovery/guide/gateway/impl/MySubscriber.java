@@ -29,42 +29,42 @@ public class MySubscriber {
 
     @Subscribe
     public void onRuleUpdated(RuleUpdatedEvent ruleUpdatedEvent) {
-        LOG.info("========== 规则执行更新, rule=" + ruleUpdatedEvent.getRule());
+        LOG.info("规则执行更新, rule=" + ruleUpdatedEvent.getRule());
     }
 
     @Subscribe
     public void onRuleCleared(RuleClearedEvent ruleClearedEvent) {
-        LOG.info("========== 规则执行清空");
+        LOG.info("规则执行清空");
     }
 
     @Subscribe
     public void onRuleRuleFailure(RuleFailureEvent ruleFailureEvent) {
-        LOG.info("========== 规则更新失败, rule=" + ruleFailureEvent.getRule() + ", exception=" + ruleFailureEvent.getException());
+        LOG.info("规则更新失败, rule=" + ruleFailureEvent.getRule() + ", exception=" + ruleFailureEvent.getException());
     }
 
     @Subscribe
     public void onAlarm(StrategyAlarmEvent strategyAlarmEvent) {
-        LOG.info("========== 告警类型=" + strategyAlarmEvent.getAlarmType());
-        LOG.info("========== 告警内容=" + strategyAlarmEvent.getAlarmMap());
+        LOG.info("告警类型=" + strategyAlarmEvent.getAlarmType());
+        LOG.info("告警内容=" + strategyAlarmEvent.getAlarmMap());
     }
 
     @Subscribe
     public void onGatewayStrategyRouteAdded(GatewayStrategyRouteAddedEvent gatewayStrategyRouteAddedEvent) {
-        LOG.info("========== 增加网关路由=" + gatewayStrategyRouteAddedEvent.getGatewayStrategyRouteEntity());
+        LOG.info("增加网关路由=" + gatewayStrategyRouteAddedEvent.getGatewayStrategyRouteEntity());
     }
 
     @Subscribe
     public void onGatewayStrategyRouteModified(GatewayStrategyRouteModifiedEvent gatewayStrategyRouteModifiedEvent) {
-        LOG.info("========== 修改网关路由=" + gatewayStrategyRouteModifiedEvent.getGatewayStrategyRouteEntity());
+        LOG.info("修改网关路由=" + gatewayStrategyRouteModifiedEvent.getGatewayStrategyRouteEntity());
     }
 
     @Subscribe
     public void onGatewayStrategyRouteDeleted(GatewayStrategyRouteDeletedEvent gatewayStrategyRouteDeletedEvent) {
-        LOG.info("========== 删除网关路由=" + gatewayStrategyRouteDeletedEvent.getRouteId());
+        LOG.info("删除网关路由=" + gatewayStrategyRouteDeletedEvent.getRouteId());
     }
 
     @Subscribe
     public void onGatewayStrategyRouteUpdatedAll(GatewayStrategyRouteUpdatedAllEvent gatewayStrategyRouteUpdatedAllEvent) {
-        LOG.info("========== 更新全部网关路由=" + gatewayStrategyRouteUpdatedAllEvent.getGatewayStrategyRouteEntityList());
+        LOG.info("更新全部网关路由=" + gatewayStrategyRouteUpdatedAllEvent.getGatewayStrategyRouteEntityList());
     }
 }
