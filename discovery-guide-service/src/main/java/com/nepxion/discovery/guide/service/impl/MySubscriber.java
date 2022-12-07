@@ -25,22 +25,22 @@ public class MySubscriber {
 
     @Subscribe
     public void onRuleUpdated(RuleUpdatedEvent ruleUpdatedEvent) {
-        LOG.info("========== 规则执行更新, rule=" + ruleUpdatedEvent.getRule());
+        LOG.info("规则执行更新, rule=" + ruleUpdatedEvent.getRule());
     }
 
     @Subscribe
     public void onRuleCleared(RuleClearedEvent ruleClearedEvent) {
-        LOG.info("========== 规则执行清空");
+        LOG.info("规则执行清空");
     }
 
     @Subscribe
     public void onRuleRuleFailure(RuleFailureEvent ruleFailureEvent) {
-        LOG.info("========== 规则更新失败, rule=" + ruleFailureEvent.getRule() + ", exception=" + ruleFailureEvent.getException());
+        LOG.info("规则更新失败, rule=" + ruleFailureEvent.getRule() + ", exception=" + ruleFailureEvent.getException());
     }
 
     @Subscribe
     public void onAlarm(StrategyAlarmEvent strategyAlarmEvent) {
-        LOG.info("========== 告警类型=" + strategyAlarmEvent.getAlarmType());
-        LOG.info("========== 告警内容=" + strategyAlarmEvent.getAlarmMap());
+        LOG.info("告警类型=" + strategyAlarmEvent.getAlarmType());
+        LOG.info("告警内容=" + strategyAlarmEvent.getAlarmMap());
     }
 }
