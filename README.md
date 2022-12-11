@@ -21,7 +21,7 @@
 - 2021年荣获陆奇博士主持的奇绩资本，进行风险投资的关注和调研
 - 2021年入选Gitee最有价值开源项目
 - 阿里巴巴官方书籍《Nacos架构与原理》作者之一
-- Nacos Group Member、Spring Cloud Alibaba Member
+- Spring Cloud Alibaba Steering Committer、Nacos Group Member
 - Spring Cloud Alibaba、Nacos、Sentinel、OpenTracing Committer & Contributor
 
 <img src="http://nepxion.gitee.io/discovery/docs/discovery-doc/CertificateGVP.jpg" width="43%"><img src="http://nepxion.gitee.io/discovery/docs/discovery-doc/AwardNacos1.jpg" width="28%"><img src="http://nepxion.gitee.io/discovery/docs/discovery-doc/AwardSCA1.jpg" width="28%">
@@ -32,8 +32,7 @@
 | 框架名称 | 框架版本 | 支持Spring Cloud版本 | 使用许可 |
 | --- | --- | --- | --- |
 | Discovery | 1.x.x ~ 6.x.x | Camden ~ Hoxton | 开源，永久免费 |
-| DiscoveryX | 7.x.x | 2020 | 闭源，商业许可 |
-| DiscoveryX | 8.x.x | 2021 | 闭源，商业许可 |
+| DiscoveryX | 7.x.x ~ 9.x.x | 2020 ~ 2022 | 闭源，商业许可 |
 
 ② Polaris系列
 
@@ -49,8 +48,7 @@ Polaris为Discovery高级定制版，特色功能
 | 框架名称 | 框架版本 | 支持Discovery版本 | 支持Spring Cloud版本 | 使用许可 |
 | --- | --- | --- | --- | --- |
 | Polaris | 1.x.x | 6.x.x | Finchley ~ Hoxton | 闭源，商业许可 |
-| Polaris | 2.x.x | 7.x.x | 2020 | 闭源，商业许可 |
-| Polaris | 2.x.x | 8.x.x | 2021 | 闭源，商业许可 |
+| Polaris | 2.x.x | 7.x.x ~ 9.x.x | 2020 ~ 2022 | 闭源，商业许可 |
 
 有商业版需求的企业和用户，请添加微信1394997，联系作者，洽谈合作事宜
 
@@ -65,18 +63,21 @@ Polaris为Discovery高级定制版，特色功能
 - [解决方案WIKI版](http://nepxion.com/discovery)
 - [解决方案PPT版](http://nepxion.gitee.io/discovery/docs/link-doc/discovery-ppt.html)
 
-③ 平台界面
+③ 最佳实践
+- [最佳实践PPT版](http://nepxion.gitee.io/discovery/docs/link-doc/discovery-ppt-1.html)
+
+④ 平台界面
 - [平台界面WIKI版](http://nepxion.com/discovery-platform)
 
-④ 框架源码
+⑤ 框架源码
 - [框架源码Github版](https://github.com/Nepxion/Discovery)
 - [框架源码Gitee版](https://gitee.com/Nepxion/Discovery)
 
-⑤ 指南示例源码
+⑥ 指南示例源码
 - [指南示例源码Github版](https://github.com/Nepxion/DiscoveryGuide)
 - [指南示例源码Gitee版](https://gitee.com/Nepxion/DiscoveryGuide)
 
-⑥ 指南示例说明
+⑦ 指南示例说明
 - Spring Cloud Finchley ~ Hoxton版本
     - [极简版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-simple)，分支为6.x.x-simple
     - [极简版域网关部署指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-simple-domain-gateway)，分支为6.x.x-simple-domain-gateway
