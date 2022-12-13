@@ -9,6 +9,8 @@ package com.nepxion.discovery.guide.config.processor;
  * @version 1.0
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.nepxion.discovery.common.nacos.proccessor.NacosProcessor;
 
 // 把继承类（extends）换成如下任何一个，即可切换配置中心，代码无需任何变动
@@ -23,14 +25,16 @@ import com.nepxion.discovery.common.nacos.proccessor.NacosProcessor;
 // 2. 对于Apollo、Consul、Etcd配置中心，Key的格式为Group-DataId
 // 可以同时支持多个配置中心的订阅，需要同时创建多个不同的Processor，同时@Bean方式进入到Spring容器
 public class MyConfigProcessor extends NacosProcessor {
+    private static final Logger LOG = LoggerFactory.getLogger(MyConfigProcessor.class);
+
     @Override
     public void beforeInitialization() {
-        System.out.println("订阅器初始化之前，可以做一些工作");
+        LOG.info("订阅器初始化之前，可以做一些工作");
     }
 
     @Override
     public void afterInitialization() {
-        System.out.println("订阅器初始化之后，可以做一些工作");
+        LOG.info("订阅器初始化之后，可以做一些工作");
     }
 
     @Override
@@ -52,6 +56,6 @@ public class MyConfigProcessor extends NacosProcessor {
     @Override
     public void callbackConfig(String config) {
         // config为配置中心对应键值的内容变更，使用者可以根据此变更对业务模块做回调处理
-        System.out.println("监听配置改变：config=" + config);
+        LOG.info("监听配置改变：config=" + config);
     }
 }
