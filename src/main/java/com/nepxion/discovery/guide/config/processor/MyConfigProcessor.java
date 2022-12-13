@@ -11,6 +11,7 @@ package com.nepxion.discovery.guide.config.processor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.nepxion.discovery.common.nacos.proccessor.NacosProcessor;
 
 // 把继承类（extends）换成如下任何一个，即可切换配置中心，代码无需任何变动
