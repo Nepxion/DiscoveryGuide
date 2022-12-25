@@ -17,6 +17,14 @@
         <dependency>
             <groupId>com.nepxion</groupId>
             <artifactId>discovery-plugin-register-center-starter-nacos</artifactId>
+            <!-- Only for GraalVM Native Image -->
+            <!-- Spring Cloud 2022 Native not support spring-cloud-starter-bootstrap dependency -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-bootstrap</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 2.配置中心插件 -->
@@ -37,4 +45,36 @@
             <artifactId>discovery-plugin-strategy-starter-gateway</artifactId>
         </dependency>
     </dependencies>
+
+    <!-- Only for GraalVM Native Image -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.nepxion.discovery.guide.gateway.DiscoveryGuideGateway</mainClass>
+                    <layout>JAR</layout>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <attach>false</attach>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
