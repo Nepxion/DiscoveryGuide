@@ -103,7 +103,11 @@
                             <artifactId>spring-boot-maven-plugin</artifactId>
                             <version>3.0.1</version>
                             <configuration>
-                                <jvmArguments>-agentlib:native-image-agent=config-merge-dir=src/main/resources/META-INF/native-image/</jvmArguments>
+                                <jvmArguments>
+                                    -agentlib:native-image-agent=config-merge-dir=src/main/resources/META-INF/native-image/
+                                    -Dspring.application.strategy.agent.validation.enabled=false
+                                    <!-- -javaagent:C:/opt/discovery-agent/discovery-agent-starter-1.2.0.jar -->
+                                </jvmArguments>
                                 <image>
                                     <builder>paketobuildpacks/builder:tiny</builder>
                                     <env>
@@ -129,6 +133,17 @@
                                     <enabled>true</enabled>
                                 </metadataRepository>
                                 <requiredVersion>22.3</requiredVersion>
+                                <buildArgs>
+                                    --no-fallback
+                                    <!-- Logger should be add with initialize-at-build-time -->
+                                    --initialize-at-build-time=ch.qos.logback
+                                    --initialize-at-build-time=org.slf4j
+                                    <!-- Netty should be add with initialize-at-run-time -->
+                                    --initialize-at-run-time=io.netty.channel.epoll.Epoll
+                                    --report-unsupported-elements-at-runtime
+                                    --allow-incomplete-classpath
+                                    -H:+ReportExceptionStackTraces
+                                </buildArgs>
                             </configuration>
                             <executions>
                                 <execution>
