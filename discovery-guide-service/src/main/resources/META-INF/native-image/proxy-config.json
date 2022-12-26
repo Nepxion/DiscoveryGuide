@@ -1,5 +1,8 @@
 [
   {
+    "interfaces":["com.nepxion.discovery.guide.service.feign.BFeign"]
+  },
+  {
     "interfaces":["java.lang.reflect.GenericArrayType","org.springframework.core.SerializableTypeWrapper$SerializableTypeProxy","java.io.Serializable"]
   },
   {
@@ -16,6 +19,9 @@
   },
   {
     "interfaces":["org.springframework.context.event.EventListener"]
+  },
+  {
+    "interfaces":["org.springframework.web.bind.annotation.PathVariable"]
   },
   {
     "interfaces":["org.springframework.web.bind.annotation.RequestMapping"]

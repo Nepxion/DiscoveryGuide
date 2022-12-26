@@ -23,9 +23,6 @@
       "pattern":"\\QMETA-INF/services/com.alibaba.nacos.shaded.io.grpc.NameResolverProvider\\E"
     }, 
     {
-      "pattern":"\\QMETA-INF/services/com.nepxion.discovery.agent.plugin.Plugin\\E"
-    }, 
-    {
       "pattern":"\\QMETA-INF/services/org.slf4j.spi.SLF4JServiceProvider\\E"
     }, 
     {
@@ -42,6 +39,9 @@
     }, 
     {
       "pattern":"\\Q\\E"
+    }, 
+    {
+      "pattern":"\\Qapplication-a1.properties\\E"
     }, 
     {
       "pattern":"\\Qapplication.properties\\E"
@@ -77,100 +77,127 @@
       "pattern":"\\Qcom/alibaba/cloud/nacos/utils/UtilIPv6AutoConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/agent/async/AsyncContext.class\\E"
-    }, 
-    {
-      "pattern":"\\Qcom/nepxion/discovery/agent/async/AsyncContextAccessor.class\\E"
-    }, 
-    {
-      "pattern":"\\Qcom/nepxion/discovery/agent/plugin/AgentPath.class\\E"
-    }, 
-    {
-      "pattern":"\\Qcom/nepxion/discovery/agent/plugin/thread/interceptor/ThreadCallInterceptor.class\\E"
-    }, 
-    {
-      "pattern":"\\Qcom/nepxion/discovery/agent/plugin/thread/interceptor/ThreadConstructorInterceptor.class\\E"
-    }, 
-    {
       "pattern":"\\Qcom/nepxion/discovery/common/nacos/configuration/NacosAutoConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$AuthenticationEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/guide/service/DiscoveryGuideServiceA2.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$BlacklistEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/guide/service/DiscoveryGuideServiceB1.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$ConfigEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/guide/service/DiscoveryGuideServiceB2.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$FailoverEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/guide/service/\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$InspectorEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/guide/service/core/CoreImpl.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$RestTemplateEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/guide/service/feign/AFeign.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$RouteEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/guide/service/feign/AFeignImpl.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$SentinelEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/guide/service/rest/ARestImpl.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$ServiceEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$ConfigEndpointConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$StrategyEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$GatewayStrategyRouteEndpointConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration$VersionEndpointConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$GitEndpointConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/ConsoleAutoConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$InspectorEndpointConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/configuration/CorsRegistryConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$RouterEndpointConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/console/nacos/configuration/NacosConfigAutoConfiguration.class\\E"
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$SentinelCoreEndpointConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qcom/nepxion/discovery/guide/console/\\E"
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$SentinelParamEndpointConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$ServiceEndpointConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$StrategyEndpointConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$VersionEndpointConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration$WebMvcActivationConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/admincenter/configuration/AdminAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/configcenter/configuration/ConfigAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/configcenter/nacos/configuration/NacosConfigAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/framework/configuration/PluginAutoConfiguration.class\\E"
     }, 
     {
       "pattern":"\\Qcom/nepxion/discovery/plugin/framework/configuration/PluginParserAutoConfiguration.class\\E"
     }, 
     {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/framework/decorator/DiscoveryClientDecorator.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/registercenter/nacos/configuration/NacosAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/strategy/configuration/StrategyAutoConfiguration$FeignStrategyConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/strategy/configuration/StrategyAutoConfiguration$RestTemplateStrategyConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/strategy/configuration/StrategyAutoConfiguration$WebClientStrategyConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/strategy/configuration/StrategyAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/strategy/service/configuration/ServiceStrategyAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/discovery/plugin/strategy/service/configuration/ServiceStrategyContextAutoConfiguration.class\\E"
+    }, 
+    {
       "pattern":"\\Qcom/nepxion/discovery/resource/logo.txt\\E"
     }, 
     {
+      "pattern":"\\Qcom/nepxion/eventbus/annotation/EnableEventBus.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/eventbus/aop/EventBusImportSelector.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/eventbus/configuration/EventConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/eventbus/resource/logo.txt\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/matrix/resource/logo.txt\\E"
+    }, 
+    {
+      "pattern":"\\Qcom/nepxion/matrix/selector/AbstractImportSelector.class\\E"
+    }, 
+    {
       "pattern":"\\Qcom/nepxion/nacos/resource/logo.txt\\E"
-    }, 
-    {
-      "pattern":"\\Qjava/lang/Object.class\\E"
-    }, 
-    {
-      "pattern":"\\Qjava/lang/Runnable.class\\E"
-    }, 
-    {
-      "pattern":"\\Qjava/lang/Void.class\\E"
-    }, 
-    {
-      "pattern":"\\Qjava/time/Duration.class\\E"
-    }, 
-    {
-      "pattern":"\\Qjava/util/concurrent/Callable.class\\E"
-    }, 
-    {
-      "pattern":"\\Qjava/util/function/Consumer.class\\E"
-    }, 
-    {
-      "pattern":"\\Qjava/util/function/Function.class\\E"
-    }, 
-    {
-      "pattern":"\\Qjava/util/function/Supplier.class\\E"
     }, 
     {
       "pattern":"\\Qlogback.xml\\E"
@@ -200,15 +227,6 @@
       "pattern":"\\Qorg/apache/catalina/util/ServerInfo.properties\\E"
     }, 
     {
-      "pattern":"\\Qorg/reactivestreams/Processor.class\\E"
-    }, 
-    {
-      "pattern":"\\Qorg/reactivestreams/Publisher.class\\E"
-    }, 
-    {
-      "pattern":"\\Qorg/reactivestreams/Subscription.class\\E"
-    }, 
-    {
       "pattern":"\\Qorg/springframework/beans/factory/Aware.class\\E"
     }, 
     {
@@ -224,13 +242,22 @@
       "pattern":"\\Qorg/springframework/beans/factory/config/BeanFactoryPostProcessor.class\\E"
     }, 
     {
-      "pattern":"\\Qorg/springframework/beans/factory/support/BeanDefinitionRegistryPostProcessor.class\\E"
+      "pattern":"\\Qorg/springframework/boot/SpringBootConfiguration.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/boot/autoconfigure/AbstractDependsOnBeanFactoryPostProcessor.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/boot/autoconfigure/AutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/boot/autoconfigure/AutoConfigurationImportSelector.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/boot/autoconfigure/AutoConfigurationPackage.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/boot/autoconfigure/AutoConfigurationPackages$Registrar.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/boot/autoconfigure/AutoConfigureAfter.class\\E"
@@ -242,7 +269,19 @@
       "pattern":"\\Qorg/springframework/boot/autoconfigure/AutoConfigureOrder.class\\E"
     }, 
     {
+      "pattern":"\\Qorg/springframework/boot/autoconfigure/EnableAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/boot/autoconfigure/SpringBootApplication.class\\E"
+    }, 
+    {
       "pattern":"\\Qorg/springframework/boot/autoconfigure/admin/SpringApplicationAdminJmxAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/boot/autoconfigure/aop/AopAutoConfiguration$AspectJAutoProxyingConfiguration$CglibAutoProxyConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/boot/autoconfigure/aop/AopAutoConfiguration$AspectJAutoProxyingConfiguration$JdkDynamicAutoProxyConfiguration.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/boot/autoconfigure/aop/AopAutoConfiguration$AspectJAutoProxyingConfiguration.class\\E"
@@ -269,6 +308,9 @@
       "pattern":"\\Qorg/springframework/boot/autoconfigure/cache/CacheAutoConfiguration.class\\E"
     }, 
     {
+      "pattern":"\\Qorg/springframework/boot/autoconfigure/cache/CaffeineCacheConfiguration.class\\E"
+    }, 
+    {
       "pattern":"\\Qorg/springframework/boot/autoconfigure/cache/GenericCacheConfiguration.class\\E"
     }, 
     {
@@ -285,9 +327,6 @@
     }, 
     {
       "pattern":"\\Qorg/springframework/boot/autoconfigure/condition/ConditionalOnMissingBean.class\\E"
-    }, 
-    {
-      "pattern":"\\Qorg/springframework/boot/autoconfigure/condition/ConditionalOnMissingClass.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/boot/autoconfigure/condition/ConditionalOnProperty.class\\E"
@@ -524,6 +563,9 @@
       "pattern":"\\Qorg/springframework/boot/autoconfigure/websocket/servlet/WebSocketServletAutoConfiguration.class\\E"
     }, 
     {
+      "pattern":"\\Qorg/springframework/boot/context/annotation/DeterminableImports.class\\E"
+    }, 
+    {
       "pattern":"\\Qorg/springframework/boot/context/properties/EnableConfigurationProperties.class\\E"
     }, 
     {
@@ -537,15 +579,6 @@
     }, 
     {
       "pattern":"\\Qorg/springframework/cloud/autoconfigure/LifecycleMvcEndpointAutoConfiguration.class\\E"
-    }, 
-    {
-      "pattern":"\\Qorg/springframework/cloud/autoconfigure/RefreshAutoConfiguration$JpaInvokerConfiguration.class\\E"
-    }, 
-    {
-      "pattern":"\\Qorg/springframework/cloud/autoconfigure/RefreshAutoConfiguration$RefreshProperties.class\\E"
-    }, 
-    {
-      "pattern":"\\Qorg/springframework/cloud/autoconfigure/RefreshAutoConfiguration$RefreshScopeBeanDefinitionEnhancer.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/cloud/autoconfigure/RefreshAutoConfiguration.class\\E"
@@ -570,6 +603,12 @@
     }, 
     {
       "pattern":"\\Qorg/springframework/cloud/client/ReactiveCommonsClientAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/client/discovery/EnableDiscoveryClient.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/client/discovery/EnableDiscoveryClientImportSelector.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/cloud/client/discovery/composite/CompositeDiscoveryClientAutoConfiguration.class\\E"
@@ -644,10 +683,19 @@
       "pattern":"\\Qorg/springframework/cloud/commons/security/ResourceServerTokenRelayAutoConfiguration.class\\E"
     }, 
     {
+      "pattern":"\\Qorg/springframework/cloud/commons/util/SpringFactoryImportSelector.class\\E"
+    }, 
+    {
       "pattern":"\\Qorg/springframework/cloud/commons/util/UtilAutoConfiguration.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/cloud/configuration/CompatibilityVerifierAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/loadbalancer/annotation/LoadBalancerClientConfiguration$BlockingRetryConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/loadbalancer/annotation/LoadBalancerClientConfiguration$BlockingSupportConfiguration.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/cloud/loadbalancer/annotation/LoadBalancerClientConfigurationRegistrar.class\\E"
@@ -692,28 +740,76 @@
       "pattern":"\\Qorg/springframework/cloud/loadbalancer/security/OAuth2LoadBalancerClientAutoConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qorg/springframework/cloud/util/ConditionalOnBootstrapDisabled$OnBootstrapDisabledCondition$OnBootstrapEnabled.class\\E"
+      "pattern":"\\Qorg/springframework/cloud/openfeign/EnableFeignClients.class\\E"
     }, 
     {
-      "pattern":"\\Qorg/springframework/cloud/util/ConditionalOnBootstrapDisabled$OnBootstrapDisabledCondition$OnBootstrapMarkerClassPresent.class\\E"
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignAutoConfiguration$CircuitBreakerPresentFeignTargeterConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qorg/springframework/cloud/util/ConditionalOnBootstrapDisabled$OnBootstrapDisabledCondition$OnUseLegacyProcessingEnabled.class\\E"
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignAutoConfiguration$DefaultFeignTargeterConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qorg/springframework/cloud/util/ConditionalOnBootstrapDisabled$OnBootstrapDisabledCondition.class\\E"
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignAutoConfiguration$FeignJacksonConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qorg/springframework/cloud/util/ConditionalOnBootstrapEnabled$OnBootstrapEnabledCondition$OnBootstrapEnabled.class\\E"
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignAutoConfiguration$HttpClient5FeignConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qorg/springframework/cloud/util/ConditionalOnBootstrapEnabled$OnBootstrapEnabledCondition$OnBootstrapMarkerClassPresent.class\\E"
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignAutoConfiguration$Oauth2FeignConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qorg/springframework/cloud/util/ConditionalOnBootstrapEnabled$OnBootstrapEnabledCondition$OnUseLegacyProcessingEnabled.class\\E"
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignAutoConfiguration$OkHttpFeignConfiguration.class\\E"
     }, 
     {
-      "pattern":"\\Qorg/springframework/cloud/util/ConditionalOnBootstrapEnabled$OnBootstrapEnabledCondition.class\\E"
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignCircuitBreakerDisabledConditions$CircuitBreakerClassMissing.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignCircuitBreakerDisabledConditions$CircuitBreakerDisabled.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignCircuitBreakerDisabledConditions.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignClientsConfiguration$MicrometerConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignClientsConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/FeignClientsRegistrar.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/encoding/FeignAcceptGzipEncodingAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/encoding/FeignContentGzipEncodingAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/loadbalancer/DefaultFeignLoadBalancerConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/loadbalancer/FeignLoadBalancerAutoConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/loadbalancer/HttpClient5FeignLoadBalancerConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/loadbalancer/OkHttpFeignLoadBalancerConfiguration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/loadbalancer/OnRetryNotEnabledCondition$OnLoadBalancerRetryEnabledCondition.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/loadbalancer/OnRetryNotEnabledCondition$OnNoRetryTemplateCondition.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/loadbalancer/OnRetryNotEnabledCondition$OnRetryFactoryCondition.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/cloud/openfeign/loadbalancer/OnRetryNotEnabledCondition.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/context/ApplicationContextAware.class\\E"
@@ -728,10 +824,22 @@
       "pattern":"\\Qorg/springframework/context/ResourceLoaderAware.class\\E"
     }, 
     {
+      "pattern":"\\Qorg/springframework/context/annotation/AspectJAutoProxyRegistrar.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/context/annotation/ComponentScan.class\\E"
+    }, 
+    {
       "pattern":"\\Qorg/springframework/context/annotation/Conditional.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/context/annotation/Configuration.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/context/annotation/DeferredImportSelector.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/context/annotation/EnableAspectJAutoProxy.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/context/annotation/Import.class\\E"
@@ -747,6 +855,12 @@
     }, 
     {
       "pattern":"\\Qorg/springframework/core/annotation/Order.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/web/bind/annotation/ResponseBody.class\\E"
+    }, 
+    {
+      "pattern":"\\Qorg/springframework/web/bind/annotation/RestController.class\\E"
     }, 
     {
       "pattern":"\\Qorg/springframework/web/context/ServletContextAware.class\\E"
@@ -765,54 +879,21 @@
     }, 
     {
       "pattern":"\\Qorg/springframework/web/util/HtmlCharacterEntityReferences.properties\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/CorePublisher.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/CoreSubscriber.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/Disposable.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/Fuseable$ScalarCallable.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/Fuseable.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/Scannable.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/publisher/AssemblyOp.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/publisher/Flux.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/publisher/InternalMonoOperator.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/publisher/Mono.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/publisher/MonoOperator.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/publisher/OptimizableOperator.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/publisher/SignalPeek.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/publisher/SourceProducer.class\\E"
-    }, 
-    {
-      "pattern":"\\Qreactor/core/scheduler/Scheduler.class\\E"
     }
   ]},
   "bundles":[
+    {
+      "name":"com.sun.org.apache.xerces.internal.impl.msg.SAXMessages",
+      "locales":[
+        "", 
+        "und", 
+        "zh-CN"
+      ]
+    }, 
+    {
+      "name":"jakarta.servlet.LocalStrings",
+      "locales":["und"]
+    }, 
     {
       "name":"jakarta.servlet.http.LocalStrings",
       "locales":[
@@ -826,6 +907,10 @@
         "", 
         "und"
       ]
+    }, 
+    {
+      "name":"org.apache.catalina.authenticator.jaspic.LocalStrings",
+      "locales":["und"]
     }, 
     {
       "name":"org.apache.catalina.connector.LocalStrings",
@@ -933,6 +1018,10 @@
       ]
     }, 
     {
+      "name":"org.apache.coyote.http11.filters.LocalStrings",
+      "locales":["und"]
+    }, 
+    {
       "name":"org.apache.naming.LocalStrings",
       "locales":[
         "", 
@@ -973,6 +1062,10 @@
         "", 
         "und"
       ]
+    }, 
+    {
+      "name":"org.apache.tomcat.util.http.parser.LocalStrings",
+      "locales":["und"]
     }, 
     {
       "name":"org.apache.tomcat.util.modeler.LocalStrings",

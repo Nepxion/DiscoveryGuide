@@ -27,7 +27,8 @@
   "name":"[Ljava.lang.CharSequence;"
 },
 {
-  "name":"[Ljava.lang.Class;"
+  "name":"[Ljava.lang.Class;",
+  "queryAllDeclaredMethods":true
 },
 {
   "name":"[Ljava.lang.Comparable;"
@@ -37,6 +38,9 @@
 },
 {
   "name":"[Ljava.lang.String;"
+},
+{
+  "name":"[Ljava.lang.annotation.Annotation;"
 },
 {
   "name":"[Ljava.lang.constant.Constable;"
@@ -67,6 +71,9 @@
 },
 {
   "name":"[Lorg.springframework.core.annotation.AnnotationAttributes;"
+},
+{
+  "name":"[Lorg.springframework.core.annotation.TypeMappedAnnotation;"
 },
 {
   "name":"[Lorg.springframework.util.ConcurrentReferenceHashMap$Segment;"
@@ -134,6 +141,10 @@
 },
 {
   "name":"ch.qos.logback.classic.pattern.LoggerConverter",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"ch.qos.logback.classic.pattern.MDCConverter",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -256,7 +267,6 @@
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
     {"name":"init","parameterTypes":[] }, 
     {"name":"setServerAddr","parameterTypes":["java.lang.String"] }
   ]
@@ -291,12 +301,7 @@
 {
   "name":"com.alibaba.cloud.nacos.discovery.NacosDiscoveryClient",
   "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "methods":[
-    {"name":"description","parameterTypes":[] }, 
-    {"name":"getInstances","parameterTypes":["java.lang.String"] }, 
-    {"name":"getServices","parameterTypes":[] }
-  ]
+  "queryAllDeclaredMethods":true
 },
 {
   "name":"com.alibaba.cloud.nacos.discovery.NacosDiscoveryClientConfiguration",
@@ -355,13 +360,7 @@
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"close","parameterTypes":[] }, 
-    {"name":"deregister","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
-    {"name":"getStatus","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
-    {"name":"register","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
-    {"name":"setStatus","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration","java.lang.String"] }
-  ]
+  "methods":[{"name":"close","parameterTypes":[] }]
 },
 {
   "name":"com.alibaba.cloud.nacos.registry.NacosServiceRegistryAutoConfiguration",
@@ -393,11 +392,169 @@
   ]
 },
 {
+  "name":"com.alibaba.csp.sentinel.slots.block.flow.FlowRule"
+},
+{
+  "name":"com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule"
+},
+{
+  "name":"com.alibaba.nacos.api.ability.ClientAbilities",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getConfigAbility","parameterTypes":[] }, 
+    {"name":"getNamingAbility","parameterTypes":[] }, 
+    {"name":"getRemoteAbility","parameterTypes":[] }
+  ]
+},
+{
   "name":"com.alibaba.nacos.api.config.ConfigService",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.alibaba.nacos.api.config.ability.ClientConfigAbility",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"isSupportRemoteMetrics","parameterTypes":[] }]
+},
+{
+  "name":"com.alibaba.nacos.api.config.remote.request.AbstractConfigRequest",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"getModule","parameterTypes":[] }]
+},
+{
+  "name":"com.alibaba.nacos.api.config.remote.request.ConfigBatchListenRequest",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getConfigListenContexts","parameterTypes":[] }, 
+    {"name":"isListen","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.config.remote.request.ConfigBatchListenRequest$ConfigListenContext",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getDataId","parameterTypes":[] }, 
+    {"name":"getGroup","parameterTypes":[] }, 
+    {"name":"getMd5","parameterTypes":[] }, 
+    {"name":"getTenant","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.config.remote.request.ConfigQueryRequest",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getDataId","parameterTypes":[] }, 
+    {"name":"getGroup","parameterTypes":[] }, 
+    {"name":"getTag","parameterTypes":[] }, 
+    {"name":"getTenant","parameterTypes":[] }, 
+    {"name":"isNotify","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.config.remote.response.ConfigChangeBatchListenResponse",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setChangedConfigs","parameterTypes":["java.util.List"] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.config.remote.response.ConfigChangeBatchListenResponse$ConfigContext",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.alibaba.nacos.api.config.remote.response.ConfigQueryResponse",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setBeta","parameterTypes":["boolean"] }, 
+    {"name":"setContent","parameterTypes":["java.lang.String"] }, 
+    {"name":"setContentType","parameterTypes":["java.lang.String"] }, 
+    {"name":"setLastModified","parameterTypes":["long"] }, 
+    {"name":"setMd5","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.grpc.auto.Metadata",
+  "methods":[
+    {"name":"getClientIp","parameterTypes":[] }, 
+    {"name":"getClientIpBytes","parameterTypes":[] }, 
+    {"name":"getDefaultInstance","parameterTypes":[] }, 
+    {"name":"getType","parameterTypes":[] }, 
+    {"name":"getTypeBytes","parameterTypes":[] }, 
+    {"name":"newBuilder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.grpc.auto.Metadata$Builder",
+  "methods":[
+    {"name":"clearClientIp","parameterTypes":[] }, 
+    {"name":"clearType","parameterTypes":[] }, 
+    {"name":"getClientIp","parameterTypes":[] }, 
+    {"name":"getClientIpBytes","parameterTypes":[] }, 
+    {"name":"getType","parameterTypes":[] }, 
+    {"name":"getTypeBytes","parameterTypes":[] }, 
+    {"name":"setClientIp","parameterTypes":["java.lang.String"] }, 
+    {"name":"setClientIpBytes","parameterTypes":["com.alibaba.nacos.shaded.com.google.protobuf.ByteString"] }, 
+    {"name":"setType","parameterTypes":["java.lang.String"] }, 
+    {"name":"setTypeBytes","parameterTypes":["com.alibaba.nacos.shaded.com.google.protobuf.ByteString"] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.grpc.auto.Payload",
+  "methods":[
+    {"name":"getBody","parameterTypes":[] }, 
+    {"name":"getMetadata","parameterTypes":[] }, 
+    {"name":"hasBody","parameterTypes":[] }, 
+    {"name":"hasMetadata","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.grpc.auto.Payload$Builder",
+  "methods":[
+    {"name":"clearBody","parameterTypes":[] }, 
+    {"name":"clearMetadata","parameterTypes":[] }, 
+    {"name":"getBody","parameterTypes":[] }, 
+    {"name":"getBodyBuilder","parameterTypes":[] }, 
+    {"name":"getMetadata","parameterTypes":[] }, 
+    {"name":"getMetadataBuilder","parameterTypes":[] }, 
+    {"name":"hasBody","parameterTypes":[] }, 
+    {"name":"hasMetadata","parameterTypes":[] }, 
+    {"name":"setBody","parameterTypes":["com.alibaba.nacos.shaded.com.google.protobuf.Any"] }, 
+    {"name":"setMetadata","parameterTypes":["com.alibaba.nacos.api.grpc.auto.Metadata"] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.naming.ability.ClientNamingAbility",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"isSupportDeltaPush","parameterTypes":[] }, 
+    {"name":"isSupportRemoteMetric","parameterTypes":[] }
+  ]
 },
 {
   "name":"com.alibaba.nacos.api.naming.pojo.Instance",
@@ -422,6 +579,34 @@
   ]
 },
 {
+  "name":"com.alibaba.nacos.api.naming.pojo.ServiceInfo",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getCacheMillis","parameterTypes":[] }, 
+    {"name":"getChecksum","parameterTypes":[] }, 
+    {"name":"getClusters","parameterTypes":[] }, 
+    {"name":"getGroupName","parameterTypes":[] }, 
+    {"name":"getHosts","parameterTypes":[] }, 
+    {"name":"getLastRefTime","parameterTypes":[] }, 
+    {"name":"getName","parameterTypes":[] }, 
+    {"name":"isAllIPs","parameterTypes":[] }, 
+    {"name":"isReachProtectionThreshold","parameterTypes":[] }, 
+    {"name":"isValid","parameterTypes":[] }, 
+    {"name":"setAllIPs","parameterTypes":["boolean"] }, 
+    {"name":"setCacheMillis","parameterTypes":["long"] }, 
+    {"name":"setChecksum","parameterTypes":["java.lang.String"] }, 
+    {"name":"setClusters","parameterTypes":["java.lang.String"] }, 
+    {"name":"setGroupName","parameterTypes":["java.lang.String"] }, 
+    {"name":"setHosts","parameterTypes":["java.util.List"] }, 
+    {"name":"setLastRefTime","parameterTypes":["long"] }, 
+    {"name":"setName","parameterTypes":["java.lang.String"] }, 
+    {"name":"setReachProtectionThreshold","parameterTypes":["boolean"] }
+  ]
+},
+{
   "name":"com.alibaba.nacos.api.naming.remote.request.AbstractNamingRequest",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -443,6 +628,26 @@
   ]
 },
 {
+  "name":"com.alibaba.nacos.api.naming.remote.request.NotifySubscriberRequest",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setServiceInfo","parameterTypes":["com.alibaba.nacos.api.naming.pojo.ServiceInfo"] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.api.naming.remote.request.SubscribeServiceRequest",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getClusters","parameterTypes":[] }, 
+    {"name":"isSubscribe","parameterTypes":[] }
+  ]
+},
+{
   "name":"com.alibaba.nacos.api.naming.remote.response.InstanceResponse",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -450,8 +655,31 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"com.alibaba.nacos.api.naming.remote.response.NotifySubscriberResponse",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.alibaba.nacos.api.naming.remote.response.SubscribeServiceResponse",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"setServiceInfo","parameterTypes":["com.alibaba.nacos.api.naming.pojo.ServiceInfo"] }
+  ]
+},
+{
   "name":"com.alibaba.nacos.api.remote.Payload",
   "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.alibaba.nacos.api.remote.ability.ClientRemoteAbility",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"isSupportRemoteConnection","parameterTypes":[] }]
 },
 {
   "name":"com.alibaba.nacos.api.remote.request.ConnectionSetupRequest",
@@ -466,6 +694,12 @@
   ]
 },
 {
+  "name":"com.alibaba.nacos.api.remote.request.HealthCheckRequest",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
   "name":"com.alibaba.nacos.api.remote.request.InternalRequest",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -477,7 +711,8 @@
   "queryAllDeclaredMethods":true,
   "methods":[
     {"name":"getHeaders","parameterTypes":[] }, 
-    {"name":"getRequestId","parameterTypes":[] }
+    {"name":"getRequestId","parameterTypes":[] }, 
+    {"name":"setRequestId","parameterTypes":["java.lang.String"] }
   ]
 },
 {
@@ -487,11 +722,29 @@
   "queryAllDeclaredConstructors":true
 },
 {
+  "name":"com.alibaba.nacos.api.remote.request.ServerRequest",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.alibaba.nacos.api.remote.response.HealthCheckResponse",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"com.alibaba.nacos.api.remote.response.Response",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[
+    {"name":"getErrorCode","parameterTypes":[] }, 
+    {"name":"getMessage","parameterTypes":[] }, 
+    {"name":"getRequestId","parameterTypes":[] }, 
+    {"name":"getResultCode","parameterTypes":[] }, 
+    {"name":"isSuccess","parameterTypes":[] }, 
     {"name":"setErrorCode","parameterTypes":["int"] }, 
+    {"name":"setMessage","parameterTypes":["java.lang.String"] }, 
     {"name":"setResultCode","parameterTypes":["int"] }
   ]
 },
@@ -553,6 +806,28 @@
   "fields":[
     {"name":"next"}, 
     {"name":"thread"}
+  ]
+},
+{
+  "name":"com.alibaba.nacos.shaded.com.google.protobuf.Any",
+  "methods":[
+    {"name":"getTypeUrl","parameterTypes":[] }, 
+    {"name":"getTypeUrlBytes","parameterTypes":[] }, 
+    {"name":"getValue","parameterTypes":[] }, 
+    {"name":"newBuilder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.alibaba.nacos.shaded.com.google.protobuf.Any$Builder",
+  "methods":[
+    {"name":"clearTypeUrl","parameterTypes":[] }, 
+    {"name":"clearValue","parameterTypes":[] }, 
+    {"name":"getTypeUrl","parameterTypes":[] }, 
+    {"name":"getTypeUrlBytes","parameterTypes":[] }, 
+    {"name":"getValue","parameterTypes":[] }, 
+    {"name":"setTypeUrl","parameterTypes":["java.lang.String"] }, 
+    {"name":"setTypeUrlBytes","parameterTypes":["com.alibaba.nacos.shaded.com.google.protobuf.ByteString"] }, 
+    {"name":"setValue","parameterTypes":["com.alibaba.nacos.shaded.com.google.protobuf.ByteString"] }
   ]
 },
 {
@@ -911,7 +1186,102 @@
   "methods":[{"name":"setupModule","parameterTypes":["com.fasterxml.jackson.databind.Module$SetupContext"] }]
 },
 {
+  "name":"com.github.benmanes.caffeine.cache.BBHeader$ReadAndWriteCounterRef",
+  "fields":[{"name":"writeCounter"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.BBHeader$ReadCounterRef",
+  "fields":[{"name":"readCounter"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.BLCHeader$DrainStatusRef",
+  "fields":[{"name":"drainStatus"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueueColdProducerFields",
+  "fields":[{"name":"producerLimit"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueueConsumerFields",
+  "fields":[{"name":"consumerIndex"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueueProducerFields",
+  "fields":[{"name":"producerIndex"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.BoundedLocalCache",
+  "fields":[{"name":"refreshes"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.CacheLoader",
+  "methods":[{"name":"loadAll","parameterTypes":["java.util.Set"] }]
+},
+{
   "name":"com.github.benmanes.caffeine.cache.Caffeine"
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.PD",
+  "fields":[{"name":"value"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.PDW",
+  "fields":[{"name":"writeTime"}],
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.PS",
+  "fields":[
+    {"name":"key"}, 
+    {"name":"value"}
+  ]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.PSW",
+  "fields":[{"name":"writeTime"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.PSWMS",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.SIW",
+  "methods":[{"name":"<init>","parameterTypes":["com.github.benmanes.caffeine.cache.Caffeine","com.github.benmanes.caffeine.cache.AsyncCacheLoader","boolean"] }]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.SSSMSW",
+  "methods":[{"name":"<init>","parameterTypes":["com.github.benmanes.caffeine.cache.Caffeine","com.github.benmanes.caffeine.cache.AsyncCacheLoader","boolean"] }]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.StripedBuffer",
+  "fields":[{"name":"tableBusy"}]
+},
+{
+  "name":"com.github.benmanes.caffeine.cache.UnboundedLocalCache",
+  "fields":[{"name":"refreshes"}]
+},
+{
+  "name":"com.google.common.eventbus.ElementTypesAreNonnullByDefault",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.google.common.eventbus.Subscribe",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.google.common.util.concurrent.AbstractFuture",
+  "fields":[
+    {"name":"listeners"}, 
+    {"name":"value"}, 
+    {"name":"waiters"}
+  ]
+},
+{
+  "name":"com.google.common.util.concurrent.AbstractFuture$Waiter",
+  "fields":[
+    {"name":"next"}, 
+    {"name":"thread"}
+  ]
 },
 {
   "name":"com.google.gson$Gson"
@@ -929,240 +1299,24 @@
   "name":"com.mongodb.reactivestreams.client.MongoClient"
 },
 {
-  "name":"com.nepxion.discovery.agent.DiscoveryAgent",
-  "methods":[{"name":"premain","parameterTypes":["java.lang.String","java.lang.instrument.Instrumentation"] }]
+  "name":"com.nepxion.discovery.agent.DiscoveryAgent"
 },
 {
-  "name":"com.nepxion.discovery.agent.async.AsyncContextAccessor",
-  "queryAllDeclaredMethods":true
+  "name":"com.nepxion.discovery.common.delegate.DiscoveryClientDelegate",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
 },
 {
-  "name":"com.nepxion.discovery.agent.plugin.strategy.mdc.MDCContextHook",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.nepxion.discovery.common.entity.AddressEntity",
+  "name":"com.nepxion.discovery.common.entity.InspectorEntity",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true
 },
 {
-  "name":"com.nepxion.discovery.common.entity.AddressWeightEntity",
+  "name":"com.nepxion.discovery.common.expression.DiscoveryTypeComparator",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.ConditionBlueGreenEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.ConditionEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.ConditionGrayEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.ConditionRouteStrategy",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.ConditionStrategy",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.CountFilterEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.DiscoveryEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.FilterHolderEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.FilterType",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.HostFilterEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.InspectorDebugEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.MapWeightEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.ParameterEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.ParameterServiceEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.RegionEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.RegionFilterEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.RegionWeightEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.RegisterEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.RuleEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyBlacklistEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyConditionBlueGreenEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyConditionEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyConditionGrayEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyFailoverEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyHeaderEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyReleaseEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyRouteEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.StrategyRouteType",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.UserEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.VersionEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.VersionFilterEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.VersionWeightEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.WeightEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.WeightFilterEntity",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"com.nepxion.discovery.common.entity.WeightType",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
+  "methods":[{"name":"compare","parameterTypes":["java.lang.Object","java.lang.Object"] }]
 },
 {
   "name":"com.nepxion.discovery.common.logback.LevelColorConverter",
@@ -1210,21 +1364,50 @@
   "methods":[{"name":"destroy","parameterTypes":[] }]
 },
 {
-  "name":"com.nepxion.discovery.console.adapter.ConfigAdapter",
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceA1",
   "allDeclaredFields":true,
+  "allDeclaredClasses":true,
   "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"main","parameterTypes":["java.lang.String[]"] }, 
+    {"name":"restTemplate","parameterTypes":[] }
+  ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration",
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceA1$$SpringCGLIB$$0",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"restTemplate","parameterTypes":[] }
+  ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$$SpringCGLIB$$0",
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceA1$$SpringCGLIB$$1",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceA1$$SpringCGLIB$$2",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceA2",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"main","parameterTypes":["java.lang.String[]"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceA2$$SpringCGLIB$$0",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
@@ -1236,29 +1419,105 @@
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$AuthenticationEndpointConfiguration",
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceB1",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
-    {"name":"authenticationEndpoint","parameterTypes":[] }, 
-    {"name":"authenticationResource","parameterTypes":[] }
+    {"name":"main","parameterTypes":["java.lang.String[]"] }
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$BlacklistEndpointConfiguration",
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceB1$$SpringCGLIB$$0",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceB2",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
-    {"name":"blacklistEndpoint","parameterTypes":[] }, 
-    {"name":"blacklistResource","parameterTypes":[] }
+    {"name":"main","parameterTypes":["java.lang.String[]"] }
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$ConfigEndpointConfiguration",
+  "name":"com.nepxion.discovery.guide.service.DiscoveryGuideServiceB2$$SpringCGLIB$$0",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.guide.service.core.CoreImpl",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"getPluginInfo","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"com.nepxion.discovery.guide.service.feign.AFeign",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.guide.service.feign.AFeignImpl",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"invoke","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.guide.service.feign.BFeign",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
+},
+{
+  "name":"com.nepxion.discovery.guide.service.rest.ARestImpl",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.admincenter.configuration.AdminAutoConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.admincenter.configuration.AdminAutoConfiguration$$SpringCGLIB$$0",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.admincenter.configuration.AdminAutoConfiguration$ConfigEndpointConfiguration",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
@@ -1269,18 +1528,7 @@
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$FailoverEndpointConfiguration",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"failoverEndpoint","parameterTypes":[] }, 
-    {"name":"failoverResource","parameterTypes":[] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$InspectorEndpointConfiguration",
+  "name":"com.nepxion.discovery.plugin.admincenter.configuration.AdminAutoConfiguration$InspectorEndpointConfiguration",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
@@ -1291,40 +1539,18 @@
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$RestTemplateEndpointConfiguration",
+  "name":"com.nepxion.discovery.plugin.admincenter.configuration.AdminAutoConfiguration$RouterEndpointConfiguration",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
-    {"name":"consoleRestTemplate","parameterTypes":[] }, 
-    {"name":"loadBalancedRestTemplate","parameterTypes":[] }
+    {"name":"routerEndpoint","parameterTypes":[] }, 
+    {"name":"routerResource","parameterTypes":[] }
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$RouteEndpointConfiguration",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"routeEndpoint","parameterTypes":[] }, 
-    {"name":"routeResource","parameterTypes":[] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$SentinelEndpointConfiguration",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"sentinelEndpoint","parameterTypes":[] }, 
-    {"name":"sentinelResource","parameterTypes":[] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$ServiceEndpointConfiguration",
+  "name":"com.nepxion.discovery.plugin.admincenter.configuration.AdminAutoConfiguration$ServiceEndpointConfiguration",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
@@ -1335,7 +1561,7 @@
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$StrategyEndpointConfiguration",
+  "name":"com.nepxion.discovery.plugin.admincenter.configuration.AdminAutoConfiguration$StrategyEndpointConfiguration",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
@@ -1346,7 +1572,7 @@
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.ConsoleAutoConfiguration$VersionEndpointConfiguration",
+  "name":"com.nepxion.discovery.plugin.admincenter.configuration.AdminAutoConfiguration$VersionEndpointConfiguration",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
@@ -1357,286 +1583,109 @@
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.configuration.CorsRegistryConfiguration"
-},
-{
-  "name":"com.nepxion.discovery.console.context.ConsoleApplicationContextInitializer",
+  "name":"com.nepxion.discovery.plugin.admincenter.configuration.AdminAutoConfiguration$WebMvcActivationConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
-  "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.nepxion.discovery.console.context.ConsoleEnvironmentPostProcessor",
-  "queryAllDeclaredConstructors":true,
-  "queryAllPublicConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.nepxion.discovery.console.delegate.ConsoleResourceDelegate",
+  "name":"com.nepxion.discovery.plugin.admincenter.endpoint.ConfigEndpoint",
+  "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true
+  "queryAllDeclaredConstructors":true
 },
 {
-  "name":"com.nepxion.discovery.console.delegate.ConsoleResourceDelegateImpl",
+  "name":"com.nepxion.discovery.plugin.admincenter.endpoint.InspectorEndpoint",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.admincenter.endpoint.RouterEndpoint",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.admincenter.endpoint.ServiceEndpoint",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.admincenter.endpoint.StrategyEndpoint",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.admincenter.endpoint.VersionEndpoint",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.ConfigResource",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.ConfigResourceImpl",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[
-    {"name":"getRemoteRuleEntity","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"updateRemoteRuleEntity","parameterTypes":["java.lang.String","java.lang.String","com.nepxion.discovery.common.entity.RuleEntity"] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.AuthenticationEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.BlacklistEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.ConfigEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.FailoverEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.InspectorEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.RouteEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.SentinelEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.ServiceEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.StrategyEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.endpoint.VersionEndpoint",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.nacos.adapter.NacosConfigAdapter",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "methods":[
-    {"name":"clearConfig","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"getConfig","parameterTypes":["java.lang.String","java.lang.String"] }, 
+    {"name":"clear","parameterTypes":["boolean"] }, 
     {"name":"getConfigType","parameterTypes":[] }, 
-    {"name":"updateConfig","parameterTypes":["java.lang.String","java.lang.String","java.lang.String"] }, 
-    {"name":"updateConfig","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","com.nepxion.discovery.common.entity.FormatType"] }
+    {"name":"update","parameterTypes":["java.lang.String","boolean"] }, 
+    {"name":"view","parameterTypes":[] }
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.nacos.configuration.NacosConfigAutoConfiguration",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"configAdapter","parameterTypes":[] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.nacos.configuration.NacosConfigAutoConfiguration$$SpringCGLIB$$0",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
-    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
-    {"name":"configAdapter","parameterTypes":[] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.nacos.configuration.NacosConfigAutoConfiguration$$SpringCGLIB$$1",
-  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
-},
-{
-  "name":"com.nepxion.discovery.console.nacos.configuration.NacosConfigAutoConfiguration$$SpringCGLIB$$2",
-  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
-},
-{
-  "name":"com.nepxion.discovery.console.resource.AuthenticationResource",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.InspectorResource",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true
 },
 {
-  "name":"com.nepxion.discovery.console.resource.AuthenticationResourceImpl",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "methods":[{"name":"authenticate","parameterTypes":["com.nepxion.discovery.common.entity.UserEntity"] }]
-},
-{
-  "name":"com.nepxion.discovery.console.resource.BlacklistResource",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.resource.BlacklistResourceImpl",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.InspectorResourceImpl",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[
-    {"name":"addBlacklist","parameterTypes":["java.lang.String","java.lang.String","java.lang.String"] }, 
-    {"name":"addBlacklist","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","int"] }, 
-    {"name":"addBlacklist","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","java.lang.String"] }, 
-    {"name":"addBlacklist","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","java.lang.String","int"] }, 
-    {"name":"clearBlacklist","parameterTypes":["java.lang.String"] }, 
-    {"name":"clearBlacklist","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"deleteBlacklist","parameterTypes":["java.lang.String","java.lang.String","java.lang.String"] }, 
-    {"name":"deleteBlacklist","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","java.lang.String"] }
+    {"name":"inspect","parameterTypes":["com.nepxion.discovery.common.entity.InspectorEntity"] }, 
+    {"name":"inspect","parameterTypes":["java.util.List"] }
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.resource.ConfigResource",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.RouterResource",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true
 },
 {
-  "name":"com.nepxion.discovery.console.resource.ConfigResourceImpl",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.RouterResourceImpl",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[
-    {"name":"clearConfig","parameterTypes":["java.lang.String","boolean"] }, 
-    {"name":"clearRemoteConfig","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"deparse","parameterTypes":["com.nepxion.discovery.common.entity.RuleEntity"] }, 
-    {"name":"fromRuleEntity","parameterTypes":["com.nepxion.discovery.common.entity.RuleEntity"] }, 
-    {"name":"getConfigType","parameterTypes":[] }, 
-    {"name":"getRemoteConfig","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"getRemoteRuleEntity","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"parse","parameterTypes":["java.lang.String"] }, 
-    {"name":"toRuleEntity","parameterTypes":["java.lang.String"] }, 
-    {"name":"updateConfig","parameterTypes":["java.lang.String","java.lang.String","boolean"] }, 
-    {"name":"updateRemoteConfig","parameterTypes":["java.lang.String","java.lang.String","java.lang.String"] }, 
-    {"name":"updateRemoteConfig","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","com.nepxion.discovery.common.entity.FormatType"] }, 
-    {"name":"updateRemoteRuleEntity","parameterTypes":["java.lang.String","java.lang.String","com.nepxion.discovery.common.entity.RuleEntity"] }, 
-    {"name":"updateRuleEntity","parameterTypes":["java.lang.String","com.nepxion.discovery.common.entity.RuleEntity","boolean"] }, 
-    {"name":"viewConfig","parameterTypes":["java.lang.String"] }
+    {"name":"getRouterEntity","parameterTypes":[] }, 
+    {"name":"getRouterEntityList","parameterTypes":["java.lang.String"] }, 
+    {"name":"getRouterEntityList","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","int","java.lang.String"] }, 
+    {"name":"routeTree","parameterTypes":["java.lang.String"] }
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.resource.FailoverResource",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.ServiceResource",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true
 },
 {
-  "name":"com.nepxion.discovery.console.resource.FailoverResourceImpl",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "methods":[
-    {"name":"clearFailover","parameterTypes":["com.nepxion.discovery.common.entity.FailoverType","java.lang.String"] }, 
-    {"name":"clearFailover","parameterTypes":["com.nepxion.discovery.common.entity.FailoverType","java.lang.String","java.lang.String"] }, 
-    {"name":"createFailover","parameterTypes":["com.nepxion.discovery.common.entity.FailoverType","java.lang.String","java.lang.String"] }, 
-    {"name":"createFailover","parameterTypes":["com.nepxion.discovery.common.entity.FailoverType","java.lang.String","java.lang.String","java.lang.String"] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.resource.InspectorResource",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.resource.InspectorResourceImpl",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "methods":[
-    {"name":"inspect","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","java.util.List","java.util.Map","java.util.List"] }, 
-    {"name":"inspectToList","parameterTypes":["java.lang.String","java.lang.String","java.lang.String","java.util.List","java.util.Map","java.util.List"] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.resource.RouteResource",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.resource.RouteResourceImpl",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "methods":[
-    {"name":"addRoute","parameterTypes":["com.nepxion.discovery.common.entity.GatewayType","java.lang.String","java.lang.String"] }, 
-    {"name":"clearRemoteRoute","parameterTypes":["com.nepxion.discovery.common.entity.GatewayType","java.lang.String","java.lang.String"] }, 
-    {"name":"deleteRoute","parameterTypes":["com.nepxion.discovery.common.entity.GatewayType","java.lang.String","java.lang.String"] }, 
-    {"name":"getRemoteRoute","parameterTypes":["com.nepxion.discovery.common.entity.GatewayType","java.lang.String","java.lang.String"] }, 
-    {"name":"modifyRoute","parameterTypes":["com.nepxion.discovery.common.entity.GatewayType","java.lang.String","java.lang.String"] }, 
-    {"name":"updateAllRoute","parameterTypes":["com.nepxion.discovery.common.entity.GatewayType","java.lang.String","java.lang.String"] }, 
-    {"name":"updateRemoteRoute","parameterTypes":["com.nepxion.discovery.common.entity.GatewayType","java.lang.String","java.lang.String","java.lang.String"] }, 
-    {"name":"viewAllRoute","parameterTypes":["com.nepxion.discovery.common.entity.GatewayType","java.lang.String"] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.resource.SentinelResource",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.resource.SentinelResourceImpl",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "methods":[
-    {"name":"clearRemoteSentinel","parameterTypes":["com.nepxion.discovery.common.entity.SentinelRuleType","java.lang.String","java.lang.String"] }, 
-    {"name":"clearSentinel","parameterTypes":["com.nepxion.discovery.common.entity.SentinelRuleType","java.lang.String"] }, 
-    {"name":"getRemoteSentinel","parameterTypes":["com.nepxion.discovery.common.entity.SentinelRuleType","java.lang.String","java.lang.String"] }, 
-    {"name":"updateRemoteSentinel","parameterTypes":["com.nepxion.discovery.common.entity.SentinelRuleType","java.lang.String","java.lang.String","java.lang.String"] }, 
-    {"name":"updateSentinel","parameterTypes":["com.nepxion.discovery.common.entity.SentinelRuleType","java.lang.String","java.lang.String"] }, 
-    {"name":"viewSentinel","parameterTypes":["com.nepxion.discovery.common.entity.SentinelRuleType","java.lang.String"] }
-  ]
-},
-{
-  "name":"com.nepxion.discovery.console.resource.ServiceResource",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"com.nepxion.discovery.console.resource.ServiceResourceImpl",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.ServiceResourceImpl",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[
@@ -1653,68 +1702,80 @@
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.resource.StrategyResource",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.StrategyResource",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true
 },
 {
-  "name":"com.nepxion.discovery.console.resource.StrategyResourceImpl",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.StrategyResourceImpl",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[
-    {"name":"clearRelease","parameterTypes":["java.lang.String"] }, 
-    {"name":"clearRelease","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"createVersionRelease","parameterTypes":["java.lang.String","com.nepxion.discovery.common.entity.ConditionStrategy"] }, 
-    {"name":"createVersionRelease","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"createVersionRelease","parameterTypes":["java.lang.String","java.lang.String","com.nepxion.discovery.common.entity.ConditionStrategy"] }, 
-    {"name":"createVersionRelease","parameterTypes":["java.lang.String","java.lang.String","java.lang.String"] }, 
-    {"name":"deparseVersionReleaseXml","parameterTypes":["java.lang.String"] }, 
-    {"name":"deparseVersionReleaseYaml","parameterTypes":["java.lang.String"] }, 
-    {"name":"getVersionRelease","parameterTypes":["java.lang.String"] }, 
-    {"name":"getVersionRelease","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"parseVersionRelease","parameterTypes":["com.nepxion.discovery.common.entity.ConditionStrategy"] }, 
-    {"name":"parseVersionRelease","parameterTypes":["java.lang.String"] }, 
-    {"name":"recreateVersionRelease","parameterTypes":["java.lang.String","com.nepxion.discovery.common.entity.ConditionRouteStrategy"] }, 
-    {"name":"recreateVersionRelease","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"recreateVersionRelease","parameterTypes":["java.lang.String","java.lang.String","com.nepxion.discovery.common.entity.ConditionRouteStrategy"] }, 
-    {"name":"recreateVersionRelease","parameterTypes":["java.lang.String","java.lang.String","java.lang.String"] }, 
-    {"name":"resetRelease","parameterTypes":["java.lang.String"] }, 
-    {"name":"resetRelease","parameterTypes":["java.lang.String","java.lang.String"] }, 
-    {"name":"validateExpression","parameterTypes":["java.lang.String","java.lang.String"] }
+    {"name":"validateExpression","parameterTypes":["java.lang.String","java.lang.String"] }, 
+    {"name":"validateRoute","parameterTypes":["java.lang.String","java.lang.String"] }
   ]
 },
 {
-  "name":"com.nepxion.discovery.console.resource.VersionResource",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.VersionResource",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true
 },
 {
-  "name":"com.nepxion.discovery.console.resource.VersionResourceImpl",
+  "name":"com.nepxion.discovery.plugin.admincenter.resource.VersionResourceImpl",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[
-    {"name":"clearVersion","parameterTypes":["java.lang.String","java.lang.String","boolean"] }, 
-    {"name":"updateVersion","parameterTypes":["java.lang.String","java.lang.String","boolean"] }, 
-    {"name":"viewVersion","parameterTypes":["java.lang.String"] }
+    {"name":"clear","parameterTypes":["java.lang.String","boolean"] }, 
+    {"name":"update","parameterTypes":["java.lang.String","boolean"] }, 
+    {"name":"view","parameterTypes":[] }
   ]
 },
 {
-  "name":"com.nepxion.discovery.guide.console.DiscoveryGuideConsole",
+  "name":"com.nepxion.discovery.plugin.configcenter.adapter.ConfigAdapter",
   "allDeclaredFields":true,
-  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"callbackConfig","parameterTypes":["java.lang.String","boolean"] }, 
+    {"name":"fireRuleCleared","parameterTypes":["com.nepxion.discovery.plugin.framework.event.RuleClearedEvent","boolean"] }, 
+    {"name":"fireRuleUpdated","parameterTypes":["com.nepxion.discovery.plugin.framework.event.RuleUpdatedEvent","boolean"] }, 
+    {"name":"getConfig","parameterTypes":["boolean"] }, 
+    {"name":"getConfigList","parameterTypes":[] }, 
+    {"name":"getDataId","parameterTypes":["boolean"] }, 
+    {"name":"getGroup","parameterTypes":[] }, 
+    {"name":"getServiceId","parameterTypes":[] }, 
+    {"name":"getSubscriptionType","parameterTypes":["boolean"] }, 
+    {"name":"isConfigSingleKey","parameterTypes":[] }, 
+    {"name":"logClearedEvent","parameterTypes":["boolean"] }, 
+    {"name":"logFound","parameterTypes":["boolean"] }, 
+    {"name":"logGetStarted","parameterTypes":["boolean"] }, 
+    {"name":"logNotFound","parameterTypes":["boolean"] }, 
+    {"name":"logSubscribeFailed","parameterTypes":["java.lang.Exception","boolean"] }, 
+    {"name":"logSubscribeStarted","parameterTypes":["boolean"] }, 
+    {"name":"logUnsubscribeFailed","parameterTypes":["java.lang.Exception","boolean"] }, 
+    {"name":"logUnsubscribeStarted","parameterTypes":["boolean"] }, 
+    {"name":"logUpdatedEvent","parameterTypes":["boolean"] }, 
+    {"name":"logUpdatedSame","parameterTypes":["boolean"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.configuration.ConfigAutoConfiguration",
+  "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
-    {"name":"main","parameterTypes":["java.lang.String[]"] }
+    {"name":"configInitializer","parameterTypes":[] }, 
+    {"name":"configLogger","parameterTypes":[] }, 
+    {"name":"localConfigLoader","parameterTypes":[] }
   ]
 },
 {
-  "name":"com.nepxion.discovery.guide.console.DiscoveryGuideConsole$$SpringCGLIB$$0",
+  "name":"com.nepxion.discovery.plugin.configcenter.configuration.ConfigAutoConfiguration$$SpringCGLIB$$0",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
@@ -1722,7 +1783,286 @@
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
     {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
-    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"configInitializer","parameterTypes":[] }, 
+    {"name":"configLogger","parameterTypes":[] }, 
+    {"name":"localConfigLoader","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.configuration.ConfigAutoConfiguration$$SpringCGLIB$$1",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.configuration.ConfigAutoConfiguration$$SpringCGLIB$$2",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.configuration.ConfigAutoConfiguration$1",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.initializer.ConfigInitializer",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"initialize","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.loader.ConfigLoader",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.loader.LocalConfigLoader",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"getConfigList","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.loader.RemoteConfigLoader",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"destroy","parameterTypes":[] }, 
+    {"name":"subscribeConfig","parameterTypes":[] }, 
+    {"name":"unsubscribeConfig","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.logger.ConfigLogger",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.nacos.adapter.NacosConfigAdapter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getConfig","parameterTypes":["java.lang.String","java.lang.String"] }, 
+    {"name":"getConfigType","parameterTypes":[] }, 
+    {"name":"subscribeConfig","parameterTypes":[] }, 
+    {"name":"unsubscribeConfig","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.nacos.configuration.NacosConfigAutoConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"configAdapter","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.nacos.configuration.NacosConfigAutoConfiguration$$SpringCGLIB$$0",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"configAdapter","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.nacos.configuration.NacosConfigAutoConfiguration$$SpringCGLIB$$1",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.configcenter.nacos.configuration.NacosConfigAutoConfiguration$$SpringCGLIB$$2",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.adapter.AbstractPluginAdapter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"clearDynamicGlobalRule","parameterTypes":[] }, 
+    {"name":"clearDynamicPartialRule","parameterTypes":[] }, 
+    {"name":"clearDynamicVersion","parameterTypes":[] }, 
+    {"name":"getContextPath","parameterTypes":[] }, 
+    {"name":"getDynamicGlobalRule","parameterTypes":[] }, 
+    {"name":"getDynamicPartialRule","parameterTypes":[] }, 
+    {"name":"getDynamicRule","parameterTypes":[] }, 
+    {"name":"getDynamicVersion","parameterTypes":[] }, 
+    {"name":"getEnvironment","parameterTypes":[] }, 
+    {"name":"getFormatContextPath","parameterTypes":[] }, 
+    {"name":"getGroup","parameterTypes":[] }, 
+    {"name":"getGroupKey","parameterTypes":[] }, 
+    {"name":"getHost","parameterTypes":[] }, 
+    {"name":"getInstanceContextPath","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceEnvironment","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceFormatContextPath","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceGroup","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceGroupKey","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceMetadata","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstancePlugin","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceProtocol","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceRegion","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceServiceAppId","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceServiceType","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceServiceUUId","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceVersion","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getInstanceZone","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getLocalRule","parameterTypes":[] }, 
+    {"name":"getLocalVersion","parameterTypes":[] }, 
+    {"name":"getMetadata","parameterTypes":[] }, 
+    {"name":"getPlugin","parameterTypes":[] }, 
+    {"name":"getPluginInfo","parameterTypes":["java.lang.String"] }, 
+    {"name":"getPort","parameterTypes":[] }, 
+    {"name":"getProtocol","parameterTypes":[] }, 
+    {"name":"getRegion","parameterTypes":[] }, 
+    {"name":"getRule","parameterTypes":[] }, 
+    {"name":"getServerContextPath","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerEnvironment","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerFormatContextPath","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerGroup","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerGroupKey","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerPlugin","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerProtocol","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerRegion","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerServiceAppId","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerServiceType","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerServiceUUId","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerVersion","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerZone","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServiceAppId","parameterTypes":[] }, 
+    {"name":"getServiceType","parameterTypes":[] }, 
+    {"name":"getServiceUUId","parameterTypes":[] }, 
+    {"name":"getVersion","parameterTypes":[] }, 
+    {"name":"getZone","parameterTypes":[] }, 
+    {"name":"isActive","parameterTypes":[] }, 
+    {"name":"isInstanceActive","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"isServerActive","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"setDynamicGlobalRule","parameterTypes":["com.nepxion.discovery.common.entity.RuleEntity"] }, 
+    {"name":"setDynamicPartialRule","parameterTypes":["com.nepxion.discovery.common.entity.RuleEntity"] }, 
+    {"name":"setDynamicVersion","parameterTypes":["java.lang.String"] }, 
+    {"name":"setLocalRule","parameterTypes":["com.nepxion.discovery.common.entity.RuleEntity"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.adapter.PluginAdapter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.adapter.PluginConfigAdapter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.cache.PluginCache",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.cache.PluginCache$1"
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.cache.RuleCache",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.cache.RuleCache$1"
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.configuration.PluginAutoConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"countFilterRegisterListener","parameterTypes":[] }, 
+    {"name":"discoveryListenerExecutor","parameterTypes":[] }, 
+    {"name":"hostFilterDiscoveryListener","parameterTypes":[] }, 
+    {"name":"hostFilterLoadBalanceListener","parameterTypes":[] }, 
+    {"name":"hostFilterRegisterListener","parameterTypes":[] }, 
+    {"name":"loadBalanceListenerExecutor","parameterTypes":[] }, 
+    {"name":"pluginCache","parameterTypes":[] }, 
+    {"name":"pluginContextAware","parameterTypes":[] }, 
+    {"name":"pluginEventWapper","parameterTypes":[] }, 
+    {"name":"pluginPublisher","parameterTypes":[] }, 
+    {"name":"pluginRestTemplate","parameterTypes":[] }, 
+    {"name":"pluginSubscriber","parameterTypes":[] }, 
+    {"name":"regionFilterDiscoveryListener","parameterTypes":[] }, 
+    {"name":"regionFilterLoadBalanceListener","parameterTypes":[] }, 
+    {"name":"registerListenerExecutor","parameterTypes":[] }, 
+    {"name":"ruleCache","parameterTypes":[] }, 
+    {"name":"ruleWeightRandomLoadBalance","parameterTypes":["com.nepxion.discovery.plugin.framework.adapter.PluginAdapter"] }, 
+    {"name":"strategyWeightRandomLoadBalance","parameterTypes":["com.nepxion.discovery.plugin.framework.adapter.PluginAdapter","com.nepxion.discovery.plugin.framework.context.PluginContextHolder"] }, 
+    {"name":"strategyWeightRandomProcessor","parameterTypes":[] }, 
+    {"name":"versionFilterDiscoveryListener","parameterTypes":[] }, 
+    {"name":"versionFilterLoadBalanceListener","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.configuration.PluginAutoConfiguration$$SpringCGLIB$$0",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"countFilterRegisterListener","parameterTypes":[] }, 
+    {"name":"discoveryListenerExecutor","parameterTypes":[] }, 
+    {"name":"gitGenerator","parameterTypes":[] }, 
+    {"name":"groupGenerator","parameterTypes":[] }, 
+    {"name":"hostFilterDiscoveryListener","parameterTypes":[] }, 
+    {"name":"hostFilterLoadBalanceListener","parameterTypes":[] }, 
+    {"name":"hostFilterRegisterListener","parameterTypes":[] }, 
+    {"name":"loadBalanceListenerExecutor","parameterTypes":[] }, 
+    {"name":"notificationLoadBalanceListener","parameterTypes":[] }, 
+    {"name":"pluginCache","parameterTypes":[] }, 
+    {"name":"pluginContextAware","parameterTypes":[] }, 
+    {"name":"pluginEventWapper","parameterTypes":[] }, 
+    {"name":"pluginPublisher","parameterTypes":[] }, 
+    {"name":"pluginRestTemplate","parameterTypes":[] }, 
+    {"name":"pluginSubscriber","parameterTypes":[] }, 
+    {"name":"regionFilterDiscoveryListener","parameterTypes":[] }, 
+    {"name":"regionFilterLoadBalanceListener","parameterTypes":[] }, 
+    {"name":"registerListenerExecutor","parameterTypes":[] }, 
+    {"name":"ruleCache","parameterTypes":[] }, 
+    {"name":"ruleWeightRandomLoadBalance","parameterTypes":["com.nepxion.discovery.plugin.framework.adapter.PluginAdapter"] }, 
+    {"name":"strategyWeightRandomLoadBalance","parameterTypes":["com.nepxion.discovery.plugin.framework.adapter.PluginAdapter","com.nepxion.discovery.plugin.framework.context.PluginContextHolder"] }, 
+    {"name":"strategyWeightRandomProcessor","parameterTypes":[] }, 
+    {"name":"versionFilterDiscoveryListener","parameterTypes":[] }, 
+    {"name":"versionFilterLoadBalanceListener","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.configuration.PluginAutoConfiguration$$SpringCGLIB$$1",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.configuration.PluginAutoConfiguration$$SpringCGLIB$$2",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.configuration.PluginLoadBalanceConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"reactorServiceInstanceLoadBalancer","parameterTypes":["org.springframework.core.env.Environment","org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory"] }
   ]
 },
 {
@@ -1759,6 +2099,297 @@
   "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
 },
 {
+  "name":"com.nepxion.discovery.plugin.framework.context.PluginContextAware",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"setApplicationContext","parameterTypes":["org.springframework.context.ApplicationContext"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.context.PluginContextHolder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.context.PluginEnvironmentPostProcessor",
+  "queryAllDeclaredConstructors":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.decorator.DiscoveryClientDecorator",
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"description","parameterTypes":[] }, 
+    {"name":"getDelegate","parameterTypes":[] }, 
+    {"name":"getInstances","parameterTypes":["java.lang.String"] }, 
+    {"name":"getServices","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.decorator.DiscoveryClientDecorator$$SpringCGLIB$$0",
+  "fields":[
+    {"name":"CGLIB$CALLBACK_FILTER"}, 
+    {"name":"CGLIB$FACTORY_DATA"}
+  ],
+  "methods":[{"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.decorator.RoundRobinLoadBalancerDecorator",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"choose","parameterTypes":["org.springframework.cloud.client.loadbalancer.Request"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.event.PluginEventWapper",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.event.PluginPublisher",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.event.PluginSubscriber",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.generator.GitGenerator"
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.BasicListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getPluginAdapter","parameterTypes":[] }, 
+    {"name":"getPluginContextAware","parameterTypes":[] }, 
+    {"name":"getPluginEventWapper","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.Listener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.discovery.AbstractDiscoveryListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"getDiscoveryClient","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.discovery.DiscoveryListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.discovery.DiscoveryListenerExecutor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.discovery.HostFilterDiscoveryListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getOrder","parameterTypes":[] }, 
+    {"name":"onGetInstances","parameterTypes":["java.lang.String","java.util.List"] }, 
+    {"name":"onGetServices","parameterTypes":["java.util.List"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.discovery.RegionFilterDiscoveryListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getOrder","parameterTypes":[] }, 
+    {"name":"onGetInstances","parameterTypes":["java.lang.String","java.util.List"] }, 
+    {"name":"onGetServices","parameterTypes":["java.util.List"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.discovery.VersionFilterDiscoveryListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getOrder","parameterTypes":[] }, 
+    {"name":"onGetInstances","parameterTypes":["java.lang.String","java.util.List"] }, 
+    {"name":"onGetServices","parameterTypes":["java.util.List"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.loadbalance.AbstractLoadBalanceListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.loadbalance.HostFilterLoadBalanceListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getOrder","parameterTypes":[] }, 
+    {"name":"onGetServers","parameterTypes":["java.lang.String","java.util.List"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.loadbalance.LoadBalanceListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.loadbalance.LoadBalanceListenerExecutor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.loadbalance.RegionFilterLoadBalanceListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getOrder","parameterTypes":[] }, 
+    {"name":"onGetServers","parameterTypes":["java.lang.String","java.util.List"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.loadbalance.VersionFilterLoadBalanceListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getOrder","parameterTypes":[] }, 
+    {"name":"onGetServers","parameterTypes":["java.lang.String","java.util.List"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.register.AbstractRegisterListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"getServiceRegistry","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.register.CountFilterRegisterListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getOrder","parameterTypes":[] }, 
+    {"name":"onClose","parameterTypes":[] }, 
+    {"name":"onDeregister","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
+    {"name":"onRegister","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
+    {"name":"onSetStatus","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration","java.lang.String"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.register.HostFilterRegisterListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getOrder","parameterTypes":[] }, 
+    {"name":"onClose","parameterTypes":[] }, 
+    {"name":"onDeregister","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
+    {"name":"onRegister","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
+    {"name":"onSetStatus","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration","java.lang.String"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.register.RegisterListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.listener.register.RegisterListenerExecutor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.loadbalance.DiscoveryEnabledLoadBalance",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.loadbalance.WeightRandomLoadBalance",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.loadbalance.weight.AbstractMapWeightRandomLoadBalance",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"choose","parameterTypes":["java.util.List","java.lang.Object"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.loadbalance.weight.MapWeightRandomProcessor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"random","parameterTypes":["java.util.List"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.loadbalance.weight.RuleMapWeightRandomLoadBalance",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"checkWeight","parameterTypes":["java.util.List","java.lang.Object"] }, 
+    {"name":"getT","parameterTypes":[] }, 
+    {"name":"getWeight","parameterTypes":["org.springframework.cloud.client.ServiceInstance","java.lang.Object"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.loadbalance.weight.RuleWeightRandomLoadBalance",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.loadbalance.weight.StrategyMapWeightRandomLoadBalance",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"checkWeight","parameterTypes":["java.util.List","java.lang.Object"] }, 
+    {"name":"getT","parameterTypes":[] }, 
+    {"name":"getWeight","parameterTypes":["org.springframework.cloud.client.ServiceInstance","java.lang.Object"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.loadbalance.weight.StrategyWeightRandomLoadBalance",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.framework.loadbalance.weight.WeightRandomProcessor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
   "name":"com.nepxion.discovery.plugin.framework.parser.PluginConfigDeparser",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -1783,6 +2414,682 @@
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "methods":[{"name":"parse","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.registercenter.nacos.adapter.NacosAdapter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getInstanceServiceId","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerMetadata","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServerServiceId","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getServiceId","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.registercenter.nacos.configuration.NacosAutoConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"pluginAdapter","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.registercenter.nacos.configuration.NacosAutoConfiguration$$SpringCGLIB$$0",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"pluginAdapter","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.registercenter.nacos.configuration.NacosAutoConfiguration$$SpringCGLIB$$1",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.registercenter.nacos.configuration.NacosAutoConfiguration$$SpringCGLIB$$2",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.registercenter.nacos.context.NacosApplicationContextInitializer",
+  "queryAllDeclaredConstructors":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.registercenter.nacos.decorator.NacosServiceRegistryDecorator",
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"close","parameterTypes":[] }, 
+    {"name":"deregister","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
+    {"name":"getStatus","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
+    {"name":"register","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration"] }, 
+    {"name":"setStatus","parameterTypes":["org.springframework.cloud.client.serviceregistry.Registration","java.lang.String"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.adapter.DefaultDiscoveryEnabledAdapter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"apply","parameterTypes":["org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"filter","parameterTypes":["java.util.List"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.adapter.DefaultStrategyVersionFilterAdapter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"filter","parameterTypes":["java.util.List"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.adapter.DiscoveryEnabledAdapter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.adapter.StrategyVersionFilterAdapter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.aop.AbstractStrategyInterceptor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"initialize","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.aop.FeignStrategyInterceptor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"apply","parameterTypes":["feign.RequestTemplate"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.aop.RestTemplateStrategyBeanPostProcessor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"postProcessAfterInitialization","parameterTypes":["java.lang.Object","java.lang.String"] }, 
+    {"name":"postProcessBeforeInitialization","parameterTypes":["java.lang.Object","java.lang.String"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.aop.RestTemplateStrategyInterceptor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"intercept","parameterTypes":["org.springframework.http.HttpRequest","byte[]","org.springframework.http.client.ClientHttpRequestExecution"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.condition.AbstractStrategyCondition",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getStrategyContextHolder","parameterTypes":[] }, 
+    {"name":"getStrategyTypeComparator","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.condition.DefaultStrategyTypeComparator",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.condition.ExpressionStrategyCondition",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"isTriggered","parameterTypes":["com.nepxion.discovery.common.entity.StrategyConditionEntity"] }, 
+    {"name":"isTriggered","parameterTypes":["com.nepxion.discovery.common.entity.StrategyConditionEntity","java.util.Map"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.condition.StrategyCondition",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.configuration.StrategyAutoConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"discoveryEnabledAdapter","parameterTypes":[] }, 
+    {"name":"discoveryMatcher","parameterTypes":[] }, 
+    {"name":"discoveryMatcherStrategy","parameterTypes":[] }, 
+    {"name":"strategyAddressBlacklistEnabledFilter","parameterTypes":[] }, 
+    {"name":"strategyAddressEnabledFilter","parameterTypes":[] }, 
+    {"name":"strategyCondition","parameterTypes":[] }, 
+    {"name":"strategyEnvironmentEnabledFilter","parameterTypes":[] }, 
+    {"name":"strategyGroupEnabledFilter","parameterTypes":[] }, 
+    {"name":"strategyHeaderContext","parameterTypes":[] }, 
+    {"name":"strategyIdBlacklistEnabledFilter","parameterTypes":[] }, 
+    {"name":"strategyPackagesExtractor","parameterTypes":[] }, 
+    {"name":"strategyRegionEnabledFilter","parameterTypes":[] }, 
+    {"name":"strategyTypeComparator","parameterTypes":[] }, 
+    {"name":"strategyVersionEnabledFilter","parameterTypes":[] }, 
+    {"name":"strategyVersionFilterAdapter","parameterTypes":[] }, 
+    {"name":"strategyWrapper","parameterTypes":[] }, 
+    {"name":"strategyZoneEnabledFilter","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.configuration.StrategyAutoConfiguration$$SpringCGLIB$$0",
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[
+    {"name":"CGLIB$CALLBACK_FILTER"}, 
+    {"name":"CGLIB$FACTORY_DATA"}
+  ],
+  "methods":[
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.configuration.StrategyAutoConfiguration$$SpringCGLIB$$1",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.configuration.StrategyAutoConfiguration$$SpringCGLIB$$2",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.configuration.StrategyAutoConfiguration$FeignStrategyConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"feignStrategyInterceptor","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.configuration.StrategyAutoConfiguration$RestTemplateStrategyConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"restTemplateStrategyBeanPostProcessor","parameterTypes":[] }, 
+    {"name":"restTemplateStrategyInterceptor","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.context.AbstractStrategyContextHolder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getContext","parameterTypes":["java.lang.String"] }, 
+    {"name":"getContextRouteAddress","parameterTypes":[] }, 
+    {"name":"getContextRouteAddressBlacklist","parameterTypes":[] }, 
+    {"name":"getContextRouteAddressFailover","parameterTypes":[] }, 
+    {"name":"getContextRouteEnvironment","parameterTypes":[] }, 
+    {"name":"getContextRouteEnvironmentFailover","parameterTypes":[] }, 
+    {"name":"getContextRouteIdBlacklist","parameterTypes":[] }, 
+    {"name":"getContextRouteRegion","parameterTypes":[] }, 
+    {"name":"getContextRouteRegionFailover","parameterTypes":[] }, 
+    {"name":"getContextRouteRegionTransfer","parameterTypes":[] }, 
+    {"name":"getContextRouteRegionWeight","parameterTypes":[] }, 
+    {"name":"getContextRouteVersion","parameterTypes":[] }, 
+    {"name":"getContextRouteVersionFailover","parameterTypes":[] }, 
+    {"name":"getContextRouteVersionPrefer","parameterTypes":[] }, 
+    {"name":"getContextRouteVersionWeight","parameterTypes":[] }, 
+    {"name":"getContextRouteZoneFailover","parameterTypes":[] }, 
+    {"name":"getPluginAdapter","parameterTypes":[] }, 
+    {"name":"getRouteAddress","parameterTypes":[] }, 
+    {"name":"getRouteAddressBlacklist","parameterTypes":[] }, 
+    {"name":"getRouteAddressFailover","parameterTypes":[] }, 
+    {"name":"getRouteEnvironment","parameterTypes":[] }, 
+    {"name":"getRouteEnvironmentFailover","parameterTypes":[] }, 
+    {"name":"getRouteIdBlacklist","parameterTypes":[] }, 
+    {"name":"getRouteRegion","parameterTypes":[] }, 
+    {"name":"getRouteRegionFailover","parameterTypes":[] }, 
+    {"name":"getRouteRegionTransfer","parameterTypes":[] }, 
+    {"name":"getRouteRegionWeight","parameterTypes":[] }, 
+    {"name":"getRouteVersion","parameterTypes":[] }, 
+    {"name":"getRouteVersionFailover","parameterTypes":[] }, 
+    {"name":"getRouteVersionPrefer","parameterTypes":[] }, 
+    {"name":"getRouteVersionWeight","parameterTypes":[] }, 
+    {"name":"getRouteZoneFailover","parameterTypes":[] }, 
+    {"name":"getSpanId","parameterTypes":[] }, 
+    {"name":"getStrategyWrapper","parameterTypes":[] }, 
+    {"name":"getTraceId","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.context.StrategyContextHolder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.context.StrategyEnvironmentPostProcessor",
+  "queryAllDeclaredConstructors":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.context.StrategyHeaderContext",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"initialize","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.extractor.StrategyPackagesExtractor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"postProcessBeanDefinitionRegistry","parameterTypes":["org.springframework.beans.factory.support.BeanDefinitionRegistry"] }, 
+    {"name":"postProcessBeanFactory","parameterTypes":["org.springframework.beans.factory.config.ConfigurableListableBeanFactory"] }, 
+    {"name":"setApplicationContext","parameterTypes":["org.springframework.context.ApplicationContext"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.AbstractStrategyEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"assembleVersionList","parameterTypes":["java.util.List"] }, 
+    {"name":"filter","parameterTypes":["java.util.List"] }, 
+    {"name":"findByEnvironment","parameterTypes":["java.util.List","java.lang.String"] }, 
+    {"name":"findByGroup","parameterTypes":["java.util.List","java.lang.String"] }, 
+    {"name":"findByRegion","parameterTypes":["java.util.List","java.lang.String"] }, 
+    {"name":"findByVersion","parameterTypes":["java.util.List","java.lang.String"] }, 
+    {"name":"findByZone","parameterTypes":["java.util.List","java.lang.String"] }, 
+    {"name":"getDiscoveryMatcher","parameterTypes":[] }, 
+    {"name":"getPluginAdapter","parameterTypes":[] }, 
+    {"name":"getPluginContextHolder","parameterTypes":[] }, 
+    {"name":"matchByAddress","parameterTypes":["java.util.List","java.lang.String"] }, 
+    {"name":"matchByRegion","parameterTypes":["java.util.List","java.lang.String"] }, 
+    {"name":"matchByVersion","parameterTypes":["java.util.List","java.lang.String"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyAddressBlacklistEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"apply","parameterTypes":["java.util.List","org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getOrder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyAddressEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"apply","parameterTypes":["java.util.List","org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getOrder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyEnvironmentEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"apply","parameterTypes":["java.util.List","org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getOrder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyGroupEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"apply","parameterTypes":["java.util.List","org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getOrder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyIdBlacklistEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"apply","parameterTypes":["java.util.List","org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getOrder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyRegionEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"apply","parameterTypes":["java.util.List","org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getOrder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyRouteFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyVersionEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"apply","parameterTypes":["java.util.List","org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getOrder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.filter.StrategyZoneEnabledFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"apply","parameterTypes":["java.util.List","org.springframework.cloud.client.ServiceInstance"] }, 
+    {"name":"getOrder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.gateway.route.GatewayStrategyRoute"
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.matcher.DiscoveryAntPathMatcherStrategy",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"match","parameterTypes":["java.lang.String","java.lang.String"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.matcher.DiscoveryMatcher",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.matcher.DiscoveryMatcherStrategy",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.configuration.ServiceStrategyAutoConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"getConfigScanPackages","parameterTypes":[] }, 
+    {"name":"getEndpointScanPackages","parameterTypes":["java.lang.String"] }, 
+    {"name":"getInjectorScanPackages","parameterTypes":["java.lang.String","com.nepxion.discovery.common.entity.PackagesInjectorType"] }, 
+    {"name":"serviceStrategyContextListener","parameterTypes":[] }, 
+    {"name":"serviceStrategyFilterExclusion","parameterTypes":[] }, 
+    {"name":"serviceStrategyRouteFilter","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.configuration.ServiceStrategyAutoConfiguration$$SpringCGLIB$$0",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"serviceProviderIsolationStrategyAutoScanProxy","parameterTypes":[] }, 
+    {"name":"serviceProviderIsolationStrategyInterceptor","parameterTypes":[] }, 
+    {"name":"serviceRpcStrategyAutoScanProxy","parameterTypes":[] }, 
+    {"name":"serviceRpcStrategyInterceptor","parameterTypes":[] }, 
+    {"name":"serviceStrategyContextListener","parameterTypes":[] }, 
+    {"name":"serviceStrategyFilterExclusion","parameterTypes":[] }, 
+    {"name":"serviceStrategyMonitor","parameterTypes":[] }, 
+    {"name":"serviceStrategyMonitorAutoScanProxy","parameterTypes":[] }, 
+    {"name":"serviceStrategyMonitorInterceptor","parameterTypes":[] }, 
+    {"name":"serviceStrategyRouteFilter","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.configuration.ServiceStrategyAutoConfiguration$$SpringCGLIB$$1",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.configuration.ServiceStrategyAutoConfiguration$$SpringCGLIB$$2",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.configuration.ServiceStrategyContextAutoConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"serviceStrategyContextHolder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.configuration.ServiceStrategyContextAutoConfiguration$$SpringCGLIB$$0",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"serviceStrategyContextHolder","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.configuration.ServiceStrategyContextAutoConfiguration$$SpringCGLIB$$1",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.configuration.ServiceStrategyContextAutoConfiguration$$SpringCGLIB$$2",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.context.ServiceStrategyContextHolder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"getCookie","parameterTypes":["java.lang.String"] }, 
+    {"name":"getHeader","parameterTypes":["java.lang.String"] }, 
+    {"name":"getHeaderNames","parameterTypes":[] }, 
+    {"name":"getParameter","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.context.ServiceStrategyContextListener",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"onApplicationEvent","parameterTypes":["org.springframework.context.ApplicationEvent"] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.context.ServiceStrategyEnvironmentPostProcessor",
+  "queryAllDeclaredConstructors":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.filter.AbstractServiceStrategyRouteFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getOrder","parameterTypes":[] }, 
+    {"name":"getPluginAdapter","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.filter.DefaultServiceStrategyFilterExclusion",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"initialize","parameterTypes":[] }, 
+    {"name":"isExclusion","parameterTypes":["jakarta.servlet.http.HttpServletRequest","jakarta.servlet.http.HttpServletResponse"] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.filter.DefaultServiceStrategyRouteFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getRouteAddress","parameterTypes":[] }, 
+    {"name":"getRouteAddressBlacklist","parameterTypes":[] }, 
+    {"name":"getRouteAddressFailover","parameterTypes":[] }, 
+    {"name":"getRouteEnvironment","parameterTypes":[] }, 
+    {"name":"getRouteEnvironmentFailover","parameterTypes":[] }, 
+    {"name":"getRouteIdBlacklist","parameterTypes":[] }, 
+    {"name":"getRouteRegion","parameterTypes":[] }, 
+    {"name":"getRouteRegionFailover","parameterTypes":[] }, 
+    {"name":"getRouteRegionTransfer","parameterTypes":[] }, 
+    {"name":"getRouteRegionWeight","parameterTypes":[] }, 
+    {"name":"getRouteVersion","parameterTypes":[] }, 
+    {"name":"getRouteVersionFailover","parameterTypes":[] }, 
+    {"name":"getRouteVersionPrefer","parameterTypes":[] }, 
+    {"name":"getRouteVersionWeight","parameterTypes":[] }, 
+    {"name":"getRouteZoneFailover","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.filter.ServiceStrategyFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.filter.ServiceStrategyFilterExclusion",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.service.filter.ServiceStrategyRouteFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.discovery.plugin.strategy.wrapper.StrategyWrapper",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.eventbus.annotation.EnableEventBus",
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.eventbus.annotation.EventBus",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.nepxion.eventbus.aop.EventBeanPostProcessor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"postProcessAfterInitialization","parameterTypes":["java.lang.Object","java.lang.String"] }, 
+    {"name":"postProcessBeforeInitialization","parameterTypes":["java.lang.Object","java.lang.String"] }
+  ]
+},
+{
+  "name":"com.nepxion.eventbus.aop.EventBusImportSelector",
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.eventbus.configuration.EventConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"eventBeanPostProcessor","parameterTypes":[] }, 
+    {"name":"eventContextClosedHandler","parameterTypes":[] }, 
+    {"name":"eventControllerFactory","parameterTypes":[] }, 
+    {"name":"threadPoolFactory","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.eventbus.configuration.EventConfiguration$$SpringCGLIB$$0",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "fields":[{"name":"CGLIB$FACTORY_DATA"}],
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"CGLIB$SET_STATIC_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"CGLIB$SET_THREAD_CALLBACKS","parameterTypes":["org.springframework.cglib.proxy.Callback[]"] }, 
+    {"name":"eventBeanPostProcessor","parameterTypes":[] }, 
+    {"name":"eventContextClosedHandler","parameterTypes":[] }, 
+    {"name":"eventControllerFactory","parameterTypes":[] }, 
+    {"name":"threadPoolFactory","parameterTypes":[] }
+  ]
+},
+{
+  "name":"com.nepxion.eventbus.configuration.EventConfiguration$$SpringCGLIB$$1",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.eventbus.configuration.EventConfiguration$$SpringCGLIB$$2",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Class"] }]
+},
+{
+  "name":"com.nepxion.eventbus.context.EventContextClosedHandler",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"onApplicationEvent","parameterTypes":["org.springframework.context.ApplicationEvent"] }]
+},
+{
+  "name":"com.nepxion.eventbus.core.EventControllerFactory",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.nepxion.eventbus.thread.ThreadPoolFactory",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"shutdown","parameterTypes":[] }]
+},
+{
+  "name":"com.nepxion.eventbus.thread.entity.ThreadParameter",
+  "allDeclaredFields":true
 },
 {
   "name":"com.rabbitmq.client.Channel"
@@ -1818,6 +3125,121 @@
 {
   "name":"double",
   "queryAllDeclaredMethods":true
+},
+{
+  "name":"feign.BaseBuilder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"dismiss404","parameterTypes":[] }, 
+    {"name":"responseInterceptor","parameterTypes":["feign.ResponseInterceptor"] }
+  ]
+},
+{
+  "name":"feign.Client",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"feign.Contract",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"feign.Contract$BaseContract",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"parseAndValidateMetadata","parameterTypes":["java.lang.Class"] }, 
+    {"name":"parseAndValidateMetadata","parameterTypes":["java.lang.reflect.Method"] }
+  ]
+},
+{
+  "name":"feign.Feign"
+},
+{
+  "name":"feign.Feign$Builder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"addCapability","parameterTypes":["feign.Capability"] }, 
+    {"name":"contract","parameterTypes":["feign.Contract"] }, 
+    {"name":"decode404","parameterTypes":[] }, 
+    {"name":"decoder","parameterTypes":["feign.codec.Decoder"] }, 
+    {"name":"doNotCloseAfterDecode","parameterTypes":[] }, 
+    {"name":"encoder","parameterTypes":["feign.codec.Encoder"] }, 
+    {"name":"errorDecoder","parameterTypes":["feign.codec.ErrorDecoder"] }, 
+    {"name":"exceptionPropagationPolicy","parameterTypes":["feign.ExceptionPropagationPolicy"] }, 
+    {"name":"invocationHandlerFactory","parameterTypes":["feign.InvocationHandlerFactory"] }, 
+    {"name":"logLevel","parameterTypes":["feign.Logger$Level"] }, 
+    {"name":"logger","parameterTypes":["feign.Logger"] }, 
+    {"name":"mapAndDecode","parameterTypes":["feign.ResponseMapper","feign.codec.Decoder"] }, 
+    {"name":"options","parameterTypes":["feign.Request$Options"] }, 
+    {"name":"queryMapEncoder","parameterTypes":["feign.QueryMapEncoder"] }, 
+    {"name":"requestInterceptor","parameterTypes":["feign.RequestInterceptor"] }, 
+    {"name":"requestInterceptors","parameterTypes":["java.lang.Iterable"] }, 
+    {"name":"retryer","parameterTypes":["feign.Retryer"] }
+  ]
+},
+{
+  "name":"feign.RequestInterceptor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"feign.Retryer",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"feign.Retryer$1",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"clone","parameterTypes":[] }, 
+    {"name":"continueOrPropagate","parameterTypes":["feign.RetryableException"] }
+  ]
+},
+{
+  "name":"feign.codec.Decoder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"feign.codec.Encoder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"feign.hc5.ApacheHttp5Client"
+},
+{
+  "name":"feign.micrometer.MicrometerCapability"
+},
+{
+  "name":"feign.micrometer.MicrometerObservationCapability"
+},
+{
+  "name":"feign.okhttp.OkHttpClient"
+},
+{
+  "name":"feign.optionals.OptionalDecoder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"decode","parameterTypes":["feign.Response","java.lang.reflect.Type"] }]
 },
 {
   "name":"freemarker.template$Configuration"
@@ -2098,6 +3520,10 @@
   "queryAllPublicMethods":true
 },
 {
+  "name":"java.lang.Boolean",
+  "queryAllDeclaredMethods":true
+},
+{
   "name":"java.lang.Class",
   "queryAllDeclaredMethods":true
 },
@@ -2106,13 +3532,18 @@
   "methods":[{"name":"defineClass","parameterTypes":["java.lang.String","byte[]","int","int","java.security.ProtectionDomain"] }]
 },
 {
+  "name":"java.lang.Cloneable",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
+},
+{
   "name":"java.lang.Comparable",
+  "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true
 },
 {
   "name":"java.lang.Enum",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true
+  "allDeclaredFields":true
 },
 {
   "name":"java.lang.Iterable",
@@ -2131,7 +3562,9 @@
 },
 {
   "name":"java.lang.Object",
-  "queryAllDeclaredMethods":true
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"java.lang.RuntimePermission"
@@ -2272,10 +3705,13 @@
   "name":"java.sql.DriverManager"
 },
 {
-  "name":"java.sql.Timestamp"
+  "name":"java.util.ArrayList"
 },
 {
-  "name":"java.util.ArrayList"
+  "name":"java.util.Date",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
 },
 {
   "name":"java.util.Enumeration"
@@ -2290,6 +3726,10 @@
 },
 {
   "name":"java.util.PropertyPermission"
+},
+{
+  "name":"java.util.concurrent.Callable",
+  "methods":[{"name":"call","parameterTypes":[] }]
 },
 {
   "name":"java.util.concurrent.Executor",
@@ -2313,6 +3753,11 @@
   ]
 },
 {
+  "name":"java.util.function.Supplier",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
+},
+{
   "name":"java.util.logging.LogManager"
 },
 {
@@ -2320,10 +3765,23 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"javax.annotation.PostConstruct"
+  "name":"javax.annotation.Nonnull",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"javax.annotation.PostConstruct",
+  "queryAllDeclaredMethods":true
 },
 {
   "name":"javax.annotation.PreDestroy"
+},
+{
+  "name":"javax.annotation.meta.TypeQualifier",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"javax.annotation.meta.TypeQualifierDefault",
+  "queryAllDeclaredMethods":true
 },
 {
   "name":"javax.cache.Caching"
@@ -2345,9 +3803,6 @@
 },
 {
   "name":"javax.naming.ldap.LdapContext"
-},
-{
-  "name":"javax.persistence.EntityManagerFactory"
 },
 {
   "name":"javax.smartcardio.CardPermission"
@@ -2554,6 +4009,18 @@
   "name":"org.cache2k.Cache2kBuilder"
 },
 {
+  "name":"org.dom4j.DocumentFactory",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.dom4j.tree.QNameCache",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.dom4j.util.SimpleSingleton",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"org.eclipse.core.runtime$FileLocator"
 },
 {
@@ -2636,6 +4103,31 @@
   "name":"org.slf4j.spi.LocationAwareLogger"
 },
 {
+  "name":"org.springframework.aop.SpringProxy",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.aop.TargetClassAware",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.aop.aspectj.autoproxy.AspectJAwareAdvisorAutoProxyCreator",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.aop.framework.Advised",
+  "queryAllDeclaredMethods":true
+},
+{
   "name":"org.springframework.aop.framework.AopInfrastructureBean",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -2697,14 +4189,6 @@
   ]
 },
 {
-  "name":"org.springframework.aop.framework.autoproxy.InfrastructureAdvisorAutoProxyCreator",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
   "name":"org.springframework.aop.scope.ScopedProxyBeanRegistrationAotProcessor",
   "queryAllDeclaredConstructors":true,
   "queryAllPublicConstructors":true,
@@ -2750,7 +4234,8 @@
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"setBeanFactory","parameterTypes":["org.springframework.beans.factory.BeanFactory"] }]
 },
 {
   "name":"org.springframework.beans.factory.BeanNameAware",
@@ -2831,8 +4316,7 @@
 },
 {
   "name":"org.springframework.beans.factory.annotation.Qualifier",
-  "queryAllDeclaredMethods":true,
-  "methods":[{"name":"value","parameterTypes":[] }]
+  "queryAllDeclaredMethods":true
 },
 {
   "name":"org.springframework.beans.factory.annotation.Value",
@@ -2852,6 +4336,13 @@
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[{"name":"isBeanExcludedFromAotProcessing","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.beans.factory.aot.BeanRegistrationExcludeFilter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
 },
 {
   "name":"org.springframework.beans.factory.aot.BeanRegistrationsAotProcessor",
@@ -2920,13 +4411,6 @@
   ]
 },
 {
-  "name":"org.springframework.beans.factory.config.Scope",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
   "name":"org.springframework.beans.factory.config.SmartInstantiationAwareBeanPostProcessor",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -2984,8 +4468,13 @@
 {
   "name":"org.springframework.boot.SpringApplication",
   "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"setAllowBeanDefinitionOverriding","parameterTypes":["boolean"] }, 
+    {"name":"setAllowCircularReferences","parameterTypes":["boolean"] }
+  ]
 },
 {
   "name":"org.springframework.boot.SpringApplication$SpringApplicationRuntimeHints",
@@ -3146,14 +4635,18 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"org.springframework.boot.autoconfigure.aop.AopAutoConfiguration$ClassProxyingConfiguration",
+  "name":"org.springframework.boot.autoconfigure.aop.AopAutoConfiguration$AspectJAutoProxyingConfiguration",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"forceAutoProxyCreatorToUseClassProxying","parameterTypes":[] }
-  ]
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.boot.autoconfigure.aop.AopAutoConfiguration$AspectJAutoProxyingConfiguration$CglibAutoProxyConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"org.springframework.boot.autoconfigure.availability.ApplicationAvailabilityAutoConfiguration",
@@ -3193,7 +4686,8 @@
 },
 {
   "name":"org.springframework.boot.autoconfigure.condition.ConditionalOnClass",
-  "queryAllDeclaredMethods":true
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"value","parameterTypes":[] }]
 },
 {
   "name":"org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean",
@@ -3283,6 +4777,7 @@
 {
   "name":"org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration",
   "allDeclaredFields":true,
+  "allDeclaredClasses":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[
@@ -3563,9 +5058,6 @@
   "queryAllDeclaredConstructors":true,
   "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration"
 },
 {
   "name":"org.springframework.boot.autoconfigure.quartz.SchedulerDependsOnDatabaseInitializationDetector",
@@ -4162,10 +5654,7 @@
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
   "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"getPathmatch","parameterTypes":[] }
-  ]
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties$Async",
@@ -4188,10 +5677,8 @@
 {
   "name":"org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties$Pathmatch",
   "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"setMatchingStrategy","parameterTypes":["org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties$MatchingStrategy"] }]
+  "queryAllDeclaredConstructors":true
 },
 {
   "name":"org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties$Problemdetails",
@@ -4226,7 +5713,8 @@
   "name":"org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"error","parameterTypes":["jakarta.servlet.http.HttpServletRequest"] }]
 },
 {
   "name":"org.springframework.boot.autoconfigure.web.servlet.error.DefaultErrorViewResolver",
@@ -5282,10 +6770,36 @@
   "queryAllPublicMethods":true
 },
 {
-  "name":"org.springframework.cache.caffeine.CaffeineCacheManager"
+  "name":"org.springframework.cache.caffeine.CaffeineCacheManager",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"getCache","parameterTypes":["java.lang.String"] }, 
+    {"name":"getCacheNames","parameterTypes":[] }, 
+    {"name":"isAllowNullValues","parameterTypes":[] }, 
+    {"name":"registerCustomCache","parameterTypes":["java.lang.String","com.github.benmanes.caffeine.cache.Cache"] }, 
+    {"name":"setAllowNullValues","parameterTypes":["boolean"] }, 
+    {"name":"setCacheLoader","parameterTypes":["com.github.benmanes.caffeine.cache.CacheLoader"] }, 
+    {"name":"setCacheNames","parameterTypes":["java.util.Collection"] }, 
+    {"name":"setCacheSpecification","parameterTypes":["java.lang.String"] }, 
+    {"name":"setCaffeine","parameterTypes":["com.github.benmanes.caffeine.cache.Caffeine"] }, 
+    {"name":"setCaffeineSpec","parameterTypes":["com.github.benmanes.caffeine.cache.CaffeineSpec"] }
+  ]
 },
 {
   "name":"org.springframework.cache.interceptor.CacheAspectSupport"
+},
+{
+  "name":"org.springframework.cache.interceptor.CacheInterceptor"
+},
+{
+  "name":"org.springframework.cglib.proxy.Dispatcher"
+},
+{
+  "name":"org.springframework.cglib.proxy.MethodInterceptor"
+},
+{
+  "name":"org.springframework.cglib.proxy.NoOp"
 },
 {
   "name":"org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration",
@@ -5308,39 +6822,6 @@
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
     {"name":"environmentManager","parameterTypes":["org.springframework.core.env.ConfigurableEnvironment"] }
-  ]
-},
-{
-  "name":"org.springframework.cloud.autoconfigure.RefreshAutoConfiguration",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"configDataContextRefresher","parameterTypes":["org.springframework.context.ConfigurableApplicationContext","org.springframework.cloud.context.scope.refresh.RefreshScope","org.springframework.cloud.autoconfigure.RefreshAutoConfiguration$RefreshProperties"] }, 
-    {"name":"loggingRebinder","parameterTypes":[] }, 
-    {"name":"refreshEventListener","parameterTypes":["org.springframework.cloud.context.refresh.ContextRefresher"] }, 
-    {"name":"refreshScope","parameterTypes":[] }
-  ]
-},
-{
-  "name":"org.springframework.cloud.autoconfigure.RefreshAutoConfiguration$RefreshProperties",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.springframework.cloud.autoconfigure.RefreshAutoConfiguration$RefreshScopeBeanDefinitionEnhancer",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"postProcessBeanDefinitionRegistry","parameterTypes":["org.springframework.beans.factory.support.BeanDefinitionRegistry"] }, 
-    {"name":"postProcessBeanFactory","parameterTypes":["org.springframework.beans.factory.config.ConfigurableListableBeanFactory"] }, 
-    {"name":"setEnvironment","parameterTypes":["org.springframework.core.env.Environment"] }
   ]
 },
 {
@@ -5475,6 +6956,15 @@
   ]
 },
 {
+  "name":"org.springframework.cloud.client.actuator.HasFeatures",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.client.circuitbreaker.CircuitBreaker"
+},
+{
   "name":"org.springframework.cloud.client.discovery.DiscoveryClient",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -5542,6 +7032,9 @@
 {
   "name":"org.springframework.cloud.client.loadbalancer.LoadBalanced",
   "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.client.loadbalancer.LoadBalancedRetryFactory"
 },
 {
   "name":"org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration",
@@ -5690,6 +7183,11 @@
 {
   "name":"org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$OnAnyLoadBalancerImplementationPresentCondition",
   "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.client.loadbalancer.reactive.ReactiveLoadBalancer",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
 },
 {
   "name":"org.springframework.cloud.client.loadbalancer.reactive.ReactiveLoadBalancer$Factory",
@@ -5951,60 +7449,80 @@
   ]
 },
 {
-  "name":"org.springframework.cloud.context.refresh.ConfigDataContextRefresher",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
-},
-{
-  "name":"org.springframework.cloud.context.refresh.ContextRefresher",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "methods":[
-    {"name":"refresh","parameterTypes":[] }, 
-    {"name":"refreshEnvironment","parameterTypes":[] }
-  ]
-},
-{
   "name":"org.springframework.cloud.context.restart.RestartListener",
   "queryAllDeclaredConstructors":true,
   "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"org.springframework.cloud.context.scope.GenericScope",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "methods":[
-    {"name":"destroy","parameterTypes":[] }, 
-    {"name":"get","parameterTypes":["java.lang.String","org.springframework.beans.factory.ObjectFactory"] }, 
-    {"name":"getConversationId","parameterTypes":[] }, 
-    {"name":"getErrors","parameterTypes":[] }, 
-    {"name":"postProcessBeanFactory","parameterTypes":["org.springframework.beans.factory.config.ConfigurableListableBeanFactory"] }, 
-    {"name":"registerDestructionCallback","parameterTypes":["java.lang.String","java.lang.Runnable"] }, 
-    {"name":"remove","parameterTypes":["java.lang.String"] }, 
-    {"name":"resolveContextualObject","parameterTypes":["java.lang.String"] }, 
-    {"name":"setId","parameterTypes":["java.lang.String"] }, 
-    {"name":"setName","parameterTypes":["java.lang.String"] }, 
-    {"name":"setScopeCache","parameterTypes":["org.springframework.cloud.context.scope.ScopeCache"] }
-  ]
-},
-{
-  "name":"org.springframework.cloud.context.scope.refresh.RefreshScope",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"postProcessBeanDefinitionRegistry","parameterTypes":["org.springframework.beans.factory.support.BeanDefinitionRegistry"] }]
-},
-{
-  "name":"org.springframework.cloud.endpoint.event.RefreshEventListener",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
+  "name":"org.springframework.cloud.context.scope.refresh.RefreshScope"
 },
 {
   "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient",
   "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$AvoidPreviousInstanceEnabledCondition",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$BlockingOnAvoidPreviousInstanceAndRetryEnabledCondition",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$BlockingSupportConfiguration",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"discoveryClientServiceInstanceListSupplier","parameterTypes":["org.springframework.context.ConfigurableApplicationContext"] }
+  ]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$DefaultConfigurationCondition",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$HealthCheckConfigurationCondition",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$ReactiveOnAvoidPreviousInstanceAndRetryEnabledCondition",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$RequestBasedStickySessionConfigurationCondition",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$SameInstancePreferenceConfigurationCondition",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$WeightedConfigurationCondition",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfiguration$ZonePreferenceConfigurationCondition",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientConfigurationRegistrar",
@@ -6040,7 +7558,7 @@
   "queryAllDeclaredMethods":true
 },
 {
-  "name":"org.springframework.cloud.loadbalancer.cache.DefaultLoadBalancerCacheManager",
+  "name":"org.springframework.cloud.loadbalancer.cache.CaffeineBasedLoadBalancerCacheManager",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true
 },
@@ -6098,30 +7616,14 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"org.springframework.cloud.loadbalancer.config.LoadBalancerCacheAutoConfiguration$DefaultLoadBalancerCacheManagerConfiguration",
+  "name":"org.springframework.cloud.loadbalancer.config.LoadBalancerCacheAutoConfiguration$CaffeineLoadBalancerCacheManagerConfiguration",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[
     {"name":"<init>","parameterTypes":[] }, 
-    {"name":"defaultLoadBalancerCacheManager","parameterTypes":["org.springframework.cloud.loadbalancer.cache.LoadBalancerCacheProperties"] }
+    {"name":"caffeineLoadBalancerCacheManager","parameterTypes":["org.springframework.cloud.loadbalancer.cache.LoadBalancerCacheProperties"] }
   ]
-},
-{
-  "name":"org.springframework.cloud.loadbalancer.config.LoadBalancerCacheAutoConfiguration$LoadBalancerCacheManagerWarnConfiguration",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"<init>","parameterTypes":[] }, 
-    {"name":"caffeineWarnLogger","parameterTypes":[] }
-  ]
-},
-{
-  "name":"org.springframework.cloud.loadbalancer.config.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true
 },
 {
   "name":"org.springframework.cloud.loadbalancer.config.LoadBalancerCacheAutoConfiguration$OnCaffeineCacheMissingCondition",
@@ -6134,10 +7636,47 @@
   "queryAllDeclaredConstructors":true
 },
 {
+  "name":"org.springframework.cloud.loadbalancer.core.CachingServiceInstanceListSupplier",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.core.DelegatingServiceInstanceListSupplier",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[
+    {"name":"afterPropertiesSet","parameterTypes":[] }, 
+    {"name":"destroy","parameterTypes":[] }, 
+    {"name":"getDelegate","parameterTypes":[] }, 
+    {"name":"getServiceId","parameterTypes":[] }
+  ]
+},
+{
   "name":"org.springframework.cloud.loadbalancer.core.LoadBalancerServiceInstanceCookieTransformer",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.core.ReactorLoadBalancer",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"choose","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.core.ReactorServiceInstanceLoadBalancer",
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true
+},
+{
+  "name":"org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"get","parameterTypes":["org.springframework.cloud.client.loadbalancer.Request"] }]
 },
 {
   "name":"org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory",
@@ -6153,10 +7692,284 @@
   "queryAllDeclaredConstructors":true
 },
 {
-  "name":"org.springframework.cloud.logging.LoggingRebinder",
+  "name":"org.springframework.cloud.openfeign.DefaultFeignLoggerFactory",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.DefaultTargeter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.EnableFeignClients",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignAutoConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"feignChildContextInitializer","parameterTypes":["org.springframework.context.support.GenericApplicationContext","org.springframework.cloud.openfeign.FeignClientFactory"] }, 
+    {"name":"feignClientBeanFactoryInitializationCodeGenerator","parameterTypes":["org.springframework.context.support.GenericApplicationContext","org.springframework.cloud.openfeign.FeignClientFactory"] }, 
+    {"name":"feignContext","parameterTypes":[] }, 
+    {"name":"feignFeature","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignAutoConfiguration$DefaultFeignTargeterConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"feignTargeter","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignCircuitBreakerDisabledConditions",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClient",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientFactory",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientFactoryBean",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"isSingleton","parameterTypes":[] }, 
+    {"name":"setContextId","parameterTypes":["java.lang.String"] }, 
+    {"name":"setDismiss404","parameterTypes":["boolean"] }, 
+    {"name":"setFallback","parameterTypes":["java.lang.Class"] }, 
+    {"name":"setFallbackFactory","parameterTypes":["java.lang.Class"] }, 
+    {"name":"setName","parameterTypes":["java.lang.String"] }, 
+    {"name":"setPath","parameterTypes":["java.lang.String"] }, 
+    {"name":"setQualifiers","parameterTypes":["java.lang.String[]"] }, 
+    {"name":"setRefreshableClient","parameterTypes":["boolean"] }, 
+    {"name":"setType","parameterTypes":["java.lang.Class"] }, 
+    {"name":"setUrl","parameterTypes":["java.lang.String"] }
+  ]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientMicrometerEnabledCondition",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientProperties",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientProperties$FeignClientConfiguration",
+  "allDeclaredFields":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientSpecification",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String","java.lang.String","java.lang.Class[]"] }]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientsConfiguration",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"feignClientConfigurer","parameterTypes":[] }, 
+    {"name":"feignContract","parameterTypes":["org.springframework.core.convert.ConversionService"] }, 
+    {"name":"feignConversionService","parameterTypes":[] }, 
+    {"name":"feignDecoder","parameterTypes":["org.springframework.beans.factory.ObjectProvider"] }, 
+    {"name":"feignEncoder","parameterTypes":["org.springframework.beans.factory.ObjectProvider","org.springframework.beans.factory.ObjectProvider"] }, 
+    {"name":"feignLoggerFactory","parameterTypes":[] }, 
+    {"name":"feignRetryer","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientsConfiguration$1",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientsConfiguration$DefaultFeignBuilderConfiguration",
+  "allDeclaredFields":true,
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"feignBuilder","parameterTypes":["feign.Retryer"] }
+  ]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientsConfiguration$SpringPojoFormEncoder",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignClientsRegistrar",
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignHints",
+  "queryAllDeclaredConstructors":true,
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.openfeign.FeignLoggerFactory",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.Targeter",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.aot.FeignChildContextInitializer",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.aot.FeignClientBeanFactoryInitializationAotProcessor",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.clientconfig.FeignClientConfigurer",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"inheritParentConfiguration","parameterTypes":[] }, 
+    {"name":"primary","parameterTypes":[] }
+  ]
+},
+{
+  "name":"org.springframework.cloud.openfeign.loadbalancer.DefaultFeignLoadBalancerConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"feignClient","parameterTypes":["org.springframework.cloud.client.loadbalancer.LoadBalancerClient","org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory","java.util.List"] }
+  ]
+},
+{
+  "name":"org.springframework.cloud.openfeign.loadbalancer.FeignBlockingLoadBalancerClient",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.loadbalancer.FeignLoadBalancerAutoConfiguration",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[
+    {"name":"<init>","parameterTypes":[] }, 
+    {"name":"xForwarderHeadersFeignTransformer","parameterTypes":["org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory"] }
+  ]
+},
+{
+  "name":"org.springframework.cloud.openfeign.loadbalancer.HttpClient5FeignLoadBalancerConfiguration"
+},
+{
+  "name":"org.springframework.cloud.openfeign.loadbalancer.LoadBalancerFeignRequestTransformer",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.loadbalancer.OkHttpFeignLoadBalancerConfiguration"
+},
+{
+  "name":"org.springframework.cloud.openfeign.loadbalancer.OnRetryNotEnabledCondition",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.openfeign.loadbalancer.XForwardedHeadersTransformer",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.support.FeignEncoderProperties",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.openfeign.support.FeignHttpClientProperties",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.springframework.cloud.openfeign.support.FeignHttpClientProperties$Hc5Properties",
+  "allDeclaredFields":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.support.FeignHttpClientProperties$Hc5Properties$PoolConcurrencyPolicy",
+  "allDeclaredFields":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.support.FeignHttpClientProperties$Hc5Properties$PoolReusePolicy",
+  "allDeclaredFields":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.support.FeignHttpClientProperties$OkHttp",
+  "allDeclaredFields":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.support.SpringEncoder",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.cloud.openfeign.support.SpringMvcContract",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
 },
 {
   "name":"org.springframework.cloud.sleuth$Tracer"
@@ -6169,16 +7982,8 @@
   "queryAllDeclaredMethods":true
 },
 {
-  "name":"org.springframework.cloud.util.ConditionalOnBootstrapDisabled$OnBootstrapDisabledCondition",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
   "name":"org.springframework.cloud.util.ConditionalOnBootstrapEnabled",
   "queryAllDeclaredMethods":true
-},
-{
-  "name":"org.springframework.cloud.util.ConditionalOnBootstrapEnabled$OnBootstrapEnabledCondition",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"org.springframework.cloud.util.random.CachedRandomPropertySourceEnvironmentPostProcessor",
@@ -6191,7 +7996,8 @@
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"setApplicationContext","parameterTypes":["org.springframework.context.ApplicationContext"] }]
 },
 {
   "name":"org.springframework.context.ApplicationContextInitializer",
@@ -6257,6 +8063,11 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"org.springframework.context.annotation.AspectJAutoProxyRegistrar",
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"org.springframework.context.annotation.Bean",
   "queryAllDeclaredMethods":true
 },
@@ -6281,6 +8092,10 @@
 {
   "name":"org.springframework.context.annotation.ComponentScan$Filter",
   "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.context.annotation.Condition",
+  "queryAllPublicMethods":true
 },
 {
   "name":"org.springframework.context.annotation.Conditional",
@@ -6310,6 +8125,13 @@
     {"name":"<init>","parameterTypes":[] }, 
     {"name":"setMetadataReaderFactory","parameterTypes":["org.springframework.core.type.classreading.MetadataReaderFactory"] }
   ]
+},
+{
+  "name":"org.springframework.context.annotation.EnableAspectJAutoProxy",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.context.annotation.FilterType"
 },
 {
   "name":"org.springframework.context.annotation.Import",
@@ -6361,18 +8183,6 @@
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.springframework.context.event.SmartApplicationListener",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[
-    {"name":"getListenerId","parameterTypes":[] }, 
-    {"name":"getOrder","parameterTypes":[] }, 
-    {"name":"supportsSourceType","parameterTypes":["java.lang.Class"] }
-  ]
 },
 {
   "name":"org.springframework.context.support.ApplicationObjectSupport",
@@ -6517,6 +8327,15 @@
   "name":"org.springframework.data.cassandra.ReactiveSession"
 },
 {
+  "name":"org.springframework.data.domain.Page"
+},
+{
+  "name":"org.springframework.data.domain.Pageable"
+},
+{
+  "name":"org.springframework.data.domain.Sort"
+},
+{
   "name":"org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate"
 },
 {
@@ -6559,6 +8378,19 @@
   "name":"org.springframework.data.web.PageableHandlerMethodArgumentResolver"
 },
 {
+  "name":"org.springframework.expression.TypeComparator",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllPublicMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
+  "name":"org.springframework.expression.spel.support.StandardTypeComparator",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"canCompare","parameterTypes":["java.lang.Object","java.lang.Object"] }]
+},
+{
   "name":"org.springframework.format.FormatterRegistry",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -6591,6 +8423,9 @@
 },
 {
   "name":"org.springframework.hateoas.Link"
+},
+{
+  "name":"org.springframework.hateoas.config.WebConverters"
 },
 {
   "name":"org.springframework.hateoas.server.mvc.TypeConstrainedMappingJackson2HttpMessageConverter"
@@ -6928,6 +8763,9 @@
   "name":"org.springframework.security.crypto.encrypt.TextEncryptor"
 },
 {
+  "name":"org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager"
+},
+{
   "name":"org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthenticationToken"
 },
 {
@@ -7034,7 +8872,15 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"org.springframework.web.bind.annotation.GetMapping",
+  "queryAllDeclaredMethods":true
+},
+{
   "name":"org.springframework.web.bind.annotation.Mapping",
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.springframework.web.bind.annotation.PathVariable",
   "queryAllDeclaredMethods":true
 },
 {
@@ -7142,6 +8988,10 @@
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true,
   "methods":[{"name":"setThreadContextInheritable","parameterTypes":["boolean"] }]
+},
+{
+  "name":"org.springframework.web.method.annotation.ExceptionHandlerMethodResolver",
+  "methods":[{"name":"noMatchingExceptionHandler","parameterTypes":[] }]
 },
 {
   "name":"org.springframework.web.method.support.CompositeUriComponentsContributor",
@@ -7744,6 +9594,9 @@
   "name":"reactor.tools.agent.ReactorDebugAgent"
 },
 {
+  "name":"reactor.util.retry.RetrySpec"
+},
+{
   "name":"sun.misc.Unsafe",
   "allDeclaredFields":true,
   "methods":[
@@ -7785,6 +9638,13 @@
   "fields":[
     {"name":"publicSelectedKeys"}, 
     {"name":"selectedKeys"}
+  ]
+},
+{
+  "name":"sun.reflect.ReflectionFactory",
+  "methods":[
+    {"name":"getReflectionFactory","parameterTypes":[] }, 
+    {"name":"newConstructorForSerialization","parameterTypes":["java.lang.Class","java.lang.reflect.Constructor"] }
   ]
 },
 {
