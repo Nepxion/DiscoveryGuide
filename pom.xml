@@ -153,6 +153,29 @@
                                 </execution>
                             </executions>
                         </plugin>
+                        <plugin>
+                            <artifactId>maven-resources-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>copy-startup</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>copy-resources</goal>
+                                    </goals>
+                                    <configuration>
+                                        <resources>
+                                            <resource>
+                                                <directory>/src/assembly</directory>
+                                                <includes>
+                                                    <include>startup.*</include>
+                                                </includes>
+                                            </resource>
+                                        </resources>
+                                        <outputDirectory>target</outputDirectory>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
                     </plugins>
                 </pluginManagement>
             </build>

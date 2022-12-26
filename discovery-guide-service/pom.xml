@@ -53,7 +53,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.nepxion.discovery.guide.service.DiscoveryGuideServiceA1</mainClass>
+                    <mainClass>com.nepxion.discovery.guide.service.DiscoveryGuideService${name}</mainClass>
                     <layout>JAR</layout>
                     <layers>
                         <enabled>true</enabled>
@@ -74,6 +74,13 @@
             <plugin>
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>discovery-guide-service-${name}</imageName>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

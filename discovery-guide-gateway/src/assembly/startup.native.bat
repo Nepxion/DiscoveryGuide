@@ -1,7 +1,7 @@
 @echo on
 @echo =============================================================
 @echo $                                                           $
-@echo $                     Nepxion Discovery                     $
+@echo $          Nepxion Discovery Guide Gateway (Native)         $
 @echo $                                                           $
 @echo $                                                           $
 @echo $                                                           $
@@ -12,12 +12,9 @@
 @echo.
 @echo off
 
-@title Nepxion Discovery
+@title Nepxion Discovery Guide Gateway (Native)
 @color 0a
 
-set JAVA_HOME=E:\Tool\Graalvm-JDK17-22.3.0
-set PATH=%JAVA_HOME%\bin;%PATH%
-
-call mvn -Pnative native:compile -DskipTests -am -Dname=A1
+call discovery-guide-gateway.exe -Dnepxion.banner.shown.ansi.mode=true -Dspring.application.strategy.agent.validation.enabled=false
 
 pause
