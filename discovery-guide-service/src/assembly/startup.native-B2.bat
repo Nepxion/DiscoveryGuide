@@ -12,7 +12,7 @@
 @echo.
 @echo off
 
-@title Nepxion Discovery Guide Service (Native)
+@title Nepxion Discovery Guide Service B2 (Native)
 @color 0a
 
 call discovery-guide-service-B2.exe -Dnepxion.banner.shown.ansi.mode=true -Dspring.application.strategy.agent.validation.enabled=false
