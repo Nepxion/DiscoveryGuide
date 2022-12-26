@@ -135,11 +135,10 @@
                                 <requiredVersion>22.3</requiredVersion>
                                 <buildArgs>
                                     --no-fallback
-                                    <!-- Logger should be add with initialize-at-build-time -->
                                     --initialize-at-build-time=ch.qos.logback
                                     --initialize-at-build-time=org.slf4j
-                                    <!-- Netty should be add with initialize-at-run-time -->
                                     --initialize-at-run-time=io.netty.channel.epoll.Epoll
+                                    --initialize-at-run-time=org.slf4j.MDC
                                     --report-unsupported-elements-at-runtime
                                     --allow-incomplete-classpath
                                     -H:+ReportExceptionStackTraces
