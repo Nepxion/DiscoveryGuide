@@ -18,6 +18,6 @@
 set JAVA_HOME=E:\Tool\Graalvm-JDK17-22.3.0
 set PATH=%JAVA_HOME%\bin;%PATH%
 
-call mvn -Pnative native:compile -DskipTests -am -Dname=A1
+call mvn -Pnative native:compile -DskipTests -Dname=A1
 
 pause
