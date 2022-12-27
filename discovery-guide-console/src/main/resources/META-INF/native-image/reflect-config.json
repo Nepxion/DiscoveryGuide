@@ -466,6 +466,12 @@
   ]
 },
 {
+  "name":"com.alibaba.nacos.api.remote.request.HealthCheckRequest",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true
+},
+{
   "name":"com.alibaba.nacos.api.remote.request.InternalRequest",
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
@@ -485,6 +491,13 @@
   "allDeclaredFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllDeclaredConstructors":true
+},
+{
+  "name":"com.alibaba.nacos.api.remote.response.HealthCheckResponse",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.alibaba.nacos.api.remote.response.Response",
