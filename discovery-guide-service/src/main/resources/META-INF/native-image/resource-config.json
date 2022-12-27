@@ -200,6 +200,9 @@
       "pattern":"\\Qcom/nepxion/nacos/resource/logo.txt\\E"
     }, 
     {
+      "pattern":"\\Qcom/nepxion/sclb/resource/logo.txt\\E"
+    }, 
+    {
       "pattern":"\\Qlogback.xml\\E"
     }, 
     {
