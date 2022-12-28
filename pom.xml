@@ -141,6 +141,7 @@
                                     --initialize-at-run-time=org.slf4j.MDC
                                     --report-unsupported-elements-at-runtime
                                     --allow-incomplete-classpath
+                                    --enable-http
                                     -H:+ReportExceptionStackTraces
                                 </buildArgs>
                             </configuration>
