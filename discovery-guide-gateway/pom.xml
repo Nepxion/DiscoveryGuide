@@ -61,13 +61,11 @@
         <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-cloud-starter</artifactId>
-            <version>${opentracing.spring.cloud.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.opentracing.contrib</groupId>
             <artifactId>opentracing-spring-jaeger-starter</artifactId>
-            <version>${opentracing.spring.jaeger.version}</version>
         </dependency>
 
         <!-- 2.SkyWalking + OpenTracing调用链插件 -->
