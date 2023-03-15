@@ -21,12 +21,12 @@
         <discovery.version>9.0.0</discovery.version>
         <spring.cloud.version>2022.0.1</spring.cloud.version>
         <spring.cloud.alibaba.version>2022.0.0.0-RC1</spring.cloud.alibaba.version>
-        <spring.boot.version>3.0.2</spring.boot.version>
-        <spring.boot.admin.version>2.6.2</spring.boot.admin.version>
+        <spring.boot.version>3.0.4</spring.boot.version>
+        <spring.boot.admin.version>3.0.1</spring.boot.admin.version>
 
         <!-- Nepxion Discovery 8.x.x compatible versions -->
         <!-- <discovery.version>8.0.0</discovery.version>
-        <spring.cloud.version>2021.0.5</spring.cloud.version>
+        <spring.cloud.version>2021.0.6</spring.cloud.version>
         <spring.cloud.alibaba.version>2021.0.4.0</spring.cloud.alibaba.version>
         <spring.boot.version>2.6.14</spring.boot.version>
         <spring.boot.admin.version>2.6.2</spring.boot.admin.version> -->
