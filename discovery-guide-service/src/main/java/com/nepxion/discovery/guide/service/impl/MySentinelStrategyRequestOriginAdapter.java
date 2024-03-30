@@ -9,7 +9,8 @@ package com.nepxion.discovery.guide.service.impl;
  * @version 1.0
  */
 
-import javax.servlet.http.HttpServletRequest;
+// import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import com.nepxion.discovery.common.constant.DiscoveryConstant;
 import com.nepxion.discovery.plugin.strategy.sentinel.limiter.adapter.DefaultSentinelStrategyRequestOriginAdapter;
