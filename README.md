@@ -9,104 +9,35 @@
 
 如果您觉得本框架具有一定的参考价值和借鉴意义，请帮忙在页面右上角 [**Star**]
 
-## 简介
+## 入门必读
+本文只介绍入门Discovery【探索】最基础的功能和用法，更多资料请参考相关文档
 
-### 作者简介
-- Nepxion开源社区创始人
-- 2020年阿里巴巴中国云原生峰会出品人
-- 2020年被Nacos和Spring Cloud Alibaba纳入相关开源项目
-- 2021年阿里巴巴技术峰会上海站演讲嘉宾
-- 2021年荣获陆奇博士主持的奇绩资本，进行风险投资的关注和调研
-- 2021年入选Gitee最有价值开源项目
-- 阿里巴巴官方书籍《Nacos架构与原理》作者之一
-- Spring Cloud Alibaba Steering Committer、Nacos Group Member
-- Spring Cloud Alibaba、Nacos、Sentinel、OpenTracing Committer & Contributor
+### 快速上手
+[如何快速搭建和运行示例](https://github.com/Nepxion/Discovery/wiki/如何快速搭建和运行示例)
 
-<img src="https://nepxion.github.io/Discovery/docs/discovery-doc/CertificateGVP.jpg" width="43%"><img src="https://nepxion.github.io/Discovery/docs/discovery-doc/AwardNacos1.jpg" width="28%"><img src="https://nepxion.github.io/Discovery/docs/discovery-doc/AwardSCA1.jpg" width="28%">
+### 功能体验
+[如何执行全链路简单蓝绿发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单蓝绿发布)<br>
+[如何执行全链路简单灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单灰度发布)<br>
+[如何执行全链路高级蓝绿发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级蓝绿发布)<br>
+[如何执行全链路高级灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级灰度发布)<br>
 
-### 商业合作
-① Discovery系列
+### 快速集成
+[如何快速集成框架](https://github.com/Nepxion/Discovery/wiki/如何快速集成框架)
 
-| 框架名称 | 框架版本 | 支持Spring Cloud版本 | 使用许可 |
-| --- | --- | --- | --- |
-| Discovery | 1.x.x ~ 6.x.x | Camden ~ Hoxton | 开源，永久免费 |
-| DiscoveryX | 7.x.x + | 2020 + | 闭源，商业许可 |
+### 故障定位
+开启Debug模式，通过增加启动参数`-Dstrategy.debug=true`启动所有的网关和服务。详细资料参考如下链接：<br>
+[如何解决蓝绿灰度发布失效问题](https://github.com/Nepxion/Discovery/wiki/如何解决蓝绿灰度发布失效问题)
 
-② Polaris系列
+### 异步探针
+开启异步探针，通过增加启动参数`-javaagent:C:/opt/discovery-agent/discovery-agent-starter-1.3.0.jar`启动所有的网关和服务，`C:/opt`需要变更为具体使用场景下的目录。详细资料参考如下链接：<br>
+[如何在异步场景下使用探针Agent](https://github.com/Nepxion/Discovery/wiki/如何在异步场景下使用探针Agent)
 
-Polaris为Discovery高级定制版，特色功能
+### 自动化测试
 
-- 基于Nepxion Discovery集成定制
-- 多云、多活、多机房流量调配
-- 跨云动态域名、跨环境适配
-- DCN、DSU、SET单元化部署
-- 组件灵活装配、配置对外屏蔽
-- 极简低代码PaaS平台
+[如何执行全链路自动化模拟流程测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化模拟流程测试)<br>
+[如何执行全链路自动化流量侦测测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化流量侦测测试)
 
-| 框架名称 | 框架版本 | 支持Discovery版本 | 支持Spring Cloud版本 | 使用许可 |
-| --- | --- | --- | --- | --- |
-| Polaris | 1.x.x | 6.x.x | Finchley ~ Hoxton | 闭源，商业许可 |
-| Polaris | 2.x.x | 7.x.x + | 2020 + | 闭源，商业许可 |
-
-有商业版需求的企业和用户，请添加微信1394997，联系作者，洽谈合作事宜
-
-### 入门资料
-![](https://nepxion.github.io/Discovery/docs/discovery-doc/Logo64.png) Discovery【探索】企业级云原生微服务开源解决方案
-
-① 快速入门
-- [快速入门Github版](https://github.com/Nepxion/Discovery/wiki)
-- [快速入门Gitee版](https://gitee.com/Nepxion/Discovery/wikis/pages)
-
-② 解决方案
-- [解决方案WIKI版](http://nepxion.com/discovery)
-- [解决方案PPT版](https://nepxion.github.io/Discovery/docs/link-doc/discovery-ppt.html)
-
-③ 最佳实践
-- [最佳实践PPT版](https://nepxion.github.io/Discovery/docs/link-doc/discovery-ppt-1.html)
-
-④ 平台界面
-- [平台界面WIKI版](http://nepxion.com/discovery-platform)
-
-⑤ 框架源码
-- [框架源码Github版](https://github.com/Nepxion/Discovery)
-- [框架源码Gitee版](https://gitee.com/Nepxion/Discovery)
-
-⑥ 指南示例源码
-- [指南示例源码Github版](https://github.com/Nepxion/DiscoveryGuide)
-- [指南示例源码Gitee版](https://gitee.com/Nepxion/DiscoveryGuide)
-
-⑦ 指南示例说明
-- Spring Cloud Finchley ~ Hoxton版本
-    - [极简版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-simple)，分支为6.x.x-simple
-    - [极简版域网关部署指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-simple-domain-gateway)，分支为6.x.x-simple-domain-gateway
-    - [极简版非域网关部署指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-simple-non-domain-gateway)，分支为6.x.x-simple-non-domain-gateway
-    - [集成版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x)，分支为6.x.x
-    - [高级版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/6.x.x-complex)，分支为6.x.x-complex
-- Spring Cloud 20xx版本
-    - [极简版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/master-simple)，分支为master-simple
-    - [极简版本地化指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/master-simple-native)，分支为master-simple-native
-    - [集成版指南示例](https://github.com/Nepxion/DiscoveryGuide/tree/master)，分支为master
-
-![](https://nepxion.github.io/Discovery/docs/polaris-doc/Logo64.png) Polaris【北极星】企业级云原生微服务商业解决方案
-
-① 解决方案
-- [解决方案WIKI版](http://nepxion.com/polaris)
-
-② 框架源码
-- [框架源码Github版](https://github.com/polaris-paas/polaris-sdk)
-- [框架源码Gitee版](https://gitee.com/polaris-paas/polaris-sdk)
-
-③ 指南示例源码
-- [指南示例源码Github版](https://github.com/polaris-paas/polaris-guide)
-- [指南示例源码Gitee版](https://gitee.com/polaris-paas/polaris-guide)
-
-④ 指南示例说明
-- Spring Cloud Finchley ~ Hoxton版本
-    - [指南示例](https://github.com/polaris-paas/polaris-guide/tree/1.x.x)，分支为1.x.x
-- Spring Cloud 20xx版本
-    - [指南示例](https://github.com/polaris-paas/polaris-guide/tree/master)，分支为master
-
-### 请联系我
+## 请联系我
 微信、钉钉、公众号和文档
 
 ![](https://nepxion.github.io/Discovery/docs/contact-doc/wechat-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/dingding-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/gongzhonghao-1.jpg)![](https://nepxion.github.io/Discovery/docs/contact-doc/document-1.jpg)
