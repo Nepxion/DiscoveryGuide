@@ -24,11 +24,11 @@
 [如何快速集成框架](https://github.com/Nepxion/Discovery/wiki/如何快速集成框架)
 
 ### 故障定位
-开启Debug模式，通过启动参数`-Dstrategy.debug=true`启动所有的网关和服务
-
+开启Debug模式，通过增加启动参数`-Dstrategy.debug=true`启动所有的网关和服务。详细资料参考如下链接：<br>
 [如何解决蓝绿灰度发布失效问题](https://github.com/Nepxion/Discovery/wiki/如何解决蓝绿灰度发布失效问题)
 
 ### 异步探针
+开启异步探针，通过增加启动参数`-javaagent:C:/opt/discovery-agent/discovery-agent-starter-1.3.0.jar`启动所有的网关和服务，`C:/opt`需要变更为具体使用场景下的目录。详细资料参考如下链接：<br>
 [如何在异步场景下使用探针Agent](https://github.com/Nepxion/Discovery/wiki/如何在异步场景下使用探针Agent)
 
 ### 自动化测试
