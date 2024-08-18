@@ -9,7 +9,7 @@
     <version>1.0.0</version>
 
     <properties>
-        <discovery.version>6.21.0</discovery.version>
+        <discovery.version>6.22.0</discovery.version>
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
