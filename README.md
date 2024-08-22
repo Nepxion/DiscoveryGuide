@@ -19,10 +19,15 @@
 [如何执行全链路简单蓝绿发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单蓝绿发布)<br>
 [如何执行全链路简单灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单灰度发布)<br>
 [如何执行全链路高级蓝绿发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级蓝绿发布)<br>
-[如何执行全链路高级灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级灰度发布)<br>
+[如何执行全链路高级灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级灰度发布)
 
 ### 快速集成
 [如何快速集成框架](https://github.com/Nepxion/Discovery/wiki/如何快速集成框架)
+
+### 流量染色
+[如何设置元数据标签](https://github.com/Nepxion/Discovery/wiki/如何设置元数据标签)<br>
+[如何基于Git插件自动创建版本号](https://github.com/Nepxion/Discovery/wiki/如何基于Git插件自动创建版本号)<br>
+[如何基于服务名前缀自动创建组名](https://github.com/Nepxion/Discovery/wiki/如何基于服务名前缀自动创建组名)
 
 ### 故障定位
 开启Debug模式，通过增加启动参数`-Dstrategy.debug=true`启动所有的网关和服务。详细资料参考如下链接：<br>
@@ -33,7 +38,6 @@
 [如何在异步场景下使用探针Agent](https://github.com/Nepxion/Discovery/wiki/如何在异步场景下使用探针Agent)
 
 ### 自动化测试
-
 [如何执行全链路自动化模拟流程测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化模拟流程测试)<br>
 [如何执行全链路自动化流量侦测测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化流量侦测测试)
 
