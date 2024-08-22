@@ -19,7 +19,9 @@
 [如何执行全链路简单蓝绿发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单蓝绿发布)<br>
 [如何执行全链路简单灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单灰度发布)<br>
 [如何执行全链路高级蓝绿发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级蓝绿发布)<br>
-[如何执行全链路高级灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级灰度发布)
+[如何执行全链路高级灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级灰度发布)<br>
+[如何执行全链路无编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路无编排高级蓝绿灰度发布)<br>
+[如何执行全链路智能编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路智能编排高级蓝绿灰度发布)
 
 ### 快速集成
 [如何快速集成框架](https://github.com/Nepxion/Discovery/wiki/如何快速集成框架)
