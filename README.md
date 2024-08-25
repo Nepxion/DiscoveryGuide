@@ -43,6 +43,10 @@
 [如何执行全链路自动化模拟流程测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化模拟流程测试)<br>
 [如何执行全链路自动化流量侦测测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化流量侦测测试)
 
+### 落地实践
+[如何设计Nepxion Discovery应用界面](https://github.com/Nepxion/Discovery/wiki/如何设计Nepxion-Discovery应用界面)<br>
+[如何使用DevOps运维平台对接的公共接口](https://github.com/Nepxion/Discovery/wiki/如何使用DevOps运维平台对接的公共接口)
+
 ## 请联系我
 微信、钉钉、公众号和文档
 
