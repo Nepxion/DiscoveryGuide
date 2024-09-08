@@ -16,12 +16,17 @@
 [如何快速搭建和运行示例](https://github.com/Nepxion/Discovery/wiki/如何快速搭建和运行示例)
 
 ### 功能体验
+① 操作简单，灵活性弱，适用于DevOps运维能力较弱的公司<br>
 [如何执行全链路简单蓝绿发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单蓝绿发布)<br>
-[如何执行全链路简单灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单灰度发布)<br>
+[如何执行全链路简单灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单灰度发布)<br><br>
+② 操作复杂，灵活性强，适用于DevOps运维能力较弱的公司<br>
 [如何执行全链路高级蓝绿发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级蓝绿发布)<br>
-[如何执行全链路高级灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级灰度发布)<br>
-[如何执行全链路无编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路无编排高级蓝绿灰度发布)<br>
-[如何执行全链路智能编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路智能编排高级蓝绿灰度发布)
+[如何执行全链路高级灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级灰度发布)<br><br>
+③ 操作极简，灵活性弱，适用于DevOps运维能力较弱的公司<br>
+[如何执行全链路无编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路无编排高级蓝绿灰度发布)<br><br>
+④ 界面驱动，操作简单，灵活性强，流程化管理，需自行研发界面整合到DevOps运维系统中，适用于DevOps运维能力较强的公司<br>
+[如何执行全链路智能编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路智能编排高级蓝绿灰度发布)<br>
+[如何设计Nepxion Discovery应用界面](https://github.com/Nepxion/Discovery/wiki/如何设计Nepxion-Discovery应用界面)
 
 ### 快速集成
 [如何快速集成框架](https://github.com/Nepxion/Discovery/wiki/如何快速集成框架)
@@ -32,20 +37,16 @@
 [如何基于服务名前缀自动创建组名](https://github.com/Nepxion/Discovery/wiki/如何基于服务名前缀自动创建组名)
 
 ### 故障定位
-开启Debug模式，通过增加启动参数`-Dstrategy.debug=true`启动所有的网关和服务。详细资料参考如下链接：<br>
+开启Debug模式，通过增加启动参数`-Dstrategy.debug=true`启动所有的网关和服务<br>
 [如何解决蓝绿灰度发布失效问题](https://github.com/Nepxion/Discovery/wiki/如何解决蓝绿灰度发布失效问题)
 
 ### 异步探针
-开启异步探针，通过增加启动参数`-javaagent:C:/opt/discovery-agent/discovery-agent-starter-1.3.0.jar`启动所有的网关和服务，`C:/opt`需要变更为具体使用场景下的目录。详细资料参考如下链接：<br>
+开启异步探针，通过增加启动参数`-javaagent:C:/opt/discovery-agent/discovery-agent-starter-1.3.0.jar`启动所有的网关和服务，`C:/opt`需要变更为具体使用场景下的目录<br>
 [如何在异步场景下使用探针Agent](https://github.com/Nepxion/Discovery/wiki/如何在异步场景下使用探针Agent)
 
 ### 自动化测试
 [如何执行全链路自动化模拟流程测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化模拟流程测试)<br>
 [如何执行全链路自动化流量侦测测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化流量侦测测试)
-
-### 落地实践
-[如何设计Nepxion Discovery应用界面](https://github.com/Nepxion/Discovery/wiki/如何设计Nepxion-Discovery应用界面)<br>
-[如何使用DevOps运维平台对接的公共接口](https://github.com/Nepxion/Discovery/wiki/如何使用DevOps运维平台对接的公共接口)
 
 ## 请联系我
 微信、钉钉、公众号和文档
