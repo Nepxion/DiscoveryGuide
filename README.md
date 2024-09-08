@@ -24,8 +24,9 @@
 [如何执行全链路高级灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级灰度发布)<br><br>
 ③ 操作极简，灵活性弱，适用于DevOps运维能力较弱的公司<br>
 [如何执行全链路无编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路无编排高级蓝绿灰度发布)<br><br>
-④ 界面驱动，操作简单，灵活性强，流程化管理，需自行研发界面（见 [如何设计Nepxion Discovery应用界面](https://github.com/Nepxion/Discovery/wiki/如何设计Nepxion-Discovery应用界面) ），适用于DevOps运维能力较强的公司<br>
-[如何执行全链路智能编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路智能编排高级蓝绿灰度发布)
+④ 界面驱动，操作简单，灵活性强，流程化管理，需自行研发界面整合到DevOps运维系统中，适用于DevOps运维能力较强的公司<br>
+[如何执行全链路智能编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路智能编排高级蓝绿灰度发布)<br>
+[如何设计Nepxion Discovery应用界面](https://github.com/Nepxion/Discovery/wiki/如何设计Nepxion-Discovery应用界面)
 
 ### 快速集成
 [如何快速集成框架](https://github.com/Nepxion/Discovery/wiki/如何快速集成框架)
@@ -46,10 +47,6 @@
 ### 自动化测试
 [如何执行全链路自动化模拟流程测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化模拟流程测试)<br>
 [如何执行全链路自动化流量侦测测试](https://github.com/Nepxion/Discovery/wiki/如何执行全链路自动化流量侦测测试)
-
-### 落地实践
-[如何设计Nepxion Discovery应用界面](https://github.com/Nepxion/Discovery/wiki/如何设计Nepxion-Discovery应用界面)<br>
-[如何使用DevOps运维平台对接的公共接口](https://github.com/Nepxion/Discovery/wiki/如何使用DevOps运维平台对接的公共接口)
 
 ## 请联系我
 微信、钉钉、公众号和文档
