@@ -15,7 +15,7 @@
 ### 快速上手
 [如何快速搭建和运行示例](https://github.com/Nepxion/Discovery/wiki/如何快速搭建和运行示例)
 
-### 功能体验
+### 解决方案
 配置较简单，灵活性不强，适用于DevOps运维能力较弱的公司<br>
 [如何执行全链路简单蓝绿发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单蓝绿发布)<br>
 [如何执行全链路简单灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路简单灰度发布)<br><br>
