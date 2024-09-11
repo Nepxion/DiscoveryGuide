@@ -36,7 +36,7 @@
 [如何设置元数据标签](https://github.com/Nepxion/Discovery/wiki/如何设置元数据标签)<br><br>
 通过`git-commit-id-plugin`插件代替启动参数进行染色<br>
 [如何基于Git插件自动创建版本号](https://github.com/Nepxion/Discovery/wiki/如何基于Git插件自动创建版本号)<br><br>
-通过截取格式良好的服务名前缀进行组染色<br>
+通过截取统一规范的服务名前缀进行组染色<br>
 [如何基于服务名前缀自动创建组名](https://github.com/Nepxion/Discovery/wiki/如何基于服务名前缀自动创建组名)
 
 ### 故障定位
