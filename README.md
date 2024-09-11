@@ -24,7 +24,7 @@
 [如何执行全链路高级灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路高级灰度发布)<br><br>
 配置很简单，灵活性较弱，适用于DevOps运维能力较弱的公司<br>
 [如何执行全链路无编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路无编排高级蓝绿灰度发布)<br><br>
-界面驱动，配置很简单，灵活性很强，流程化管理，落地成本高，需自行研发界面整合到DevOps运维系统中，适用于DevOps运维能力较强的公司<br>
+界面驱动，配置很简单，灵活性很强，流程化管理，落地成本较高，需自行研发界面整合到DevOps运维系统中，适用于DevOps运维能力较强的公司<br>
 [如何执行全链路智能编排高级蓝绿灰度发布](https://github.com/Nepxion/Discovery/wiki/如何执行全链路智能编排高级蓝绿灰度发布)<br>
 [如何设计全链路智能编排高级蓝绿灰度发布界面](https://github.com/Nepxion/Discovery/wiki/如何设计全链路智能编排高级蓝绿灰度发布界面)
 
